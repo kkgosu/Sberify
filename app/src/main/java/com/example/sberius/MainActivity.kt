@@ -3,8 +3,21 @@ package com.example.sberius
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.bottom_app_bar.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity() {
+
+    private val job = Job()
+    private val coroutineContext: CoroutineContext
+        get() = job + Dispatchers.Default
+    private val scope = CoroutineScope(coroutineContext)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -13,6 +26,20 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.root, OneFragment.newInstance())
             .commit()
+
+        scope.launch {
+            ServiceGenerator.getRequestApi().getToken().enqueue(object : Callback<Any> {
+                override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                    if (response.isSuccessful) {
+                        println(response.body())
+                    }
+                }
+
+                override fun onFailure(call: Call<Any>, t: Throwable) {
+
+                }
+            })
+        }
     }
 
     override fun onResume() {
@@ -22,7 +49,7 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.root, SecondFragment.newInstance())
                 .addToBackStack(null)
                 .commit()
-                
+
         }
     }
 
