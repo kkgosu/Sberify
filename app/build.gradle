@@ -21,6 +21,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildTypes.each {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("local.properties").newDataInputStream())
+        def basic = properties.getProperty("basic", "")
+        it.buildConfigField 'String', "BASIC", basic
+        it.resValue 'string', "basic", basic
+    }
 }
 
 dependencies {
@@ -35,7 +43,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation 'com.google.android.material:material:1.2.0-alpha01'
-    
+
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'
     implementation "com.squareup.retrofit2:converter-gson:2.6.1"
 

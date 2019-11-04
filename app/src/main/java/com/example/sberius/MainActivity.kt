@@ -24,21 +24,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         bottomAppBar.replaceMenu(R.menu.bottom_menu)
         supportFragmentManager.beginTransaction()
-            .replace(R.id.root, OneFragment.newInstance())
-            .commit()
+                .replace(R.id.root, OneFragment.newInstance())
+                .commit()
 
         scope.launch {
-            ServiceGenerator.getRequestApi().getToken().enqueue(object : Callback<Any> {
-                override fun onResponse(call: Call<Any>, response: Response<Any>) {
-                    if (response.isSuccessful) {
-                        println(response.body())
-                    }
-                }
-
-                override fun onFailure(call: Call<Any>, t: Throwable) {
-
-                }
-            })
+            val responseToken = ServiceGenerator.getTokenApi().getToken()
+            println(responseToken)
         }
     }
 
@@ -46,9 +37,9 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         fab.setOnClickListener {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.root, SecondFragment.newInstance())
-                .addToBackStack(null)
-                .commit()
+                    .replace(R.id.root, SecondFragment.newInstance())
+                    .addToBackStack(null)
+                    .commit()
 
         }
     }
