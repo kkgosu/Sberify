@@ -2,35 +2,32 @@ package com.example.sberius.presentation.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.sberius.R
-import com.example.sberius.data.api.ServiceGenerator
 import kotlinx.android.synthetic.main.bottom_app_bar.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity() {
 
-    private val job = Job()
-    private val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.Default
-    private val scope = CoroutineScope(coroutineContext)
+    private lateinit var mViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bottomAppBar.replaceMenu(R.menu.bottom_menu)
         supportFragmentManager.beginTransaction()
-                .replace(R.id.root,
-                        OneFragment.newInstance())
+                .replace(R.id.root, OneFragment.newInstance())
                 .commit()
 
-        scope.launch {
-            val responseToken = ServiceGenerator.getTokenApi().getToken()
-            println(responseToken.access_token)
-        }
+        mViewModel = ViewModelProvider(this, ViewModelFactory()).get(MainViewModel::class.java)
+        mViewModel.token.observe(this, Observer {
+            println(it.access_token)
+        })
+        mViewModel.getToken()
     }
 
     override fun onResume() {
