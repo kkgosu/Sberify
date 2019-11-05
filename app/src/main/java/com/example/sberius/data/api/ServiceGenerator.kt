@@ -1,4 +1,4 @@
-package com.example.sberius
+package com.example.sberius.data.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

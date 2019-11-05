@@ -1,15 +1,14 @@
-package com.example.sberius
+package com.example.sberius.presentation.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.sberius.R
+import com.example.sberius.data.api.ServiceGenerator
 import kotlinx.android.synthetic.main.bottom_app_bar.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity() {
@@ -24,12 +23,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         bottomAppBar.replaceMenu(R.menu.bottom_menu)
         supportFragmentManager.beginTransaction()
-                .replace(R.id.root, OneFragment.newInstance())
+                .replace(R.id.root,
+                        OneFragment.newInstance())
                 .commit()
 
         scope.launch {
             val responseToken = ServiceGenerator.getTokenApi().getToken()
-            println(responseToken)
+            println(responseToken.access_token)
         }
     }
 
@@ -37,12 +37,14 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         fab.setOnClickListener {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.root, SecondFragment.newInstance())
+                    .replace(
+                            R.id.root,
+                            SecondFragment.newInstance()
+                    )
                     .addToBackStack(null)
                     .commit()
 
         }
     }
-
 }
 
