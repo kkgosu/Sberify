@@ -1,8 +1,8 @@
-package com.example.sberius.presentation.ui
+package com.example.sberify.presentation.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.sberius.data.repository.SpotifyRepository
+import com.example.sberify.data.repository.SpotifyRepository
 
 class ViewModelFactory() : ViewModelProvider.Factory {
     //private val appContext = context.applicationContext

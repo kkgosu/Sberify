@@ -1,4 +1,4 @@
-package com.example.sberius.presentation.ui
+package com.example.sberify.presentation.ui
 
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.AnimatedVectorDrawable
@@ -7,7 +7,7 @@ import androidx.core.view.forEach
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
-import com.example.sberius.R
+import com.example.sberify.R
 import kotlinx.android.synthetic.main.bottom_app_bar.*
 
 class SecondFragment : Fragment(R.layout.fragment_two) {

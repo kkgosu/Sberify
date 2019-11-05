@@ -8,7 +8,7 @@ android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "com.example.sberius"
+        applicationId 'com.example.sberify'
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 1

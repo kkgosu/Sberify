@@ -1,9 +1,9 @@
-package com.example.sberius.presentation.ui
+package com.example.sberify.presentation.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.sberius.domain.ISpotifyRepository
-import com.example.sberius.domain.model.Token
+import com.example.sberify.domain.ISpotifyRepository
+import com.example.sberify.domain.model.Token
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

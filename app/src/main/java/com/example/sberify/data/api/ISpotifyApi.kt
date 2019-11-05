@@ -1,7 +1,7 @@
-package com.example.sberius.data.api
+package com.example.sberify.data.api
 
-import com.example.sberius.BuildConfig
-import com.example.sberius.domain.model.Token
+import com.example.sberify.BuildConfig
+import com.example.sberify.domain.model.Token
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.Headers

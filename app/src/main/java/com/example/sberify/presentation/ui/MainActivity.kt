@@ -1,15 +1,11 @@
-package com.example.sberius.presentation.ui
+package com.example.sberify.presentation.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.sberius.R
+import com.example.sberify.R
 import kotlinx.android.synthetic.main.bottom_app_bar.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity() {
 

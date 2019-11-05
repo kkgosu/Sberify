@@ -1,8 +1,8 @@
-package com.example.sberius.data.repository
+package com.example.sberify.data.repository
 
-import com.example.sberius.data.api.ISpotifyApi
-import com.example.sberius.domain.ISpotifyRepository
-import com.example.sberius.domain.model.Token
+import com.example.sberify.data.api.ISpotifyApi
+import com.example.sberify.domain.ISpotifyRepository
+import com.example.sberify.domain.model.Token
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
