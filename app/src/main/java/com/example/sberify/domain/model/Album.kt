@@ -1,6 +1,6 @@
 package com.example.sberify.domain.model
 
-import com.example.sberify.data.AlbumsResponse
+import com.example.sberify.data.model.AlbumsResponse
 
 data class Album(val id: String,
         val artist: AlbumsResponse.Artist,

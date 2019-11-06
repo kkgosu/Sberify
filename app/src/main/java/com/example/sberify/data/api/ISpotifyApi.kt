@@ -1,19 +1,25 @@
 package com.example.sberify.data.api
 
 import com.example.sberify.BuildConfig
-import com.example.sberify.data.AlbumsResponse
+import com.example.sberify.data.model.AlbumsResponse
 import com.example.sberify.domain.model.Token
-import retrofit2.Response
 import retrofit2.http.*
+import retrofit2.http.Headers
 
 interface ISpotifyApi {
 
     @FormUrlEncoded
     @Headers(BuildConfig.BASIC)
-    @POST("api/token/")
+    @POST("https://accounts.spotify.com/api/token/")
     suspend fun getToken(@Field("grant_type") grandType: String = "client_credentials"): Token
 
-    @Headers("Accept: application/json", "Content-Type: application/json")
-    @GET("https://api.spotify.com/v1/browse/new-releases")
-    suspend fun getNewReleases(@Header("Authorization") header: String): AlbumsResponse
+    @Headers(HeadersValues.ACCEPT, HeadersValues.CONTENT_TYPE)
+    @GET("browse/new-releases")
+    suspend fun getNewReleases(@Header("Authorization") token: String): AlbumsResponse
+
+    @Headers(HeadersValues.ACCEPT, HeadersValues.CONTENT_TYPE)
+    @GET("search")
+    suspend fun search(@Header("Authorization") token: String,
+            @Query("q") keyword: String,
+            @Query("type") vararg type: String): AlbumsResponse.Artist
 }
