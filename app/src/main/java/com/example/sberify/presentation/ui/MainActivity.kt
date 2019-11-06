@@ -21,22 +21,23 @@ class MainActivity : AppCompatActivity() {
 
         mViewModel = ViewModelProvider(this, ViewModelFactory()).get(MainViewModel::class.java)
         mViewModel.token.observe(this, Observer {
-            println(it.access_token)
+            println("Token ${it.access_token}")
         })
-        mViewModel.getToken()
+        mViewModel.newReleases.observe(this, Observer {
+            for (album in it) {
+                println(album.name)
+            }
+        })
+        mViewModel.getData()
     }
 
     override fun onResume() {
         super.onResume()
         fab.setOnClickListener {
             supportFragmentManager.beginTransaction()
-                    .replace(
-                            R.id.root,
-                            SecondFragment.newInstance()
-                    )
+                    .replace(R.id.root, SecondFragment.newInstance())
                     .addToBackStack(null)
                     .commit()
-
         }
     }
 }
