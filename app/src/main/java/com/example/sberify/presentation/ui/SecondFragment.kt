@@ -14,28 +14,24 @@ class SecondFragment : Fragment(R.layout.fragment_two) {
 
     override fun onResume() {
         super.onResume()
-        val activity = (requireActivity() as MainActivity)
-        activity.bottomAppBar.menu.forEach { (it.icon as? Animatable)?.start() }
+        (requireActivity() as MainActivity).apply {
+            fab.setImageDrawable(getDrawable(R.drawable.edit_to_reply))
+            if (fab.drawable is AnimatedVectorDrawable) {
+                ((fab.drawable) as AnimatedVectorDrawable).start()
+            }
+            bottomAppBar.replaceMenu(R.menu.another_bottom_menu)
+            bottomAppBar.menu.forEach { (it.icon as? Animatable)?.start() }
+        }
     }
 
     override fun onPause() {
         super.onPause()
-        val activity = (requireActivity() as MainActivity)
-        activity.apply {
-            fab.setImageDrawable(getDrawable(R.drawable.reply_to_edit))
-            if (fab.drawable is AnimatedVectorDrawable) {
-                ((fab.drawable) as AnimatedVectorDrawable).start()
-            }
-            bottomAppBar.menu[0].icon =
-                AnimatedVectorDrawableCompat.create(this,
-                    R.drawable.delete_scale_down
-                )
-            bottomAppBar.menu[1].icon =
-                AnimatedVectorDrawableCompat.create(this,
-                    R.drawable.delete_scale_down
-                )
+        (requireActivity() as MainActivity).apply {
+            bottomAppBar.menu[0].icon = AnimatedVectorDrawableCompat.create(this,
+                    R.drawable.delete_scale_down)
+            bottomAppBar.menu[1].icon = AnimatedVectorDrawableCompat.create(this,
+                    R.drawable.delete_scale_down)
             bottomAppBar.menu.forEach { (it.icon as? Animatable)?.start() }
-            bottomAppBar.replaceMenu(R.menu.bottom_menu)
         }
     }
 

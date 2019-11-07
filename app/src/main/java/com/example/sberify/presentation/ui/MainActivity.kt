@@ -15,25 +15,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bottomAppBar.replaceMenu(R.menu.bottom_menu)
+
         supportFragmentManager.beginTransaction()
                 .replace(R.id.root, NewReleasesFragment.newInstance())
                 .commit()
 
-        mViewModel = ViewModelProvider(this, ViewModelFactory()).get(SharedViewModel::class.java)
-        mViewModel.token.observe(this, Observer {
-            println("Token ${it.access_token}")
-        })
-        mViewModel.getData()
-    }
-
-    override fun onResume() {
-        super.onResume()
         fab.setOnClickListener {
             supportFragmentManager.beginTransaction()
                     .replace(R.id.root, SecondFragment.newInstance())
                     .addToBackStack(null)
                     .commit()
+
+            mViewModel = ViewModelProvider(this, ViewModelFactory()).get(
+                    SharedViewModel::class.java)
+            mViewModel.token.observe(this, Observer {
+                println("Token ${it.access_token}")
+            })
+            mViewModel.getData()
         }
+
     }
 }
 
