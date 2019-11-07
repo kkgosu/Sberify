@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/bottom_bar_height"
     android:background="@android:color/black"
+    android:clipToPadding="false"
     android:orientation="vertical"
-    android:overScrollMode="never">
+    android:overScrollMode="never"
+    android:paddingBottom="@dimen/bottom_bar_height">
 
 </androidx.recyclerview.widget.RecyclerView>

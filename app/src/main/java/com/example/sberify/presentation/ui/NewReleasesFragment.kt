@@ -3,6 +3,7 @@ package com.example.sberify.presentation.ui
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,26 +22,26 @@ class NewReleasesFragment : Fragment(R.layout.fragment_new_releases) {
 
     private lateinit var mViewModel: SharedViewModel
     private lateinit var mAdapter: NewReleasesAdapter
-    private lateinit var root: RecyclerView
+    private lateinit var mLayoutManager: GridLayoutManager
+    private lateinit var mRecyclerView: RecyclerView
+    private var mState: Parcelable? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
-        root = super.onCreateView(inflater, container, savedInstanceState) as RecyclerView
-        return root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+        mRecyclerView = super.onCreateView(inflater, container, savedInstanceState) as RecyclerView
         mAdapter = NewReleasesAdapter()
-        root.adapter = mAdapter
-        root.layoutManager = GridLayoutManager(requireContext(), 2)
-
+        mLayoutManager = GridLayoutManager(this.context, 2)
+        mRecyclerView.apply {
+            layoutManager = mLayoutManager
+            adapter = mAdapter
+            mLayoutManager.onRestoreInstanceState(mState)
+        }
         mViewModel = ViewModelProvider(requireActivity())
                 .get(SharedViewModel::class.java)
         mViewModel.newReleases.observe(viewLifecycleOwner, Observer {
             mAdapter.submitList(it)
         })
+        return mRecyclerView
     }
 
     override fun onResume() {
@@ -63,9 +64,12 @@ class NewReleasesFragment : Fragment(R.layout.fragment_new_releases) {
             bottomAppBar.menu.forEach { (it.icon as? Animatable)?.start() }
             bottomAppBar.replaceMenu(R.menu.another_bottom_menu)
         }
+        mState = mLayoutManager.onSaveInstanceState()
     }
 
+
     companion object {
+
         fun newInstance(): NewReleasesFragment {
             val args = Bundle()
             val fragment = NewReleasesFragment()
