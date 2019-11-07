@@ -9,24 +9,19 @@ import kotlinx.android.synthetic.main.bottom_app_bar.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mViewModel: MainViewModel
+    private lateinit var mViewModel: SharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bottomAppBar.replaceMenu(R.menu.bottom_menu)
         supportFragmentManager.beginTransaction()
-                .replace(R.id.root, OneFragment.newInstance())
+                .replace(R.id.root, NewReleasesFragment.newInstance())
                 .commit()
 
-        mViewModel = ViewModelProvider(this, ViewModelFactory()).get(MainViewModel::class.java)
+        mViewModel = ViewModelProvider(this, ViewModelFactory()).get(SharedViewModel::class.java)
         mViewModel.token.observe(this, Observer {
             println("Token ${it.access_token}")
-        })
-        mViewModel.newReleases.observe(this, Observer {
-            for (album in it) {
-                println(album.name)
-            }
         })
         mViewModel.getData()
     }

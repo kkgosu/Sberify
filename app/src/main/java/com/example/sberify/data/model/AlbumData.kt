@@ -1,0 +1,10 @@
+package com.example.sberify.data.model
+
+data class AlbumData(val id: String,
+        val artists: List<ArtistData>,
+        val images: List<ImageData>? = null,
+        val name: String,
+        val tracks: List<TrackData>? = null,
+        val popularity: Int? = null,
+        val release_date: String) {
+}

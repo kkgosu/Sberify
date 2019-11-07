@@ -12,7 +12,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainViewModel(private val spotifyRepository: ISpotifyRepository) : ViewModel() {
+class SharedViewModel(private val spotifyRepository: ISpotifyRepository) : ViewModel() {
     private val _token = MutableLiveData<Token>()
     val token = _token
 
@@ -23,21 +23,22 @@ class MainViewModel(private val spotifyRepository: ISpotifyRepository) : ViewMod
         viewModelScope.launch {
             withContext(Dispatchers.Default) {
                 getToken()
-                getNewReleases()
-                search("Kanye West")
+                loadReleases()
+                //search("Kanye West")
             }
         }
     }
 
-    private suspend fun getToken() {
-        delay(5000)
-        _token.postValue(spotifyRepository.getToken())
-        PrefUtil.setString("oauthtoken",
-                "Bearer ${_token.value!!.access_token}")
+    private suspend fun loadReleases() {
+        _newReleases.postValue(spotifyRepository.getNewReleases())
     }
 
-    private suspend fun getNewReleases() {
-        println(spotifyRepository.getNewReleases().items!![0].artists[0].name)
+    private suspend fun getToken() {
+        //delay(5000)
+        val token = spotifyRepository.getToken()
+        _token.postValue(token)
+        PrefUtil.setString("oauthtoken",
+                "Bearer ${token.access_token}")
     }
 
     private suspend fun search(keyword: String) {
