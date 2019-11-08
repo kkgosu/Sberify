@@ -25,15 +25,15 @@ class MainActivity : AppCompatActivity() {
                     .replace(R.id.root, SecondFragment.newInstance())
                     .addToBackStack(null)
                     .commit()
-
-            mViewModel = ViewModelProvider(this, ViewModelFactory()).get(
-                    SharedViewModel::class.java)
-            mViewModel.token.observe(this, Observer {
-                println("Token ${it.access_token}")
-            })
-            mViewModel.getData()
         }
 
+        mViewModel = ViewModelProvider(this, ViewModelFactory()).get(SharedViewModel::class.java)
+        mViewModel.token.observe(this, Observer {
+            println("Token ${it.access_token}")
+        })
+        mViewModel.getData()
     }
 }
+
+
 

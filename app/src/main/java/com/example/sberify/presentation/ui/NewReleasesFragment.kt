@@ -47,7 +47,7 @@ class NewReleasesFragment : Fragment(R.layout.fragment_new_releases) {
     override fun onResume() {
         super.onResume()
         (requireActivity() as MainActivity).apply {
-            fab.setImageDrawable(getDrawable(R.drawable.reply_to_edit))
+            fab.setImageDrawable(getDrawable(R.drawable.avd_close_to_search))
             if (fab.drawable is AnimatedVectorDrawable) {
                 ((fab.drawable) as AnimatedVectorDrawable).start()
             }
@@ -59,7 +59,6 @@ class NewReleasesFragment : Fragment(R.layout.fragment_new_releases) {
     override fun onPause() {
         super.onPause()
         (requireActivity() as MainActivity).apply {
-
             bottomAppBar.menu[0].icon = AnimatedVectorDrawableCompat.create(this,
                     R.drawable.delete_scale_down)
             bottomAppBar.menu.forEach { (it.icon as? Animatable)?.start() }
