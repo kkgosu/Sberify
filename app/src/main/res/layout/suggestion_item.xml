@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:animateLayoutChanges="true"
-    android:background="?selectableItemBackground"
+    android:background="@drawable/suggestion_item_bg"
     android:minHeight="?android:attr/listPreferredItemHeight">
 
     <ImageView

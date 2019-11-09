@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         fab.setOnClickListener {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.root, SecondFragment.newInstance())
+                    .replace(R.id.root, SearchFragment.newInstance())
                     .addToBackStack(null)
                     .commit()
         }

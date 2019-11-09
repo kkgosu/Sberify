@@ -1,5 +1,6 @@
 package com.example.sberify.presentation.ui
 
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.AnimatedVectorDrawable
@@ -18,35 +19,40 @@ import com.example.sberify.R
 import kotlinx.android.synthetic.main.bottom_app_bar.*
 
 
-class SecondFragment : Fragment(R.layout.fragment_two) {
+class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private lateinit var mAlphaAnimator: ObjectAnimator
+    private lateinit var mTranslateAnimator: ObjectAnimator
+    private lateinit var mAnimatorSet: AnimatorSet
+    private lateinit var mSuggestionsAdapter: SuggestionsAdapter
+    private val list = listOf("Lorem", "Ipsum", "simply", "dummy", "text", "printing",
+            "typesetting")
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         val recyclerView = view?.findViewById<RecyclerView>(R.id.suggestion_recycler)
         val searchView = view?.findViewById<SearchView>(R.id.search_view)
-        mAlphaAnimator = ObjectAnimator.ofFloat(recyclerView, "alpha", 0f, 1f)
-        mAlphaAnimator.apply {
-            interpolator = DecelerateInterpolator()
-            duration = 500
-            repeatCount = 0
-        }
+        configureAnimations(recyclerView)
+        mSuggestionsAdapter = SuggestionsAdapter()
         recyclerView?.apply {
-            val mAdapter = SuggestionsAdapter()
-            adapter = mAdapter
-            mAdapter.submitList(
-                    listOf("String1", "String2", "String3", "String4", "String5", "String6",
-                            "String7"))
+            adapter = mSuggestionsAdapter
+            mSuggestionsAdapter.submitList(list)
         }
         searchView?.setOnQueryTextFocusChangeListener { v, hasFocus ->
-            recyclerView?.visibility = if (hasFocus) View.VISIBLE else View.GONE
-            mAlphaAnimator.start()
+            recyclerView?.visibility = if (hasFocus) {
+                mAnimatorSet.start()
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
         }
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
-                //recyclerView?.visibility = View.VISIBLE
+                newText?.let { query ->
+                    mSuggestionsAdapter.submitList(list.filter { it.contains(query, true) })
+                }
                 return true
             }
 
@@ -82,10 +88,23 @@ class SecondFragment : Fragment(R.layout.fragment_two) {
         }
     }
 
+    private fun configureAnimations(view: View?) {
+        val length = requireContext().resources.getDimension(R.dimen.suggestions_translation)
+        mAlphaAnimator = ObjectAnimator.ofFloat(view, "alpha", 0f, 1f)
+        mTranslateAnimator = ObjectAnimator.ofFloat(view, "translationY", -.2f * length,
+                0f * length)
+        mAnimatorSet = AnimatorSet()
+        mAnimatorSet.apply {
+            interpolator = DecelerateInterpolator()
+            duration = 300
+            playTogether(mAlphaAnimator, mTranslateAnimator)
+        }
+    }
+
     companion object {
-        fun newInstance(): SecondFragment {
+        fun newInstance(): SearchFragment {
             val args = Bundle()
-            val fragment = SecondFragment()
+            val fragment = SearchFragment()
             fragment.arguments = args
             return fragment
         }
