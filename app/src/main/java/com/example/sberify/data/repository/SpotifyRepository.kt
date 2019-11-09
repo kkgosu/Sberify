@@ -1,7 +1,8 @@
 package com.example.sberify.data.repository
 
 import com.example.sberify.data.AlbumConverter
-import com.example.sberify.data.model.AlbumsData
+import com.example.sberify.data.AlbumsConverter
+import com.example.sberify.data.TracksConverter
 import com.example.sberify.data.api.ISpotifyApi
 import com.example.sberify.data.api.SearchTypes
 import com.example.sberify.data.model.ArtistsData
@@ -12,7 +13,9 @@ import com.example.sberify.domain.model.Token
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class SpotifyRepository(private val converter: AlbumConverter) : ISpotifyRepository {
+class SpotifyRepository(private val converter: AlbumsConverter,
+        private val tracksConverter: TracksConverter,
+        private val albumConverter: AlbumConverter) : ISpotifyRepository {
 
     private val mSpotifyApi by lazy {
         Retrofit.Builder()
@@ -34,9 +37,15 @@ class SpotifyRepository(private val converter: AlbumConverter) : ISpotifyReposit
     }
 
     override suspend fun search(keyword: String): ArtistsData.Items {
-        return mSpotifyApi.search(PrefUtil.getStringDefaultBlank("oauthtoken")!!,
-                keyword,
-                SearchTypes.ARTIST).artists
+        return mSpotifyApi.search(PrefUtil.getStringDefaultBlank("oauthtoken")!!, keyword,
+                SearchTypes.ARTIST)
+                .artists
+    }
+
+    override suspend fun getAlbumInfo(id: String): Album {
+        val albumInfo = mSpotifyApi.getAlbumInfo(PrefUtil.getStringDefaultBlank("oauthtoken")!!, id)
+        val list = tracksConverter.convert(albumInfo.tracks!!.items)
+        return albumConverter.convert(albumInfo, list)
     }
 
 

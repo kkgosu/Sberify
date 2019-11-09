@@ -21,8 +21,7 @@ import kotlinx.android.synthetic.main.bottom_app_bar.*
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
-    private lateinit var mAlphaAnimator: ObjectAnimator
-    private lateinit var mTranslateAnimator: ObjectAnimator
+    private lateinit var mSuggestionsRecycler: RecyclerView
     private lateinit var mAnimatorSet: AnimatorSet
     private lateinit var mSuggestionsAdapter: SuggestionsAdapter
     private val list = listOf("Lorem", "Ipsum", "simply", "dummy", "text", "printing",
@@ -32,36 +31,18 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
-        val recyclerView = view?.findViewById<RecyclerView>(R.id.suggestion_recycler)
-        val searchView = view?.findViewById<SearchView>(R.id.search_view)
-        configureAnimations(recyclerView)
+
+        mSuggestionsRecycler = view?.findViewById<RecyclerView>(R.id.suggestion_recycler)!!
+        val searchView = view.findViewById<SearchView>(R.id.search_view)
+
         mSuggestionsAdapter = SuggestionsAdapter()
-        recyclerView?.apply {
+        mSuggestionsRecycler.apply {
             adapter = mSuggestionsAdapter
             mSuggestionsAdapter.submitList(list)
         }
-        searchView?.setOnQueryTextFocusChangeListener { v, hasFocus ->
-            recyclerView?.visibility = if (hasFocus) {
-                mAnimatorSet.start()
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
-        }
-        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextChange(newText: String?): Boolean {
-                newText?.let { query ->
-                    mSuggestionsAdapter.submitList(list.filter { it.contains(query, true) })
-                }
-                return true
-            }
 
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                recyclerView?.visibility = View.GONE
-                return true
-            }
-
-        })
+        configureAnimations(mSuggestionsRecycler)
+        configureSearchView(searchView)
         return view
     }
 
@@ -88,16 +69,41 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     }
 
+    private fun configureSearchView(searchView: SearchView?) {
+        searchView?.setOnQueryTextFocusChangeListener { _, hasFocus ->
+            mSuggestionsRecycler.visibility = if (hasFocus) {
+                mAnimatorSet.start()
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+        }
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let { query ->
+                    mSuggestionsAdapter.submitList(list.filter { it.contains(query, true) })
+                }
+                return true
+            }
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                mSuggestionsRecycler.visibility = View.GONE
+                return true
+            }
+
+        })
+    }
+
     private fun configureAnimations(view: View?) {
         val length = requireContext().resources.getDimension(R.dimen.suggestions_translation)
-        mAlphaAnimator = ObjectAnimator.ofFloat(view, "alpha", 0f, 1f)
-        mTranslateAnimator = ObjectAnimator.ofFloat(view, "translationY", -.2f * length,
+        val alphaAnimator = ObjectAnimator.ofFloat(view, "alpha", 0f, 1f)
+        val translateAnimator = ObjectAnimator.ofFloat(view, "translationY", -.2f * length,
                 0f * length)
         mAnimatorSet = AnimatorSet()
         mAnimatorSet.apply {
             interpolator = DecelerateInterpolator()
             duration = 300
-            playTogether(mAlphaAnimator, mTranslateAnimator)
+            playTogether(alphaAnimator, translateAnimator)
         }
     }
 

@@ -11,8 +11,8 @@ import kotlinx.android.synthetic.main.suggestion_item.view.*
 
 class SuggestionsAdapter(
         private val interaction: Interaction? = null) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    
-    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<String>() {
+
+    private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<String>() {
 
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem

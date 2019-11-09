@@ -33,6 +33,14 @@ class MainActivity : AppCompatActivity() {
         })
         mViewModel.getData()
     }
+
+    fun startInfo() {
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.root, AlbumInfoFragment.newInstance())
+                .addToBackStack(null)
+                .commit()
+    }
 }
 
 

@@ -4,23 +4,24 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.example.sberify.R
-import com.example.sberify.domain.model.Album
-import kotlinx.android.synthetic.main.item_new_release.view.*
+import com.example.sberify.domain.model.Track
+import kotlinx.android.synthetic.main.item_track.view.*
 
-class NewReleasesAdapter(
-        private val interaction: Interaction? = null) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AlbumInfoAdapter(private val interaction: Interaction? = null) :
+        RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Album>() {
+    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Track>() {
 
-        override fun areItemsTheSame(oldItem: Album, newItem: Album): Boolean {
-            return oldItem.id == newItem.id
+        override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean {
+            TODO("not implemented")
         }
 
-        override fun areContentsTheSame(oldItem: Album, newItem: Album): Boolean {
-            return oldItem == newItem
+        override fun areContentsTheSame(oldItem: Track, newItem: Track): Boolean {
+            TODO("not implemented")
         }
 
     }
@@ -30,7 +31,9 @@ class NewReleasesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return ViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.item_new_release, parent,
+                LayoutInflater.from(parent.context).inflate(
+                        R.layout.item_track,
+                        parent,
                         false), interaction)
     }
 
@@ -46,25 +49,23 @@ class NewReleasesAdapter(
         return differ.currentList.size
     }
 
-    fun submitList(list: List<Album>) {
+    fun submitList(list: List<Track>) {
         differ.submitList(list)
     }
 
     class ViewHolder
-    constructor(itemView: View, private val interaction: Interaction?) : RecyclerView.ViewHolder(
-            itemView) {
+    constructor(itemView: View,
+            private val interaction: Interaction?) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(item: Album) = with(itemView) {
+        fun bind(item: Track) = with(itemView) {
             itemView.setOnClickListener {
                 interaction?.onItemSelected(adapterPosition, item)
             }
-            release_cover.loadImage(item.imageUrl)
-            release_name.text = item.name
-            artist_name.text = item.artist.name
+            track_name.setText(item.name)
         }
     }
 
     interface Interaction {
-        fun onItemSelected(position: Int, item: Album)
+        fun onItemSelected(position: Int, item: Track)
     }
 }

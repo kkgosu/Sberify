@@ -49,6 +49,7 @@ dependencies {
 
     implementation "androidx.fragment:fragment-ktx:$rootProject.fragmentVersion"
     implementation "com.google.android.material:material:$rootProject.materialVersion"
+    implementation "androidx.cardview:cardview:$rootProject.cardViewVersion"
     implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
     
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit"

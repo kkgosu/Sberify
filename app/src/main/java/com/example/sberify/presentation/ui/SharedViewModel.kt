@@ -16,6 +16,9 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository) : ViewM
     private val _token = MutableLiveData<Token>()
     val token = _token
 
+    private val _album = MutableLiveData<Album>()
+    val album = _album
+
     private val _newReleases = MutableLiveData<List<Album>>()
     val newReleases = _newReleases
 
@@ -37,8 +40,14 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository) : ViewM
         //delay(5000)
         val token = spotifyRepository.getToken()
         _token.postValue(token)
-        PrefUtil.setString("oauthtoken",
-                "Bearer ${token.access_token}")
+        PrefUtil.setString("oauthtoken", "Bearer ${token.access_token}")
+    }
+
+    fun getAlbumInfo(album: Album) {
+        viewModelScope.launch {
+            _album.value = album
+            _album.postValue(spotifyRepository.getAlbumInfo(album.id))
+        }
     }
 
     private suspend fun search(keyword: String) {

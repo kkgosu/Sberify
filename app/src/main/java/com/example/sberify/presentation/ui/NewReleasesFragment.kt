@@ -14,23 +14,26 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.example.sberify.R
+import com.example.sberify.domain.model.Album
 import kotlinx.android.synthetic.main.bottom_app_bar.*
 
-class NewReleasesFragment : Fragment(R.layout.fragment_new_releases) {
+class NewReleasesFragment : Fragment(
+        R.layout.fragment_new_releases), NewReleasesAdapter.Interaction {
 
     private lateinit var mViewModel: SharedViewModel
     private lateinit var mAdapter: NewReleasesAdapter
-    private lateinit var mLayoutManager: GridLayoutManager
+    private lateinit var mLayoutManager: StaggeredGridLayoutManager
     private lateinit var mRecyclerView: RecyclerView
     private var mState: Parcelable? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
         mRecyclerView = super.onCreateView(inflater, container, savedInstanceState) as RecyclerView
-        mAdapter = NewReleasesAdapter()
-        mLayoutManager = GridLayoutManager(this.context, 2)
+        mAdapter = NewReleasesAdapter(this)
+        mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         mRecyclerView.apply {
             layoutManager = mLayoutManager
             adapter = mAdapter
@@ -64,6 +67,11 @@ class NewReleasesFragment : Fragment(R.layout.fragment_new_releases) {
             bottomAppBar.menu.forEach { (it.icon as? Animatable)?.start() }
         }
         mState = mLayoutManager.onSaveInstanceState()
+    }
+
+    override fun onItemSelected(position: Int, item: Album) {
+        mViewModel.getAlbumInfo(item)
+        (requireActivity() as MainActivity).startInfo()
     }
 
 

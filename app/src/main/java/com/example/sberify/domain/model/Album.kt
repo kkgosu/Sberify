@@ -5,5 +5,6 @@ import com.example.sberify.data.model.ArtistData
 data class Album(val id: String,
         val artist: ArtistData,
         val name: String,
-        val imageUrl: String,
+        val tracks: List<Track>? = null, 
+        val imageUrl: String, 
         val releaseDate: String)
