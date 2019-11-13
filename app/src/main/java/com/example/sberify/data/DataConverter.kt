@@ -37,17 +37,17 @@ class DataConverter : IConverter<BaseDataModel, BaseModel> {
         return artistsList
     }
 
-    override fun convertTracks(from: BaseDataModel?): List<Track> {
+    override fun convertTracks(from: TracksData?): List<Track> {
         val tracksList = arrayListOf<Track>()
-        (from as? TracksData)?.items?.forEach {
+        from?.items?.forEach {
             tracksList.add(Track(it.id, it.name, convertArtists(it.artists)))
         }
         return tracksList
     }
 
-    override fun convertImages(from: BaseDataModel?): Image {
-        if (from is ImageData) {
-            return Image(from.height, from.width)
+    override fun convertImages(from: ImageData?): Image {
+        from?.let {
+            return Image(it.height, it.width)
         }
         return Image(0, 0)
     }

@@ -1,14 +1,11 @@
 package com.example.sberify.presentation.ui
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.forEach
 import androidx.core.view.get
@@ -22,7 +19,6 @@ import kotlinx.android.synthetic.main.bottom_app_bar.*
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private lateinit var mSuggestionsRecycler: RecyclerView
-    private lateinit var mAnimatorSet: AnimatorSet
     private lateinit var mSuggestionsAdapter: SuggestionsAdapter
     private val list = listOf("Lorem", "Ipsum", "simply", "dummy", "text", "printing",
             "typesetting")
@@ -32,7 +28,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
 
-        mSuggestionsRecycler = view?.findViewById<RecyclerView>(R.id.suggestion_recycler)!!
+        mSuggestionsRecycler = view?.findViewById(R.id.suggestion_recycler)!!
         val searchView = view.findViewById<SearchView>(R.id.search_view)
 
         mSuggestionsAdapter = SuggestionsAdapter()
@@ -41,7 +37,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             mSuggestionsAdapter.submitList(list)
         }
 
-        configureAnimations(mSuggestionsRecycler)
         configureSearchView(searchView)
         return view
     }
@@ -72,7 +67,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun configureSearchView(searchView: SearchView?) {
         searchView?.setOnQueryTextFocusChangeListener { _, hasFocus ->
             mSuggestionsRecycler.visibility = if (hasFocus) {
-                mAnimatorSet.start()
+                mSuggestionsRecycler.scheduleLayoutAnimation()
                 View.VISIBLE
             } else {
                 View.GONE
@@ -92,19 +87,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
 
         })
-    }
-
-    private fun configureAnimations(view: View?) {
-        val length = requireContext().resources.getDimension(R.dimen.suggestions_translation)
-        val alphaAnimator = ObjectAnimator.ofFloat(view, "alpha", 0f, 1f)
-        val translateAnimator = ObjectAnimator.ofFloat(view, "translationY", -.2f * length,
-                0f * length)
-        mAnimatorSet = AnimatorSet()
-        mAnimatorSet.apply {
-            interpolator = DecelerateInterpolator()
-            duration = 300
-            playTogether(alphaAnimator, translateAnimator)
-        }
     }
 
     companion object {

@@ -4,7 +4,6 @@ import com.example.sberify.data.DataConverter
 import com.example.sberify.data.api.ISpotifyApi
 import com.example.sberify.data.api.SearchTypes
 import com.example.sberify.data.model.ArtistsData
-import com.example.sberify.data.model.BaseDataModel
 import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.domain.PrefUtil
 import com.example.sberify.domain.model.Album
