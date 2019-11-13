@@ -11,9 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
-import com.example.sberify.domain.model.Album
 
-class AlbumInfoFragment : Fragment(R.layout.fragment_album_info) {
+class AlbumInfoFragment : Fragment(R.layout.fragment_album_info_start) {
 
     private lateinit var mTracksRecyclerView: RecyclerView
     private lateinit var mAdapter: AlbumInfoAdapter
@@ -37,6 +36,8 @@ class AlbumInfoFragment : Fragment(R.layout.fragment_album_info) {
                     .setText(it.name)
             view.findViewById<TextView>(R.id.artist_name)
                     .setText(it.artist.name)
+            view.findViewById<TextView>(R.id.release_date)
+                    .setText(it.releaseDate)
             it.tracks?.let { tracks ->
                 mAdapter.submitList(tracks)
             }

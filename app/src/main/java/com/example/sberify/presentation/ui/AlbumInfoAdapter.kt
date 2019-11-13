@@ -26,7 +26,6 @@ class AlbumInfoAdapter(private val interaction: Interaction? = null) :
     }
     private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return ViewHolder(

@@ -8,4 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="DefaultRecycler">
+        <item name="android:clipToPadding">false</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:overScrollMode">never</item>
+        <item name="android:paddingBottom">@dimen/bottom_bar_height</item>
+    </style>
+
 </resources>
