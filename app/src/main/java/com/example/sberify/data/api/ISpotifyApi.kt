@@ -28,5 +28,5 @@ interface ISpotifyApi {
 
     @GET("albums/{id}")
     suspend fun getAlbumInfo(@Header("Authorization") token: String,
-            @Path("id") id: String): AlbumData
+            @Path("id") id: String): Response<AlbumData>
 }

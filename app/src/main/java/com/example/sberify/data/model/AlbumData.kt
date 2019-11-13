@@ -4,7 +4,7 @@ data class AlbumData(val id: String,
         val artists: List<ArtistData>,
         val images: List<ImageData>,
         val name: String,
-        val tracks: TracksData? = null,
+        val tracks: TracksData?,
         val popularity: Int? = null,
         val release_date: String) : BaseDataModel() {
 }

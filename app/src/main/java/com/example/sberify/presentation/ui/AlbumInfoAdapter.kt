@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.sberify.R
 import com.example.sberify.domain.model.Track
 import kotlinx.android.synthetic.main.item_track.view.*
+import java.lang.StringBuilder
 
 class AlbumInfoAdapter(private val interaction: Interaction? = null) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -40,7 +41,7 @@ class AlbumInfoAdapter(private val interaction: Interaction? = null) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ViewHolder -> {
-                holder.bind(differ.currentList.get(position))
+                holder.bind(differ.currentList[position])
             }
         }
     }
@@ -61,7 +62,14 @@ class AlbumInfoAdapter(private val interaction: Interaction? = null) :
             itemView.setOnClickListener {
                 interaction?.onItemSelected(adapterPosition, item)
             }
-            track_name.setText(item.name)
+            track_name.text = item.name
+            val builder = StringBuilder()
+            item.artists.forEach {
+                builder.append(it.name)
+                        .append(",")
+            }
+            artist_name.text = builder.dropLast(1)
+                    .toString()
         }
     }
 
