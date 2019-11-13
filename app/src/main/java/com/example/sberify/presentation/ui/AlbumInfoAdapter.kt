@@ -1,16 +1,14 @@
 package com.example.sberify.presentation.ui
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
 import com.example.sberify.domain.model.Track
 import kotlinx.android.synthetic.main.item_track.view.*
-import java.lang.StringBuilder
 
 class AlbumInfoAdapter(private val interaction: Interaction? = null) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -18,11 +16,11 @@ class AlbumInfoAdapter(private val interaction: Interaction? = null) :
     val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Track>() {
 
         override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean {
-            TODO("not implemented")
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Track, newItem: Track): Boolean {
-            TODO("not implemented")
+            return oldItem == newItem
         }
 
     }
@@ -66,9 +64,9 @@ class AlbumInfoAdapter(private val interaction: Interaction? = null) :
             val builder = StringBuilder()
             item.artists.forEach {
                 builder.append(it.name)
-                        .append(",")
+                        .append(", ")
             }
-            artist_name.text = builder.dropLast(1)
+            artist_name.text = builder.dropLast(2)
                     .toString()
         }
     }

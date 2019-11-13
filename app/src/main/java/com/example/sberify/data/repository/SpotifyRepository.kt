@@ -39,8 +39,7 @@ class SpotifyRepository(private val dataConverter: DataConverter) : ISpotifyRepo
 
     override suspend fun getAlbumInfo(id: String): List<Album> {
         val albumInfo = mSpotifyApi.getAlbumInfo(PrefUtil.getStringDefaultBlank("oauthtoken")!!, id)
-        println(albumInfo.body())
-        return dataConverter.convertAlbums(albumInfo.body() as BaseDataModel)
+        return dataConverter.convertAlbums(albumInfo)
     }
     
     companion object {

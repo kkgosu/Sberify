@@ -34,7 +34,7 @@ class DataConverter : IConverter<BaseDataModel, BaseModel> {
         from.forEach {
             artistsList.add(Artist(it.id, convertImages(it.images?.get(0)), it.name, it.genres))
         }
-        return emptyList()
+        return artistsList
     }
 
     override fun convertTracks(from: BaseDataModel?): List<Track> {
