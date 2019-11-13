@@ -7,6 +7,6 @@ import com.example.sberify.domain.model.Token
 interface ISpotifyRepository {
     suspend fun getToken(): Token
     suspend fun getNewReleases(): List<Album>
-    suspend fun getAlbumInfo(id: String): Album
+    suspend fun getAlbumInfo(id: String): List<Album>
     suspend fun search(keyword: String): ArtistsData.Items
 }

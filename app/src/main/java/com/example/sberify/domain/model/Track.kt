@@ -3,7 +3,8 @@ package com.example.sberify.domain.model
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Track(val id: String, val name: String, val explicit: Boolean = false) : Parcelable {
+data class Track(val id: String, val name: String,
+        val explicit: Boolean = false) : BaseModel(), Parcelable {
 
     override fun writeToParcel(dest: Parcel?, flags: Int) {
         dest?.let {

@@ -46,7 +46,10 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository) : ViewM
     fun getAlbumInfo(album: Album) {
         viewModelScope.launch {
             _album.value = album
-            _album.postValue(spotifyRepository.getAlbumInfo(album.id))
+            val albumInfo = spotifyRepository.getAlbumInfo(album.id)
+            if (albumInfo.isNotEmpty()) {
+                _album.postValue(albumInfo[0])
+            }
         }
     }
 

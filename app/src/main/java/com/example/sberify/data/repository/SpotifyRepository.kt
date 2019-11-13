@@ -1,8 +1,6 @@
 package com.example.sberify.data.repository
 
-import com.example.sberify.data.AlbumConverter
-import com.example.sberify.data.AlbumsConverter
-import com.example.sberify.data.TracksConverter
+import com.example.sberify.data.DataConverter
 import com.example.sberify.data.api.ISpotifyApi
 import com.example.sberify.data.api.SearchTypes
 import com.example.sberify.data.model.ArtistsData
@@ -13,9 +11,7 @@ import com.example.sberify.domain.model.Token
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class SpotifyRepository(private val converter: AlbumsConverter,
-        private val tracksConverter: TracksConverter,
-        private val albumConverter: AlbumConverter) : ISpotifyRepository {
+class SpotifyRepository(private val dataConverter: DataConverter) : ISpotifyRepository {
 
     private val mSpotifyApi by lazy {
         Retrofit.Builder()
@@ -31,9 +27,7 @@ class SpotifyRepository(private val converter: AlbumsConverter,
 
     override suspend fun getNewReleases(): List<Album> {
         val items = mSpotifyApi.getNewReleases(PrefUtil.getStringDefaultBlank("oauthtoken")!!)
-                .albums
-        return converter.convert(items)
-
+        return dataConverter.convertAlbums(items.albums)
     }
 
     override suspend fun search(keyword: String): ArtistsData.Items {
@@ -42,13 +36,11 @@ class SpotifyRepository(private val converter: AlbumsConverter,
                 .artists
     }
 
-    override suspend fun getAlbumInfo(id: String): Album {
+    override suspend fun getAlbumInfo(id: String): List<Album> {
         val albumInfo = mSpotifyApi.getAlbumInfo(PrefUtil.getStringDefaultBlank("oauthtoken")!!, id)
-        val list = tracksConverter.convert(albumInfo.tracks!!.items)
-        return albumConverter.convert(albumInfo, list)
+        return dataConverter.convertAlbums(albumInfo)
     }
-
-
+    
     companion object {
         private const val TOKEN_URL = "https://accounts.spotify.com/"
         private const val API_URL = "https://api.spotify.com/v1/"
