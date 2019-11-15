@@ -30,6 +30,7 @@ buildscript {
         stetho = '1.5.1'
         timberVersion = '4.7.1'
         daggerVersion = '2.23.2'
+        jsoupVersion = '1.10.1'
 
         // Testing dependencies
         junitVersion = '4.12'

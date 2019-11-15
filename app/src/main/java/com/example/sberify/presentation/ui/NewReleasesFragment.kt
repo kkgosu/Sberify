@@ -7,24 +7,27 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.view.forEach
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.example.sberify.R
 import com.example.sberify.domain.model.Album
 import kotlinx.android.synthetic.main.bottom_app_bar.*
+
 
 class NewReleasesFragment : Fragment(
         R.layout.fragment_new_releases), NewReleasesAdapter.Interaction {
 
     private lateinit var mViewModel: SharedViewModel
     private lateinit var mAdapter: NewReleasesAdapter
-    private lateinit var mLayoutManager: StaggeredGridLayoutManager
+    private lateinit var mLayoutManager: GridLayoutManager
     private lateinit var mRecyclerView: RecyclerView
     private var mState: Parcelable? = null
 
@@ -32,7 +35,7 @@ class NewReleasesFragment : Fragment(
             savedInstanceState: Bundle?): View? {
         mRecyclerView = super.onCreateView(inflater, container, savedInstanceState) as RecyclerView
         mAdapter = NewReleasesAdapter(this)
-        mLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        mLayoutManager = GridLayoutManager(requireContext(), 2)
         mRecyclerView.apply {
             layoutManager = mLayoutManager
             adapter = mAdapter
@@ -68,11 +71,17 @@ class NewReleasesFragment : Fragment(
         mState = mLayoutManager.onSaveInstanceState()
     }
 
-    override fun onItemSelected(position: Int, item: Album) {
+    override fun onItemSelected(item: Album, view: View) {
         mViewModel.getAlbumInfo(item)
-        (requireActivity() as MainActivity).startInfo()
+        requireActivity().supportFragmentManager
+                .beginTransaction()
+                .addSharedElement(view.findViewById<TextView>(R.id.release_name), item.name)
+                .addSharedElement(view.findViewById<ImageView>(R.id.release_cover), item.id)
+                .addSharedElement(view.findViewById<TextView>(R.id.artist_name), item.artist.name)
+                .replace(R.id.root, AlbumInfoFragment.newInstance())
+                .addToBackStack(null)
+                .commit()
     }
-
 
     companion object {
         fun newInstance(): NewReleasesFragment {

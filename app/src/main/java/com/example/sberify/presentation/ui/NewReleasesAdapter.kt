@@ -56,15 +56,19 @@ class NewReleasesAdapter(
 
         fun bind(item: Album) = with(itemView) {
             itemView.setOnClickListener {
-                interaction?.onItemSelected(adapterPosition, item)
+                interaction?.onItemSelected(item, itemView)
             }
             release_cover.loadImage(item.imageUrl)
             release_name.text = item.name
             artist_name.text = item.artist.name
+
+            release_cover.transitionName = item.id
+            release_name.transitionName = item.name
+            artist_name.transitionName = item.artist.name
         }
     }
 
     interface Interaction {
-        fun onItemSelected(position: Int, item: Album)
+        fun onItemSelected(item: Album, view: View)
     }
 }

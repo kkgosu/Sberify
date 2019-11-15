@@ -1,26 +1,33 @@
 package com.example.sberify.presentation.ui
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.domain.PrefUtil
 import com.example.sberify.domain.model.Album
 import com.example.sberify.domain.model.Token
+import com.example.sberify.domain.model.Track
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class SharedViewModel(private val spotifyRepository: ISpotifyRepository) : ViewModel() {
+class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
+        private val geniusRepository: IGeniusRepository) : ViewModel() {
+
     private val _token = MutableLiveData<Token>()
-    val token = _token
+    val token: LiveData<Token> = _token
 
     private val _album = MutableLiveData<Album>()
-    val album = _album
+    val album: LiveData<Album> = _album
 
     private val _newReleases = MutableLiveData<List<Album>>()
-    val newReleases = _newReleases
+    val newReleases: LiveData<List<Album>> = _newReleases
+
+    private val _lyrics = MutableLiveData<String>()
+    val lyrics: LiveData<String> = _lyrics
 
     fun getData() {
         viewModelScope.launch {
@@ -52,6 +59,18 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository) : ViewM
             }
         }
     }
+
+    fun getLyrics(track: Track) {
+        viewModelScope.launch {
+            _lyrics.value = ""
+            _lyrics.postValue(geniusRepository.getLyrics(createLyricsUrl(track)))
+        }
+    }
+
+    private fun createLyricsUrl(track: Track): String =
+            "${(track.artists[0].name)} ${track.name} lyrics"
+                    .replace(" ", "-")
+
 
     private suspend fun search(keyword: String) {
         println(spotifyRepository.search(keyword))

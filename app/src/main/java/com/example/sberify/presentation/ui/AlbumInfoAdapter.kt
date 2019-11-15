@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.item_track.view.*
 class AlbumInfoAdapter(private val interaction: Interaction? = null) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Track>() {
+    private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Track>() {
 
         override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean {
             return oldItem.id == newItem.id
