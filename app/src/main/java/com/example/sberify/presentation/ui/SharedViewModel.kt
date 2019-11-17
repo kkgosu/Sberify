@@ -63,16 +63,47 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
     fun getLyrics(track: Track) {
         viewModelScope.launch {
             _lyrics.value = ""
-            _lyrics.postValue(geniusRepository.getLyrics(createLyricsUrl(track)))
+            var lyrics = ""
+            var trackUrl = createLyricsUrl("${(track.artists[0].name)} ${track.name}")
+            lyrics = geniusRepository.getLyrics(trackUrl)
+            if (lyrics.contains(HTTP_ERROR)) {
+                val newTrackName = track.name
+                        .substringBefore("feat")
+                        .dropLast(2)
+
+                if (track.name.contains("feat")) {
+                    trackUrl = createLyricsUrl("${(track.artists[0].name)} $newTrackName")
+                    lyrics = geniusRepository.getLyrics(trackUrl)
+                }
+                if (lyrics.contains(HTTP_ERROR)) {
+                    if (track.artists.size > 1) {
+                        trackUrl = createLyricsUrl(
+                                "${(track.artists[0].name)} and ${(track.artists[1].name)} " +
+                                        newTrackName)
+                        lyrics = geniusRepository.getLyrics(trackUrl)
+                    }
+                }
+            }
+            _lyrics.postValue(lyrics)
         }
     }
 
-    private fun createLyricsUrl(track: Track): String =
-            "${(track.artists[0].name)} ${track.name} lyrics"
-                    .replace(" ", "-")
+    private fun createLyricsUrl(track: String): String {
+        val regex = Regex("[^A-Za-z0-9\\-&]")
+        return "$track lyrics"
+                .replace(" ", "-")
+                .replace("&", "and")
+                .replace(regex, "")
+
+    }
 
 
     private suspend fun search(keyword: String) {
         println(spotifyRepository.search(keyword))
     }
+
+    companion object {
+        private const val HTTP_ERROR = "HTTP error fetching URL"
+    }
 }
+

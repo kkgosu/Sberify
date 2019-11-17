@@ -17,6 +17,7 @@ class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        retainInstance = true
         mSharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
     }
 
