@@ -19,7 +19,8 @@ interface ISpotifyApi {
 
     @Headers(HeadersValues.ACCEPT, HeadersValues.CONTENT_TYPE)
     @GET("browse/new-releases")
-    suspend fun getNewReleases(@Header("Authorization") token: String): AlbumsData
+    suspend fun getNewReleases(@Header("Authorization") token: String,
+            @Query("limit") limit: Int = 50): AlbumsData
 
     @Headers(HeadersValues.ACCEPT, HeadersValues.CONTENT_TYPE)
     @GET("search")

@@ -14,8 +14,8 @@ import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.example.sberify.R
 import com.example.sberify.domain.model.Album
@@ -27,7 +27,7 @@ class NewReleasesFragment : Fragment(
 
     private lateinit var mViewModel: SharedViewModel
     private lateinit var mAdapter: NewReleasesAdapter
-    private lateinit var mLayoutManager: GridLayoutManager
+    private lateinit var mLayoutManager: StaggeredGridLayoutManager
     private lateinit var mRecyclerView: RecyclerView
     private var mState: Parcelable? = null
 
@@ -35,7 +35,7 @@ class NewReleasesFragment : Fragment(
             savedInstanceState: Bundle?): View? {
         mRecyclerView = super.onCreateView(inflater, container, savedInstanceState) as RecyclerView
         mAdapter = NewReleasesAdapter(this)
-        mLayoutManager = GridLayoutManager(requireContext(), 2)
+        mLayoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         mRecyclerView.apply {
             layoutManager = mLayoutManager
             adapter = mAdapter

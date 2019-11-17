@@ -1,8 +1,7 @@
-package com.example.sberify
+package com.example.sberify.data.repository
 
 import com.example.sberify.domain.IGeniusRepository
 import kotlinx.coroutines.*
-import org.jsoup.HttpStatusException
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.safety.Whitelist

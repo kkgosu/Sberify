@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
@@ -14,30 +15,30 @@
         android:orientation="vertical"
         android:padding="8dp">
 
-        <ImageView
+        <com.example.sberify.presentation.ui.SquareImageView
             android:id="@+id/release_cover"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:scaleType="centerInside"
+            android:layout_gravity="top"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_background" />
 
         <TextView
             android:id="@+id/release_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            tools:text="Courage (Deluxe Edition)" />
 
         <TextView
             android:id="@+id/artist_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            tools:text="Celine Dion" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

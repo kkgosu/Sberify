@@ -2,7 +2,7 @@ package com.example.sberify.presentation.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.sberify.GeniusRepository
+import com.example.sberify.data.repository.GeniusRepository
 import com.example.sberify.data.DataConverter
 import com.example.sberify.data.repository.SpotifyRepository
 
@@ -13,7 +13,7 @@ class ViewModelFactory() : ViewModelProvider.Factory {
         SpotifyRepository(DataConverter())
     }
     
-    private val geniusRepo by lazy { 
+    private val geniusRepo by lazy {
         GeniusRepository()
     }
 

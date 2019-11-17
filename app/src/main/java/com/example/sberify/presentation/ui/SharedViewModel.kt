@@ -1,5 +1,6 @@
 package com.example.sberify.presentation.ui
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -63,43 +64,60 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
     fun getLyrics(track: Track) {
         viewModelScope.launch {
             _lyrics.value = ""
-            var lyrics = ""
-            var trackUrl = createLyricsUrl("${(track.artists[0].name)} ${track.name}")
-            lyrics = geniusRepository.getLyrics(trackUrl)
-            if (lyrics.contains(HTTP_ERROR)) {
-                val newTrackName = track.name
-                        .substringBefore("feat")
-                        .dropLast(2)
 
-                if (track.name.contains("feat")) {
-                    trackUrl = createLyricsUrl("${(track.artists[0].name)} $newTrackName")
-                    lyrics = geniusRepository.getLyrics(trackUrl)
-                }
-                if (lyrics.contains(HTTP_ERROR)) {
-                    if (track.artists.size > 1) {
-                        trackUrl = createLyricsUrl(
-                                "${(track.artists[0].name)} and ${(track.artists[1].name)} " +
-                                        newTrackName)
-                        lyrics = geniusRepository.getLyrics(trackUrl)
+            var lyrics: String
+            val trackName: String = filterTrackName(track.name)
+            var trackUrl: String = filterLyricsUrl("${(track.artists[0].name)} $trackName")
+
+            lyrics = geniusRepository.getLyrics(trackUrl)
+            println(trackUrl)
+
+            if (lyrics == HTTP_ERROR) {
+                if (track.artists.size > 1) {
+                    val stringBuilder = StringBuilder()
+                    track.artists.forEachIndexed { index, artist ->
+                        stringBuilder.append(artist.name)
+                        if (index != track.artists.size - 1) {
+                            stringBuilder.append(" and ")
+                        }
                     }
+                    trackUrl = filterLyricsUrl("$stringBuilder $trackName")
+                    println(trackUrl)
+                    lyrics = geniusRepository.getLyrics(trackUrl)
                 }
             }
             _lyrics.postValue(lyrics)
         }
     }
 
-    private fun createLyricsUrl(track: String): String {
+    @SuppressLint("DefaultLocale")
+    private fun filterTrackName(trackName: String): String {
+        val result: String
+        val regexFeat = Regex(".*(feat).*")
+        val regexWith = Regex(".*[(\\[]with.*")
+        result = when {
+            trackName.toLowerCase().matches(regexFeat) -> trackName.substringBefore("feat")
+                    .dropLast(2)
+            trackName.toLowerCase().matches(regexWith) -> trackName.substringBefore("with")
+                    .dropLast(2)
+            else -> trackName
+        }
+        return result
+    }
+
+    private fun filterLyricsUrl(track: String): String {
         val regex = Regex("[^A-Za-z0-9\\-&]")
         return "$track lyrics"
                 .replace(" ", "-")
                 .replace("&", "and")
                 .replace(regex, "")
-
     }
 
 
-    private suspend fun search(keyword: String) {
-        println(spotifyRepository.search(keyword))
+    private fun search(keyword: String) {
+        viewModelScope.launch {
+            println(spotifyRepository.search(keyword))
+        }
     }
 
     companion object {
