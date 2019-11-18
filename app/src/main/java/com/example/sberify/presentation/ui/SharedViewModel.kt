@@ -35,7 +35,7 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
             withContext(Dispatchers.Default) {
                 getToken()
                 loadReleases()
-                //search("Kanye West")
+                //searchArtist("Kanye West")
             }
         }
     }

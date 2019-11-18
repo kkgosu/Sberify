@@ -31,7 +31,7 @@ class SpotifyRepository(private val dataConverter: DataConverter) : ISpotifyRepo
     }
 
     override suspend fun search(keyword: String): ArtistsData.Items {
-        return mSpotifyApi.search(PrefUtil.getStringDefaultBlank("oauthtoken")!!, keyword,
+        return mSpotifyApi.searchArtist(PrefUtil.getStringDefaultBlank("oauthtoken")!!, keyword,
                 SearchTypes.ARTIST)
                 .artists
     }

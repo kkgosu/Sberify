@@ -15,19 +15,39 @@ interface ISpotifyApi {
     @FormUrlEncoded
     @Headers(BuildConfig.BASIC)
     @POST("https://accounts.spotify.com/api/token/")
-    suspend fun getToken(@Field("grant_type") grandType: String = "client_credentials"): Token
+    suspend fun getToken(
+            @Field("grant_type") grandType: String = "client_credentials"): Token
 
     @Headers(HeadersValues.ACCEPT, HeadersValues.CONTENT_TYPE)
     @GET("browse/new-releases")
-    suspend fun getNewReleases(@Header("Authorization") token: String,
+    suspend fun getNewReleases(
+            @Header("Authorization") token: String,
             @Query("limit") limit: Int = 50): AlbumsData
+
+    @GET("albums/{id}")
+    suspend fun getAlbumInfo(
+            @Header("Authorization") token: String,
+            @Path("id") id: String): AlbumData
 
     @Headers(HeadersValues.ACCEPT, HeadersValues.CONTENT_TYPE)
     @GET("search")
-    suspend fun search(@Header("Authorization") token: String, @Query("q") keyword: String,
-            @Query("type") vararg type: String): ArtistsData
+    suspend fun searchArtist(
+            @Header("Authorization") token: String,
+            @Query("q") keyword: String,
+            @Query("type") type: String = "artist"): ArtistsData
 
-    @GET("albums/{id}")
-    suspend fun getAlbumInfo(@Header("Authorization") token: String,
-            @Path("id") id: String): AlbumData
+    @Headers(HeadersValues.ACCEPT, HeadersValues.CONTENT_TYPE)
+    @GET("search")
+    suspend fun searchAlbum(
+            @Header("Authorization") token: String,
+            @Query("q") keyword: String,
+            @Query("type") type: String = "album"): ArtistsData
+
+
+    @Headers(HeadersValues.ACCEPT, HeadersValues.CONTENT_TYPE)
+    @GET("search")
+    suspend fun searchTrack(
+            @Header("Authorization") token: String,
+            @Query("q") keyword: String,
+            @Query("type") type: String = "track"): ArtistsData
 }
