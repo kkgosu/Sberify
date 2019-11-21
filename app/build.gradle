@@ -37,46 +37,52 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-}
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
-    implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
-    implementation "androidx.preference:preference-ktx:$rootProject.ktxVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintlayoutVersion"
-    implementation "androidx.legacy:legacy-support-v4:1.0.0"
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 
-    implementation "androidx.fragment:fragment-ktx:$rootProject.fragmentVersion"
-    implementation "com.google.android.material:material:$rootProject.materialVersion"
-    implementation "androidx.cardview:cardview:$rootProject.cardViewVersion"
-    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
-    
-    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit"
-    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofit"
+    dependencies {
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
+        implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
+        implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
+        implementation "androidx.preference:preference-ktx:$rootProject.ktxVersion"
+        implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintlayoutVersion"
+        implementation "androidx.legacy:legacy-support-v4:1.0.0"
 
-    implementation "org.jsoup:jsoup:$rootProject.jsoupVersion"
+        implementation "androidx.fragment:fragment-ktx:$rootProject.fragmentVersion"
+        implementation "com.google.android.material:material:$rootProject.materialVersion"
+        implementation "androidx.cardview:cardview:$rootProject.cardViewVersion"
+        implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
+        implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit"
+        implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofit"
 
-    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
-    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
-    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
-    implementation "androidx.work:work-runtime-ktx:$rootProject.workVersion"
-    
-    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+        implementation "org.jsoup:jsoup:$rootProject.jsoupVersion"
+        
+        implementation "com.ibm.icu:icu4j:$rootProject.transliterateVersion"
 
-    androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-contrib:$rootProject.espressoVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-intents:$rootProject.espressoVersion"
-    androidTestImplementation "androidx.test.ext:junit:$rootProject.testExtJunit"
-    androidTestImplementation "androidx.test.uiautomator:uiautomator:$rootProject.uiAutomatorVersion"
-    androidTestImplementation "androidx.work:work-testing:$rootProject.workVersion"
-    testImplementation "junit:junit:$rootProject.junitVersion"
+        implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
+        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
+
+        implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
+        implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
+        implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
+        implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
+        implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
+        implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+        implementation "androidx.work:work-runtime-ktx:$rootProject.workVersion"
+
+        implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+
+        androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
+        androidTestImplementation "androidx.test.espresso:espresso-contrib:$rootProject.espressoVersion"
+        androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
+        androidTestImplementation "androidx.test.espresso:espresso-intents:$rootProject.espressoVersion"
+        androidTestImplementation "androidx.test.ext:junit:$rootProject.testExtJunit"
+        androidTestImplementation "androidx.test.uiautomator:uiautomator:$rootProject.uiAutomatorVersion"
+        androidTestImplementation "androidx.work:work-testing:$rootProject.workVersion"
+        testImplementation "junit:junit:$rootProject.junitVersion"
+    }
 }

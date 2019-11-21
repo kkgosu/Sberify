@@ -14,6 +14,7 @@ import com.example.sberify.domain.model.Track
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.Normalizer
 
 class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
         private val geniusRepository: IGeniusRepository) : ViewModel() {
@@ -67,7 +68,8 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
 
             var lyrics: String
             val trackName: String = filterTrackName(track.name)
-            var trackUrl: String = filterLyricsUrl("${(track.artists[0].name)} $trackName")
+            var trackUrl: String = filterLyricsUrl(
+                    "${(track.artists[0].name).normalize()} $trackName")
 
             lyrics = geniusRepository.getLyrics(trackUrl)
             println(trackUrl)
@@ -76,7 +78,7 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
                 if (track.artists.size > 1) {
                     val stringBuilder = StringBuilder()
                     track.artists.forEachIndexed { index, artist ->
-                        stringBuilder.append(artist.name)
+                        stringBuilder.append((artist.name).normalize())
                         if (index != track.artists.size - 1) {
                             stringBuilder.append(" and ")
                         }
@@ -89,18 +91,19 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
             _lyrics.postValue(lyrics)
         }
     }
-
+    
     @SuppressLint("DefaultLocale")
     private fun filterTrackName(trackName: String): String {
-        val result: String
+        //val toLatin = Transliterator.getInstance(TRANSLITERATE_VALUE)
+        var result: String = trackName.normalize()
         val regexFeat = Regex(".*(feat).*")
         val regexWith = Regex(".*[(\\[]with.*")
         result = when {
-            trackName.toLowerCase().matches(regexFeat) -> trackName.substringBefore("feat")
+            result.toLowerCase().matches(regexFeat) -> result.substringBefore("feat")
                     .dropLast(2)
-            trackName.toLowerCase().matches(regexWith) -> trackName.substringBefore("with")
+            result.toLowerCase().matches(regexWith) -> result.substringBefore("with")
                     .dropLast(2)
-            else -> trackName
+            else -> result
         }
         return result
     }
@@ -122,6 +125,7 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
 
     companion object {
         private const val HTTP_ERROR = "HTTP error fetching URL"
+        private const val TRANSLITERATE_VALUE = "Latin-Russian/BGN"
     }
 }
 

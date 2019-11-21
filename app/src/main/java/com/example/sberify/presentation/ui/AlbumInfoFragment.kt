@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -35,7 +36,7 @@ class AlbumInfoFragment : Fragment(
         val view = super.onCreateView(inflater, container, savedInstanceState)
         mTracksRecyclerView = view!!.findViewById(R.id.recycler_tracks)
         mTracksRecyclerView.adapter = mAdapter
-        
+
         mSharedViewModel.album.observe(viewLifecycleOwner, Observer {
             view.findViewById<ImageView>(R.id.album_cover)
                     .apply {
@@ -63,11 +64,10 @@ class AlbumInfoFragment : Fragment(
 
     override fun onItemSelected(position: Int, item: Track) {
         mSharedViewModel.getLyrics(item)
-        requireActivity().supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.root, LyricsFragment.newInstance())
-                .addToBackStack(null)
-                .commit()
+        requireActivity().supportFragmentManager.commit {
+            replace(R.id.root, LyricsFragment.newInstance())
+            addToBackStack(null)
+        }
     }
 
     companion object {

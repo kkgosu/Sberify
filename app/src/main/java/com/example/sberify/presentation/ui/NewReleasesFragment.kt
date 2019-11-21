@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.core.view.forEach
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -73,14 +74,13 @@ class NewReleasesFragment : Fragment(
 
     override fun onItemSelected(item: Album, view: View) {
         mViewModel.getAlbumInfo(item)
-        requireActivity().supportFragmentManager
-                .beginTransaction()
-                .addSharedElement(view.findViewById<TextView>(R.id.release_name), item.name)
-                .addSharedElement(view.findViewById<ImageView>(R.id.release_cover), item.id)
-                .addSharedElement(view.findViewById<TextView>(R.id.artist_name), item.artist.name)
-                .replace(R.id.root, AlbumInfoFragment.newInstance())
-                .addToBackStack(null)
-                .commit()
+        requireActivity().supportFragmentManager.commit {
+            addSharedElement(view.findViewById<TextView>(R.id.release_name), item.name)
+            addSharedElement(view.findViewById<ImageView>(R.id.release_cover), item.id)
+            addSharedElement(view.findViewById<TextView>(R.id.artist_name), item.artist.name)
+            replace(R.id.root, AlbumInfoFragment.newInstance())
+            addToBackStack(null)
+        }
     }
 
     companion object {

@@ -25,7 +25,6 @@ class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
             savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         val lyricsTextView = view!!.findViewById<TextView>(R.id.lyrics)
-        lyricsTextView.movementMethod = ScrollingMovementMethod()
         mSharedViewModel.lyrics.observe(viewLifecycleOwner, Observer {
             lyricsTextView.text = it
         })
