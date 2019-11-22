@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.commit {
                 replace(R.id.root, SearchFragment.newInstance())
                 addToBackStack(null)
-                commit()
             }
         }
 

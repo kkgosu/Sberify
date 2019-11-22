@@ -9,12 +9,12 @@ import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.domain.PrefUtil
 import com.example.sberify.domain.model.Album
+import com.example.sberify.domain.model.Artist
 import com.example.sberify.domain.model.Token
 import com.example.sberify.domain.model.Track
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.text.Normalizer
 
 class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
         private val geniusRepository: IGeniusRepository) : ViewModel() {
@@ -30,6 +30,9 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
 
     private val _lyrics = MutableLiveData<String>()
     val lyrics: LiveData<String> = _lyrics
+
+    private val _artist = MutableLiveData<List<Artist>>()
+    val artist: LiveData<List<Artist>> = _artist
 
     fun getData() {
         viewModelScope.launch {
@@ -91,7 +94,7 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
             _lyrics.postValue(lyrics)
         }
     }
-    
+
     @SuppressLint("DefaultLocale")
     private fun filterTrackName(trackName: String): String {
         //val toLatin = Transliterator.getInstance(TRANSLITERATE_VALUE)
@@ -117,9 +120,11 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
     }
 
 
-    private fun search(keyword: String) {
+    fun search(keyword: String) {
         viewModelScope.launch {
-            println(spotifyRepository.search(keyword))
+            val searchArtist = spotifyRepository.searchArtist(keyword)
+            println(searchArtist)
+            _artist.postValue(searchArtist)
         }
     }
 

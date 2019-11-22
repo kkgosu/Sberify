@@ -7,6 +7,7 @@ import com.example.sberify.data.model.ArtistsData
 import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.domain.PrefUtil
 import com.example.sberify.domain.model.Album
+import com.example.sberify.domain.model.Artist
 import com.example.sberify.domain.model.Token
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -30,17 +31,19 @@ class SpotifyRepository(private val dataConverter: DataConverter) : ISpotifyRepo
         return dataConverter.convertAlbums(items.albums)
     }
 
-    override suspend fun search(keyword: String): ArtistsData.Items {
-        return mSpotifyApi.searchArtist(PrefUtil.getStringDefaultBlank("oauthtoken")!!, keyword,
+    override suspend fun searchArtist(keyword: String): List<Artist> {
+        val results = mSpotifyApi.searchArtist(PrefUtil.getStringDefaultBlank("oauthtoken")!!,
+                keyword,
                 SearchTypes.ARTIST)
                 .artists
+        return dataConverter.convertArtists(results)
     }
 
     override suspend fun getAlbumInfo(id: String): List<Album> {
         val albumInfo = mSpotifyApi.getAlbumInfo(PrefUtil.getStringDefaultBlank("oauthtoken")!!, id)
         return dataConverter.convertAlbums(albumInfo)
     }
-    
+
     companion object {
         private const val TOKEN_URL = "https://accounts.spotify.com/"
         private const val API_URL = "https://api.spotify.com/v1/"

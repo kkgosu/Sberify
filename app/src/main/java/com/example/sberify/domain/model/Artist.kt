@@ -4,13 +4,13 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Artist(val id: String,
-        val images: Image?,
+        val image: Image?,
         val name: String,
         val genres: List<String>?) : BaseModel(), Parcelable {
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
-        parcel.writeParcelable(images, Parcelable.PARCELABLE_WRITE_RETURN_VALUE)
+        parcel.writeParcelable(image, Parcelable.PARCELABLE_WRITE_RETURN_VALUE)
         parcel.writeString(name)
         parcel.writeStringList(genres)
     }
