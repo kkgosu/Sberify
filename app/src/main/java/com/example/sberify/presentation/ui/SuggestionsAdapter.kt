@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.example.sberify.R
-import kotlinx.android.synthetic.main.suggestion_item.view.*
+import kotlinx.android.synthetic.main.item_suggestion.view.*
 
 class SuggestionsAdapter(
         private val interaction: Interaction? = null) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -29,7 +29,7 @@ class SuggestionsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return ViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.suggestion_item, parent,
+                LayoutInflater.from(parent.context).inflate(R.layout.item_suggestion, parent,
                         false), interaction)
     }
 

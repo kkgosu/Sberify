@@ -4,20 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp">
+    android:background="#424242">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_results"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/search_view_height"
+        android:layout_marginTop="68dp"
+        android:clipToPadding="false"
         android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        android:paddingBottom="@dimen/bottom_bar_height"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        app:spanCount="2" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,15 +38,15 @@
                 android:inputType="text"
                 app:iconifiedByDefault="false"
                 app:queryHint="Artist, album, song..."
-                app:suggestionRowLayout="@layout/suggestion_item" />
+                app:suggestionRowLayout="@layout/item_suggestion" />
 
             <ImageButton
                 android:id="@+id/search_options"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:layout_marginEnd="8dp"
+                android:layout_weight="1"
                 android:background="@color/white"
                 android:src="@drawable/ic_menu_black_24dp" />
         </LinearLayout>

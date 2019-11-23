@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.example.sberify.R
 import com.example.sberify.domain.model.Artist
-import kotlinx.android.synthetic.main.search_artist_item.view.*
+import kotlinx.android.synthetic.main.item_search_artist.view.*
 
 class SearchArtistAdapter(private val interaction: Interaction? = null) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -30,8 +30,8 @@ class SearchArtistAdapter(private val interaction: Interaction? = null) :
 
         return ViewHolder(
                 LayoutInflater.from(parent.context).inflate(
-                        R.layout.search_artist_item,
-                        parent,false), interaction)
+                        R.layout.item_search_artist,
+                        parent, false), interaction)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -60,7 +60,9 @@ class SearchArtistAdapter(private val interaction: Interaction? = null) :
                 interaction?.onItemSelected(adapterPosition, item)
             }
             artist_name.text = item.name
-            artist_image.loadImage(item.image?.url)
+            item.image?.let {
+                artist_image.loadImage(it.url)
+            }
         }
     }
 

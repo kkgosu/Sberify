@@ -1,6 +1,5 @@
 package com.example.sberify.domain
 
-import com.example.sberify.data.model.ArtistsData
 import com.example.sberify.domain.model.Album
 import com.example.sberify.domain.model.Artist
 import com.example.sberify.domain.model.Token

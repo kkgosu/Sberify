@@ -3,6 +3,7 @@ package com.example.sberify.data.repository
 import com.example.sberify.data.DataConverter
 import com.example.sberify.data.api.ISpotifyApi
 import com.example.sberify.data.api.SearchTypes
+import com.example.sberify.data.model.ArtistData
 import com.example.sberify.data.model.ArtistsData
 import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.domain.PrefUtil
@@ -28,20 +29,19 @@ class SpotifyRepository(private val dataConverter: DataConverter) : ISpotifyRepo
 
     override suspend fun getNewReleases(): List<Album> {
         val items = mSpotifyApi.getNewReleases(PrefUtil.getStringDefaultBlank("oauthtoken")!!)
-        return dataConverter.convertAlbums(items.albums)
+        return dataConverter.convertAlbums(items.albums.items)
     }
 
     override suspend fun searchArtist(keyword: String): List<Artist> {
         val results = mSpotifyApi.searchArtist(PrefUtil.getStringDefaultBlank("oauthtoken")!!,
                 keyword,
                 SearchTypes.ARTIST)
-                .artists
-        return dataConverter.convertArtists(results)
+        return dataConverter.convertArtists(results.artists.items)
     }
 
     override suspend fun getAlbumInfo(id: String): List<Album> {
         val albumInfo = mSpotifyApi.getAlbumInfo(PrefUtil.getStringDefaultBlank("oauthtoken")!!, id)
-        return dataConverter.convertAlbums(albumInfo)
+        return dataConverter.convertAlbums(listOf(albumInfo))
     }
 
     companion object {
