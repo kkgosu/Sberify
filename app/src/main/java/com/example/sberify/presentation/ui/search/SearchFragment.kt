@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.example.sberify.R
+import com.example.sberify.data.api.SearchTypes
 import com.example.sberify.presentation.ui.MainActivity
 import com.example.sberify.presentation.ui.SharedViewModel
 import kotlinx.android.synthetic.main.bottom_app_bar.*
@@ -33,6 +34,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private lateinit var resultsRecyclerView: RecyclerView
     private lateinit var searchAdapter: SearchArtistAdapter
+    private lateinit var searchTrackAdapter: SearchTrackAdapter
     private lateinit var mSuggestionsRecycler: RecyclerView
     private lateinit var mSuggestionsAdapter: SuggestionsAdapter
     private val list = listOf("Lorem", "Ipsum", "simply", "dummy", "text", "printing",
@@ -44,6 +46,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onCreate(savedInstanceState)
         mSharedViewModel = ViewModelProvider(requireActivity()).get(
                 SharedViewModel::class.java)
+        searchAdapter = SearchArtistAdapter()
+        searchTrackAdapter = SearchTrackAdapter()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -58,11 +62,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             createSearchOptionsDialog().show()
         }
 
-        searchAdapter = SearchArtistAdapter()
-        resultsRecyclerView.apply {
-            adapter = searchAdapter
-        }
-
         mSuggestionsAdapter = SuggestionsAdapter()
         mSuggestionsRecycler.apply {
             adapter = mSuggestionsAdapter
@@ -70,7 +69,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
 
         mSharedViewModel.artist.observe(viewLifecycleOwner, Observer {
+            resultsRecyclerView.adapter = searchAdapter
             searchAdapter.submitList(it)
+        })
+
+        mSharedViewModel.track.observe(viewLifecycleOwner, Observer {
+            resultsRecyclerView.adapter = searchTrackAdapter
+            searchTrackAdapter.submitList(it)
         })
 
         configureSearchView(searchView)
@@ -104,24 +109,21 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         val alertDialog = AlertDialog.Builder(requireContext())
         val radioGroupView = layoutInflater.inflate(R.layout.search_options, null)
         alertDialog.apply {
-            setTitle("Choose search parameter")
+            setTitle("Choose searchArtist parameter")
             setView(radioGroupView)
-            setPositiveButton(android.R.string.ok) { d, v ->
+            setPositiveButton(android.R.string.ok) { _, _ ->
                 val id = radioGroupView.findViewById<RadioGroup>(R.id.search_options_rg)
                         .checkedRadioButtonId
                 when (id) {
                     R.id.artist_rb -> {
                         searchType = SearchType.ARTIST
-                        println("SearchFragment.ARTIST")
                     }
                     R.id.album_rb -> {
                         searchType = SearchType.ALBUM
-                        println("SearchFragment.ALBUM")
 
                     }
                     R.id.track_rb -> {
                         searchType = SearchType.TRACK
-                        println("SearchFragment.TRACK")
                     }
                 }
             }
@@ -151,7 +153,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
                 mSuggestionsRecycler.visibility = View.GONE
-                mSharedViewModel.search(query!!)
+                when (searchType) {
+                    SearchType.ARTIST -> mSharedViewModel.searchArtist(query!!)
+                    SearchType.TRACK -> mSharedViewModel.searchTrack(query!!)
+
+                    else -> return true
+                }
                 return true
             }
         })

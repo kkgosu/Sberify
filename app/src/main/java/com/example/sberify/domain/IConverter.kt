@@ -6,6 +6,6 @@ import com.example.sberify.domain.model.*
 interface IConverter<From : BaseDataModel, To : BaseModel> {
     fun convertAlbums(from: List<AlbumData>?): List<Album>
     fun convertArtists(from: List<ArtistData>): List<Artist>
-    fun convertTracks(from: TracksData?): List<Track>
+    fun convertTracks(from: List<TrackData>?): List<Track>
     fun convertImages(from: ImageData?): Image?
 }

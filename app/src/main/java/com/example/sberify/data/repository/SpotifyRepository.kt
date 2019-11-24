@@ -5,11 +5,13 @@ import com.example.sberify.data.api.ISpotifyApi
 import com.example.sberify.data.api.SearchTypes
 import com.example.sberify.data.model.ArtistData
 import com.example.sberify.data.model.ArtistsData
+import com.example.sberify.data.model.TracksData
 import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.domain.PrefUtil
 import com.example.sberify.domain.model.Album
 import com.example.sberify.domain.model.Artist
 import com.example.sberify.domain.model.Token
+import com.example.sberify.domain.model.Track
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -32,6 +34,11 @@ class SpotifyRepository(private val dataConverter: DataConverter) : ISpotifyRepo
         return dataConverter.convertAlbums(items.albums.items)
     }
 
+    override suspend fun getAlbumInfo(id: String): List<Album> {
+        val albumInfo = mSpotifyApi.getAlbumInfo(PrefUtil.getStringDefaultBlank("oauthtoken")!!, id)
+        return dataConverter.convertAlbums(listOf(albumInfo))
+    }
+
     override suspend fun searchArtist(keyword: String): List<Artist> {
         val results = mSpotifyApi.searchArtist(PrefUtil.getStringDefaultBlank("oauthtoken")!!,
                 keyword,
@@ -39,9 +46,18 @@ class SpotifyRepository(private val dataConverter: DataConverter) : ISpotifyRepo
         return dataConverter.convertArtists(results.artists.items)
     }
 
-    override suspend fun getAlbumInfo(id: String): List<Album> {
-        val albumInfo = mSpotifyApi.getAlbumInfo(PrefUtil.getStringDefaultBlank("oauthtoken")!!, id)
-        return dataConverter.convertAlbums(listOf(albumInfo))
+    override suspend fun searchAlbum(keyword: String): List<Album> {
+        val results = mSpotifyApi.searchAlbum(PrefUtil.getStringDefaultBlank("oauthtoken")!!,
+                keyword,
+                SearchTypes.ALBUM)
+        return dataConverter.convertAlbums(results.albums.items)
+    }
+
+    override suspend fun searchTrack(keyword: String): List<Track> {
+        val results = mSpotifyApi.searchTrack(PrefUtil.getStringDefaultBlank("oauthtoken")!!,
+                keyword,
+                SearchTypes.TRACK)
+        return dataConverter.convertTracks(results.tracks.items)
     }
 
     companion object {

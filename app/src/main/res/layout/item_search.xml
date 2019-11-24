@@ -16,7 +16,7 @@
         android:padding="@dimen/padding_default">
 
         <com.example.sberify.presentation.ui.utils.SquareImageView
-            android:id="@+id/artist_image"
+            android:id="@+id/search_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
@@ -24,7 +24,7 @@
             android:src="@drawable/icon_person" />
 
         <TextView
-            android:id="@+id/artist_name"
+            android:id="@+id/search_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"

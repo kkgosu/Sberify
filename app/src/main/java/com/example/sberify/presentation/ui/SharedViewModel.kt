@@ -33,8 +33,14 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
     private val _lyrics = MutableLiveData<String>()
     val lyrics: LiveData<String> = _lyrics
 
+    private val _albums = MutableLiveData<List<Album>>()
+    val albums: LiveData<List<Album>> = _albums
+
     private val _artist = MutableLiveData<List<Artist>>()
     val artist: LiveData<List<Artist>> = _artist
+
+    private val _track = MutableLiveData<List<Track>>()
+    val track: LiveData<List<Track>> = _track
 
     fun getData() {
         viewModelScope.launch {
@@ -95,6 +101,30 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
         }
     }
 
+    fun searchArtist(keyword: String) {
+        viewModelScope.launch {
+            val searchArtist = spotifyRepository.searchArtist(keyword)
+            println(searchArtist)
+            _artist.postValue(searchArtist)
+        }
+    }
+
+    fun searchAlbum(keyword: String) {
+        viewModelScope.launch {
+            val searchAlbum = spotifyRepository.searchAlbum(keyword)
+            println(searchAlbum)
+            _albums.postValue(searchAlbum)
+        }
+    }
+
+    fun searchTrack(keyword: String) {
+        viewModelScope.launch {
+            val searchTrack = spotifyRepository.searchTrack(keyword)
+            println(searchTrack)
+            _track.postValue(searchTrack)
+        }
+    }
+
     @SuppressLint("DefaultLocale")
     private fun filterTrackName(trackName: String): String {
         //val toLatin = Transliterator.getInstance(TRANSLITERATE_VALUE)
@@ -111,21 +141,13 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
         return result
     }
 
+
     private fun filterLyricsUrl(track: String): String {
         val regex = Regex("[^A-Za-z0-9\\-&]")
         return "$track lyrics"
                 .replace(" ", "-")
                 .replace("&", "and")
                 .replace(regex, "")
-    }
-
-
-    fun search(keyword: String) {
-        viewModelScope.launch {
-            val searchArtist = spotifyRepository.searchArtist(keyword)
-            println(searchArtist)
-            _artist.postValue(searchArtist)
-        }
     }
 
     companion object {

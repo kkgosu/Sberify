@@ -7,20 +7,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.example.sberify.R
-import com.example.sberify.domain.model.Artist
+import com.example.sberify.domain.model.Track
 import com.example.sberify.presentation.ui.utils.loadImage
 import kotlinx.android.synthetic.main.item_search.view.*
 
-class SearchArtistAdapter(private val interaction: Interaction? = null) :
+class SearchTrackAdapter(private val interaction: Interaction? = null) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Artist>() {
+    private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Track>() {
 
-        override fun areItemsTheSame(oldItem: Artist, newItem: Artist): Boolean {
+        override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Artist, newItem: Artist): Boolean {
+        override fun areContentsTheSame(oldItem: Track, newItem: Track): Boolean {
             return oldItem == newItem
         }
 
@@ -32,7 +32,8 @@ class SearchArtistAdapter(private val interaction: Interaction? = null) :
         return ViewHolder(
                 LayoutInflater.from(parent.context).inflate(
                         R.layout.item_search,
-                        parent, false), interaction)
+                        parent,
+                        false), interaction)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -47,16 +48,15 @@ class SearchArtistAdapter(private val interaction: Interaction? = null) :
         return differ.currentList.size
     }
 
-    fun submitList(list: List<Artist>) {
+    fun submitList(list: List<Track>) {
         differ.submitList(list)
     }
 
     class ViewHolder
-    constructor(
-            itemView: View,
+    constructor(itemView: View,
             private val interaction: Interaction?) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(item: Artist) = with(itemView) {
+        fun bind(item: Track) = with(itemView) {
             itemView.setOnClickListener {
                 interaction?.onItemSelected(adapterPosition, item)
             }
@@ -68,6 +68,6 @@ class SearchArtistAdapter(private val interaction: Interaction? = null) :
     }
 
     interface Interaction {
-        fun onItemSelected(position: Int, item: Artist)
+        fun onItemSelected(position: Int, item: Track)
     }
 }
