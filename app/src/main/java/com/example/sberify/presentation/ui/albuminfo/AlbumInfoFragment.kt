@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui
+package com.example.sberify.presentation.ui.albuminfo
 
 import android.os.Bundle
 import android.transition.TransitionInflater
@@ -14,6 +14,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
 import com.example.sberify.domain.model.Track
+import com.example.sberify.presentation.ui.lyrics.LyricsFragment
+import com.example.sberify.presentation.ui.SharedViewModel
+import com.example.sberify.presentation.ui.utils.loadImage
 
 class AlbumInfoFragment : Fragment(
         R.layout.fragment_album_info_start), AlbumInfoAdapter.Interaction {
@@ -24,7 +27,8 @@ class AlbumInfoFragment : Fragment(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mSharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        mSharedViewModel = ViewModelProvider(requireActivity()).get(
+                SharedViewModel::class.java)
         mAdapter = AlbumInfoAdapter(this)
         postponeEnterTransition()
         sharedElementEnterTransition = TransitionInflater.from(requireContext())
@@ -65,7 +69,8 @@ class AlbumInfoFragment : Fragment(
     override fun onItemSelected(position: Int, item: Track) {
         mSharedViewModel.getLyrics(item)
         requireActivity().supportFragmentManager.commit {
-            replace(R.id.root, LyricsFragment.newInstance())
+            replace(R.id.root,
+                    LyricsFragment.newInstance())
             addToBackStack(null)
         }
     }

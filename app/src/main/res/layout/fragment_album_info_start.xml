@@ -6,25 +6,19 @@
     android:layout_height="match_parent"
     app:layoutDescription="@xml/motion_scene_details">
 
-    <com.example.sberify.presentation.ui.SquareImageView
+    <com.example.sberify.presentation.ui.utils.SquareImageView
         android:id="@+id/album_cover"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
         tools:src="@mipmap/ic_launcher" />
 
-<!--    <com.example.sberify.presentation.ui.SquareImageView
-        android:id="@+id/gradient_bg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/gradient_bg" />-->
-
     <TextView
         android:id="@+id/album_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
+        android:paddingStart="@dimen/padding_default"
+        android:paddingEnd="@dimen/padding_default"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
         android:textColor="@color/white"
         android:textStyle="bold"
@@ -35,8 +29,8 @@
         android:id="@+id/artist_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
+        android:paddingStart="@dimen/padding_default"
+        android:paddingEnd="@dimen/padding_default"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/release_date"
@@ -46,7 +40,7 @@
         android:id="@+id/release_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:padding="@dimen/padding_default"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@id/recycler_tracks"

@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui
+package com.example.sberify.presentation.ui.search
 
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.AnimatedVectorDrawable
@@ -18,6 +18,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.example.sberify.R
+import com.example.sberify.presentation.ui.MainActivity
+import com.example.sberify.presentation.ui.SharedViewModel
 import kotlinx.android.synthetic.main.bottom_app_bar.*
 
 
@@ -40,7 +42,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mSharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        mSharedViewModel = ViewModelProvider(requireActivity()).get(
+                SharedViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

@@ -3,29 +3,29 @@
     android:id="@+id/search_options_rg"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:padding="@dimen/padding_default">
 
     <RadioButton
         android:id="@+id/artist_rb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/artist"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-        android:textSize="18sp"
-        android:text="@string/artist" />
+        android:textSize="@dimen/test_size_medium" />
 
     <RadioButton
         android:id="@+id/album_rb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/album"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-        android:textSize="18sp"
-        android:text="@string/album" />
+        android:textSize="@dimen/test_size_medium" />
 
     <RadioButton
         android:id="@+id/track_rb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/track"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-        android:textSize="18sp"
-        android:text="@string/track" />
+        android:textSize="@dimen/test_size_medium" />
 </RadioGroup>

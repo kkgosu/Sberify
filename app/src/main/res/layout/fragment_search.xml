@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#424242">
+    android:background="@color/gray_800">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_results"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="@dimen/padding_default">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 app:iconifiedByDefault="false"
-                app:queryHint="Artist, album, song..."
+                app:queryHint="@string/search_hint"
                 app:suggestionRowLayout="@layout/item_suggestion" />
 
             <ImageButton

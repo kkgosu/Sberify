@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui
+package com.example.sberify.presentation.ui.search
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater

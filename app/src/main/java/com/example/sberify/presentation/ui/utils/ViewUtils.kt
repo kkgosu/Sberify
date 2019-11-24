@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui
+package com.example.sberify.presentation.ui.utils
 
 import android.app.Activity
 import android.view.View

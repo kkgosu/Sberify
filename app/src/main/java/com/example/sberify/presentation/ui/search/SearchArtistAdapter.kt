@@ -1,25 +1,26 @@
-package com.example.sberify.presentation.ui
+package com.example.sberify.presentation.ui.search
 
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
-import com.example.sberify.domain.model.Track
-import kotlinx.android.synthetic.main.item_track.view.*
+import com.example.sberify.domain.model.Artist
+import com.example.sberify.presentation.ui.utils.loadImage
+import kotlinx.android.synthetic.main.item_search_artist.view.*
 
-class AlbumInfoAdapter(private val interaction: Interaction? = null) :
+class SearchArtistAdapter(private val interaction: Interaction? = null) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Track>() {
+    private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Artist>() {
 
-        override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean {
+        override fun areItemsTheSame(oldItem: Artist, newItem: Artist): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Track, newItem: Track): Boolean {
+        override fun areContentsTheSame(oldItem: Artist, newItem: Artist): Boolean {
             return oldItem == newItem
         }
 
@@ -30,15 +31,14 @@ class AlbumInfoAdapter(private val interaction: Interaction? = null) :
 
         return ViewHolder(
                 LayoutInflater.from(parent.context).inflate(
-                        R.layout.item_track,
-                        parent,
-                        false), interaction)
+                        R.layout.item_search_artist,
+                        parent, false), interaction)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ViewHolder -> {
-                holder.bind(differ.currentList[position])
+                holder.bind(differ.currentList.get(position))
             }
         }
     }
@@ -47,30 +47,27 @@ class AlbumInfoAdapter(private val interaction: Interaction? = null) :
         return differ.currentList.size
     }
 
-    fun submitList(list: List<Track>) {
+    fun submitList(list: List<Artist>) {
         differ.submitList(list)
     }
 
     class ViewHolder
-    constructor(itemView: View,
+    constructor(
+            itemView: View,
             private val interaction: Interaction?) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(item: Track) = with(itemView) {
+        fun bind(item: Artist) = with(itemView) {
             itemView.setOnClickListener {
                 interaction?.onItemSelected(adapterPosition, item)
             }
-            track_name.text = item.name
-            val builder = StringBuilder()
-            item.artists.forEach {
-                builder.append(it.name)
-                        .append(", ")
+            artist_name.text = item.name
+            item.image?.let {
+                artist_image.loadImage(it.url)
             }
-            artist_name.text = builder.dropLast(2)
-                    .toString()
         }
     }
 
     interface Interaction {
-        fun onItemSelected(position: Int, item: Track)
+        fun onItemSelected(position: Int, item: Artist)
     }
 }

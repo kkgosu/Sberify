@@ -5,7 +5,7 @@
     style="@style/DefaultRecycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#424242"
+    android:background="@color/gray_800"
     tools:listitem="@layout/item_new_release">
 
 </androidx.recyclerview.widget.RecyclerView>

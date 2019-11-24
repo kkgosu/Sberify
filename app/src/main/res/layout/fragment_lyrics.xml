@@ -10,7 +10,7 @@
         android:id="@+id/lyrics"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:padding="@dimen/padding_default"
         android:textAlignment="textStart"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline2"
         android:textSize="22sp"

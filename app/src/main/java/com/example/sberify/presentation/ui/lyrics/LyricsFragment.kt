@@ -1,7 +1,6 @@
-package com.example.sberify.presentation.ui
+package com.example.sberify.presentation.ui.lyrics
 
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sberify.R
+import com.example.sberify.presentation.ui.SharedViewModel
 
 class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
 
@@ -18,7 +18,8 @@ class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
-        mSharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        mSharedViewModel = ViewModelProvider(requireActivity()).get(
+                SharedViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

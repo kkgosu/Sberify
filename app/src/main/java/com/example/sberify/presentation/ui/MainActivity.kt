@@ -6,6 +6,8 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sberify.R
+import com.example.sberify.presentation.ui.newreleases.NewReleasesFragment
+import com.example.sberify.presentation.ui.search.SearchFragment
 import kotlinx.android.synthetic.main.bottom_app_bar.*
 
 class MainActivity : AppCompatActivity() {

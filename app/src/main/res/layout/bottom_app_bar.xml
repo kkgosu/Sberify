@@ -11,7 +11,7 @@
         android:layout_gravity="bottom"
         android:transitionName="transition_bar"
         app:fabAlignmentMode="center"
-        app:fabCradleMargin="4dp"
+        app:fabCradleMargin="@dimen/margin_small"
         app:fabCradleRoundedCornerRadius="24dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

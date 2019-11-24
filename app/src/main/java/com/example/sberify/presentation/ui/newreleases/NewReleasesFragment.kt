@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui
+package com.example.sberify.presentation.ui.newreleases
 
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.AnimatedVectorDrawable
@@ -20,6 +20,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.example.sberify.R
 import com.example.sberify.domain.model.Album
+import com.example.sberify.presentation.ui.albuminfo.AlbumInfoFragment
+import com.example.sberify.presentation.ui.MainActivity
+import com.example.sberify.presentation.ui.SharedViewModel
 import kotlinx.android.synthetic.main.bottom_app_bar.*
 
 
@@ -43,7 +46,8 @@ class NewReleasesFragment : Fragment(
             mLayoutManager.onRestoreInstanceState(mState)
         }
 
-        mViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        mViewModel = ViewModelProvider(requireActivity()).get(
+                SharedViewModel::class.java)
         mViewModel.newReleases.observe(viewLifecycleOwner, Observer {
             mAdapter.submitList(it)
         })
@@ -78,7 +82,8 @@ class NewReleasesFragment : Fragment(
             addSharedElement(view.findViewById<TextView>(R.id.release_name), item.name)
             addSharedElement(view.findViewById<ImageView>(R.id.release_cover), item.id)
             addSharedElement(view.findViewById<TextView>(R.id.artist_name), item.artist.name)
-            replace(R.id.root, AlbumInfoFragment.newInstance())
+            replace(R.id.root,
+                    AlbumInfoFragment.newInstance())
             addToBackStack(null)
         }
     }

@@ -12,7 +12,9 @@ import com.example.sberify.domain.model.Album
 import com.example.sberify.domain.model.Artist
 import com.example.sberify.domain.model.Token
 import com.example.sberify.domain.model.Track
+import com.example.sberify.presentation.ui.utils.normalize
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -39,7 +41,6 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
             withContext(Dispatchers.Default) {
                 getToken()
                 loadReleases()
-                //searchArtist("Kanye West")
             }
         }
     }
@@ -49,7 +50,6 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
     }
 
     private suspend fun getToken() {
-        //delay(5000)
         val token = spotifyRepository.getToken()
         _token.postValue(token)
         PrefUtil.setString("oauthtoken", "Bearer ${token.access_token}")

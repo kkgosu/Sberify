@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/selectable_item_bg"
     android:orientation="horizontal"
-    android:padding="8dp">
+    android:padding="@dimen/padding_default">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -17,7 +17,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="@dimen/padding_default">
 
         <TextView
             android:id="@+id/track_name"

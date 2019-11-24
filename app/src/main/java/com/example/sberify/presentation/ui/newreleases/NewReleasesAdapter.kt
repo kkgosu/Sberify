@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui
+package com.example.sberify.presentation.ui.newreleases
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.example.sberify.R
 import com.example.sberify.domain.model.Album
+import com.example.sberify.presentation.ui.utils.loadImage
 import kotlinx.android.synthetic.main.item_new_release.view.*
 
 class NewReleasesAdapter(
