@@ -11,7 +11,7 @@ class DataConverter : IConverter<BaseDataModel, BaseModel> {
         from?.forEach {
             albumsList.add(
                     Album(it.id,
-                            it.artists[0],
+                            convertArtists(it.artists)[0],
                             it.name,
                             convertTracks(it.tracks?.items),
                             it.images[0].url,

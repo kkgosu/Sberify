@@ -6,6 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_800"
-    tools:listitem="@layout/item_new_release">
+    tools:listitem="@layout/item_album">
 
 </androidx.recyclerview.widget.RecyclerView>

@@ -6,11 +6,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.RadioGroup
+import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.forEach
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +24,8 @@ import com.example.sberify.domain.model.Artist
 import com.example.sberify.domain.model.Track
 import com.example.sberify.presentation.ui.MainActivity
 import com.example.sberify.presentation.ui.SharedViewModel
+import com.example.sberify.presentation.ui.albuminfo.AlbumInfoFragment
+import com.example.sberify.presentation.ui.lyrics.LyricsFragment
 import kotlinx.android.synthetic.main.bottom_app_bar.*
 
 
@@ -40,7 +45,8 @@ class SearchFragment : Fragment(R.layout.fragment_search), SearchAdapter.Interac
         super.onCreate(savedInstanceState)
         mSharedViewModel = ViewModelProvider(requireActivity()).get(
                 SharedViewModel::class.java)
-        mSearchAdapter = SearchAdapter()
+        mSearchAdapter = SearchAdapter(this)
+        mSuggestionsAdapter = SuggestionsAdapter()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -63,8 +69,6 @@ class SearchFragment : Fragment(R.layout.fragment_search), SearchAdapter.Interac
                         }
                     }
                 }
-
-        mSuggestionsAdapter = SuggestionsAdapter()
         mSuggestionsRecycler.apply {
             adapter = mSuggestionsAdapter
             mSuggestionsAdapter.submitList(list)
@@ -112,15 +116,26 @@ class SearchFragment : Fragment(R.layout.fragment_search), SearchAdapter.Interac
     }
 
     override fun onArtistSelected(position: Int, item: Artist) {
-        
+
     }
 
     override fun onTrackSelected(position: Int, item: Track) {
-        
+        mSharedViewModel.getLyrics(item)
+        requireActivity().supportFragmentManager.commit {
+            replace(R.id.root, LyricsFragment.newInstance())
+            addToBackStack(null)
+        }
     }
 
-    override fun onAlbumSelected(position: Int, item: Album) {
-        
+    override fun onAlbumSelected(item: Album, view: View) {
+        mSharedViewModel.getAlbumInfo(item)
+        requireActivity().supportFragmentManager.commit {
+            addSharedElement(view.findViewById<TextView>(R.id.release_name), item.name)
+            addSharedElement(view.findViewById<ImageView>(R.id.release_cover), item.id)
+            addSharedElement(view.findViewById<TextView>(R.id.artist_name), item.artist.name)
+            replace(R.id.root, AlbumInfoFragment.newInstance())
+            addToBackStack(null)
+        }
     }
 
     private fun configureSearchView(searchView: SearchView?) {

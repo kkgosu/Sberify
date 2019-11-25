@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import com.example.sberify.R
 import com.example.sberify.domain.model.Album
 import com.example.sberify.domain.model.Artist
-import com.example.sberify.domain.model.BaseModel
 import com.example.sberify.domain.model.Track
-import com.example.sberify.presentation.ui.utils.createCallback
+import com.example.sberify.presentation.ui.utils.createDiffCallback
+import com.example.sberify.presentation.ui.utils.inflateLayout
 import com.example.sberify.presentation.ui.utils.loadImage
+import kotlinx.android.synthetic.main.item_album.view.*
 import kotlinx.android.synthetic.main.item_search.view.*
 
 class SearchAdapter(private val interaction: Interaction? = null) :
@@ -20,27 +20,25 @@ class SearchAdapter(private val interaction: Interaction? = null) :
 
     var currentSearchType: SearchType = SearchType.ARTIST
 
-    private val DIFF_CALLBACK_ARTIST = createCallback<Artist>()
+    private val DIFF_CALLBACK_ARTIST = createDiffCallback<Artist>()
     private val differArtist = AsyncListDiffer(this, DIFF_CALLBACK_ARTIST)
 
-    private val DIFF_CALLBACK_ALBUM = createCallback<Album>()
+    private val DIFF_CALLBACK_ALBUM = createDiffCallback<Album>()
     private val differAlbum = AsyncListDiffer(this, DIFF_CALLBACK_ALBUM)
 
-    private val DIFF_CALLBACK_TRACK = createCallback<Track>()
+    private val DIFF_CALLBACK_TRACK = createDiffCallback<Track>()
     private val differTrack = AsyncListDiffer(this, DIFF_CALLBACK_TRACK)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val inflate = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_search, parent, false)
-
-        return when (viewType) {
-            ARTIST_VIEW -> ViewHolderArtist(inflate, interaction)
-            ALBUM_VIEW -> ViewHolderAlbum(inflate, interaction)
-            TRACK_VIEW -> ViewHolderTrack(inflate, interaction)
-            else -> ViewHolderArtist(inflate, interaction)
-        }
-    }
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+            when (viewType) {
+                ARTIST_VIEW -> ViewHolderArtist(inflateLayout(R.layout.item_search, parent),
+                        interaction)
+                ALBUM_VIEW -> ViewHolderAlbum(inflateLayout(R.layout.item_album, parent),
+                        interaction)
+                TRACK_VIEW -> ViewHolderTrack(inflateLayout(R.layout.item_album, parent),
+                        interaction)
+                else -> ViewHolderArtist(inflateLayout(R.layout.item_search, parent), interaction)
+            }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
@@ -112,10 +110,15 @@ class SearchAdapter(private val interaction: Interaction? = null) :
 
         fun bind(item: Album) = with(itemView) {
             itemView.setOnClickListener {
-                interaction?.onAlbumSelected(adapterPosition, item)
+                interaction?.onAlbumSelected(item, this)
             }
-            search_name.text = item.name
-            search_image.loadImage(item.imageUrl)
+            release_cover.loadImage(item.imageUrl)
+            release_name.text = item.name
+            artist_name.text = item.artist.name
+
+            release_cover.transitionName = item.id
+            release_name.transitionName = item.name
+            artist_name.transitionName = item.artist.name
         }
     }
 
@@ -128,17 +131,18 @@ class SearchAdapter(private val interaction: Interaction? = null) :
             itemView.setOnClickListener {
                 interaction?.onTrackSelected(adapterPosition, item)
             }
-            search_name.text = item.name
             item.image?.let {
-                search_image.loadImage(it.url)
+                release_cover.loadImage(it.url)
             }
+            release_name.text = item.name
+            artist_name.text = item.artists[0].name
         }
     }
 
     interface Interaction {
         fun onArtistSelected(position: Int, item: Artist)
+        fun onAlbumSelected(item: Album, view: View)
         fun onTrackSelected(position: Int, item: Track)
-        fun onAlbumSelected(position: Int, item: Album)
     }
 
     companion object {

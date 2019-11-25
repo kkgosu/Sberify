@@ -5,22 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import com.example.sberify.R
 import com.example.sberify.domain.model.Album
-import com.example.sberify.presentation.ui.utils.createCallback
+import com.example.sberify.presentation.ui.utils.createDiffCallback
 import com.example.sberify.presentation.ui.utils.loadImage
-import kotlinx.android.synthetic.main.item_new_release.view.*
+import kotlinx.android.synthetic.main.item_album.view.*
 
 class NewReleasesAdapter(
         private val interaction: Interaction? = null) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val DIFF_CALLBACK = createCallback<Album>()
+    private val DIFF_CALLBACK = createDiffCallback<Album>()
     private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
             ViewHolder(
-                    LayoutInflater.from(parent.context).inflate(R.layout.item_new_release, parent,
+                    LayoutInflater.from(parent.context).inflate(R.layout.item_album, parent,
                             false), interaction)
 
 
@@ -46,7 +45,7 @@ class NewReleasesAdapter(
 
         fun bind(item: Album) = with(itemView) {
             itemView.setOnClickListener {
-                interaction?.onItemSelected(item, itemView)
+                interaction?.onItemSelected(item, this)
             }
             release_cover.loadImage(item.imageUrl)
             release_name.text = item.name
