@@ -7,8 +7,7 @@ import android.os.Parcelable
 data class Track(val id: String,
         val name: String,
         val image: Image?,
-        val artists: List<Artist>,
-        val explicit: Boolean = false) : BaseModel(id), Parcelable {
+        val artists: List<Artist>) : BaseModel(id), Parcelable {
 
     @SuppressLint("NewApi")
     override fun writeToParcel(dest: Parcel?, flags: Int) {
