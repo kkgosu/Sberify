@@ -6,9 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.RadioGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.forEach
 import androidx.core.view.get
@@ -18,27 +16,23 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.example.sberify.R
-import com.example.sberify.data.api.SearchTypes
+import com.example.sberify.domain.model.Album
+import com.example.sberify.domain.model.Artist
+import com.example.sberify.domain.model.Track
 import com.example.sberify.presentation.ui.MainActivity
 import com.example.sberify.presentation.ui.SharedViewModel
 import kotlinx.android.synthetic.main.bottom_app_bar.*
 
 
-class SearchFragment : Fragment(R.layout.fragment_search) {
+class SearchFragment : Fragment(R.layout.fragment_search), SearchAdapter.Interaction {
 
-    enum class SearchType {
-        ARTIST, ALBUM, TRACK
-    }
-
-    private var searchType = SearchType.TRACK
+    private var searchType = SearchType.ARTIST
 
     private lateinit var resultsRecyclerView: RecyclerView
-    private lateinit var searchAdapter: SearchArtistAdapter
-    private lateinit var searchTrackAdapter: SearchTrackAdapter
+    private lateinit var mSearchAdapter: SearchAdapter
     private lateinit var mSuggestionsRecycler: RecyclerView
     private lateinit var mSuggestionsAdapter: SuggestionsAdapter
-    private val list = listOf("Lorem", "Ipsum", "simply", "dummy", "text", "printing",
-            "typesetting")
+    private val list = listOf("Lorem", "Ipsum", "simply", "dummy", "text")
 
     private lateinit var mSharedViewModel: SharedViewModel
 
@@ -46,8 +40,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onCreate(savedInstanceState)
         mSharedViewModel = ViewModelProvider(requireActivity()).get(
                 SharedViewModel::class.java)
-        searchAdapter = SearchArtistAdapter()
-        searchTrackAdapter = SearchTrackAdapter()
+        mSearchAdapter = SearchAdapter()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -56,11 +49,20 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         resultsRecyclerView = view?.findViewById(R.id.search_results)!!
         mSuggestionsRecycler = view.findViewById(R.id.suggestion_recycler)!!
         val searchView = view.findViewById<SearchView>(R.id.search_view)
-        val searchOptions = view.findViewById<ImageButton>(R.id.search_options)
-
-        searchOptions.setOnClickListener {
-            createSearchOptionsDialog().show()
-        }
+        view.findViewById<RadioGroup>(R.id.search_options_rg)
+                .setOnCheckedChangeListener { _, checkedId ->
+                    when (checkedId) {
+                        R.id.artist_rb -> {
+                            searchType = SearchType.ARTIST
+                        }
+                        R.id.album_rb -> {
+                            searchType = SearchType.ALBUM
+                        }
+                        R.id.track_rb -> {
+                            searchType = SearchType.TRACK
+                        }
+                    }
+                }
 
         mSuggestionsAdapter = SuggestionsAdapter()
         mSuggestionsRecycler.apply {
@@ -68,16 +70,20 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             mSuggestionsAdapter.submitList(list)
         }
 
+        resultsRecyclerView.adapter = mSearchAdapter
+
         mSharedViewModel.artist.observe(viewLifecycleOwner, Observer {
-            resultsRecyclerView.adapter = searchAdapter
-            searchAdapter.submitList(it)
+            mSearchAdapter.currentSearchType = SearchType.ARTIST
+            mSearchAdapter.submitList(it)
         })
-
+        mSharedViewModel.albums.observe(viewLifecycleOwner, Observer {
+            mSearchAdapter.currentSearchType = SearchType.ALBUM
+            mSearchAdapter.submitList(it)
+        })
         mSharedViewModel.track.observe(viewLifecycleOwner, Observer {
-            resultsRecyclerView.adapter = searchTrackAdapter
-            searchTrackAdapter.submitList(it)
+            mSearchAdapter.currentSearchType = SearchType.TRACK
+            mSearchAdapter.submitList(it)
         })
-
         configureSearchView(searchView)
         return view
     }
@@ -105,33 +111,16 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     }
 
-    private fun createSearchOptionsDialog(): AlertDialog.Builder {
-        val alertDialog = AlertDialog.Builder(requireContext())
-        val radioGroupView = layoutInflater.inflate(R.layout.search_options, null)
-        alertDialog.apply {
-            setTitle("Choose searchArtist parameter")
-            setView(radioGroupView)
-            setPositiveButton(android.R.string.ok) { _, _ ->
-                val id = radioGroupView.findViewById<RadioGroup>(R.id.search_options_rg)
-                        .checkedRadioButtonId
-                when (id) {
-                    R.id.artist_rb -> {
-                        searchType = SearchType.ARTIST
-                    }
-                    R.id.album_rb -> {
-                        searchType = SearchType.ALBUM
+    override fun onArtistSelected(position: Int, item: Artist) {
+        
+    }
 
-                    }
-                    R.id.track_rb -> {
-                        searchType = SearchType.TRACK
-                    }
-                }
-            }
-            setNegativeButton(android.R.string.cancel) { d, v ->
-                d.dismiss()
-            }
-        }
-        return alertDialog
+    override fun onTrackSelected(position: Int, item: Track) {
+        
+    }
+
+    override fun onAlbumSelected(position: Int, item: Album) {
+        
     }
 
     private fun configureSearchView(searchView: SearchView?) {
@@ -152,12 +141,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
 
             override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
                 mSuggestionsRecycler.visibility = View.GONE
                 when (searchType) {
                     SearchType.ARTIST -> mSharedViewModel.searchArtist(query!!)
+                    SearchType.ALBUM -> mSharedViewModel.searchAlbum(query!!)
                     SearchType.TRACK -> mSharedViewModel.searchTrack(query!!)
-
-                    else -> return true
                 }
                 return true
             }

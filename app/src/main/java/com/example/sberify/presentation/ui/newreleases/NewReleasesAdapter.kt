@@ -8,32 +8,21 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.example.sberify.R
 import com.example.sberify.domain.model.Album
+import com.example.sberify.presentation.ui.utils.createCallback
 import com.example.sberify.presentation.ui.utils.loadImage
 import kotlinx.android.synthetic.main.item_new_release.view.*
 
 class NewReleasesAdapter(
         private val interaction: Interaction? = null) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Album>() {
-
-        override fun areItemsTheSame(oldItem: Album, newItem: Album): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Album, newItem: Album): Boolean {
-            return oldItem == newItem
-        }
-
-    }
+    private val DIFF_CALLBACK = createCallback<Album>()
     private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+            ViewHolder(
+                    LayoutInflater.from(parent.context).inflate(R.layout.item_new_release, parent,
+                            false), interaction)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-
-        return ViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.item_new_release, parent,
-                        false), interaction)
-    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {

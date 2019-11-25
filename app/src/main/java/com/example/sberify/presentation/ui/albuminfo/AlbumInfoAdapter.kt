@@ -8,32 +8,20 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
 import com.example.sberify.domain.model.Track
+import com.example.sberify.presentation.ui.utils.createCallback
 import kotlinx.android.synthetic.main.item_track.view.*
 
 class AlbumInfoAdapter(private val interaction: Interaction? = null) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Track>() {
-
-        override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Track, newItem: Track): Boolean {
-            return oldItem == newItem
-        }
-
-    }
+    private val DIFF_CALLBACK = createCallback<Track>()
     private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+            ViewHolder(
+                    LayoutInflater.from(parent.context).inflate(R.layout.item_track, parent,
+                            false), interaction)
 
-        return ViewHolder(
-                LayoutInflater.from(parent.context).inflate(
-                        R.layout.item_track,
-                        parent,
-                        false), interaction)
-    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {

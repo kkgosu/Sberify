@@ -8,7 +8,7 @@ data class Track(val id: String,
         val name: String,
         val image: Image?,
         val artists: List<Artist>,
-        val explicit: Boolean = false) : BaseModel(), Parcelable {
+        val explicit: Boolean = false) : BaseModel(id), Parcelable {
 
     @SuppressLint("NewApi")
     override fun writeToParcel(dest: Parcel?, flags: Int) {

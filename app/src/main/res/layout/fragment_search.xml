@@ -1,65 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_800">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_results"
+    android:background="@color/gray_800"
+    android:orientation="vertical">
+    
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:clipToPadding="false"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/bottom_bar_height"
-        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-        app:spanCount="2" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/search_view_height"
         android:background="@color/white"
-        android:orientation="vertical"
-        android:padding="@dimen/padding_default">
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        app:iconifiedByDefault="false"
+        app:queryHint="@string/search_hint"
+        app:suggestionRowLayout="@layout/item_suggestion" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+    <include layout="@layout/search_options" />
 
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/search_view"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/search_view_height"
-                android:layout_weight="4"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                app:iconifiedByDefault="false"
-                app:queryHint="@string/search_hint"
-                app:suggestionRowLayout="@layout/item_suggestion" />
-
-            <ImageButton
-                android:id="@+id/search_options"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:src="@drawable/ic_menu_black_24dp" />
-        </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/suggestion_recycler"
+            android:id="@+id/search_results"
             style="@style/DefaultRecycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/gray_800"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:spanCount="2" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/suggestion_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
             android:layoutAnimation="@anim/layout_animation_fall_down"
             android:visibility="visible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="25" />
-    </LinearLayout>
+    </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>
