@@ -1,13 +1,13 @@
 package com.example.sberify.presentation.ui.newreleases
 
-import androidx.recyclerview.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
 import com.example.sberify.domain.model.Album
 import com.example.sberify.presentation.ui.utils.createDiffCallback
+import com.example.sberify.presentation.ui.utils.inflateLayout
 import com.example.sberify.presentation.ui.utils.loadImage
 import kotlinx.android.synthetic.main.item_album.view.*
 
@@ -18,10 +18,7 @@ class NewReleasesAdapter(
     private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-            ViewHolder(
-                    LayoutInflater.from(parent.context).inflate(R.layout.item_album, parent,
-                            false), interaction)
-
+            ViewHolder(inflateLayout(R.layout.item_album, parent), interaction)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {

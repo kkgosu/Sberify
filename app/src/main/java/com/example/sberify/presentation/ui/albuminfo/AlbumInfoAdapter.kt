@@ -1,6 +1,5 @@
 package com.example.sberify.presentation.ui.albuminfo
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -8,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
 import com.example.sberify.domain.model.Track
 import com.example.sberify.presentation.ui.utils.createDiffCallback
+import com.example.sberify.presentation.ui.utils.inflateLayout
 import kotlinx.android.synthetic.main.item_track.view.*
 
 class AlbumInfoAdapter(private val interaction: Interaction? = null) :
@@ -17,10 +17,7 @@ class AlbumInfoAdapter(private val interaction: Interaction? = null) :
     private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-            ViewHolder(
-                    LayoutInflater.from(parent.context).inflate(R.layout.item_track, parent,
-                            false), interaction)
-
+            ViewHolder(inflateLayout(R.layout.item_track, parent), interaction)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {

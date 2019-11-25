@@ -78,7 +78,7 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
             var lyrics: String
             val trackName: String = filterTrackName(track.name)
             var trackUrl: String = filterLyricsUrl(
-                    "${(track.artists[0].name).normalize()} $trackName")
+                    "${track.artists[0].name.normalize()} $trackName")
 
             lyrics = geniusRepository.getLyrics(trackUrl)
             println(trackUrl)
@@ -87,7 +87,7 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
                 if (track.artists.size > 1) {
                     val stringBuilder = StringBuilder()
                     track.artists.forEachIndexed { index, artist ->
-                        stringBuilder.append((artist.name).normalize())
+                        stringBuilder.append(artist.name.normalize())
                         if (index != track.artists.size - 1) {
                             stringBuilder.append(" and ")
                         }

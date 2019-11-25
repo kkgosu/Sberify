@@ -59,7 +59,7 @@ android {
         implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofit"
 
         implementation "org.jsoup:jsoup:$rootProject.jsoupVersion"
-        
+
         implementation "com.ibm.icu:icu4j:$rootProject.transliterateVersion"
 
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
