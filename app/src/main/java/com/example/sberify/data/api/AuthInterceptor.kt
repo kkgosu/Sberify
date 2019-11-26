@@ -1,7 +1,7 @@
 package com.example.sberify.data.api
 
 import com.example.sberify.BuildConfig
-import com.example.sberify.domain.PrefUtil
+import com.example.sberify.domain.TokenData
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
@@ -21,7 +21,7 @@ class AuthInterceptor() : Interceptor {
             chain.request()
                     .newBuilder()
                     .addHeader("Authorization",
-                            "Bearer ${PrefUtil.getStringDefaultBlank("oauthtoken")!!}")
+                            "Bearer ${TokenData.getToken()}")
                     .addHeader("Accept", "application/json")
                     .addHeader("Content-Type", "application/json")
                     .build()

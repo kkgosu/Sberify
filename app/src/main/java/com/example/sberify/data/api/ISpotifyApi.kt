@@ -11,6 +11,7 @@ interface ISpotifyApi {
 
     companion object {
         const val TOKEN_URL = "https://accounts.spotify.com/api/token/"
+        const val API_URL = "https://api.spotify.com/v1/"
     }
 
     @FormUrlEncoded

@@ -1,49 +1,79 @@
 package com.example.sberify.data.repository
 
+import android.annotation.SuppressLint
+import com.example.sberify.data.GeniusParser
 import com.example.sberify.domain.IGeniusRepository
-import kotlinx.coroutines.*
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import org.jsoup.safety.Whitelist
-import org.jsoup.select.Elements
-import java.io.IOException
+import com.example.sberify.domain.model.Track
+import com.example.sberify.presentation.ui.SharedViewModel
+import com.example.sberify.presentation.ui.utils.normalize
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class GeniusRepository : IGeniusRepository {
+class GeniusRepository(private val geniusParser: GeniusParser) : IGeniusRepository {
 
     private val job = Job()
     private val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Default
     private val scope = CoroutineScope(coroutineContext)
 
-    override suspend fun getLyrics(trackUrl: String): String {
+    override suspend fun getLyrics(track: Track): String {
         var lyrics = ""
+        val trackName: String = filterTrackName(track.name)
+        var trackUrl: String = filterLyricsUrl(
+                "${track.artists[0].name.normalize()} $trackName")
 
         scope.launch {
-            lyrics = try {
-                val doc = Jsoup.connect("https://genius.com/$trackUrl")
-                        .get()
-                val verses: Elements? = doc.getElementsByClass("lyrics")
-                cleanPreserveLineBreaks(verses?.html()!!)
-            } catch (e: IOException) {
-                e.localizedMessage
+            println(trackUrl)
+            lyrics = geniusParser.getLyrics(trackUrl)
+
+            if (lyrics == HTTP_ERROR) {
+                if (track.artists.size > 1) {
+                    val stringBuilder = StringBuilder()
+                    track.artists.forEachIndexed { index, artist ->
+                        stringBuilder.append(artist.name.normalize())
+                        if (index != track.artists.size - 1) {
+                            stringBuilder.append(" and ")
+                        }
+                    }
+                    println(trackUrl)
+                    trackUrl = filterLyricsUrl("$stringBuilder $trackName")
+                    lyrics = geniusParser.getLyrics(trackUrl)
+                }
             }
         }.join()
-
         return lyrics
     }
 
-    private fun cleanPreserveLineBreaks(bodyHtml: String): String {
-        var prettyPrintedBodyFragment: String = Jsoup.clean(
-                bodyHtml, "",
-                Whitelist.none().addTags("br", "p"), Document.OutputSettings().prettyPrint(true)
-                                                           )
-        prettyPrintedBodyFragment = prettyPrintedBodyFragment.replace("<br>", "\n")
-                .replace("<p>", "\n\n")
-                .replace("</p>", "\n\n")
-                .replace("\n +", "\n")
-                .replace("^\\s*", "")
+    @SuppressLint("DefaultLocale")
+    private fun filterTrackName(trackName: String): String {
+        //val toLatin = Transliterator.getInstance(TRANSLITERATE_VALUE)
+        var result: String = trackName.normalize()
+        val regexFeat = Regex(".*(feat).*")
+        val regexWith = Regex(".*[(\\[]with.*")
+        result = when {
+            result.toLowerCase().matches(regexFeat) -> result.substringBefore("feat")
+                    .dropLast(2)
+            result.toLowerCase().matches(regexWith) -> result.substringBefore("with")
+                    .dropLast(2)
+            else -> result
+        }
+        return result
+    }
 
-        return prettyPrintedBodyFragment
+
+    private fun filterLyricsUrl(track: String): String {
+        val regex = Regex("[^A-Za-z0-9\\-&]")
+        return "$track lyrics"
+                .replace(" ", "-")
+                .replace("&", "and")
+                .replace(regex, "")
+    }
+
+    companion object {
+        private const val HTTP_ERROR = "HTTP error fetching URL"
+        private const val TRANSLITERATE_VALUE = "Latin-Russian/BGN"
     }
 }

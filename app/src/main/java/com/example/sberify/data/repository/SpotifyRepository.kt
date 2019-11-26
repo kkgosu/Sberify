@@ -5,7 +5,6 @@ import com.example.sberify.data.api.AuthInterceptor
 import com.example.sberify.data.api.ISpotifyApi
 import com.example.sberify.data.api.SearchTypes
 import com.example.sberify.domain.ISpotifyRepository
-import com.example.sberify.domain.PrefUtil
 import com.example.sberify.domain.model.Album
 import com.example.sberify.domain.model.Artist
 import com.example.sberify.domain.model.Token
@@ -24,13 +23,13 @@ class SpotifyRepository(private val dataConverter: DataConverter) : ISpotifyRepo
 
     private val mSpotifyApi by lazy {
         Retrofit.Builder()
-                .baseUrl(API_URL)
+                .baseUrl(ISpotifyApi.API_URL)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ISpotifyApi::class.java)
     }
-    
+
     override suspend fun getToken(): Token {
         return mSpotifyApi.getToken()
     }
@@ -58,10 +57,5 @@ class SpotifyRepository(private val dataConverter: DataConverter) : ISpotifyRepo
     override suspend fun searchTrack(keyword: String): List<Track> {
         val results = mSpotifyApi.searchTrack(keyword, SearchTypes.TRACK)
         return dataConverter.convertTracks(results.tracks.items)
-    }
-
-    companion object {
-        private const val TOKEN_URL = "https://accounts.spotify.com/"
-        private const val API_URL = "https://api.spotify.com/v1/"
     }
 }

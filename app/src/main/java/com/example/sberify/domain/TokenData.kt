@@ -3,13 +3,14 @@ package com.example.sberify.domain
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import com.example.sberify.SberifyApp
+import com.example.sberify.domain.model.Token
 
-object PrefUtil {
+object TokenData {
     private const val TAG = "Pref"
     private lateinit var prefs: SharedPreferences
 
     private fun initializePrefs() {
-        if (!PrefUtil::prefs.isInitialized) {
+        if (!TokenData::prefs.isInitialized) {
             if (SberifyApp.getContext() != null) {
                 prefs = PreferenceManager
                         .getDefaultSharedPreferences(SberifyApp.getContext())
@@ -17,25 +18,25 @@ object PrefUtil {
         }
     }
 
-    // strings
-    fun getStringDefaultBlank(pref: String): String? {
-        initializePrefs()
-        return if (PrefUtil::prefs.isInitialized) {
-            prefs.getString(pref, "")
-        } else ""
+    fun setToken(token: Token) {
+        setString("oauthtoken", token.access_token)
     }
 
-    fun getString(pref: String, def: String): String {
+    fun getToken(): String = getString("oauthtoken", "")
+
+    private fun getString(pref: String, def: String): String {
         initializePrefs()
-        return if (PrefUtil::prefs.isInitialized) {
+        return if (TokenData::prefs.isInitialized) {
             prefs.getString(pref, def)!!
         } else ""
     }
 
-    fun setString(pref: String, str: String): Boolean {
+    private fun setString(pref: String, str: String): Boolean {
         initializePrefs()
-        if (PrefUtil::prefs.isInitialized) {
-            prefs.edit().putString(pref, str).apply()
+        if (TokenData::prefs.isInitialized) {
+            prefs.edit()
+                    .putString(pref, str)
+                    .apply()
             return true
         }
         return false
