@@ -5,12 +5,14 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.sberify.domain.model.Track
 
 @Dao
 interface TrackDao {
-    @Query("SELECT * FROM tracks")
-    fun getAllTracks(): LiveData<List<Track>>
+    @Query("SELECT * FROM tracks WHERE spotify_id = :id")
+    fun getTracksById(id: String): LiveData<TrackEntity>
+
+    @Query("SELECT * FROM tracks WHERE album_id = :id")
+    fun getTracksByAlbumId(id: String): LiveData<List<TrackEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTrack(trackEntity: TrackEntity)

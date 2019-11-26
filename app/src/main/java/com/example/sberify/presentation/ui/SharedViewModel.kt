@@ -58,7 +58,7 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
     private suspend fun getToken() {
         val token = spotifyRepository.getToken()
         _token.postValue(token)
-        PrefUtil.setString("oauthtoken", "Bearer ${token.access_token}")
+        PrefUtil.setString("oauthtoken", token.access_token)
     }
 
     fun getAlbumInfo(album: Album) {
