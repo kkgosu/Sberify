@@ -1,10 +1,12 @@
 package com.example.sberify.data.db.album
 
 import androidx.lifecycle.LiveData
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
+@Dao
 interface AlbumDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAlbum(albumEntity: AlbumEntity)

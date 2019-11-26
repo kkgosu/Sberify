@@ -7,6 +7,7 @@ import com.example.sberify.data.api.BaseResponseHandler
 import com.example.sberify.data.api.ISpotifyApi
 import com.example.sberify.data.api.SearchTypes
 import com.example.sberify.data.db.album.AlbumDao
+import com.example.sberify.data.db.album.AlbumEntity
 import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.domain.model.Album
 import com.example.sberify.domain.model.Artist
@@ -17,7 +18,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class SpotifyRepository(
-        private val dataConverter: DataConverter) : BaseResponseHandler(), ISpotifyRepository {
+        private val dataConverter: DataConverter,
+        private val albumDao: AlbumDao) : BaseResponseHandler(), ISpotifyRepository {
 
     private val okHttpClient by lazy {
         OkHttpClient.Builder()
@@ -44,7 +46,11 @@ class SpotifyRepository(
     override suspend fun getNewReleases(callback: (List<Album>) -> Unit) {
         val response = getResult { mSpotifyApi.getNewReleases() }
         handleResponse(response) {
-            callback(dataConverter.convertAlbums(it.albums.items))
+            val albums = dataConverter.convertAlbums(it.albums.items)
+            albums.forEach { album ->
+                albumDao.insertAlbum(AlbumEntity.from(album))
+            }
+            callback(albums)
         }
     }
 

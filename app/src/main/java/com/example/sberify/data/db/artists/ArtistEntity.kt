@@ -8,13 +8,13 @@ import androidx.room.PrimaryKey
 class ArtistEntity(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "id")
-        private var id: Long,
+        var id: Long?,
 
         @ColumnInfo(name = "spotify_id")
-        private var spotifyId: String,
+        var spotifyId: String,
 
         @ColumnInfo(name = "name")
-        private var name: String,
+        var name: String,
 
         @ColumnInfo(name = "image_url")
-        private var imageUrl: String)
+        var imageUrl: String)

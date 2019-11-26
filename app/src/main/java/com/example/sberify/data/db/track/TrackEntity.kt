@@ -6,25 +6,25 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.example.sberify.data.db.album.AlbumEntity
 
-@Entity(tableName = "tracks",
+@Entity(tableName = "tracks"/*,
         foreignKeys = [ForeignKey(entity = AlbumEntity::class, parentColumns = ["spotify_id"],
-                childColumns = ["album_id"])])
+                childColumns = ["album_id"])]*/)
 class TrackEntity(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "id")
-        private var id: Long,
+        var id: Long?,
 
         @ColumnInfo(name = "spotify_id")
-        private var spotifyId: String,
+        var spotifyId: String,
 
         @ColumnInfo(name = "album_id")
-        private var albumId: String,
+        var albumId: String,
 
         @ColumnInfo(name = "lyrics")
-        private var lyrics: String,
+        var lyrics: String,
 
         @ColumnInfo(name = "artists")
-        private var artists: String,
+        var artists: String,
 
         @ColumnInfo(name = "image_url")
-        private var image_url: String)
+        var image_url: String)
