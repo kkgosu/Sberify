@@ -1,20 +1,31 @@
 package com.example.sberify.data.api
 
+import com.example.sberify.BuildConfig
+import com.example.sberify.domain.PrefUtil
 import okhttp3.Interceptor
+import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
 
-class AuthInterceptor(private val accessToken: String) : Interceptor {
+class AuthInterceptor() : Interceptor {
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
-        val request = chain
-                .request()
-                .newBuilder()
-                .addHeader("Authorization", "Bearer $accessToken")
-                .addHeader("Accept", "application/json")
-                .addHeader("Content-Type", "application/json")
-                .build()
+        val request: Request = if (chain.request().url().toString().contains(
+                    ISpotifyApi.TOKEN_URL)) {
+            chain.request()
+                    .newBuilder()
+                    .addHeader("Authorization", BuildConfig.BASIC)
+                    .build()
+        } else {
+            chain.request()
+                    .newBuilder()
+                    .addHeader("Authorization",
+                            "Bearer ${PrefUtil.getStringDefaultBlank("oauthtoken")!!}")
+                    .addHeader("Accept", "application/json")
+                    .addHeader("Content-Type", "application/json")
+                    .build()
+        }
         return chain.proceed(request)
     }
 }
