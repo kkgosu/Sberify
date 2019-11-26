@@ -49,21 +49,25 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
     }
 
     private suspend fun loadReleases() {
-        _newReleases.postValue(spotifyRepository.getNewReleases())
+        spotifyRepository.getNewReleases {
+            _newReleases.postValue(it)
+        }
     }
 
     private suspend fun getToken() {
-        val token = spotifyRepository.getToken()
-        _token.postValue(token)
-        TokenData.setToken(token)
+        spotifyRepository.getToken {
+            _token.postValue(it)
+            TokenData.setToken(it)
+        }
     }
 
     fun getAlbumInfo(album: Album) {
         viewModelScope.launch {
             _album.value = album
-            val albumInfo = spotifyRepository.getAlbumInfo(album.id)
-            if (albumInfo.isNotEmpty()) {
-                _album.postValue(albumInfo[0])
+            spotifyRepository.getAlbumInfo(album.id) {
+                if (it.isNotEmpty()) {
+                    _album.postValue(it[0])
+                }
             }
         }
     }
@@ -77,25 +81,28 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
 
     fun searchArtist(keyword: String) {
         viewModelScope.launch {
-            val searchArtist = spotifyRepository.searchArtist(keyword)
-            println(searchArtist)
-            _artist.postValue(searchArtist)
+            spotifyRepository.searchArtist(keyword) {
+                println(it)
+                _artist.postValue(it)
+            }
         }
     }
 
     fun searchAlbum(keyword: String) {
         viewModelScope.launch {
-            val searchAlbum = spotifyRepository.searchAlbum(keyword)
-            println(searchAlbum)
-            _albums.postValue(searchAlbum)
+            spotifyRepository.searchAlbum(keyword) {
+                println(it)
+                _albums.postValue(it)
+            }
         }
     }
 
     fun searchTrack(keyword: String) {
         viewModelScope.launch {
-            val searchTrack = spotifyRepository.searchTrack(keyword)
-            println(searchTrack)
-            _track.postValue(searchTrack)
+            spotifyRepository.searchTrack(keyword) {
+                println(it)
+                _track.postValue(it)
+            }
         }
     }
 }
