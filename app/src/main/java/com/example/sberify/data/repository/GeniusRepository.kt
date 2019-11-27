@@ -2,6 +2,8 @@ package com.example.sberify.data.repository
 
 import android.annotation.SuppressLint
 import com.example.sberify.data.GeniusParser
+import com.example.sberify.data.db.AppDatabase
+import com.example.sberify.data.db.track.TrackEntity
 import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.model.Track
 import com.example.sberify.presentation.ui.SharedViewModel
@@ -12,7 +14,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class GeniusRepository(private val geniusParser: GeniusParser) : IGeniusRepository {
+class GeniusRepository(private val geniusParser: GeniusParser,
+        private val database: AppDatabase) : IGeniusRepository {
 
     private val job = Job()
     private val coroutineContext: CoroutineContext
@@ -44,6 +47,8 @@ class GeniusRepository(private val geniusParser: GeniusParser) : IGeniusReposito
                 }
             }
         }.join()
+        database.getTrackDao().insertTrack(TrackEntity.from(track))
+        database.getTrackDao().updateTrackLyrics(track.id, lyrics)
         return lyrics
     }
 

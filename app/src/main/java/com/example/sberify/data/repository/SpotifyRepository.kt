@@ -6,8 +6,9 @@ import com.example.sberify.data.api.AuthInterceptor
 import com.example.sberify.data.api.BaseResponseHandler
 import com.example.sberify.data.api.ISpotifyApi
 import com.example.sberify.data.api.SearchTypes
-import com.example.sberify.data.db.album.AlbumDao
+import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.db.album.AlbumEntity
+import com.example.sberify.data.db.artists.ArtistEntity
 import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.domain.model.Album
 import com.example.sberify.domain.model.Artist
@@ -19,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class SpotifyRepository(
         private val dataConverter: DataConverter,
-        private val albumDao: AlbumDao) : BaseResponseHandler(), ISpotifyRepository {
+        private val database: AppDatabase) : BaseResponseHandler(), ISpotifyRepository {
 
     private val okHttpClient by lazy {
         OkHttpClient.Builder()
@@ -48,7 +49,10 @@ class SpotifyRepository(
         handleResponse(response) {
             val albums = dataConverter.convertAlbums(it.albums.items)
             albums.forEach { album ->
-                albumDao.insertAlbum(AlbumEntity.from(album))
+                database.getArtistDao()
+                        .insertArtist(ArtistEntity.from(album.artist))
+                database.getAlbumDao()
+                        .insertAlbum(AlbumEntity.from(album))
             }
             return albums
         }
@@ -60,7 +64,8 @@ class SpotifyRepository(
         handleResponse(response) {
             val albumInfo = dataConverter.convertAlbums(listOf(it))
             albumInfo.forEach { album ->
-                albumDao.updateAlbumTracks(album.id, album.tracks!!)
+                database.getAlbumDao()
+                        .updateAlbumTracks(album.id, album.tracks!!)
             }
             return albumInfo
         }
@@ -70,7 +75,12 @@ class SpotifyRepository(
     override suspend fun searchArtist(keyword: String): List<Artist> {
         val response = getResult { mSpotifyApi.searchArtist(keyword, SearchTypes.ARTIST) }
         handleResponse(response) {
-            return dataConverter.convertArtists(it.artists.items)
+            val artists = dataConverter.convertArtists(it.artists.items)
+            artists.forEach { artist ->
+                database.getArtistDao()
+                        .insertArtist(ArtistEntity.from(artist))
+            }
+            return artists
         }
         return emptyList()
     }

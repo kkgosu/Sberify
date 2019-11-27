@@ -2,29 +2,47 @@ package com.example.sberify.data.db.track
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.example.sberify.data.db.album.AlbumEntity
+import com.example.sberify.domain.model.Artist
+import com.example.sberify.domain.model.Image
+import com.example.sberify.domain.model.Track
 
 @Entity(tableName = "tracks"/*,
         foreignKeys = [ForeignKey(entity = AlbumEntity::class, parentColumns = ["spotify_id"],
                 childColumns = ["album_id"])]*/)
-class TrackEntity(
-        @PrimaryKey(autoGenerate = true)
-        @ColumnInfo(name = "id")
-        var id: Long?,
-
+data class TrackEntity(
+        @PrimaryKey
         @ColumnInfo(name = "spotify_id")
-        var spotifyId: String,
+        val spotifyId: String,
+
+        @ColumnInfo(name = "name")
+        val name: String,
 
         @ColumnInfo(name = "album_id")
-        var albumId: String,
+        val albumId: String,
 
         @ColumnInfo(name = "lyrics")
-        var lyrics: String,
+        val lyrics: String,
 
         @ColumnInfo(name = "artists")
-        var artists: String,
+        val artists: List<Artist>,
 
         @ColumnInfo(name = "image_url")
-        var image_url: String)
+        val image_url: String?) {
+
+    fun toTrack(): Track =
+            Track(id = spotifyId,
+                    name = name,
+                    image = Image(image_url!!, 0, 0),
+                    artists = artists)
+        
+        companion object {
+                fun from (track: Track): TrackEntity =
+                        TrackEntity(spotifyId = track.id,
+                                name = track.name,
+                                albumId = "",
+                                lyrics = "",
+                                artists = track.artists,
+                                image_url = track.image?.url)
+        }
+}

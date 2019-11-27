@@ -7,20 +7,20 @@ import com.example.sberify.domain.model.Album
 import com.example.sberify.domain.model.Artist
 import com.example.sberify.domain.model.Track
 
-@Entity(tableName = "albums"/*,
+@Entity(tableName = "albums",
         foreignKeys = [ForeignKey(entity = ArtistEntity::class,
                 parentColumns = ["spotify_id"],
-                childColumns = ["artist_id"])]*/)
+                childColumns = ["artist_id"])])
 data class AlbumEntity(
         @PrimaryKey
-        @ColumnInfo(name = "spotify_id")
+        @ColumnInfo(name = "spotify_id", index = true)
         val spotifyId: String,
 
-        @ColumnInfo(name = "artist_id")
+        @ColumnInfo(name = "artist_id", index = true)
         val artistId: String,
-/*
+
         @Embedded(prefix = "m")
-        val artist: Artist,*/
+        val artist: ArtistEntity,
 
         @ColumnInfo(name = "name")
         val name: String,
@@ -47,7 +47,7 @@ data class AlbumEntity(
                 AlbumEntity(
                         spotifyId = album.id,
                         artistId = album.artist.id,
-                        //artist = album.artist,
+                        artist = ArtistEntity.from(album.artist),
                         name = album.name,
                         trackIds = album.tracks!!,
                         imageUrl = album.imageUrl,

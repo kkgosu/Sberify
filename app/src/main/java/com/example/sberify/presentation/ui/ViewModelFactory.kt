@@ -7,24 +7,24 @@ import com.example.sberify.SberifyApp
 import com.example.sberify.data.repository.GeniusRepository
 import com.example.sberify.data.DataConverter
 import com.example.sberify.data.GeniusParser
-import com.example.sberify.data.db.album.AlbumDatabase
+import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.repository.SpotifyRepository
 
 class ViewModelFactory() : ViewModelProvider.Factory {
     //private val appContext = context.applicationContext
 
-    private val albumDao by lazy {
-        Room.databaseBuilder(SberifyApp.getContext(), AlbumDatabase::class.java, "albums")
+    private val appDatabase by lazy {
+        Room.databaseBuilder(SberifyApp.getContext(), AppDatabase::class.java, "database")
                 .fallbackToDestructiveMigration()
                 .build()
     }
 
     private val spotifyRepo by lazy {
-        SpotifyRepository(DataConverter(), albumDao.getAlbumDao())
+        SpotifyRepository(DataConverter(), appDatabase)
     }
 
     private val geniusRepo by lazy {
-        GeniusRepository(GeniusParser())
+        GeniusRepository(GeniusParser(), appDatabase)
     }
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

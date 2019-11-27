@@ -14,6 +14,9 @@ interface TrackDao {
     @Query("SELECT * FROM tracks WHERE album_id = :id")
     fun getTracksByAlbumId(id: String): LiveData<List<TrackEntity>>
 
+    @Query("UPDATE tracks SET lyrics = :lyrics WHERE spotify_id=:id")
+    fun updateTrackLyrics(id: String, lyrics: String)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTrack(trackEntity: TrackEntity)
 }
