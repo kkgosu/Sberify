@@ -43,43 +43,52 @@ class SpotifyRepository(
         }
     }
 
-    override suspend fun getNewReleases(callback: (List<Album>) -> Unit) {
+    override suspend fun getNewReleases(): List<Album> {
         val response = getResult { mSpotifyApi.getNewReleases() }
         handleResponse(response) {
             val albums = dataConverter.convertAlbums(it.albums.items)
             albums.forEach { album ->
                 albumDao.insertAlbum(AlbumEntity.from(album))
             }
-            callback(albums)
+            return albums
         }
+        return emptyList()
     }
 
-    override suspend fun getAlbumInfo(id: String, callback: (List<Album>) -> Unit) {
+    override suspend fun getAlbumInfo(id: String): List<Album> {
         val response = getResult { mSpotifyApi.getAlbumInfo(id) }
         handleResponse(response) {
-            callback(dataConverter.convertAlbums(listOf(it)))
+            val albumInfo = dataConverter.convertAlbums(listOf(it))
+            albumInfo.forEach { album ->
+                albumDao.updateAlbumTracks(album.id, album.tracks!!)
+            }
+            return albumInfo
         }
+        return emptyList()
     }
 
-    override suspend fun searchArtist(keyword: String, callback: (List<Artist>) -> Unit) {
+    override suspend fun searchArtist(keyword: String): List<Artist> {
         val response = getResult { mSpotifyApi.searchArtist(keyword, SearchTypes.ARTIST) }
         handleResponse(response) {
-            callback(dataConverter.convertArtists(it.artists.items))
+            return dataConverter.convertArtists(it.artists.items)
         }
+        return emptyList()
     }
 
-    override suspend fun searchAlbum(keyword: String, callback: (List<Album>) -> Unit) {
+    override suspend fun searchAlbum(keyword: String): List<Album> {
         val response = getResult { mSpotifyApi.searchAlbum(keyword, SearchTypes.ALBUM) }
         handleResponse(response) {
-            callback(dataConverter.convertAlbums(it.albums.items))
+            return dataConverter.convertAlbums(it.albums.items)
         }
+        return emptyList()
     }
 
-    override suspend fun searchTrack(keyword: String, callback: (List<Track>) -> Unit) {
+    override suspend fun searchTrack(keyword: String): List<Track> {
         val response = getResult { mSpotifyApi.searchTrack(keyword, SearchTypes.TRACK) }
         handleResponse(response) {
-            callback(dataConverter.convertTracks(it.tracks.items))
+            return dataConverter.convertTracks(it.tracks.items)
         }
+        return emptyList()
     }
 
     private inline fun <T> handleResponse(response: Result<T>, callback: (T) -> Unit) {

@@ -41,7 +41,7 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
 
     fun getData() {
         viewModelScope.launch {
-            withContext(Dispatchers.Default) {
+            withContext(Dispatchers.IO) {
                 getToken()
                 loadReleases()
             }
@@ -49,9 +49,8 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
     }
 
     private suspend fun loadReleases() {
-        spotifyRepository.getNewReleases {
-            _newReleases.postValue(it)
-        }
+        val albums = spotifyRepository.getNewReleases()
+        _newReleases.postValue(albums)
     }
 
     private suspend fun getToken() {
@@ -62,47 +61,43 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
     }
 
     fun getAlbumInfo(album: Album) {
-        viewModelScope.launch {
-            _album.value = album
-            spotifyRepository.getAlbumInfo(album.id) {
-                if (it.isNotEmpty()) {
-                    _album.postValue(it[0])
-                }
+        viewModelScope.launch(Dispatchers.IO) {
+            _album.postValue(album)
+            val albums = spotifyRepository.getAlbumInfo(album.id)
+            if (albums.isNotEmpty()) {
+                _album.postValue(albums[0])
             }
         }
     }
 
     fun getLyrics(track: Track) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _lyrics.value = ""
             _lyrics.postValue(geniusRepository.getLyrics(track))
         }
     }
 
     fun searchArtist(keyword: String) {
-        viewModelScope.launch {
-            spotifyRepository.searchArtist(keyword) {
-                println(it)
-                _artist.postValue(it)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            val artist = spotifyRepository.searchArtist(keyword)
+            println(artist)
+            _artist.postValue(artist)
         }
     }
 
     fun searchAlbum(keyword: String) {
-        viewModelScope.launch {
-            spotifyRepository.searchAlbum(keyword) {
-                println(it)
-                _albums.postValue(it)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            val album = spotifyRepository.searchAlbum(keyword)
+            println(album)
+            _albums.postValue(album)
         }
     }
 
     fun searchTrack(keyword: String) {
-        viewModelScope.launch {
-            spotifyRepository.searchTrack(keyword) {
-                println(it)
-                _track.postValue(it)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            val track = spotifyRepository.searchTrack(keyword)
+            println(track)
+            _track.postValue(track)
         }
     }
 }

@@ -7,9 +7,9 @@ import com.example.sberify.domain.model.Track
 
 interface ISpotifyRepository {
     suspend fun getToken(callback: (Token) -> Unit)
-    suspend fun getNewReleases(callback: (List<Album>) -> Unit)
-    suspend fun getAlbumInfo(id: String, callback: (List<Album>) -> Unit)
-    suspend fun searchArtist(keyword: String, callback: (List<Artist>) -> Unit)
-    suspend fun searchAlbum(keyword: String, callback: (List<Album>) -> Unit)
-    suspend fun searchTrack(keyword: String, callback: (List<Track>) -> Unit)
+    suspend fun getNewReleases(): List<Album>
+    suspend fun getAlbumInfo(id: String): List<Album>
+    suspend fun searchArtist(keyword: String): List<Artist>
+    suspend fun searchAlbum(keyword: String): List<Album>
+    suspend fun searchTrack(keyword: String): List<Track>
 }

@@ -11,31 +11,28 @@ import com.example.sberify.domain.model.Track
         foreignKeys = [ForeignKey(entity = ArtistEntity::class,
                 parentColumns = ["spotify_id"],
                 childColumns = ["artist_id"])]*/)
-class AlbumEntity(
-        @PrimaryKey(autoGenerate = true)
-        @ColumnInfo(name = "id")
-        var id: Long?,
-
+data class AlbumEntity(
+        @PrimaryKey
         @ColumnInfo(name = "spotify_id")
-        var spotifyId: String,
+        val spotifyId: String,
 
         @ColumnInfo(name = "artist_id")
-        var artistId: String,
+        val artistId: String,
 /*
         @Embedded(prefix = "m")
-        var artist: Artist,*/
+        val artist: Artist,*/
 
         @ColumnInfo(name = "name")
-        var name: String,
+        val name: String,
 
         @ColumnInfo(name = "track_ids")
-        var trackIds: List<Track>,
+        val trackIds: List<Track>,
 
         @ColumnInfo(name = "image_url")
-        var imageUrl: String,
+        val imageUrl: String,
 
         @ColumnInfo(name = "release_date")
-        var releaseDate: String) {
+        val releaseDate: String) {
 
     fun toAlbum(): Album =
             Album(id = spotifyId,
@@ -47,7 +44,7 @@ class AlbumEntity(
 
     companion object {
         fun from(album: Album): AlbumEntity =
-                AlbumEntity(id = null,
+                AlbumEntity(
                         spotifyId = album.id,
                         artistId = album.artist.id,
                         //artist = album.artist,

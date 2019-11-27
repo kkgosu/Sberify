@@ -1,10 +1,8 @@
 package com.example.sberify.data.db.album
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+import com.example.sberify.domain.model.Track
 
 @Dao
 interface AlbumDao {
@@ -16,4 +14,10 @@ interface AlbumDao {
 
     @Query("SELECT * FROM albums WHERE artist_id = :id")
     fun getAlbumsByArtistId(id: String): LiveData<List<AlbumEntity>>
+
+    @Query("UPDATE albums SET track_ids =:tracks WHERE spotify_id =:id")
+    fun updateAlbumTracks(id: String, tracks: List<Track>)
+
+    @Update(entity = AlbumEntity::class, onConflict = OnConflictStrategy.REPLACE)
+    fun updateAlbumTracks(albumEntity: AlbumEntity)
 }

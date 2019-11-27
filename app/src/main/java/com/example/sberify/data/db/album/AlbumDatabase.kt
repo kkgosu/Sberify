@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.sberify.data.db.TrackIdConverter
 
-@Database(entities = [AlbumEntity::class], version = 1)
+@Database(entities = [AlbumEntity::class], version = 2)
 @TypeConverters(TrackIdConverter::class)
 abstract class AlbumDatabase : RoomDatabase() {
     abstract fun getAlbumDao(): AlbumDao

@@ -15,6 +15,7 @@ class ViewModelFactory() : ViewModelProvider.Factory {
 
     private val albumDao by lazy {
         Room.databaseBuilder(SberifyApp.getContext(), AlbumDatabase::class.java, "albums")
+                .fallbackToDestructiveMigration()
                 .build()
     }
 
