@@ -4,19 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.sberify.domain.IDatabaseRepository
 import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.domain.TokenData
-import com.example.sberify.domain.model.Album
-import com.example.sberify.domain.model.Artist
-import com.example.sberify.domain.model.Token
-import com.example.sberify.domain.model.Track
+import com.example.sberify.domain.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
-        private val geniusRepository: IGeniusRepository) : ViewModel() {
+        private val geniusRepository: IGeniusRepository,
+        private val databaseRepository: IDatabaseRepository) : ViewModel() {
 
     private val _token = MutableLiveData<Token>()
     val token: LiveData<Token> = _token
@@ -38,6 +37,9 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
 
     private val _track = MutableLiveData<List<Track>>()
     val track: LiveData<List<Track>> = _track
+
+    private val _suggestions = MutableLiveData<List<Suggestion>>()
+    val suggestions: LiveData<List<Suggestion>> = _suggestions
 
     fun getData() {
         viewModelScope.launch {
@@ -98,6 +100,18 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
             val track = spotifyRepository.searchTrack(keyword)
             println(track)
             _track.postValue(track)
+        }
+    }
+
+    fun insertSuggestion(text: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            databaseRepository.insertSuggestion(Suggestion(text))
+        }
+    }
+
+    fun getAllSuggestions() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _suggestions.postValue(databaseRepository.getAllSuggestions())
         }
     }
 }

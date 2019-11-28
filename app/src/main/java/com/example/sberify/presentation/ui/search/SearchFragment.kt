@@ -21,6 +21,7 @@ import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import com.example.sberify.R
 import com.example.sberify.domain.model.Album
 import com.example.sberify.domain.model.Artist
+import com.example.sberify.domain.model.Suggestion
 import com.example.sberify.domain.model.Track
 import com.example.sberify.presentation.ui.MainActivity
 import com.example.sberify.presentation.ui.SharedViewModel
@@ -29,24 +30,27 @@ import com.example.sberify.presentation.ui.lyrics.LyricsFragment
 import kotlinx.android.synthetic.main.bottom_app_bar.*
 
 
-class SearchFragment : Fragment(R.layout.fragment_search), SearchAdapter.Interaction {
-
+class SearchFragment : Fragment(
+        R.layout.fragment_search), SearchAdapter.Interaction, SuggestionsAdapter.Interaction {
     private var searchType = SearchType.ARTIST
 
     private lateinit var resultsRecyclerView: RecyclerView
     private lateinit var mSearchAdapter: SearchAdapter
     private lateinit var mSuggestionsRecycler: RecyclerView
     private lateinit var mSuggestionsAdapter: SuggestionsAdapter
-    private val list = listOf("Lorem", "Ipsum", "simply", "dummy", "text")
+    private var list = emptyList<Suggestion>()
 
     private lateinit var mSharedViewModel: SharedViewModel
 
+    private lateinit var mSearchView: SearchView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mSearchAdapter = SearchAdapter(this)
+        mSuggestionsAdapter = SuggestionsAdapter(this)
+
         mSharedViewModel = ViewModelProvider(requireActivity()).get(
                 SharedViewModel::class.java)
-        mSearchAdapter = SearchAdapter(this)
-        mSuggestionsAdapter = SuggestionsAdapter()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +58,7 @@ class SearchFragment : Fragment(R.layout.fragment_search), SearchAdapter.Interac
         val view = super.onCreateView(inflater, container, savedInstanceState)
         resultsRecyclerView = view?.findViewById(R.id.search_results)!!
         mSuggestionsRecycler = view.findViewById(R.id.suggestion_recycler)!!
-        val searchView = view.findViewById<SearchView>(R.id.search_view)
+        mSearchView = view.findViewById<SearchView>(R.id.search_view)
         view.findViewById<RadioGroup>(R.id.search_options_rg)
                 .setOnCheckedChangeListener { _, checkedId ->
                     when (checkedId) {
@@ -71,7 +75,6 @@ class SearchFragment : Fragment(R.layout.fragment_search), SearchAdapter.Interac
                 }
         mSuggestionsRecycler.apply {
             adapter = mSuggestionsAdapter
-            mSuggestionsAdapter.submitList(list)
         }
 
         resultsRecyclerView.adapter = mSearchAdapter
@@ -88,7 +91,12 @@ class SearchFragment : Fragment(R.layout.fragment_search), SearchAdapter.Interac
             mSearchAdapter.currentSearchType = SearchType.TRACK
             mSearchAdapter.submitList(it)
         })
-        configureSearchView(searchView)
+        mSharedViewModel.suggestions.observe(viewLifecycleOwner, Observer {
+            list = it
+            mSuggestionsAdapter.submitList(list)
+
+        })
+        configureSearchView(mSearchView)
         return view
     }
 
@@ -138,9 +146,15 @@ class SearchFragment : Fragment(R.layout.fragment_search), SearchAdapter.Interac
         }
     }
 
+    override fun onSuggestionSelected(position: Int, item: Suggestion) {
+        val query = item.text
+        mSearchView.setQuery(query, true)
+    }
+
     private fun configureSearchView(searchView: SearchView?) {
         searchView?.setOnQueryTextFocusChangeListener { _, hasFocus ->
             mSuggestionsRecycler.visibility = if (hasFocus) {
+                mSharedViewModel.getAllSuggestions()
                 mSuggestionsRecycler.scheduleLayoutAnimation()
                 View.VISIBLE
             } else {
@@ -150,18 +164,19 @@ class SearchFragment : Fragment(R.layout.fragment_search), SearchAdapter.Interac
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
                 newText?.let { query ->
-                    mSuggestionsAdapter.submitList(list.filter { it.contains(query, true) })
+                    mSuggestionsAdapter.submitList(list.filter { it.text.contains(query, true) })
                 }
                 return true
             }
 
             override fun onQueryTextSubmit(query: String?): Boolean {
+                mSharedViewModel.insertSuggestion(query!!)
                 searchView.clearFocus()
                 mSuggestionsRecycler.visibility = View.GONE
                 when (searchType) {
-                    SearchType.ARTIST -> mSharedViewModel.searchArtist(query!!)
-                    SearchType.ALBUM -> mSharedViewModel.searchAlbum(query!!)
-                    SearchType.TRACK -> mSharedViewModel.searchTrack(query!!)
+                    SearchType.ARTIST -> mSharedViewModel.searchArtist(query)
+                    SearchType.ALBUM -> mSharedViewModel.searchAlbum(query)
+                    SearchType.TRACK -> mSharedViewModel.searchTrack(query)
                 }
                 return true
             }

@@ -8,6 +8,7 @@ import com.example.sberify.data.repository.GeniusRepository
 import com.example.sberify.data.DataConverter
 import com.example.sberify.data.GeniusParser
 import com.example.sberify.data.db.AppDatabase
+import com.example.sberify.data.repository.DatabaseRepository
 import com.example.sberify.data.repository.SpotifyRepository
 
 class ViewModelFactory() : ViewModelProvider.Factory {
@@ -26,10 +27,14 @@ class ViewModelFactory() : ViewModelProvider.Factory {
     private val geniusRepo by lazy {
         GeniusRepository(GeniusParser(), appDatabase)
     }
+    
+    private val databaseRepo by lazy {
+        DatabaseRepository(appDatabase)
+    }
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SharedViewModel::class.java)) {
-            return SharedViewModel(spotifyRepo, geniusRepo) as T
+            return SharedViewModel(spotifyRepo, geniusRepo, databaseRepo) as T
         }
         return null as T
     }

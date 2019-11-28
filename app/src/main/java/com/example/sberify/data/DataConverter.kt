@@ -7,17 +7,14 @@ import java.util.*
 
 class DataConverter : IConverter<BaseDataModel, BaseModel> {
     override fun convertAlbums(from: List<AlbumData>?): List<Album> {
-        val albumsList = arrayListOf<Album>()
-        from?.forEach {
-            albumsList.add(
-                    Album(it.id,
-                            convertArtists(it.artists)[0],
-                            it.name,
-                            convertTracks(it.tracks?.items),
-                            it.images[0].url,
-                            it.release_date))
-        }
-        return albumsList
+        return from?.map {
+            Album(it.id,
+                    convertArtists(it.artists)[0],
+                    it.name,
+                    convertTracks(it.tracks?.items),
+                    it.images[0].url,
+                    it.release_date)
+        }!!
     }
 
     override fun convertArtists(from: List<ArtistData>): List<Artist> {

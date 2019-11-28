@@ -7,19 +7,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.example.sberify.R
+import com.example.sberify.domain.model.Suggestion
 import kotlinx.android.synthetic.main.item_suggestion.view.*
 
 class SuggestionsAdapter(
         private val interaction: Interaction? = null) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<String>() {
+    private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Suggestion>() {
 
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-            return oldItem == newItem
+        override fun areItemsTheSame(oldItem: Suggestion, newItem: Suggestion): Boolean {
+            return oldItem.text == newItem.text
         }
 
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
-            return oldItem.contentEquals(newItem)
+        override fun areContentsTheSame(oldItem: Suggestion, newItem: Suggestion): Boolean {
+            return oldItem == newItem
         }
 
     }
@@ -45,7 +46,7 @@ class SuggestionsAdapter(
         return differ.currentList.size
     }
 
-    fun submitList(list: List<String>) {
+    fun submitList(list: List<Suggestion>) {
         differ.submitList(list)
     }
 
@@ -53,15 +54,15 @@ class SuggestionsAdapter(
     constructor(itemView: View, private val interaction: Interaction?) : RecyclerView.ViewHolder(
             itemView) {
 
-        fun bind(item: String) = with(itemView) {
+        fun bind(item: Suggestion) = with(itemView) {
             setOnClickListener {
-                interaction?.onItemSelected(adapterPosition, item)
+                interaction?.onSuggestionSelected(adapterPosition, item)
             }
-            suggestion_text.text = item
+            suggestion_text.text = item.text
         }
     }
 
     interface Interaction {
-        fun onItemSelected(position: Int, item: String)
+        fun onSuggestionSelected(position: Int, item: Suggestion)
     }
 }
