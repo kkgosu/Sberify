@@ -66,9 +66,10 @@ class AlbumInfoFragment : Fragment(
         return view
     }
 
-    override fun onItemSelected(position: Int, item: Track) {
+    override fun onItemSelected(position: Int, item: Track, view: View) {
         mSharedViewModel.getLyrics(item)
         requireActivity().supportFragmentManager.commit {
+            addSharedElement(view.findViewById(R.id.track_name), item.name)
             replace(R.id.root, LyricsFragment.newInstance())
             addToBackStack(null)
         }

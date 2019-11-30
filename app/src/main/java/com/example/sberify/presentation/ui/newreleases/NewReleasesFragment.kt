@@ -79,9 +79,9 @@ class NewReleasesFragment : Fragment(
     override fun onItemSelected(item: Album, view: View) {
         mViewModel.getAlbumInfo(item)
         requireActivity().supportFragmentManager.commit {
-            addSharedElement(view.findViewById<TextView>(R.id.release_name), item.name)
-            addSharedElement(view.findViewById<ImageView>(R.id.release_cover), item.id)
-            addSharedElement(view.findViewById<TextView>(R.id.artist_name), item.artist.name)
+            addSharedElement(view.findViewById(R.id.release_name), item.name)
+            addSharedElement(view.findViewById(R.id.release_cover), item.id)
+            addSharedElement(view.findViewById(R.id.artist_name), item.artist.name)
             replace(R.id.root, AlbumInfoFragment.newInstance())
             addToBackStack(null)
         }

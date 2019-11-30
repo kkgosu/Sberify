@@ -26,17 +26,17 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
     private val _newReleases = MutableLiveData<List<Album>>()
     val newReleases: LiveData<List<Album>> = _newReleases
 
-    private val _lyrics = MutableLiveData<String>()
-    val lyrics: LiveData<String> = _lyrics
+    private val _lyrics = MutableLiveData<Track>()
+    val lyrics: LiveData<Track> = _lyrics
 
     private val _albums = MutableLiveData<List<Album>>()
     val albums: LiveData<List<Album>> = _albums
 
-    private val _artist = MutableLiveData<List<Artist>>()
-    val artist: LiveData<List<Artist>> = _artist
+    private val _artists = MutableLiveData<List<Artist>>()
+    val artist: LiveData<List<Artist>> = _artists
 
-    private val _track = MutableLiveData<List<Track>>()
-    val track: LiveData<List<Track>> = _track
+    private val _tracks = MutableLiveData<List<Track>>()
+    val track: LiveData<List<Track>> = _tracks
 
     private val _suggestions = MutableLiveData<List<Suggestion>>()
     val suggestions: LiveData<List<Suggestion>> = _suggestions
@@ -74,8 +74,9 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
 
     fun getLyrics(track: Track) {
         viewModelScope.launch(Dispatchers.IO) {
-            _lyrics.postValue("")
-            _lyrics.postValue(geniusRepository.getLyrics(track))
+            _lyrics.postValue(track)
+            track.lyrics = geniusRepository.getLyrics(track)
+            _lyrics.postValue(track)
         }
     }
 
@@ -83,7 +84,7 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
         viewModelScope.launch(Dispatchers.IO) {
             val artist = spotifyRepository.searchArtist(keyword)
             println(artist)
-            _artist.postValue(artist)
+            _artists.postValue(artist)
         }
     }
 
@@ -99,7 +100,7 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
         viewModelScope.launch(Dispatchers.IO) {
             val track = spotifyRepository.searchTrack(keyword)
             println(track)
-            _track.postValue(track)
+            _tracks.postValue(track)
         }
     }
 

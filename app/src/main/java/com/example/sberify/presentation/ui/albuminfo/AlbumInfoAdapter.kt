@@ -41,9 +41,11 @@ class AlbumInfoAdapter(private val interaction: Interaction? = null) :
 
         fun bind(item: Track) = with(itemView) {
             itemView.setOnClickListener {
-                interaction?.onItemSelected(adapterPosition, item)
+                interaction?.onItemSelected(adapterPosition, item, this)
             }
             track_name.text = item.name
+            track_name.transitionName = item.name
+            
             val builder = StringBuilder()
             item.artists.forEach {
                 builder.append(it.name)
@@ -51,10 +53,11 @@ class AlbumInfoAdapter(private val interaction: Interaction? = null) :
             }
             artist_name.text = builder.dropLast(2)
                     .toString()
+            
         }
     }
 
     interface Interaction {
-        fun onItemSelected(position: Int, item: Track)
+        fun onItemSelected(position: Int, item: Track, view: View)
     }
 }
