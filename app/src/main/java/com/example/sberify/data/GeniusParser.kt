@@ -29,6 +29,7 @@ class GeniusParser {
                 .replace("</p>", "\n\n")
                 .replace("\n +", "\n")
                 .replace("^\\s*", "")
+                .drop(2)
 
         return prettyPrintedBodyFragment
     }

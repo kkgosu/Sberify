@@ -6,29 +6,20 @@ import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.db.track.TrackEntity
 import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.model.Track
-import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.utils.normalize
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.withContext
 
 class GeniusRepository(private val geniusParser: GeniusParser,
         private val database: AppDatabase) : IGeniusRepository {
-
-    private val job = Job()
-    private val coroutineContext: CoroutineContext
-        get() = job + Dispatchers.Default
-    private val scope = CoroutineScope(coroutineContext)
 
     override suspend fun getLyrics(track: Track): String {
         var lyrics = ""
         val trackName: String = filterTrackName(track.name)
         var trackUrl: String = filterLyricsUrl(
                 "${track.artists[0].name.normalize()} $trackName")
-
-        scope.launch {
+        
+        withContext(Dispatchers.IO){
             println(trackUrl)
             lyrics = geniusParser.getLyrics(trackUrl)
 
@@ -46,9 +37,9 @@ class GeniusRepository(private val geniusParser: GeniusParser,
                     lyrics = geniusParser.getLyrics(trackUrl)
                 }
             }
-        }.join()
-        database.getTrackDao().insertTrack(TrackEntity.from(track))
-        database.getTrackDao().updateTrackLyrics(track.id, lyrics)
+            track.lyrics = lyrics
+            database.getTrackDao().insertTrack(TrackEntity.from(track))
+        }
         return lyrics
     }
 

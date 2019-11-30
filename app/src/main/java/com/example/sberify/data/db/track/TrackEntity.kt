@@ -22,10 +22,13 @@ data class TrackEntity(
         val albumId: String,
 
         @ColumnInfo(name = "lyrics")
-        val lyrics: String,
+        val lyrics: String?,
 
         @ColumnInfo(name = "artists")
         val artists: List<Artist>,
+
+        @ColumnInfo(name = "isFavorite")
+        var isFavorite: Boolean,
 
         @ColumnInfo(name = "image_url")
         val image_url: String?) {
@@ -35,14 +38,15 @@ data class TrackEntity(
                     name = name,
                     image = Image(image_url!!, 0, 0),
                     artists = artists)
-        
-        companion object {
-                fun from (track: Track): TrackEntity =
-                        TrackEntity(spotifyId = track.id,
-                                name = track.name,
-                                albumId = "",
-                                lyrics = "",
-                                artists = track.artists,
-                                image_url = track.image?.url)
-        }
+
+    companion object {
+        fun from(track: Track): TrackEntity =
+                TrackEntity(spotifyId = track.id,
+                        name = track.name,
+                        albumId = "",
+                        lyrics = track.lyrics,
+                        artists = track.artists,
+                        isFavorite = track.isFavorite,
+                        image_url = track.image?.url)
+    }
 }

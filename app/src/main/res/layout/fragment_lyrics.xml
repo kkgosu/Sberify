@@ -1,26 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingBottom="@dimen/bottom_bar_height">
-
-        <TextView
-            android:id="@+id/lyrics"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/padding_default"
-            android:textAlignment="textStart"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline2"
-            android:textSize="22sp"
-            tools:text="dnjasndjknajkndjandjksnadkjanjkdnajkdnjkajkdskjadnjka" />
-    </ScrollView>
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -52,8 +36,22 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent" />
         </LinearLayout>
-
     </com.google.android.material.appbar.MaterialToolbar>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/bottom_bar_height">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/lyrics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_default"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline2"
+            android:textSize="22sp"
+            tools:text="dnjasndjknajkndjandjksnadkjanjkdnajkdnjkajkdskjadnjka" />
+    </ScrollView>
+</LinearLayout>

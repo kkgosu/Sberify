@@ -13,7 +13,7 @@ import com.example.sberify.data.db.track.TrackDao
 import com.example.sberify.data.db.track.TrackEntity
 
 @Database(entities = [ArtistEntity::class, AlbumEntity::class, TrackEntity::class, SuggestionsEntity::class],
-        version = 9,
+        version = 1,
         exportSchema = false)
 @TypeConverters(TrackIdConverter::class, ArtistsConverter::class)
 abstract class AppDatabase : RoomDatabase() {
