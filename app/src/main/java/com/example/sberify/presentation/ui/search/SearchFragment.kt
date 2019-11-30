@@ -46,9 +46,6 @@ class SearchFragment : Fragment(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mSearchAdapter = SearchAdapter(this)
-        mSuggestionsAdapter = SuggestionsAdapter(this)
-
         mSharedViewModel = ViewModelProvider(requireActivity()).get(
                 SharedViewModel::class.java)
     }
@@ -58,7 +55,15 @@ class SearchFragment : Fragment(
         val view = super.onCreateView(inflater, container, savedInstanceState)
         resultsRecyclerView = view?.findViewById(R.id.search_results)!!
         mSuggestionsRecycler = view.findViewById(R.id.suggestion_recycler)!!
-        mSearchView = view.findViewById<SearchView>(R.id.search_view)
+        
+        mSearchAdapter = SearchAdapter(this)
+        mSuggestionsAdapter = SuggestionsAdapter(this)
+        
+        resultsRecyclerView.adapter = mSearchAdapter
+        mSuggestionsRecycler.apply {
+            adapter = mSuggestionsAdapter
+        }
+        mSearchView = view.findViewById(R.id.search_view)
         view.findViewById<RadioGroup>(R.id.search_options_rg)
                 .setOnCheckedChangeListener { _, checkedId ->
                     when (checkedId) {
@@ -73,11 +78,7 @@ class SearchFragment : Fragment(
                         }
                     }
                 }
-        mSuggestionsRecycler.apply {
-            adapter = mSuggestionsAdapter
-        }
 
-        resultsRecyclerView.adapter = mSearchAdapter
 
         mSharedViewModel.artist.observe(viewLifecycleOwner, Observer {
             mSearchAdapter.currentSearchType = SearchType.ARTIST

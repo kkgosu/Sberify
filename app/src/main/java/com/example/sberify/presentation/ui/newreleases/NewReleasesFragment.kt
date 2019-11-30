@@ -35,6 +35,12 @@ class NewReleasesFragment : Fragment(
     private lateinit var mRecyclerView: RecyclerView
     private var mState: Parcelable? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mViewModel = ViewModelProvider(requireActivity()).get(
+                SharedViewModel::class.java)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
         mRecyclerView = super.onCreateView(inflater, container, savedInstanceState) as RecyclerView
@@ -45,9 +51,7 @@ class NewReleasesFragment : Fragment(
             adapter = mAdapter
             mLayoutManager.onRestoreInstanceState(mState)
         }
-
-        mViewModel = ViewModelProvider(requireActivity()).get(
-                SharedViewModel::class.java)
+        
         mViewModel.newReleases.observe(viewLifecycleOwner, Observer {
             mAdapter.submitList(it)
         })
