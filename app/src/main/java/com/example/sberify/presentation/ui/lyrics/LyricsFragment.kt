@@ -13,17 +13,19 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.sberify.R
 import com.example.sberify.presentation.ui.SharedViewModel
-import kotlinx.android.synthetic.main.fragment_lyrics.*
+import com.example.sberify.presentation.ui.ViewModelFactory
 
 class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
 
     private lateinit var mSharedViewModel: SharedViewModel
+    private lateinit var mLyricsViewModel: LyricsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        retainInstance = true
-        mSharedViewModel = ViewModelProvider(requireActivity()).get(
-                SharedViewModel::class.java)
+        mSharedViewModel = ViewModelProvider(requireActivity())
+                .get(SharedViewModel::class.java)
+        mLyricsViewModel = ViewModelProvider(this, ViewModelFactory())
+                .get(LyricsViewModel::class.java)
         postponeEnterTransition()
         sharedElementEnterTransition = TransitionInflater.from(requireContext())
                 .inflateTransition(android.R.transition.move)
@@ -45,6 +47,7 @@ class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
                         setFavoriteIcon(this, !it.isFavorite)
                         setOnClickListener { _ ->
                             it.isFavorite = !it.isFavorite
+                            mLyricsViewModel.updateTrack(it)
                             setFavoriteIcon(this, it.isFavorite)
                             startAnim(this)
                         }
@@ -56,13 +59,14 @@ class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
 
     private fun setFavoriteIcon(imageButton: ImageButton, isFavorite: Boolean) {
         with(imageButton) {
-            setImageDrawable(if (isFavorite) {
-                (requireContext().getDrawable(
-                        R.drawable.avd_heart_to_filled))
-            } else {
-                requireContext().getDrawable(
-                        R.drawable.avd_filled_heart_break)
-            })
+            setImageDrawable(
+                    if (isFavorite) {
+                        (requireContext().getDrawable(
+                                R.drawable.avd_heart_to_filled))
+                    } else {
+                        requireContext().getDrawable(
+                                R.drawable.avd_filled_heart_break)
+                    })
         }
     }
 

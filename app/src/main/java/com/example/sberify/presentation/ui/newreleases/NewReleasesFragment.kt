@@ -35,19 +35,23 @@ class NewReleasesFragment : Fragment(
     private lateinit var mRecyclerView: RecyclerView
     private var mState: Parcelable? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mAdapter = NewReleasesAdapter(this)
+        mLayoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
+        mViewModel = ViewModelProvider(requireActivity()).get(
+                SharedViewModel::class.java)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
         mRecyclerView = super.onCreateView(inflater, container, savedInstanceState) as RecyclerView
-        mAdapter = NewReleasesAdapter(this)
-        mLayoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         mRecyclerView.apply {
             layoutManager = mLayoutManager
             adapter = mAdapter
             mLayoutManager.onRestoreInstanceState(mState)
         }
-
-        mViewModel = ViewModelProvider(requireActivity()).get(
-                SharedViewModel::class.java)
+        
         mViewModel.newReleases.observe(viewLifecycleOwner, Observer {
             mAdapter.submitList(it)
         })

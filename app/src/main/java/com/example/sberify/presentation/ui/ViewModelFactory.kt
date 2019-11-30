@@ -10,7 +10,10 @@ import com.example.sberify.data.GeniusParser
 import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.repository.DatabaseRepository
 import com.example.sberify.data.repository.SpotifyRepository
+import com.example.sberify.domain.IDatabaseRepository
+import com.example.sberify.presentation.ui.lyrics.LyricsViewModel
 
+@Suppress("UNCHECKED_CAST")
 class ViewModelFactory() : ViewModelProvider.Factory {
     //private val appContext = context.applicationContext
 
@@ -29,12 +32,14 @@ class ViewModelFactory() : ViewModelProvider.Factory {
     }
     
     private val databaseRepo by lazy {
-        DatabaseRepository(appDatabase)
+        DatabaseRepository(appDatabase) as IDatabaseRepository
     }
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SharedViewModel::class.java)) {
             return SharedViewModel(spotifyRepo, geniusRepo, databaseRepo) as T
+        } else if (modelClass.isAssignableFrom(LyricsViewModel::class.java)) {
+            return LyricsViewModel(databaseRepo) as T
         }
         return null as T
     }

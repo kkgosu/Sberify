@@ -27,9 +27,10 @@ class AlbumInfoFragment : Fragment(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mAdapter = AlbumInfoAdapter(this)
         mSharedViewModel = ViewModelProvider(requireActivity()).get(
                 SharedViewModel::class.java)
-        mAdapter = AlbumInfoAdapter(this)
+        
         postponeEnterTransition()
         sharedElementEnterTransition = TransitionInflater.from(requireContext())
                 .inflateTransition(android.R.transition.move)
