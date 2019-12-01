@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/new_releases"
+    app:startDestination="@id/newReleasesFragment">
+    <fragment
+        android:id="@+id/newReleasesFragment"
+        android:name="com.example.sberify.presentation.ui.newreleases.NewReleasesFragment"
+        android:label="NewReleasesFragment">
+        <action
+            android:id="@+id/action_newReleasesFragment_to_albumInfoFragment"
+            app:destination="@id/albumInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/albumInfoFragment"
+        android:name="com.example.sberify.presentation.ui.albuminfo.AlbumInfoFragment"
+        android:label="AlbumInfoFragment">
+        <action
+            android:id="@+id/action_albumInfoFragment_to_lyricsFragment"
+            app:destination="@id/lyricsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lyricsFragment"
+        android:name="com.example.sberify.presentation.ui.lyrics.LyricsFragment"
+        android:label="LyricsFragment" />
+</navigation>

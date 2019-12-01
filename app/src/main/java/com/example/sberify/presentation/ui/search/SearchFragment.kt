@@ -113,7 +113,7 @@ class SearchFragment : Fragment(
 
     override fun onTrackSelected(position: Int, item: Track) {
         mSharedViewModel.getLyrics(item)
-        findNavController().navigate(R.id.action_searchFragment_to_lyricsFragment2)
+        findNavController().navigate(R.id.action_searchFragment_to_lyricsFragment)
     }
 
     override fun onAlbumSelected(item: Album, view: View) {
