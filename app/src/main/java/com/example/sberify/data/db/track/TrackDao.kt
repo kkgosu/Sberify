@@ -14,6 +14,9 @@ interface TrackDao {
     @Query("UPDATE tracks SET lyrics = :lyrics WHERE spotify_id=:id")
     fun updateTrackLyrics(id: String, lyrics: String)
 
+    @Query("SELECT * FROM tracks WHERE isFavorite = 1 ORDER BY name ASC")
+    fun loadFavoriteTracks(): List<TrackEntity>
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateTrack(trackEntity: TrackEntity)
 

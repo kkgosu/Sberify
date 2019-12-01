@@ -1,7 +1,12 @@
 package com.example.sberify.presentation.ui
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.menu.MenuView
 import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        bottomAppBar.replaceMenu(R.menu.bottom_menu)
+        //bottomAppBar.replaceMenu(R.menu.bottom_menu)
 
         supportFragmentManager.commit {
             replace(R.id.root, NewReleasesFragment.newInstance())
@@ -36,6 +41,24 @@ class MainActivity : AppCompatActivity() {
         })
         mViewModel.getData()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.bottom_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.favorite -> {
+                supportFragmentManager.commit {
+                    replace(R.id.root, FavoriteFragment.newInstance())
+                    addToBackStack(null)
+                }
+            }
+        }
+        return true
+    }
+
 }
 
 

@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_800"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_bar_height"
-        android:background="@color/gray_800"
+        android:background="@color/transparent"
         app:buttonGravity="center_vertical"
         app:navigationIcon="@drawable/ic_arrow_back_black_24dp">
 
@@ -26,8 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                android:textColor="@color/white"
-                tools:text="Lazarus Phenomenon" />
+                android:textColor="@color/white" />
 
             <ImageButton
                 android:id="@+id/favorite_text"
@@ -38,20 +38,12 @@
         </LinearLayout>
     </com.google.android.material.appbar.MaterialToolbar>
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favorite_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingBottom="@dimen/bottom_bar_height">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_track" />
 
-        <TextView
-            android:id="@+id/lyrics"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/padding_default"
-            android:textAlignment="textStart"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline2"
-            android:textSize="22sp"
-            tools:text="dnjasndjknajkndjandjksnadkjanjkdnajkdnjkajkdskjadnjka" />
-    </ScrollView>
 </LinearLayout>

@@ -37,7 +37,9 @@ data class TrackEntity(
             Track(id = spotifyId,
                     name = name,
                     image = Image(image_url!!, 0, 0),
-                    artists = artists)
+                    artists = artists,
+                    lyrics = lyrics,
+                    isFavorite = isFavorite)
 
     companion object {
         fun from(track: Track): TrackEntity =

@@ -7,4 +7,5 @@ interface IDatabaseRepository {
     suspend fun getAllSuggestions(): List<Suggestion>
     suspend fun insertSuggestion(suggestion: Suggestion)
     suspend fun updateTrack(track: Track)
+    suspend fun loadFavoriteTracks(): List<Track>
 }

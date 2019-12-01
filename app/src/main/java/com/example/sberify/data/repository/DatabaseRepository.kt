@@ -21,10 +21,11 @@ class DatabaseRepository(private val database: AppDatabase) : IDatabaseRepositor
 
     override suspend fun getAllSuggestions(): List<Suggestion> {
         return withContext(Dispatchers.IO) {
-            val sugs = database.getSuggestionsDao()
+            database.getSuggestionsDao()
                     .getAllSuggestions()
-            
-            sugs.map { it.toSuggestion() }
+                    .map {
+                        it.toSuggestion()
+                    }
         }
     }
 
@@ -32,6 +33,16 @@ class DatabaseRepository(private val database: AppDatabase) : IDatabaseRepositor
         withContext(Dispatchers.IO) {
             database.getTrackDao()
                     .updateTrack(TrackEntity.from(track))
+        }
+    }
+
+    override suspend fun loadFavoriteTracks(): List<Track> {
+        return withContext(Dispatchers.IO) {
+            database.getTrackDao()
+                    .loadFavoriteTracks()
+                    .map {
+                        it.toTrack()
+                    }
         }
     }
 }

@@ -30,17 +30,20 @@ class ViewModelFactory() : ViewModelProvider.Factory {
     private val geniusRepo by lazy {
         GeniusRepository(GeniusParser(), appDatabase)
     }
-    
+
     private val databaseRepo by lazy {
         DatabaseRepository(appDatabase) as IDatabaseRepository
     }
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(SharedViewModel::class.java)) {
-            return SharedViewModel(spotifyRepo, geniusRepo, databaseRepo) as T
-        } else if (modelClass.isAssignableFrom(LyricsViewModel::class.java)) {
-            return LyricsViewModel(databaseRepo) as T
+        return when {
+            modelClass.isAssignableFrom(SharedViewModel::class.java) -> SharedViewModel(
+                    spotifyRepo, geniusRepo, databaseRepo) as T
+            modelClass.isAssignableFrom(LyricsViewModel::class.java) -> LyricsViewModel(
+                    databaseRepo) as T
+            modelClass.isAssignableFrom(FavoriteViewModel::class.java) -> FavoriteViewModel(
+                    databaseRepo) as T
+            else -> null as T
         }
-        return null as T
     }
 }

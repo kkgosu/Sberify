@@ -79,7 +79,6 @@ class SearchFragment : Fragment(
                     }
                 }
 
-
         mSharedViewModel.artist.observe(viewLifecycleOwner, Observer {
             mSearchAdapter.currentSearchType = SearchType.ARTIST
             mSearchAdapter.submitList(it)
