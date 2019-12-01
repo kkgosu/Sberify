@@ -49,7 +49,6 @@ class NewReleasesFragment : Fragment(
         mViewModel.newReleases.observe(viewLifecycleOwner, Observer {
             mAdapter.submitList(it)
         })
-        sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         return mRecyclerView
     }
 
@@ -60,8 +59,10 @@ class NewReleasesFragment : Fragment(
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        sharedElementReturnTransition = TransitionInflater.from(context)
+                .inflateTransition(android.R.transition.move)
         postponeEnterTransition()
-        mRecyclerView.viewTreeObserver.addOnPreDrawListener { 
+        mRecyclerView.viewTreeObserver.addOnPreDrawListener {
             startPostponedEnterTransition()
             true
         }
@@ -73,7 +74,7 @@ class NewReleasesFragment : Fragment(
                 view.findViewById<TextView>(R.id.release_name) to item.name,
                 view.findViewById<ImageView>(R.id.release_cover) to item.id,
                 view.findViewById<TextView>(R.id.artist_name) to item.artist.name)
-        
+
         findNavController().navigate(R.id.action_newReleasesFragment_to_albumInfoFragment, null,
                 null, extras)
     }

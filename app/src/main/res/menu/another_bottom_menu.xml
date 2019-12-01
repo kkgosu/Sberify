@@ -7,7 +7,7 @@
         android:title="@string/new_releases"
         app:showAsAction="always" />
     <item
-        android:id="@+id/searchFragment"
+        android:id="@+id/navigation2"
         android:icon="@drawable/avd_search_to_close"
         android:title="@string/search"
         app:showAsAction="always" />

@@ -12,7 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionInflater
 import com.example.sberify.R
 import com.example.sberify.domain.model.Album
 import com.example.sberify.domain.model.Artist
@@ -93,27 +96,34 @@ class SearchFragment : Fragment(
         return view
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        sharedElementReturnTransition = TransitionInflater.from(context)
+                .inflateTransition(android.R.transition.move)
+        postponeEnterTransition()
+        resultsRecyclerView.viewTreeObserver.addOnPreDrawListener {
+            startPostponedEnterTransition()
+            true
+        }
+    }
+
     override fun onArtistSelected(position: Int, item: Artist) {
 
     }
 
     override fun onTrackSelected(position: Int, item: Track) {
         mSharedViewModel.getLyrics(item)
-        requireActivity().supportFragmentManager.commit {
-            //replace(R.id.root, LyricsFragment.newInstance())
-            addToBackStack(null)
-        }
+        findNavController().navigate(R.id.action_searchFragment_to_lyricsFragment2)
     }
 
     override fun onAlbumSelected(item: Album, view: View) {
         mSharedViewModel.getAlbumInfo(item)
-        requireActivity().supportFragmentManager.commit {
-            addSharedElement(view.findViewById<TextView>(R.id.release_name), item.name)
-            addSharedElement(view.findViewById<ImageView>(R.id.release_cover), item.id)
-            addSharedElement(view.findViewById<TextView>(R.id.artist_name), item.artist.name)
-            //replace(R.id.root, AlbumInfoFragment.newInstance())
-            addToBackStack(null)
-        }
+        val extras = FragmentNavigatorExtras(
+                view.findViewById<TextView>(R.id.release_name) to item.name,
+                view.findViewById<ImageView>(R.id.release_cover) to item.id,
+                view.findViewById<TextView>(R.id.artist_name) to item.artist.name)
+        findNavController().navigate(R.id.action_searchFragment_to_albumInfoFragment, null, null,
+                extras)
     }
 
     override fun onSuggestionSelected(position: Int, item: Suggestion) {
@@ -151,14 +161,5 @@ class SearchFragment : Fragment(
                 return true
             }
         })
-    }
-
-    companion object {
-        fun newInstance(): SearchFragment {
-            val args = Bundle()
-            val fragment = SearchFragment()
-            fragment.arguments = args
-            return fragment
-        }
     }
 }

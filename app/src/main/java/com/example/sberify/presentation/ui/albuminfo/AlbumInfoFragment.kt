@@ -27,7 +27,6 @@ class AlbumInfoFragment : Fragment(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         mAdapter = AlbumInfoAdapter(this)
         mSharedViewModel = ViewModelProvider(requireActivity()).get(
                 SharedViewModel::class.java)
@@ -61,17 +60,15 @@ class AlbumInfoFragment : Fragment(
                 mAdapter.submitList(tracks)
             }
         })
-        sharedElementReturnTransition = TransitionInflater.from(context)
-                .inflateTransition(android.R.transition.move)
-        sharedElementEnterTransition = TransitionInflater.from(context)
-                .inflateTransition(android.R.transition.move)
-        postponeEnterTransition()
-
         return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        sharedElementReturnTransition = TransitionInflater.from(context)
+                .inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition = TransitionInflater.from(context)
+                .inflateTransition(android.R.transition.move)
         postponeEnterTransition()
         mTracksRecyclerView.viewTreeObserver.addOnPreDrawListener {
             startPostponedEnterTransition()

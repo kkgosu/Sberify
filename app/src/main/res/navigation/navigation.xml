@@ -25,13 +25,35 @@
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.example.sberify.presentation.ui.favorite.FavoriteFragment"
-        android:label="FavoriteFragment" />
-    <fragment
-        android:id="@+id/searchFragment2"
-        android:name="com.example.sberify.presentation.ui.search.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="FavoriteFragment" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_lyricsFragment"
+            app:destination="@id/lyricsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/lyricsFragment"
         android:name="com.example.sberify.presentation.ui.lyrics.LyricsFragment"
         android:label="LyricsFragment" />
+    <navigation
+        android:id="@+id/navigation2"
+        app:startDestination="@id/searchFragment" >
+        <fragment
+            android:id="@+id/searchFragment"
+            android:name="com.example.sberify.presentation.ui.search.SearchFragment"
+            android:label="SearchFragment">
+            <action
+                android:id="@+id/action_searchFragment_to_albumInfoFragment"
+                app:destination="@id/albumInfoFragment" />
+            <action
+                android:id="@+id/action_searchFragment_to_lyricsFragment2"
+                app:destination="@id/lyricsFragment2" />
+        </fragment>
+        <action
+            android:id="@+id/action_global_albumInfoFragment"
+            app:destination="@id/albumInfoFragment" />
+        <fragment
+            android:id="@+id/lyricsFragment2"
+            android:name="com.example.sberify.presentation.ui.lyrics.LyricsFragment"
+            android:label="LyricsFragment" />
+    </navigation>
 </navigation>
