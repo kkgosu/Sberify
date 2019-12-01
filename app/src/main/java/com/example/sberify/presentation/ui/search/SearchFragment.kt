@@ -93,29 +93,6 @@ class SearchFragment : Fragment(
         return view
     }
 
-    override fun onResume() {
-        super.onResume()
-/*        (requireActivity() as MainActivity).apply {
-            fab.setImageDrawable(getDrawable(R.drawable.avd_search_to_close))
-            if (fab.drawable is AnimatedVectorDrawable) {
-                ((fab.drawable) as AnimatedVectorDrawable).start()
-            }
-            bottomAppBar.replaceMenu(R.menu.another_bottom_menu)
-            bottomAppBar.menu.forEach { (it.icon as? Animatable)?.start() }
-        }*/
-    }
-
-    override fun onPause() {
-        super.onPause()
-/*        (requireActivity() as MainActivity).apply {
-            bottomAppBar.menu[0].icon = AnimatedVectorDrawableCompat.create(this,
-                    R.drawable.delete_scale_down)
-            bottomAppBar.menu[1].icon = AnimatedVectorDrawableCompat.create(this,
-                    R.drawable.delete_scale_down)
-            bottomAppBar.menu.forEach { (it.icon as? Animatable)?.start() }
-        }*/
-    }
-
     override fun onArtistSelected(position: Int, item: Artist) {
 
     }
