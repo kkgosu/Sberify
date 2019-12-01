@@ -4,6 +4,6 @@
     <item
         android:id="@+id/favorite"
         android:icon="@drawable/delete_scale_up"
-        android:title="@string/favourite"
+        android:title="@string/favorite"
         app:showAsAction="ifRoom" />
 </menu>

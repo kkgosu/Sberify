@@ -73,8 +73,8 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
     }
 
     fun getLyrics(track: Track) {
+        _lyrics.postValue(track)
         viewModelScope.launch(Dispatchers.IO) {
-            _lyrics.postValue(track)
             track.lyrics = geniusRepository.getLyrics(track)
             _lyrics.postValue(track)
         }

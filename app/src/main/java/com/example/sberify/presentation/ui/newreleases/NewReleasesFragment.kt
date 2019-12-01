@@ -60,23 +60,23 @@ class NewReleasesFragment : Fragment(
 
     override fun onResume() {
         super.onResume()
-        (requireActivity() as MainActivity).apply {
+/*        (requireActivity() as MainActivity).apply {
             fab.setImageDrawable(getDrawable(R.drawable.avd_close_to_search))
             if (fab.drawable is AnimatedVectorDrawable) {
                 ((fab.drawable) as AnimatedVectorDrawable).start()
             }
             bottomAppBar.replaceMenu(R.menu.bottom_menu)
             bottomAppBar.menu.forEach { (it.icon as? Animatable)?.start() }
-        }
+        }*/
     }
 
     override fun onPause() {
         super.onPause()
-        (requireActivity() as MainActivity).apply {
+/*        (requireActivity() as MainActivity).apply {
             bottomAppBar.menu[0].icon = AnimatedVectorDrawableCompat.create(this,
                     R.drawable.delete_scale_down)
             bottomAppBar.menu.forEach { (it.icon as? Animatable)?.start() }
-        }
+        }*/
         mState = mLayoutManager.onSaveInstanceState()
     }
 

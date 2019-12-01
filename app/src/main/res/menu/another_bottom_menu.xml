@@ -2,13 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/releases"
+        android:icon="@drawable/ic_grid_on_black_24dp"
+        android:title="@string/new_releases"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/search"
-        android:icon="@drawable/delete_scale_up"
+        android:icon="@drawable/avd_search_to_close"
         android:title="@string/search"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/delete"
-        android:icon="@drawable/delete_scale_up"
-        android:title="@string/delete"
+        android:id="@+id/favorite"
+        android:icon="@drawable/ic_favorite_border_black_24dp"
+        android:title="@string/favorite"
         app:showAsAction="ifRoom" />
+
 </menu>

@@ -36,7 +36,7 @@ data class TrackEntity(
     fun toTrack(): Track =
             Track(id = spotifyId,
                     name = name,
-                    image = Image(image_url!!, 0, 0),
+                    image = Image(image_url ?: "", 0, 0),
                     artists = artists,
                     lyrics = lyrics,
                     isFavorite = isFavorite)
