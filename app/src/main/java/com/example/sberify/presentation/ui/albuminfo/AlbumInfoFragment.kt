@@ -1,20 +1,20 @@
 package com.example.sberify.presentation.ui.albuminfo
 
 import android.os.Bundle
-import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionInflater
 import com.example.sberify.R
 import com.example.sberify.domain.model.Track
-import com.example.sberify.presentation.ui.lyrics.LyricsFragment
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.utils.loadImage
 
@@ -27,61 +27,63 @@ class AlbumInfoFragment : Fragment(
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         mAdapter = AlbumInfoAdapter(this)
         mSharedViewModel = ViewModelProvider(requireActivity()).get(
                 SharedViewModel::class.java)
-        
-        postponeEnterTransition()
-        sharedElementEnterTransition = TransitionInflater.from(requireContext())
-                .inflateTransition(android.R.transition.move)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
-        mTracksRecyclerView = view!!.findViewById(R.id.recycler_tracks)
+        val view = super.onCreateView(inflater, container, savedInstanceState)!!
+        val albumCover = view.findViewById<ImageView>(R.id.album_cover)
+        val albumName = view.findViewById<TextView>(R.id.album_name)
+        val artistName = view.findViewById<TextView>(R.id.artist_name)
+        val releaseDate = view.findViewById<TextView>(R.id.release_date)
+        mTracksRecyclerView = view.findViewById(R.id.recycler_tracks)
         mTracksRecyclerView.adapter = mAdapter
 
         mSharedViewModel.album.observe(viewLifecycleOwner, Observer {
-            view.findViewById<ImageView>(R.id.album_cover)
-                    .apply {
-                        transitionName = it.id
-                        loadImage(it.imageUrl)
-                    }
-            view.findViewById<TextView>(R.id.album_name)
-                    .apply {
-                        transitionName = it.name
-                        text = it.name
-                    }
-            view.findViewById<TextView>(R.id.artist_name)
-                    .apply {
-                        transitionName = it.artist.name
-                        text = it.artist.name
-                    }
-            view.findViewById<TextView>(R.id.release_date)
-                    .text = it.releaseDate
+            albumCover.apply {
+                transitionName = it.id
+                loadImage(it.imageUrl)
+            }
+            albumName.apply {
+                transitionName = it.name
+                text = it.name
+            }
+            artistName.apply {
+                transitionName = it.artist.name
+                text = it.artist.name
+            }
+            releaseDate.text = it.releaseDate
             it.tracks?.let { tracks ->
                 mAdapter.submitList(tracks)
             }
         })
+        sharedElementReturnTransition = TransitionInflater.from(context)
+                .inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition = TransitionInflater.from(context)
+                .inflateTransition(android.R.transition.move)
+        postponeEnterTransition()
+
         return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        postponeEnterTransition()
+        mTracksRecyclerView.viewTreeObserver.addOnPreDrawListener {
+            startPostponedEnterTransition()
+            true
+        }
     }
 
     override fun onItemSelected(position: Int, item: Track, view: View) {
         mSharedViewModel.getLyrics(item)
-        requireActivity().supportFragmentManager.commit {
-            addSharedElement(view.findViewById(R.id.track_name), item.name)
-            replace(R.id.root, LyricsFragment.newInstance())
-            addToBackStack(null)
-        }
-    }
-
-    companion object {
-        fun newInstance(): AlbumInfoFragment {
-            val args = Bundle()
-            val fragment = AlbumInfoFragment()
-            fragment.arguments = args
-            return fragment
-        }
+        val extras = FragmentNavigatorExtras(
+                view.findViewById<TextView>(R.id.track_name) to item.name)
+        findNavController().navigate(R.id.action_albumInfoFragment_to_lyricsFragment, null,
+                null, extras)
     }
 }

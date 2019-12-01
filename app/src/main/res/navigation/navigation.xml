@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragment_navigation_graph"
+    android:id="@+id/navigation"
     app:startDestination="@id/newReleasesFragment">
+
     <fragment
         android:id="@+id/newReleasesFragment"
         android:name="com.example.sberify.presentation.ui.newreleases.NewReleasesFragment"
         android:label="NewReleasesFragment">
         <action
             android:id="@+id/action_newReleasesFragment_to_albumInfoFragment"
-            app:destination="@+id/albumInfoFragment" />
+            app:destination="@id/albumInfoFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@+id/newReleasesFragment" />
     </fragment>
     <fragment
         android:id="@+id/albumInfoFragment"
@@ -17,18 +20,18 @@
         android:label="AlbumInfoFragment" >
         <action
             android:id="@+id/action_albumInfoFragment_to_lyricsFragment"
-            app:destination="@id/lyricsFragment"/>
+            app:destination="@id/lyricsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.sberify.presentation.ui.favorite.FavoriteFragment"
+        android:label="FavoriteFragment" />
+    <fragment
+        android:id="@+id/searchFragment2"
+        android:name="com.example.sberify.presentation.ui.search.SearchFragment"
+        android:label="SearchFragment" />
     <fragment
         android:id="@+id/lyricsFragment"
         android:name="com.example.sberify.presentation.ui.lyrics.LyricsFragment"
         android:label="LyricsFragment" />
-    <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.example.sberify.presentation.ui.search.SearchFragment"
-        android:label="SearchFragment" />
-    <fragment
-        android:id="@+id/favoriteFragment"
-        android:name="com.example.sberify.presentation.ui.FavoriteFragment"
-        android:label="FavoriteFragment" />
 </navigation>

@@ -11,6 +11,7 @@ import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.repository.DatabaseRepository
 import com.example.sberify.data.repository.SpotifyRepository
 import com.example.sberify.domain.IDatabaseRepository
+import com.example.sberify.presentation.ui.favorite.FavoriteViewModel
 import com.example.sberify.presentation.ui.lyrics.LyricsViewModel
 
 @Suppress("UNCHECKED_CAST")

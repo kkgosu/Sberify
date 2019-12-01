@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui
+package com.example.sberify.presentation.ui.favorite
 
 import androidx.lifecycle.*
 import com.example.sberify.domain.IDatabaseRepository

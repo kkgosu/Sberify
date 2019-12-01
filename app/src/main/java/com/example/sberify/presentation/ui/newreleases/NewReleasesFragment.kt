@@ -14,6 +14,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.transition.TransitionInflater
 import com.example.sberify.R
 import com.example.sberify.domain.model.Album
 import com.example.sberify.presentation.ui.SharedViewModel
@@ -48,6 +49,7 @@ class NewReleasesFragment : Fragment(
         mViewModel.newReleases.observe(viewLifecycleOwner, Observer {
             mAdapter.submitList(it)
         })
+        sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         return mRecyclerView
     }
 
@@ -56,21 +58,23 @@ class NewReleasesFragment : Fragment(
         mState = mLayoutManager.onSaveInstanceState()
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        postponeEnterTransition()
+        mRecyclerView.viewTreeObserver.addOnPreDrawListener { 
+            startPostponedEnterTransition()
+            true
+        }
+    }
+
     override fun onItemSelected(item: Album, view: View) {
         mViewModel.getAlbumInfo(item)
         val extras = FragmentNavigatorExtras(
                 view.findViewById<TextView>(R.id.release_name) to item.name,
                 view.findViewById<ImageView>(R.id.release_cover) to item.id,
                 view.findViewById<TextView>(R.id.artist_name) to item.artist.name)
-        findNavController().navigate(R.id.action_newReleasesFragment_to_albumInfoFragment, null, null, extras)
-    }
-
-    companion object {
-        fun newInstance(): NewReleasesFragment {
-            val args = Bundle()
-            val fragment = NewReleasesFragment()
-            fragment.arguments = args
-            return fragment
-        }
+        
+        findNavController().navigate(R.id.action_newReleasesFragment_to_albumInfoFragment, null,
+                null, extras)
     }
 }

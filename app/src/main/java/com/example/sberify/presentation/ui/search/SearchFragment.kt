@@ -100,7 +100,7 @@ class SearchFragment : Fragment(
     override fun onTrackSelected(position: Int, item: Track) {
         mSharedViewModel.getLyrics(item)
         requireActivity().supportFragmentManager.commit {
-            replace(R.id.root, LyricsFragment.newInstance())
+            //replace(R.id.root, LyricsFragment.newInstance())
             addToBackStack(null)
         }
     }
@@ -111,7 +111,7 @@ class SearchFragment : Fragment(
             addSharedElement(view.findViewById<TextView>(R.id.release_name), item.name)
             addSharedElement(view.findViewById<ImageView>(R.id.release_cover), item.id)
             addSharedElement(view.findViewById<TextView>(R.id.artist_name), item.artist.name)
-            replace(R.id.root, AlbumInfoFragment.newInstance())
+            //replace(R.id.root, AlbumInfoFragment.newInstance())
             addToBackStack(null)
         }
     }

@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui
+package com.example.sberify.presentation.ui.favorite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
+import com.example.sberify.presentation.ui.ViewModelFactory
 import com.example.sberify.presentation.ui.albuminfo.AlbumInfoAdapter
 
 class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
@@ -19,7 +20,8 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        favoriteViewModel = ViewModelProvider(this, ViewModelFactory())
+        favoriteViewModel = ViewModelProvider(this,
+                ViewModelFactory())
                 .get(FavoriteViewModel::class.java)
     }
 

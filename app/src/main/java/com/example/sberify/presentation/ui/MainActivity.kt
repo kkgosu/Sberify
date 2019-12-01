@@ -10,6 +10,8 @@ import androidx.appcompat.view.menu.MenuView
 import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.sberify.R
@@ -22,7 +24,8 @@ import kotlinx.android.synthetic.main.bottom_nav_view.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mViewModel: SharedViewModel
-
+    private lateinit var navController: NavController
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -37,9 +40,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupNavigation() {
-        val navHost = (supportFragmentManager.findFragmentById(
-                R.id.main_content) as NavHostFragment)
-        NavigationUI.setupWithNavController(bottom_nav_view, navHost.navController)
+        navController = findNavController(R.id.main_content)
+        NavigationUI.setupWithNavController(bottom_nav_view, navController)
     }
 }
 
