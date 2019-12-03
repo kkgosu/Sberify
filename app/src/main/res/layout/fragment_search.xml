@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/gray_800"
     android:orientation="vertical">
-    
+
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"
@@ -20,10 +20,10 @@
 
     <include layout="@layout/search_options" />
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
+        
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/search_results"
             style="@style/DefaultRecycler"
@@ -32,7 +32,7 @@
             android:background="@color/gray_800"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:spanCount="2" />
-
+        
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/suggestion_recycler"
             android:layout_width="match_parent"
@@ -42,6 +42,7 @@
             android:visibility="visible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="25" />
-    </RelativeLayout>
+
+    </FrameLayout>
 
 </LinearLayout>

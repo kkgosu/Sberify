@@ -38,6 +38,8 @@
                 android:background="@android:color/transparent" />
         </LinearLayout>
     </com.google.android.material.appbar.MaterialToolbar>
+    
+    <include layout="@layout/loading_anim"/>
 
     <ScrollView
         android:layout_width="match_parent"

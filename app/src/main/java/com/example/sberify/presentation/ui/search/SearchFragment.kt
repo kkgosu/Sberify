@@ -9,7 +9,6 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -22,8 +21,6 @@ import com.example.sberify.domain.model.Artist
 import com.example.sberify.domain.model.Suggestion
 import com.example.sberify.domain.model.Track
 import com.example.sberify.presentation.ui.SharedViewModel
-import com.example.sberify.presentation.ui.albuminfo.AlbumInfoFragment
-import com.example.sberify.presentation.ui.lyrics.LyricsFragment
 
 
 class SearchFragment : Fragment(
@@ -48,8 +45,8 @@ class SearchFragment : Fragment(
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
-        resultsRecyclerView = view?.findViewById(R.id.search_results)!!
+        val view = super.onCreateView(inflater, container, savedInstanceState)!!
+        resultsRecyclerView = view.findViewById(R.id.search_results)!!
         mSuggestionsRecycler = view.findViewById(R.id.suggestion_recycler)!!
 
         mSearchAdapter = SearchAdapter(this)

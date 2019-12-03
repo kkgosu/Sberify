@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.transition.TransitionInflater
+import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
 import com.example.sberify.domain.model.Album
 import com.example.sberify.presentation.ui.SharedViewModel
@@ -27,6 +28,7 @@ class NewReleasesFragment : Fragment(
     private lateinit var mAdapter: NewReleasesAdapter
     private lateinit var mLayoutManager: StaggeredGridLayoutManager
     private lateinit var mRecyclerView: RecyclerView
+    private lateinit var lottieAnim: LottieAnimationView
     private var mState: Parcelable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,24 +39,39 @@ class NewReleasesFragment : Fragment(
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
-        mRecyclerView = super.onCreateView(inflater, container, savedInstanceState) as RecyclerView
+        val view = super.onCreateView(inflater, container, savedInstanceState)!!
         mAdapter = NewReleasesAdapter(this)
         mLayoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
+        mRecyclerView = view.findViewById(R.id.new_releases_recycler)
         mRecyclerView.apply {
             layoutManager = mLayoutManager
             adapter = mAdapter
             mLayoutManager.onRestoreInstanceState(mState)
         }
 
+        lottieAnim = view.findViewById(R.id.loading_animation)
+
         mViewModel.newReleases.observe(viewLifecycleOwner, Observer {
             mAdapter.submitList(it)
         })
-        return mRecyclerView
+
+        mViewModel.cancelLoadingAnim.observe(viewLifecycleOwner, Observer {
+            mRecyclerView.viewTreeObserver.addOnDrawListener {
+                lottieAnim.visibility = View.GONE
+                lottieAnim.cancelAnimation()
+            }
+        })
+        return view
     }
 
     override fun onPause() {
         super.onPause()
         mState = mLayoutManager.onSaveInstanceState()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        lottieAnim.cancelAnimation()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

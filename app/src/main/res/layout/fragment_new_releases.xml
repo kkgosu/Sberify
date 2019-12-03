@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/DefaultRecycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_800"
-    tools:listitem="@layout/item_album">
+    android:background="@color/gray_800">
 
-</androidx.recyclerview.widget.RecyclerView>
+    <include layout="@layout/loading_anim"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/new_releases_recycler"
+        style="@style/DefaultRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_album" />
+</FrameLayout>
+
+

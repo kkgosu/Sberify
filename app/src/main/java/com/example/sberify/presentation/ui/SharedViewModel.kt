@@ -9,9 +9,10 @@ import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.domain.TokenData
 import com.example.sberify.domain.model.*
+import com.example.sberify.presentation.ui.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
         private val geniusRepository: IGeniusRepository,
@@ -41,24 +42,28 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
     private val _suggestions = MutableLiveData<List<Suggestion>>()
     val suggestions: LiveData<List<Suggestion>> = _suggestions
 
+    private val _cancelLoadingAnim = SingleLiveEvent<Unit>()
+    val cancelLoadingAnim = _cancelLoadingAnim
+
     fun getData() {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                getToken()
-                loadReleases()
-            }
+        getToken()
+        loadReleases()
+    }
+
+    private fun loadReleases() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val albums = spotifyRepository.getNewReleases()
+            _newReleases.postValue(albums)
+            _cancelLoadingAnim.call()
         }
     }
 
-    private suspend fun loadReleases() {
-        val albums = spotifyRepository.getNewReleases()
-        _newReleases.postValue(albums)
-    }
-
-    private suspend fun getToken() {
-        spotifyRepository.getToken {
-            _token.postValue(it)
-            TokenData.setToken(it)
+    private fun getToken() {
+        viewModelScope.launch(Dispatchers.IO) {
+            spotifyRepository.getToken {
+                _token.postValue(it)
+                TokenData.setToken(it)
+            }
         }
     }
 
@@ -77,6 +82,7 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
         viewModelScope.launch(Dispatchers.IO) {
             track.lyrics = geniusRepository.getLyrics(track)
             _lyrics.postValue(track)
+            _cancelLoadingAnim.call()
         }
     }
 
@@ -85,6 +91,7 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
             val artist = spotifyRepository.searchArtist(keyword)
             println(artist)
             _artists.postValue(artist)
+            _cancelLoadingAnim.call()
         }
     }
 
@@ -93,6 +100,7 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
             val album = spotifyRepository.searchAlbum(keyword)
             println(album)
             _albums.postValue(album)
+            _cancelLoadingAnim.call()
         }
     }
 
@@ -100,7 +108,9 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
         viewModelScope.launch(Dispatchers.IO) {
             val track = spotifyRepository.searchTrack(keyword)
             println(track)
+            delay(3000)
             _tracks.postValue(track)
+            _cancelLoadingAnim.call()
         }
     }
 

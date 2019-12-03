@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.TransitionInflater
+import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.ViewModelFactory
@@ -19,6 +20,7 @@ class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
 
     private lateinit var mSharedViewModel: SharedViewModel
     private lateinit var mLyricsViewModel: LyricsViewModel
+    private lateinit var lottieAnim: LottieAnimationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +38,8 @@ class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
         val lyricsTextView = view.findViewById<TextView>(R.id.lyrics)
         val trackName = view.findViewById<TextView>(R.id.track_name)
         val favoriteButton = view.findViewById<ImageButton>(R.id.favorite_text)
-        
+        lottieAnim = view.findViewById(R.id.loading_animation)
+
         mSharedViewModel.lyrics.observe(viewLifecycleOwner, Observer {
             trackName.apply {
                 transitionName = it.name
@@ -53,7 +56,17 @@ class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
             }
             lyricsTextView.text = it.lyrics
         })
+
+        mSharedViewModel.cancelLoadingAnim.observe(viewLifecycleOwner, Observer {
+            lottieAnim.visibility = View.GONE
+            lottieAnim.cancelAnimation()
+        })
         return view
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        lottieAnim.cancelAnimation()
     }
 
     private fun setFavoriteIcon(imageButton: ImageButton, isFavorite: Boolean) {

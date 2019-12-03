@@ -30,6 +30,7 @@ buildscript {
         daggerVersion = '2.23.2'
         jsoupVersion = '1.10.1'
         transliterateVersion = '65.1'
+        lottieVersion = '3.3.0'
 
         // Testing dependencies
         junitVersion = '4.12'

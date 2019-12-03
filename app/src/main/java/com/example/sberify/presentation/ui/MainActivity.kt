@@ -1,29 +1,16 @@
 package com.example.sberify.presentation.ui
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.menu.MenuView
-import androidx.fragment.app.commit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.sberify.R
-import com.example.sberify.presentation.ui.newreleases.NewReleasesFragment
-import com.example.sberify.presentation.ui.search.SearchFragment
 import com.example.sberify.presentation.ui.utils.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.bottom_app_bar.*
 import kotlinx.android.synthetic.main.bottom_nav_view.*
 
 class MainActivity : AppCompatActivity() {
@@ -47,7 +34,6 @@ class MainActivity : AppCompatActivity() {
             println("Token ${it.access_token}")
         })
         mViewModel.getData()
-       // setupNavigation()
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -68,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 intent = intent)
 
         controller.observe(this, Observer {
-            setupActionBarWithNavController(it)
+            //setupActionBarWithNavController(it)
         })
         currentNavController = controller
     }
