@@ -9,20 +9,24 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
-import com.example.sberify.presentation.ui.ViewModelFactory
+import com.example.sberify.presentation.di.injectViewModel
 import com.example.sberify.presentation.ui.albuminfo.AlbumInfoAdapter
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
 class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var favoriteViewModel: FavoriteViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var mAdapter: AlbumInfoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidSupportInjection.inject(this)
         super.onCreate(savedInstanceState)
-        favoriteViewModel = ViewModelProvider(this,
-                ViewModelFactory())
-                .get(FavoriteViewModel::class.java)
+        favoriteViewModel = injectViewModel(viewModelFactory)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

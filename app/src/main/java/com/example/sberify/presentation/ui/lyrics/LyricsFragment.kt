@@ -13,21 +13,26 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.transition.TransitionInflater
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
+import com.example.sberify.presentation.di.injectViewModel
 import com.example.sberify.presentation.ui.SharedViewModel
-import com.example.sberify.presentation.ui.ViewModelFactory
+import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
 class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var mSharedViewModel: SharedViewModel
     private lateinit var mLyricsViewModel: LyricsViewModel
     private lateinit var lottieAnim: LottieAnimationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidSupportInjection.inject(this)
         super.onCreate(savedInstanceState)
         mSharedViewModel = ViewModelProvider(requireActivity())
                 .get(SharedViewModel::class.java)
-        mLyricsViewModel = ViewModelProvider(this, ViewModelFactory())
-                .get(LyricsViewModel::class.java)
+        mLyricsViewModel = injectViewModel(viewModelFactory)
         sharedElementEnterTransition = TransitionInflater.from(context)
                 .inflateTransition(android.R.transition.move)
     }
@@ -55,6 +60,11 @@ class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
                 }
             }
             lyricsTextView.text = it.lyrics
+        })
+
+        mSharedViewModel.startLoadingAnim.observe(viewLifecycleOwner, Observer {
+            lottieAnim.visibility = View.VISIBLE
+            lottieAnim.playAnimation()
         })
 
         mSharedViewModel.cancelLoadingAnim.observe(viewLifecycleOwner, Observer {

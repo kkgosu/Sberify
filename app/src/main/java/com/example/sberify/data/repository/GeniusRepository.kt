@@ -9,8 +9,10 @@ import com.example.sberify.domain.model.Track
 import com.example.sberify.presentation.ui.utils.normalize
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class GeniusRepository(private val geniusParser: GeniusParser,
+class GeniusRepository @Inject constructor(
+        private val geniusParser: GeniusParser,
         private val database: AppDatabase) : IGeniusRepository {
 
     override suspend fun getLyrics(track: Track): String {
@@ -18,8 +20,8 @@ class GeniusRepository(private val geniusParser: GeniusParser,
         val trackName: String = filterTrackName(track.name)
         var trackUrl: String = filterLyricsUrl(
                 "${track.artists[0].name.normalize()} $trackName")
-        
-        withContext(Dispatchers.IO){
+
+        withContext(Dispatchers.IO) {
             println(trackUrl)
             lyrics = geniusParser.getLyrics(trackUrl)
 
@@ -38,7 +40,8 @@ class GeniusRepository(private val geniusParser: GeniusParser,
                 }
             }
             track.lyrics = lyrics
-            database.getTrackDao().insertTrack(TrackEntity.from(track))
+            database.getTrackDao()
+                    .insertTrack(TrackEntity.from(track))
         }
         return lyrics
     }

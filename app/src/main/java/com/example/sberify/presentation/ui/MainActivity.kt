@@ -2,6 +2,7 @@ package com.example.sberify.presentation.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,9 +12,23 @@ import androidx.navigation.ui.NavigationUI
 import com.example.sberify.R
 import com.example.sberify.presentation.ui.utils.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.bottom_nav_view.*
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+
+    override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
+
 
     private lateinit var mViewModel: SharedViewModel
     private lateinit var navController: NavController
@@ -21,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     private var currentNavController: LiveData<NavController>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -28,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             setupBottomNavBar()
         }
 
-        mViewModel = ViewModelProvider(this, ViewModelFactory()).get(
+        mViewModel = ViewModelProvider(this, viewModelFactory).get(
                 SharedViewModel::class.java)
         mViewModel.token.observe(this, Observer {
             println("Token ${it.access_token}")

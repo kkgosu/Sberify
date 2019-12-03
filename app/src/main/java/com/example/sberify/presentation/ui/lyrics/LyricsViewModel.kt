@@ -5,8 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.sberify.domain.IDatabaseRepository
 import com.example.sberify.domain.model.Track
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LyricsViewModel(private val databaseRepository: IDatabaseRepository) : ViewModel() {
+class LyricsViewModel @Inject constructor(
+        private val databaseRepository: IDatabaseRepository) : ViewModel() {
     
     fun updateTrack(track: Track) {
         viewModelScope.launch {

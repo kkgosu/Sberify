@@ -2,7 +2,6 @@ package com.example.sberify.data.repository
 
 import com.example.sberify.data.DataConverter
 import com.example.sberify.data.Result
-import com.example.sberify.data.api.AuthInterceptor
 import com.example.sberify.data.api.BaseResponseHandler
 import com.example.sberify.data.api.ISpotifyApi
 import com.example.sberify.data.api.SearchTypes
@@ -14,28 +13,12 @@ import com.example.sberify.domain.model.Album
 import com.example.sberify.domain.model.Artist
 import com.example.sberify.domain.model.Token
 import com.example.sberify.domain.model.Track
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
-class SpotifyRepository(
+class SpotifyRepository @Inject constructor(
         private val dataConverter: DataConverter,
-        private val database: AppDatabase) : BaseResponseHandler(), ISpotifyRepository {
-
-    private val okHttpClient by lazy {
-        OkHttpClient.Builder()
-                .addInterceptor(AuthInterceptor())
-                .build()
-    }
-
-    private val mSpotifyApi by lazy {
-        Retrofit.Builder()
-                .baseUrl(ISpotifyApi.API_URL)
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(ISpotifyApi::class.java)
-    }
+        private val database: AppDatabase,
+        private val mSpotifyApi: ISpotifyApi) : BaseResponseHandler(), ISpotifyRepository {
 
     override suspend fun getToken(callback: (Token) -> Unit) {
         val response = getResult { mSpotifyApi.getToken() }

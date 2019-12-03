@@ -13,8 +13,9 @@ import com.example.sberify.presentation.ui.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
+class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotifyRepository,
         private val geniusRepository: IGeniusRepository,
         private val databaseRepository: IDatabaseRepository) : ViewModel() {
 
@@ -44,6 +45,9 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
 
     private val _cancelLoadingAnim = SingleLiveEvent<Unit>()
     val cancelLoadingAnim = _cancelLoadingAnim
+
+    private val _startLoadingAnim = SingleLiveEvent<Unit>()
+    val startLoadingAnim = _startLoadingAnim
 
     fun getData() {
         getToken()
@@ -79,6 +83,7 @@ class SharedViewModel(private val spotifyRepository: ISpotifyRepository,
 
     fun getLyrics(track: Track) {
         _lyrics.postValue(track)
+        _startLoadingAnim.call()
         viewModelScope.launch(Dispatchers.IO) {
             track.lyrics = geniusRepository.getLyrics(track)
             _lyrics.postValue(track)

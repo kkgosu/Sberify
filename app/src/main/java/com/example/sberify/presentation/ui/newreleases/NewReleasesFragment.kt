@@ -19,6 +19,7 @@ import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
 import com.example.sberify.domain.model.Album
 import com.example.sberify.presentation.ui.SharedViewModel
+import dagger.android.support.AndroidSupportInjection
 
 
 class NewReleasesFragment : Fragment(
@@ -32,6 +33,7 @@ class NewReleasesFragment : Fragment(
     private var mState: Parcelable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidSupportInjection.inject(this)
         super.onCreate(savedInstanceState)
         mViewModel = ViewModelProvider(requireActivity()).get(
                 SharedViewModel::class.java)

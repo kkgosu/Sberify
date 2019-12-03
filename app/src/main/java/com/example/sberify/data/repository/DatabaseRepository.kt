@@ -8,8 +8,10 @@ import com.example.sberify.domain.model.Suggestion
 import com.example.sberify.domain.model.Track
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class DatabaseRepository(private val database: AppDatabase) : IDatabaseRepository {
+class DatabaseRepository @Inject constructor(
+        private val database: AppDatabase) : IDatabaseRepository {
     override suspend fun insertSuggestion(suggestion: Suggestion) {
         withContext(Dispatchers.IO) {
             database.getSuggestionsDao()
