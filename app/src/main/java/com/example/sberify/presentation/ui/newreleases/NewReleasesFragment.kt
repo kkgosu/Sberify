@@ -57,11 +57,14 @@ class NewReleasesFragment : Fragment(
             mAdapter.submitList(it)
         })
 
+        mViewModel.startLoadingAnim.observe(viewLifecycleOwner, Observer {
+            lottieAnim.visibility = View.VISIBLE
+            lottieAnim.playAnimation()
+        })
+
         mViewModel.cancelLoadingAnim.observe(viewLifecycleOwner, Observer {
-            mRecyclerView.viewTreeObserver.addOnDrawListener {
-                lottieAnim.visibility = View.GONE
-                lottieAnim.cancelAnimation()
-            }
+            lottieAnim.visibility = View.GONE
+            lottieAnim.cancelAnimation()
         })
         return view
     }

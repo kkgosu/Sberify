@@ -11,7 +11,6 @@ import com.example.sberify.domain.TokenData
 import com.example.sberify.domain.model.*
 import com.example.sberify.presentation.ui.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -55,6 +54,7 @@ class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotif
     }
 
     private fun loadReleases() {
+        _startLoadingAnim.call()
         viewModelScope.launch(Dispatchers.IO) {
             val albums = spotifyRepository.getNewReleases()
             _newReleases.postValue(albums)
@@ -96,7 +96,6 @@ class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotif
             val artist = spotifyRepository.searchArtist(keyword)
             println(artist)
             _artists.postValue(artist)
-            _cancelLoadingAnim.call()
         }
     }
 
@@ -105,7 +104,6 @@ class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotif
             val album = spotifyRepository.searchAlbum(keyword)
             println(album)
             _albums.postValue(album)
-            _cancelLoadingAnim.call()
         }
     }
 
@@ -113,9 +111,7 @@ class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotif
         viewModelScope.launch(Dispatchers.IO) {
             val track = spotifyRepository.searchTrack(keyword)
             println(track)
-            delay(3000)
             _tracks.postValue(track)
-            _cancelLoadingAnim.call()
         }
     }
 

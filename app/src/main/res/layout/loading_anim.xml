@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_800"
-    app:lottie_autoPlay="true"
     app:lottie_loop="true"
     app:lottie_rawRes="@raw/music_fly"
     app:lottie_speed="1.3" />
