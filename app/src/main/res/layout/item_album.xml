@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="album"
             type="com.example.sberify.domain.model.Album" />
@@ -42,7 +41,7 @@
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 android:textColor="@color/white"
-                android:transitionName="@{album.name}"
+                android:transitionName="@{album.name + `album`}"
                 tools:text="Courage (Deluxe Edition)" />
 
             <TextView

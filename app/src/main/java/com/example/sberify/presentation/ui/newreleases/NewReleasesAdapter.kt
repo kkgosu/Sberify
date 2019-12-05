@@ -43,20 +43,14 @@ class NewReleasesAdapter(
     }
 
     class ViewHolder
-    constructor(val bindingItem: ItemAlbumBinding, private val interaction: Interaction?) : RecyclerView.ViewHolder(
+    constructor(val bindingItem: ItemAlbumBinding,
+            private val interaction: Interaction?) : RecyclerView.ViewHolder(
             bindingItem.root) {
-        
+
         fun bind(item: Album) = with(itemView) {
             itemView.setOnClickListener {
                 interaction?.onItemSelected(item, this)
             }
-/*            release_cover.loadImage(item.imageUrl)
-            release_name.text = item.name
-            artist_name.text = item.artist.name
-
-            release_cover.transitionName = item.id
-            release_name.transitionName = item.name
-            artist_name.transitionName = item.artist.name*/
         }
     }
 

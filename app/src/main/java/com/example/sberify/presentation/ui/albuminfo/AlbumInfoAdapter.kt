@@ -1,13 +1,15 @@
 package com.example.sberify.presentation.ui.albuminfo
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
+import com.example.sberify.databinding.ItemTrackBinding
 import com.example.sberify.domain.model.Track
 import com.example.sberify.presentation.ui.utils.createDiffCallback
-import com.example.sberify.presentation.ui.utils.inflateLayout
 import kotlinx.android.synthetic.main.item_track.view.*
 
 class AlbumInfoAdapter(private val interaction: Interaction? = null) :
@@ -16,13 +18,18 @@ class AlbumInfoAdapter(private val interaction: Interaction? = null) :
     private val DIFF_CALLBACK = createDiffCallback<Track>()
     private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-            ViewHolder(inflateLayout(R.layout.item_track, parent), interaction)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val binding: ItemTrackBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context),
+                R.layout.item_track, parent, false)
+        return ViewHolder(binding, interaction)
+    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ViewHolder -> {
-                holder.bind(differ.currentList[position])
+                val track = differ.currentList[position]
+                holder.binding.track = track
+                holder.bind(track)
             }
         }
     }
@@ -36,16 +43,14 @@ class AlbumInfoAdapter(private val interaction: Interaction? = null) :
     }
 
     class ViewHolder
-    constructor(itemView: View,
-            private val interaction: Interaction?) : RecyclerView.ViewHolder(itemView) {
+    constructor(val binding: ItemTrackBinding,
+            private val interaction: Interaction?) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Track) = with(itemView) {
             itemView.setOnClickListener {
                 interaction?.onItemSelected(adapterPosition, item, this)
             }
-            track_name.text = item.name
-            track_name.transitionName = item.name
-            
+
             val builder = StringBuilder()
             item.artists.forEach {
                 builder.append(it.name)
@@ -53,7 +58,7 @@ class AlbumInfoAdapter(private val interaction: Interaction? = null) :
             }
             artist_name.text = builder.dropLast(2)
                     .toString()
-            
+
         }
     }
 

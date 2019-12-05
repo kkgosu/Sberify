@@ -1,82 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.example.sberify.presentation.ui.utils.SquareImageView
-        android:id="@+id/album_cover"
+    <data>
+        <variable
+            name="album"
+            type="com.example.sberify.presentation.ui.SharedViewModel" />
+    </data>
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@id/guideline"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@mipmap/ic_launcher" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/album_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/padding_default"
-        android:paddingEnd="@dimen/padding_default"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/artist_name"
-        tools:text="i don't care at alldadad" />
+        <com.example.sberify.presentation.ui.utils.SquareImageView
+            android:id="@+id/album_cover"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:transitionName="@{album.album.imageUrl}"
+            app:image="@{album.album.imageUrl}"
+            app:layout_constraintBottom_toTopOf="@id/guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@mipmap/ic_launcher" />
 
-    <TextView
-        android:id="@+id/artist_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:paddingStart="@dimen/padding_default"
-        android:paddingEnd="@dimen/padding_default"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toTopOf="@id/recycler_tracks"
-        tools:text="bbno$" />
+        <TextView
+            android:id="@+id/album_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/padding_default"
+            android:paddingEnd="@dimen/padding_default"
+            android:text="@{album.album.name}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:transitionName="@{album.album.name + `album`}"
+            app:layout_constraintBottom_toTopOf="@id/artist_name"
+            tools:text="i don't care at alldadad" />
 
-    <TextView
-        android:id="@+id/release_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/padding_default"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/artist_name"
-        tools:text="23.11.2019" />
+        <TextView
+            android:id="@+id/artist_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_tracks"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/white"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="@id/guideline"
-        tools:listitem="@layout/item_track"
-        style="@style/DefaultRecycler" />
+            android:layout_marginTop="14dp"
+            android:paddingStart="@dimen/padding_default"
+            android:paddingEnd="@dimen/padding_default"
+            android:text="@{album.album.artist.name}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            android:textColor="@color/white"
+            android:transitionName="@{album.album.artist.name}"
+            app:layout_constraintTop_toTopOf="@id/recycler_tracks"
+            tools:text="bbno$" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".45" />
+        <TextView
+            android:id="@+id/release_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_default"
+            android:text="@{album.album.releaseDate}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/artist_name"
+            tools:text="23.11.2019" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".1" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_tracks"
+            style="@style/DefaultRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guideline"
+            tools:listitem="@layout/item_track" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".2" />
-</androidx.constraintlayout.motion.widget.MotionLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".45" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".2" />
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+</layout>

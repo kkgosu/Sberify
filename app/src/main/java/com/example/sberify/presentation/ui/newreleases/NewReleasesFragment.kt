@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,13 +18,13 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.transition.TransitionInflater
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
+import com.example.sberify.databinding.FragmentNewReleasesBinding
 import com.example.sberify.domain.model.Album
 import com.example.sberify.presentation.ui.SharedViewModel
 import dagger.android.support.AndroidSupportInjection
 
 
-class NewReleasesFragment : Fragment(
-        R.layout.fragment_new_releases), NewReleasesAdapter.Interaction {
+class NewReleasesFragment : Fragment(), NewReleasesAdapter.Interaction {
 
     private lateinit var mViewModel: SharedViewModel
     private lateinit var mAdapter: NewReleasesAdapter
@@ -41,7 +42,9 @@ class NewReleasesFragment : Fragment(
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)!!
+        val binding: FragmentNewReleasesBinding = DataBindingUtil.inflate(inflater,
+                R.layout.fragment_new_releases, container, false)
+        val view = binding.root
         mAdapter = NewReleasesAdapter(this)
         mLayoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         mRecyclerView = view.findViewById(R.id.new_releases_recycler)
