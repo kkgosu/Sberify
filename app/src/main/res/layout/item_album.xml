@@ -52,7 +52,7 @@
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textColor="@color/white"
-                android:transitionName="@{album.artist.name}"
+                android:transitionName="@{album.artist.name + `album`}"
                 tools:text="Celine Dion" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

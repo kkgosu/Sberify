@@ -69,6 +69,7 @@ class NewReleasesFragment : Fragment(), NewReleasesAdapter.Interaction {
             lottieAnim.visibility = View.GONE
             lottieAnim.cancelAnimation()
         })
+
         return view
     }
 
@@ -96,9 +97,9 @@ class NewReleasesFragment : Fragment(), NewReleasesAdapter.Interaction {
     override fun onItemSelected(item: Album, view: View) {
         mViewModel.getAlbumInfo(item)
         val extras = FragmentNavigatorExtras(
-                view.findViewById<TextView>(R.id.release_name) to item.name,
-                view.findViewById<ImageView>(R.id.release_cover) to item.id,
-                view.findViewById<TextView>(R.id.artist_name) to item.artist.name)
+                view.findViewById<TextView>(R.id.release_name) to "${item.name}album",
+                view.findViewById<ImageView>(R.id.release_cover) to item.imageUrl,
+                view.findViewById<TextView>(R.id.artist_name) to "${item.artist.name}album")
 
         findNavController().navigate(R.id.action_newReleasesFragment_to_albumInfoFragment, null,
                 null, extras)

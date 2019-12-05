@@ -35,9 +35,10 @@ class AlbumInfoFragment : Fragment(), AlbumInfoAdapter.Interaction {
             savedInstanceState: Bundle?): View? {
         val binding: FragmentAlbumInfoStartBinding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_album_info_start, container, false)
-        val view = binding.root
         binding.lifecycleOwner = viewLifecycleOwner
-        
+        binding.viewModel = mSharedViewModel
+        val view = binding.root
+
 /*        val albumCover = view.findViewById<ImageView>(R.id.album_cover)
         val albumName = view.findViewById<TextView>(R.id.album_name)
         val artistName = view.findViewById<TextView>(R.id.artist_name)

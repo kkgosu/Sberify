@@ -72,7 +72,7 @@ class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotif
     }
 
     fun getAlbumInfo(album: Album) {
-        _album.postValue(album)
+        _album.value = (album)
         viewModelScope.launch(Dispatchers.IO) {
             val albums = spotifyRepository.getAlbumInfo(album.id)
             if (albums.isNotEmpty()) {
