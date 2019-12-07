@@ -1,35 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_small"
-    app:cardBackgroundColor="@android:color/black"
-    app:cardCornerRadius="@dimen/corner_radius_default"
-    app:elevation="@dimen/elevation_default">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+
+        <variable
+            name="artist"
+            type="com.example.sberify.models.domain.Artist" />
+    </data>
+
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/padding_default">
+        android:layout_margin="@dimen/margin_small"
+        app:cardBackgroundColor="@android:color/black"
+        app:cardCornerRadius="@dimen/corner_radius_default"
+        app:elevation="@dimen/elevation_default">
 
-        <com.example.sberify.presentation.ui.utils.SquareImageView
-            android:id="@+id/search_image"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:scaleType="centerCrop"
-            android:src="@drawable/icon_person" />
+            android:orientation="vertical"
+            android:padding="@dimen/padding_default">
 
-        <TextView
-            android:id="@+id/search_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            android:textColor="@color/white"
-            tools:text="Kanye West" />
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+            <com.example.sberify.presentation.ui.utils.SquareImageView
+                android:id="@+id/search_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:scaleType="centerCrop"
+                android:src="@drawable/icon_person"
+                app:image="@{artist.image.url}" />
+
+            <TextView
+                android:id="@+id/search_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{artist.name}"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textColor="@color/white"
+                tools:text="Kanye West" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

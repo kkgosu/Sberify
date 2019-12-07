@@ -1,48 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/gray_800"
-    android:orientation="vertical">
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_view"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/search_view_height"
-        android:background="@color/white"
-        android:imeOptions="actionSearch"
-        android:inputType="text"
-        app:iconifiedByDefault="false"
-        app:queryHint="@string/search_hint"
-        app:suggestionRowLayout="@layout/item_suggestion" />
+        android:layout_height="match_parent"
+        android:background="@color/gray_800"
+        android:orientation="vertical">
 
-    <include layout="@layout/search_options" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/search_results"
-            style="@style/DefaultRecycler"
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/gray_800"
-            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-            app:spanCount="2" />
-        
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/suggestion_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/search_view_height"
             android:background="@color/white"
-            android:layoutAnimation="@anim/layout_animation_fall_down"
-            android:visibility="visible"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:itemCount="25" />
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            app:iconifiedByDefault="false"
+            app:queryHint="@string/search_hint"
+            app:suggestionRowLayout="@layout/item_suggestion" />
 
-    </FrameLayout>
+        <include layout="@layout/search_options" />
 
-</LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_results"
+                style="@style/DefaultRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray_800"
+                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                app:spanCount="2" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/suggestion_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layoutAnimation="@anim/layout_animation_fall_down"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="25" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+</layout>

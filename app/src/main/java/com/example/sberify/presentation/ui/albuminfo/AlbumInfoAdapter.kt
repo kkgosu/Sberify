@@ -7,10 +7,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
-import com.example.sberify.databinding.ItemTrackBinding
+import com.example.sberify.databinding.ItemTrackListedBinding
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.utils.createDiffCallback
-import kotlinx.android.synthetic.main.item_track.view.*
+import kotlinx.android.synthetic.main.item_track_listed.view.*
 
 class AlbumInfoAdapter(private val interaction: Interaction? = null) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -19,8 +19,8 @@ class AlbumInfoAdapter(private val interaction: Interaction? = null) :
     private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding: ItemTrackBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context),
-                R.layout.item_track, parent, false)
+        val binding: ItemTrackListedBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context),
+                R.layout.item_track_listed, parent, false)
         return ViewHolder(binding, interaction)
     }
 
@@ -43,7 +43,7 @@ class AlbumInfoAdapter(private val interaction: Interaction? = null) :
     }
 
     class ViewHolder
-    constructor(val binding: ItemTrackBinding,
+    constructor(val binding: ItemTrackListedBinding,
             private val interaction: Interaction?) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Track) = with(itemView) {

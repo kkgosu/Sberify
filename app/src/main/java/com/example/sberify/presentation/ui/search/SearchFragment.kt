@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
 import com.example.sberify.R
+import com.example.sberify.databinding.FragmentSearchBinding
 import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Artist
 import com.example.sberify.models.domain.Suggestion
@@ -23,8 +25,7 @@ import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.SharedViewModel
 
 
-class SearchFragment : Fragment(
-        R.layout.fragment_search), SearchAdapter.Interaction, SuggestionsAdapter.Interaction {
+class SearchFragment : Fragment(), SearchAdapter.Interaction, SuggestionsAdapter.Interaction {
     private var searchType = SearchType.ARTIST
 
     private lateinit var searchAdapter: SearchAdapter
@@ -44,9 +45,12 @@ class SearchFragment : Fragment(
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)!!
-        resultsRecyclerView = view.findViewById(R.id.search_results)!!
-        suggestionsRecycler = view.findViewById(R.id.suggestion_recycler)!!
+        val binding: FragmentSearchBinding = DataBindingUtil.inflate(inflater,
+                R.layout.fragment_search, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        val view = binding.root
+        resultsRecyclerView = view.findViewById(R.id.search_results)
+        suggestionsRecycler = view.findViewById(R.id.suggestion_recycler)
 
         searchAdapter = SearchAdapter(this)
         suggestionsAdapter = SuggestionsAdapter(this)
@@ -103,21 +107,23 @@ class SearchFragment : Fragment(
         }
     }
 
-    override fun onArtistSelected(position: Int, item: Artist) {
-        
+    override fun onArtistSelected(position: Int, item: Artist, view: View) {
+
     }
 
-    override fun onTrackSelected(position: Int, item: Track) {
+    override fun onTrackSelected(position: Int, item: Track, view: View) {
         sharedViewModel.getLyrics(item)
-        findNavController().navigate(R.id.action_searchFragment_to_lyricsFragment)
+        val extras = FragmentNavigatorExtras(
+                view.findViewById<TextView>(R.id.name) to item.name)
+        findNavController().navigate(R.id.action_searchFragment_to_lyricsFragment, null, null, extras)
     }
 
     override fun onAlbumSelected(item: Album, view: View) {
         sharedViewModel.getAlbumInfo(item)
         val extras = FragmentNavigatorExtras(
-                view.findViewById<TextView>(R.id.release_name) to item.name,
-                view.findViewById<ImageView>(R.id.release_cover) to item.id,
-                view.findViewById<TextView>(R.id.artist_name) to item.artist.name)
+                view.findViewById<TextView>(R.id.release_name) to "${item.name}album",
+                view.findViewById<ImageView>(R.id.release_cover) to item.imageUrl,
+                view.findViewById<TextView>(R.id.artist_name) to "${item.artist.name}album")
         findNavController().navigate(R.id.action_searchFragment_to_albumInfoFragment, null, null,
                 extras)
     }

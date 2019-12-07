@@ -73,7 +73,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="@id/guideline"
-            tools:listitem="@layout/item_track" />
+            tools:listitem="@layout/item_track_listed" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"

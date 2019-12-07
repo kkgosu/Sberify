@@ -6,19 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.TransitionInflater
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
+import com.example.sberify.databinding.FragmentLyricsBinding
 import com.example.sberify.di.injectViewModel
 import com.example.sberify.presentation.ui.SharedViewModel
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
+class LyricsFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -39,17 +40,15 @@ class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)!!
-        val lyricsTextView = view.findViewById<TextView>(R.id.lyrics)
-        val trackName = view.findViewById<TextView>(R.id.track_name)
+        val binding: FragmentLyricsBinding = DataBindingUtil.inflate(inflater,
+                R.layout.fragment_lyrics, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = sharedViewModel
+        val view = binding.root
         val favoriteButton = view.findViewById<ImageButton>(R.id.favorite_text)
         lottieAnim = view.findViewById(R.id.loading_animation)
 
         sharedViewModel.lyrics.observe(viewLifecycleOwner, Observer {
-            trackName.apply {
-                transitionName = it.name
-                text = it.name
-            }
             favoriteButton.apply {
                 setFavoriteIcon(this, !it.isFavorite)
                 setOnClickListener { _ ->
@@ -59,7 +58,6 @@ class LyricsFragment : Fragment(R.layout.fragment_lyrics) {
                     startAnim(this)
                 }
             }
-            lyricsTextView.text = it.lyrics
         })
 
         sharedViewModel.startLoadingAnim.observe(viewLifecycleOwner, Observer {

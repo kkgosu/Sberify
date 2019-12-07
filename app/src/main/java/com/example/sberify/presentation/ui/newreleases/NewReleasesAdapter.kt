@@ -21,7 +21,7 @@ class NewReleasesAdapter(
         val newReleasesBinding: ItemAlbumBinding =
                 DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_album,
                         parent, false)
-        return ViewHolder((newReleasesBinding), interaction)
+        return ViewHolder(newReleasesBinding, interaction)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

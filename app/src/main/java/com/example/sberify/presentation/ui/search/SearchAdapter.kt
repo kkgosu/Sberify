@@ -1,18 +1,19 @@
 package com.example.sberify.presentation.ui.search
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
+import com.example.sberify.databinding.ItemAlbumBinding
+import com.example.sberify.databinding.ItemSearchBinding
+import com.example.sberify.databinding.ItemTrackBinding
 import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Artist
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.utils.createDiffCallback
-import com.example.sberify.presentation.ui.utils.inflateLayout
-import com.example.sberify.presentation.ui.utils.loadImage
-import kotlinx.android.synthetic.main.item_album.view.*
-import kotlinx.android.synthetic.main.item_search.view.*
 
 class SearchAdapter(private val interaction: Interaction? = null) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -30,25 +31,48 @@ class SearchAdapter(private val interaction: Interaction? = null) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
             when (viewType) {
-                ARTIST_VIEW -> ViewHolderArtist(inflateLayout(R.layout.item_search, parent),
-                        interaction)
-                ALBUM_VIEW -> ViewHolderAlbum(inflateLayout(R.layout.item_album, parent),
-                        interaction)
-                TRACK_VIEW -> ViewHolderTrack(inflateLayout(R.layout.item_album, parent),
-                        interaction)
-                else -> ViewHolderArtist(inflateLayout(R.layout.item_search, parent), interaction)
+                ARTIST_VIEW -> {
+                    val binding: ItemSearchBinding = DataBindingUtil.inflate(
+                            LayoutInflater.from(parent.context), R.layout.item_search, parent,
+                            false)
+                    ViewHolderArtist(binding, interaction)
+                }
+                ALBUM_VIEW -> {
+                    val binding: ItemAlbumBinding = DataBindingUtil.inflate(
+                            LayoutInflater.from(parent.context), R.layout.item_album, parent,
+                            false)
+                    ViewHolderAlbum(binding, interaction)
+                }
+                TRACK_VIEW -> {
+                    val binding: ItemTrackBinding = DataBindingUtil.inflate(
+                            LayoutInflater.from(parent.context), R.layout.item_track, parent,
+                            false)
+                    ViewHolderTrack(binding, interaction)
+                }
+                else -> {
+                    val binding: ItemSearchBinding = DataBindingUtil.inflate(
+                            LayoutInflater.from(parent.context), R.layout.item_search, parent,
+                            false)
+                    ViewHolderArtist(binding, interaction)
+                }
             }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ViewHolderArtist -> {
-                holder.bind(differArtist.currentList[position])
+                val artist = differArtist.currentList[position]
+                holder.binding.artist = artist
+                holder.bind(artist)
             }
             is ViewHolderAlbum -> {
-                holder.bind(differAlbum.currentList[position])
+                val album = differAlbum.currentList[position]
+                holder.binding.album = album
+                holder.bind(album)
             }
             is ViewHolderTrack -> {
-                holder.bind(differTrack.currentList[position])
+                val track = differTrack.currentList[position]
+                holder.binding.track = track
+                holder.bind(track)
             }
         }
     }
@@ -89,59 +113,43 @@ class SearchAdapter(private val interaction: Interaction? = null) :
     }
 
     class ViewHolderArtist
-    constructor(itemView: View,
-            private val interaction: Interaction?) : RecyclerView.ViewHolder(itemView) {
+    constructor(val binding: ItemSearchBinding,
+            private val interaction: Interaction?) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Artist) = with(itemView) {
             itemView.setOnClickListener {
-                interaction?.onArtistSelected(adapterPosition, item)
-            }
-            search_name.text = item.name
-            item.image?.let {
-                search_image.loadImage(it.url)
+                interaction?.onArtistSelected(adapterPosition, item, this)
             }
         }
     }
 
     class ViewHolderAlbum
-    constructor(itemView: View,
-            private val interaction: Interaction?) : RecyclerView.ViewHolder(itemView) {
+    constructor(val binding: ItemAlbumBinding,
+            private val interaction: Interaction?) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Album) = with(itemView) {
             itemView.setOnClickListener {
                 interaction?.onAlbumSelected(item, this)
             }
-            release_cover.loadImage(item.imageUrl)
-            release_name.text = item.name
-            artist_name.text = item.artist.name
-
-            release_cover.transitionName = item.id
-            release_name.transitionName = item.name
-            artist_name.transitionName = item.artist.name
         }
     }
 
 
     class ViewHolderTrack
-    constructor(itemView: View,
-            private val interaction: Interaction?) : RecyclerView.ViewHolder(itemView) {
+    constructor(val binding: ItemTrackBinding,
+            private val interaction: Interaction?) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Track) = with(itemView) {
             itemView.setOnClickListener {
-                interaction?.onTrackSelected(adapterPosition, item)
+                interaction?.onTrackSelected(adapterPosition, item, this)
             }
-            item.image?.let {
-                release_cover.loadImage(it.url)
-            }
-            release_name.text = item.name
-            artist_name.text = item.artists[0].name
         }
     }
 
     interface Interaction {
-        fun onArtistSelected(position: Int, item: Artist)
+        fun onArtistSelected(position: Int, item: Artist, view: View)
         fun onAlbumSelected(item: Album, view: View)
-        fun onTrackSelected(position: Int, item: Track)
+        fun onTrackSelected(position: Int, item: Track, view: View)
     }
 
     companion object {
