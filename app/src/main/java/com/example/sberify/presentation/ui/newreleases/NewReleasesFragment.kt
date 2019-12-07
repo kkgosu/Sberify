@@ -20,14 +20,16 @@ import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
 import com.example.sberify.databinding.FragmentNewReleasesBinding
 import com.example.sberify.models.domain.Album
+import com.example.sberify.models.domain.BaseModel
+import com.example.sberify.presentation.ui.Interaction1
 import com.example.sberify.presentation.ui.SharedViewModel
 import dagger.android.support.AndroidSupportInjection
 
 
-class NewReleasesFragment : Fragment(), NewReleasesAdapter.Interaction {
+class NewReleasesFragment : Fragment(), Interaction1 {
 
     private lateinit var sharedViewModel: SharedViewModel
-    private lateinit var releasesAdapter: NewReleasesAdapter
+    private lateinit var releasesAdapter: NewReleasesAdapter<Album>
     private lateinit var gridLayoutManager: StaggeredGridLayoutManager
     private lateinit var releasesRecycler: RecyclerView
     private lateinit var lottieAnim: LottieAnimationView
@@ -94,14 +96,16 @@ class NewReleasesFragment : Fragment(), NewReleasesAdapter.Interaction {
         }
     }
 
-    override fun onItemSelected(item: Album, view: View) {
-        sharedViewModel.getAlbumInfo(item)
-        val extras = FragmentNavigatorExtras(
-                view.findViewById<TextView>(R.id.release_name) to "${item.name}album",
-                view.findViewById<ImageView>(R.id.release_cover) to item.imageUrl,
-                view.findViewById<TextView>(R.id.artist_name) to "${item.artist.name}album")
+    override fun onItemSelected(position: Int, item: BaseModel, view: View) {
+        if (item is Album) {
+            sharedViewModel.getAlbumInfo(item)
+            val extras = FragmentNavigatorExtras(
+                    view.findViewById<TextView>(R.id.release_name) to "${item.name}album",
+                    view.findViewById<ImageView>(R.id.release_cover) to item.imageUrl,
+                    view.findViewById<TextView>(R.id.artist_name) to "${item.artist.name}album")
 
-        findNavController().navigate(R.id.action_newReleasesFragment_to_albumInfoFragment, null,
-                null, extras)
+            findNavController().navigate(R.id.action_newReleasesFragment_to_albumInfoFragment, null,
+                    null, extras)
+        }
     }
 }

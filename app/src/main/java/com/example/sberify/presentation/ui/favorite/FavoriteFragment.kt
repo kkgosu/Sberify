@@ -15,13 +15,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
 import com.example.sberify.databinding.FragmentFavoriteBinding
 import com.example.sberify.di.injectViewModel
+import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.models.domain.Track
+import com.example.sberify.presentation.ui.Interaction1
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.albuminfo.AlbumInfoAdapter
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class FavoriteFragment : Fragment(), AlbumInfoAdapter.Interaction {
+class FavoriteFragment : Fragment(), Interaction1 {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -29,7 +31,7 @@ class FavoriteFragment : Fragment(), AlbumInfoAdapter.Interaction {
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var favoriteViewModel: FavoriteViewModel
     private lateinit var recyclerView: RecyclerView
-    private lateinit var albumInfoAdapter: AlbumInfoAdapter
+    private lateinit var albumInfoAdapter: AlbumInfoAdapter<Track>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidSupportInjection.inject(this)
@@ -45,7 +47,7 @@ class FavoriteFragment : Fragment(), AlbumInfoAdapter.Interaction {
                 R.layout.fragment_favorite, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         val view = binding.root
-        albumInfoAdapter = AlbumInfoAdapter(this)
+        // albumInfoAdapter = AlbumInfoAdapter(this)
         recyclerView = view.findViewById(R.id.favorite_recycler)
         recyclerView.adapter = albumInfoAdapter
 
@@ -56,11 +58,13 @@ class FavoriteFragment : Fragment(), AlbumInfoAdapter.Interaction {
         return view
     }
 
-    override fun onItemSelected(position: Int, item: Track, view: View) {
-        sharedViewModel.getLyrics(item)
-        val extras = FragmentNavigatorExtras(
-                view.findViewById<TextView>(R.id.track_name) to item.name)
-        findNavController().navigate(R.id.action_favoriteFragment_to_lyricsFragment, null, null,
-                extras)
+    override fun onItemSelected(position: Int, item: BaseModel, view: View) {
+        if (item is Track) {
+            sharedViewModel.getLyrics(item)
+            val extras = FragmentNavigatorExtras(
+                    view.findViewById<TextView>(R.id.track_name) to item.name)
+            findNavController().navigate(R.id.action_favoriteFragment_to_lyricsFragment, null, null,
+                    extras)
+        }
     }
 }

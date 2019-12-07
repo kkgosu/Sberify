@@ -15,13 +15,15 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
 import com.example.sberify.R
 import com.example.sberify.databinding.FragmentAlbumInfoStartBinding
+import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.models.domain.Track
+import com.example.sberify.presentation.ui.Interaction1
 import com.example.sberify.presentation.ui.SharedViewModel
 
-class AlbumInfoFragment : Fragment(), AlbumInfoAdapter.Interaction {
+class AlbumInfoFragment : Fragment(), Interaction1 {
 
     private lateinit var tracksRecyclerView: RecyclerView
-    private lateinit var albumInfoAdapter: AlbumInfoAdapter
+    private lateinit var albumInfoAdapter: AlbumInfoAdapter<Track>
     private lateinit var sharedViewModel: SharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,11 +64,13 @@ class AlbumInfoFragment : Fragment(), AlbumInfoAdapter.Interaction {
         }
     }
 
-    override fun onItemSelected(position: Int, item: Track, view: View) {
-        sharedViewModel.getLyrics(item)
-        val extras = FragmentNavigatorExtras(
-                view.findViewById<TextView>(R.id.track_name) to item.name)
-        findNavController().navigate(R.id.action_albumInfoFragment_to_lyricsFragment, null,
-                null, extras)
+    override fun onItemSelected(position: Int, item: BaseModel, view: View) {
+        if (item is Track) {
+            sharedViewModel.getLyrics(item)
+            val extras = FragmentNavigatorExtras(
+                    view.findViewById<TextView>(R.id.track_name) to item.name)
+            findNavController().navigate(R.id.action_albumInfoFragment_to_lyricsFragment, null,
+                    null, extras)
+        }
     }
 }
