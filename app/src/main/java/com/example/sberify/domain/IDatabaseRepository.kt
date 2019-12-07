@@ -1,7 +1,7 @@
 package com.example.sberify.domain
 
-import com.example.sberify.domain.model.Suggestion
-import com.example.sberify.domain.model.Track
+import com.example.sberify.models.domain.Suggestion
+import com.example.sberify.models.domain.Track
 
 interface IDatabaseRepository {
     suspend fun getAllSuggestions(): List<Suggestion>

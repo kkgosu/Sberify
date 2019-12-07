@@ -1,4 +1,4 @@
-package com.example.sberify.data.model
+package com.example.sberify.models.data
 
 data class ImageData(val url: String,
         val height: Int,

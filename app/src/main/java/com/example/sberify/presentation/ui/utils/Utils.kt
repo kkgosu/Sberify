@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.DiffUtil
-import com.example.sberify.domain.model.BaseModel
+import com.example.sberify.models.domain.BaseModel
 import java.text.Normalizer
 
 fun String.normalize(): String = Normalizer.normalize(this, Normalizer.Form.NFD)

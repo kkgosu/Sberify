@@ -1,4 +1,4 @@
-package com.example.sberify.data.model
+package com.example.sberify.models.data
 
 data class TrackData(val id: String,
         val name: String,

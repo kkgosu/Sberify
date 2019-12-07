@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.di
+package com.example.sberify.di
 
 import android.app.Application
 import androidx.room.Room
@@ -22,19 +22,16 @@ class DbModule {
     }
 
     @Provides
-    @Singleton
     fun provideAlbumDao(appDatabase: AppDatabase): AlbumDao {
         return appDatabase.getAlbumDao()
     }
 
     @Provides
-    @Singleton
     fun provideArtistDao(appDatabase: AppDatabase): ArtistDao {
         return appDatabase.getArtistDao()
     }
 
     @Provides
-    @Singleton
     fun provideTrackDao(appDatabase: AppDatabase): TrackDao {
         return appDatabase.getTrackDao()
     }

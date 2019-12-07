@@ -1,10 +1,10 @@
 package com.example.sberify.data.api
 
-import com.example.sberify.data.model.AlbumData
-import com.example.sberify.data.model.AlbumsData
-import com.example.sberify.data.model.ArtistsData
-import com.example.sberify.data.model.TracksData
-import com.example.sberify.domain.model.Token
+import com.example.sberify.models.data.AlbumData
+import com.example.sberify.models.data.AlbumsData
+import com.example.sberify.models.data.ArtistsData
+import com.example.sberify.models.data.TracksData
+import com.example.sberify.models.domain.Token
 import retrofit2.Response
 import retrofit2.http.*
 

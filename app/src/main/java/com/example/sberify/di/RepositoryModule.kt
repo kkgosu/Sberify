@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.di
+package com.example.sberify.di
 
 import com.example.sberify.data.DataConverter
 import com.example.sberify.data.GeniusParser

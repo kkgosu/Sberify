@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.example.sberify.domain.model.Suggestion
+import com.example.sberify.models.domain.Suggestion
 
 
 @Entity(tableName = "suggestions", indices = [Index(value = ["text"], unique = true)])

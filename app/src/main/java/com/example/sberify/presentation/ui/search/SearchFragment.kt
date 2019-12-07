@@ -16,10 +16,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
 import com.example.sberify.R
-import com.example.sberify.domain.model.Album
-import com.example.sberify.domain.model.Artist
-import com.example.sberify.domain.model.Suggestion
-import com.example.sberify.domain.model.Track
+import com.example.sberify.models.domain.Album
+import com.example.sberify.models.domain.Artist
+import com.example.sberify.models.domain.Suggestion
+import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.SharedViewModel
 
 
@@ -27,19 +27,18 @@ class SearchFragment : Fragment(
         R.layout.fragment_search), SearchAdapter.Interaction, SuggestionsAdapter.Interaction {
     private var searchType = SearchType.ARTIST
 
+    private lateinit var searchAdapter: SearchAdapter
+    private lateinit var suggestionsAdapter: SuggestionsAdapter
     private lateinit var resultsRecyclerView: RecyclerView
-    private lateinit var mSearchAdapter: SearchAdapter
-    private lateinit var mSuggestionsRecycler: RecyclerView
-    private lateinit var mSuggestionsAdapter: SuggestionsAdapter
-    private var list = emptyList<Suggestion>()
+    private lateinit var suggestionsRecycler: RecyclerView
+    private var suggestions = emptyList<Suggestion>()
 
-    private lateinit var mSharedViewModel: SharedViewModel
-
-    private lateinit var mSearchView: SearchView
+    private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var searchView: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mSharedViewModel = ViewModelProvider(requireActivity()).get(
+        sharedViewModel = ViewModelProvider(requireActivity()).get(
                 SharedViewModel::class.java)
     }
 
@@ -47,16 +46,16 @@ class SearchFragment : Fragment(
             savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)!!
         resultsRecyclerView = view.findViewById(R.id.search_results)!!
-        mSuggestionsRecycler = view.findViewById(R.id.suggestion_recycler)!!
+        suggestionsRecycler = view.findViewById(R.id.suggestion_recycler)!!
 
-        mSearchAdapter = SearchAdapter(this)
-        mSuggestionsAdapter = SuggestionsAdapter(this)
+        searchAdapter = SearchAdapter(this)
+        suggestionsAdapter = SuggestionsAdapter(this)
 
-        resultsRecyclerView.adapter = mSearchAdapter
-        mSuggestionsRecycler.apply {
-            adapter = mSuggestionsAdapter
+        resultsRecyclerView.adapter = searchAdapter
+        suggestionsRecycler.apply {
+            adapter = suggestionsAdapter
         }
-        mSearchView = view.findViewById(R.id.search_view)
+        searchView = view.findViewById(R.id.search_view)
         view.findViewById<RadioGroup>(R.id.search_options_rg)
                 .setOnCheckedChangeListener { _, checkedId ->
                     when (checkedId) {
@@ -72,24 +71,24 @@ class SearchFragment : Fragment(
                     }
                 }
 
-        mSharedViewModel.artist.observe(viewLifecycleOwner, Observer {
-            mSearchAdapter.currentSearchType = SearchType.ARTIST
-            mSearchAdapter.submitList(it)
+        sharedViewModel.artist.observe(viewLifecycleOwner, Observer {
+            searchAdapter.currentSearchType = SearchType.ARTIST
+            searchAdapter.submitList(it)
         })
-        mSharedViewModel.albums.observe(viewLifecycleOwner, Observer {
-            mSearchAdapter.currentSearchType = SearchType.ALBUM
-            mSearchAdapter.submitList(it)
+        sharedViewModel.albums.observe(viewLifecycleOwner, Observer {
+            searchAdapter.currentSearchType = SearchType.ALBUM
+            searchAdapter.submitList(it)
         })
-        mSharedViewModel.track.observe(viewLifecycleOwner, Observer {
-            mSearchAdapter.currentSearchType = SearchType.TRACK
-            mSearchAdapter.submitList(it)
+        sharedViewModel.track.observe(viewLifecycleOwner, Observer {
+            searchAdapter.currentSearchType = SearchType.TRACK
+            searchAdapter.submitList(it)
         })
-        mSharedViewModel.suggestions.observe(viewLifecycleOwner, Observer {
-            list = it
-            mSuggestionsAdapter.submitList(list)
+        sharedViewModel.suggestions.observe(viewLifecycleOwner, Observer {
+            suggestions = it
+            suggestionsAdapter.submitList(suggestions)
 
         })
-        configureSearchView(mSearchView)
+        configureSearchView(searchView)
         return view
     }
 
@@ -105,16 +104,16 @@ class SearchFragment : Fragment(
     }
 
     override fun onArtistSelected(position: Int, item: Artist) {
-
+        
     }
 
     override fun onTrackSelected(position: Int, item: Track) {
-        mSharedViewModel.getLyrics(item)
+        sharedViewModel.getLyrics(item)
         findNavController().navigate(R.id.action_searchFragment_to_lyricsFragment)
     }
 
     override fun onAlbumSelected(item: Album, view: View) {
-        mSharedViewModel.getAlbumInfo(item)
+        sharedViewModel.getAlbumInfo(item)
         val extras = FragmentNavigatorExtras(
                 view.findViewById<TextView>(R.id.release_name) to item.name,
                 view.findViewById<ImageView>(R.id.release_cover) to item.id,
@@ -125,35 +124,36 @@ class SearchFragment : Fragment(
 
     override fun onSuggestionSelected(position: Int, item: Suggestion) {
         val query = item.text
-        mSearchView.setQuery(query, true)
+        searchView.setQuery(query, true)
     }
 
-    private fun configureSearchView(searchView: SearchView?) {
-        searchView?.setOnQueryTextFocusChangeListener { _, hasFocus ->
-            mSuggestionsRecycler.visibility = if (hasFocus) {
-                mSharedViewModel.getAllSuggestions()
-                mSuggestionsRecycler.scheduleLayoutAnimation()
+    private fun configureSearchView(sView: SearchView?) {
+        sView?.setOnQueryTextFocusChangeListener { _, hasFocus ->
+            suggestionsRecycler.visibility = if (hasFocus) {
+                sharedViewModel.getAllSuggestions()
+                suggestionsRecycler.scheduleLayoutAnimation()
                 View.VISIBLE
             } else {
                 View.GONE
             }
         }
-        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        sView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
                 newText?.let { query ->
-                    mSuggestionsAdapter.submitList(list.filter { it.text.contains(query, true) })
+                    suggestionsAdapter.submitList(
+                            suggestions.filter { it.text.contains(query, true) })
                 }
                 return true
             }
 
             override fun onQueryTextSubmit(query: String?): Boolean {
-                mSharedViewModel.insertSuggestion(query!!)
-                searchView.clearFocus()
-                mSuggestionsRecycler.visibility = View.GONE
+                sharedViewModel.insertSuggestion(query!!)
+                sView.clearFocus()
+                suggestionsRecycler.visibility = View.GONE
                 when (searchType) {
-                    SearchType.ARTIST -> mSharedViewModel.searchArtist(query)
-                    SearchType.ALBUM -> mSharedViewModel.searchAlbum(query)
-                    SearchType.TRACK -> mSharedViewModel.searchTrack(query)
+                    SearchType.ARTIST -> sharedViewModel.searchArtist(query)
+                    SearchType.ALBUM -> sharedViewModel.searchAlbum(query)
+                    SearchType.TRACK -> sharedViewModel.searchTrack(query)
                 }
                 return true
             }

@@ -1,4 +1,4 @@
-package com.example.sberify.domain.model
+package com.example.sberify.models.domain
 
 abstract class BaseModel(val baseId: String = "") {
     override fun equals(other: Any?): Boolean {

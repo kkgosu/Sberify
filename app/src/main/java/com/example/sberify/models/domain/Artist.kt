@@ -1,4 +1,4 @@
-package com.example.sberify.domain.model
+package com.example.sberify.models.domain
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -22,7 +22,8 @@ data class Artist(val id: String,
     companion object CREATOR : Parcelable.Creator<Artist> {
         override fun createFromParcel(parcel: Parcel): Artist {
             return Artist(parcel.readString()!!,
-                    parcel.readParcelable(((Image::class) as Any).javaClass.classLoader),
+                    parcel.readParcelable(
+                            ((Image::class) as Any).javaClass.classLoader),
                     parcel.readString()!!,
                     parcel.createStringArrayList() as List<String>)
         }

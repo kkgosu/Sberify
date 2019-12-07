@@ -5,7 +5,7 @@ import com.example.sberify.data.GeniusParser
 import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.db.track.TrackEntity
 import com.example.sberify.domain.IGeniusRepository
-import com.example.sberify.domain.model.Track
+import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.utils.normalize
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

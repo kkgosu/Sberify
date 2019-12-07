@@ -1,4 +1,4 @@
-package com.example.sberify.data.model
+package com.example.sberify.models.data
 
 data class ArtistData(val id: String,
         val images: List<ImageData>? = null,

@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.di
+package com.example.sberify.di
 
 import com.example.sberify.presentation.ui.MainActivity
 import dagger.Module

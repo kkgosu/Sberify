@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.di
+package com.example.sberify.di
 
 import android.app.Application
 import com.example.sberify.SberifyApp

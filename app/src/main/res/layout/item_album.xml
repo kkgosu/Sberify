@@ -6,7 +6,7 @@
     <data>
         <variable
             name="album"
-            type="com.example.sberify.domain.model.Album" />
+            type="com.example.sberify.models.domain.Album" />
     </data>
 
     <androidx.cardview.widget.CardView

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="track"
-            type="com.example.sberify.domain.model.Track" />
+            type="com.example.sberify.models.domain.Track" />
     </data>
 
     <LinearLayout

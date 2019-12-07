@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
 import com.example.sberify.databinding.ItemTrackBinding
-import com.example.sberify.domain.model.Track
+import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.utils.createDiffCallback
 import kotlinx.android.synthetic.main.item_track.view.*
 

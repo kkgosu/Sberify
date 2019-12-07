@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
-import com.example.sberify.presentation.di.injectViewModel
+import com.example.sberify.di.injectViewModel
 import com.example.sberify.presentation.ui.albuminfo.AlbumInfoAdapter
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -21,7 +21,7 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
 
     private lateinit var favoriteViewModel: FavoriteViewModel
     private lateinit var recyclerView: RecyclerView
-    private lateinit var mAdapter: AlbumInfoAdapter
+    private lateinit var albumInfoAdapter: AlbumInfoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidSupportInjection.inject(this)
@@ -32,23 +32,14 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
-        mAdapter = AlbumInfoAdapter()
+        albumInfoAdapter = AlbumInfoAdapter()
         recyclerView = view!!.findViewById(R.id.favorite_recycler)
-        recyclerView.adapter = mAdapter
+        recyclerView.adapter = albumInfoAdapter
 
         favoriteViewModel.favorite.observe(viewLifecycleOwner, Observer {
-            mAdapter.submitList(it)
+            albumInfoAdapter.submitList(it)
         })
         favoriteViewModel.loadFavorite()
         return view
-    }
-
-    companion object {
-        fun newInstance(): FavoriteFragment {
-            val args = Bundle()
-            val fragment = FavoriteFragment()
-            fragment.arguments = args
-            return fragment
-        }
     }
 }

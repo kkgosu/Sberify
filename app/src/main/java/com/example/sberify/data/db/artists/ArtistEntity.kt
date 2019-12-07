@@ -3,9 +3,8 @@ package com.example.sberify.data.db.artists
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.sberify.data.db.album.AlbumEntity
-import com.example.sberify.domain.model.Artist
-import com.example.sberify.domain.model.Image
+import com.example.sberify.models.domain.Artist
+import com.example.sberify.models.domain.Image
 
 @Entity(tableName = "artists")
 data class ArtistEntity(

@@ -1,7 +1,7 @@
 package com.example.sberify.domain
 
-import com.example.sberify.data.model.*
-import com.example.sberify.domain.model.*
+import com.example.sberify.models.data.*
+import com.example.sberify.models.domain.*
 
 interface IConverter<From : BaseDataModel, To : BaseModel> {
     fun convertAlbums(from: List<AlbumData>?): List<Album>

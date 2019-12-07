@@ -3,9 +3,9 @@ package com.example.sberify
 import android.app.Activity
 import android.app.Application
 import android.content.Context
-import com.example.sberify.presentation.di.ApiModule
-import com.example.sberify.presentation.di.DaggerAppComponent
-import com.example.sberify.presentation.di.DbModule
+import com.example.sberify.di.ApiModule
+import com.example.sberify.di.DaggerAppComponent
+import com.example.sberify.di.DbModule
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector

@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.di
+package com.example.sberify.di
 
 import com.example.sberify.presentation.ui.albuminfo.AlbumInfoFragment
 import com.example.sberify.presentation.ui.favorite.FavoriteFragment

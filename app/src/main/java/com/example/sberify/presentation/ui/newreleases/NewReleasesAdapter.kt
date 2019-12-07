@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
 import com.example.sberify.databinding.ItemAlbumBinding
-import com.example.sberify.domain.model.Album
+import com.example.sberify.models.domain.Album
 import com.example.sberify.presentation.ui.utils.createDiffCallback
 
 class NewReleasesAdapter(

@@ -8,8 +8,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.example.sberify.R
 import com.example.sberify.databinding.ActivityMainBinding
 import com.example.sberify.presentation.ui.utils.setupWithNavController
@@ -18,7 +16,6 @@ import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
-import kotlinx.android.synthetic.main.bottom_nav_view.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
@@ -30,11 +27,8 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
-
-
-    private lateinit var mViewModel: SharedViewModel
-    private lateinit var navController: NavController
-
+    
+    private lateinit var sharedViewModel: SharedViewModel
     private var currentNavController: LiveData<NavController>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,12 +42,12 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
             setupBottomNavBar()
         }
 
-        mViewModel = ViewModelProvider(this, viewModelFactory).get(
+        sharedViewModel = ViewModelProvider(this, viewModelFactory).get(
                 SharedViewModel::class.java)
-        mViewModel.token.observe(this, Observer {
+        sharedViewModel.token.observe(this, Observer {
             println("Token ${it.access_token}")
         })
-        mViewModel.getData()
+        sharedViewModel.getData()
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -72,21 +66,12 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
                 fragmentManager = supportFragmentManager,
                 containerId = R.id.main_content,
                 intent = intent)
-
-        controller.observe(this, Observer {
-            //setupActionBarWithNavController(it)
-        })
+        
         currentNavController = controller
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return currentNavController?.value?.navigateUp() ?: false
-    }
-
-    private fun setupNavigation() {
-        navController = findNavController(R.id.main_content)
-        NavigationUI.setupWithNavController(bottom_nav_view, navController)
-
     }
 }
 

@@ -4,8 +4,8 @@ import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.db.suggestions.SuggestionsEntity
 import com.example.sberify.data.db.track.TrackEntity
 import com.example.sberify.domain.IDatabaseRepository
-import com.example.sberify.domain.model.Suggestion
-import com.example.sberify.domain.model.Track
+import com.example.sberify.models.domain.Suggestion
+import com.example.sberify.models.domain.Track
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

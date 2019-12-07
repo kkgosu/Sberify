@@ -1,4 +1,4 @@
-package com.example.sberify.domain.model
+package com.example.sberify.models.domain
 
 data class Album(val id: String,
         val artist: Artist,

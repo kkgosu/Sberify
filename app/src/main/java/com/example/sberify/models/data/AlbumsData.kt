@@ -1,4 +1,4 @@
-package com.example.sberify.data.model
+package com.example.sberify.models.data
 
 data class AlbumsData(val albums: Items) {
     data class Items(val items: List<AlbumData>? = null) : BaseDataModel()

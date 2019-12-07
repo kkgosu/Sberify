@@ -2,7 +2,7 @@ package com.example.sberify.data.db.album
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.sberify.domain.model.Track
+import com.example.sberify.models.domain.Track
 
 @Dao
 interface AlbumDao {

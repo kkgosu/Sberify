@@ -1,4 +1,4 @@
-package com.example.sberify.domain.model
+package com.example.sberify.models.domain
 
 import android.annotation.SuppressLint
 import android.os.Parcel
@@ -27,8 +27,10 @@ data class Track(val id: String,
         override fun createFromParcel(parcel: Parcel): Track {
             return Track(parcel.readString()!!,
                     parcel.readString()!!,
-                    parcel.readParcelable(((Image::class) as Any).javaClass.classLoader),
-                    parcel.createTypedArrayList(Artist.CREATOR) as List<Artist>)
+                    parcel.readParcelable(
+                            ((Image::class) as Any).javaClass.classLoader),
+                    parcel.createTypedArrayList(
+                            Artist) as List<Artist>)
         }
 
         override fun newArray(size: Int): Array<Track?> {

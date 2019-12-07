@@ -19,24 +19,24 @@ import androidx.transition.TransitionInflater
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
 import com.example.sberify.databinding.FragmentNewReleasesBinding
-import com.example.sberify.domain.model.Album
+import com.example.sberify.models.domain.Album
 import com.example.sberify.presentation.ui.SharedViewModel
 import dagger.android.support.AndroidSupportInjection
 
 
 class NewReleasesFragment : Fragment(), NewReleasesAdapter.Interaction {
 
-    private lateinit var mViewModel: SharedViewModel
-    private lateinit var mAdapter: NewReleasesAdapter
-    private lateinit var mLayoutManager: StaggeredGridLayoutManager
-    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var releasesAdapter: NewReleasesAdapter
+    private lateinit var gridLayoutManager: StaggeredGridLayoutManager
+    private lateinit var releasesRecycler: RecyclerView
     private lateinit var lottieAnim: LottieAnimationView
     private var mState: Parcelable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidSupportInjection.inject(this)
         super.onCreate(savedInstanceState)
-        mViewModel = ViewModelProvider(requireActivity()).get(
+        sharedViewModel = ViewModelProvider(requireActivity()).get(
                 SharedViewModel::class.java)
     }
 
@@ -45,27 +45,27 @@ class NewReleasesFragment : Fragment(), NewReleasesAdapter.Interaction {
         val binding: FragmentNewReleasesBinding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_new_releases, container, false)
         val view = binding.root
-        mAdapter = NewReleasesAdapter(this)
-        mLayoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
-        mRecyclerView = view.findViewById(R.id.new_releases_recycler)
-        mRecyclerView.apply {
-            layoutManager = mLayoutManager
-            adapter = mAdapter
-            mLayoutManager.onRestoreInstanceState(mState)
+        releasesAdapter = NewReleasesAdapter(this)
+        gridLayoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
+        releasesRecycler = view.findViewById(R.id.new_releases_recycler)
+        releasesRecycler.apply {
+            layoutManager = gridLayoutManager
+            adapter = releasesAdapter
+            gridLayoutManager.onRestoreInstanceState(mState)
         }
 
         lottieAnim = view.findViewById(R.id.loading_animation)
 
-        mViewModel.newReleases.observe(viewLifecycleOwner, Observer {
-            mAdapter.submitList(it)
+        sharedViewModel.newReleases.observe(viewLifecycleOwner, Observer {
+            releasesAdapter.submitList(it)
         })
 
-        mViewModel.startLoadingAnim.observe(viewLifecycleOwner, Observer {
+        sharedViewModel.startLoadingAnim.observe(viewLifecycleOwner, Observer {
             lottieAnim.visibility = View.VISIBLE
             lottieAnim.playAnimation()
         })
 
-        mViewModel.cancelLoadingAnim.observe(viewLifecycleOwner, Observer {
+        sharedViewModel.cancelLoadingAnim.observe(viewLifecycleOwner, Observer {
             lottieAnim.visibility = View.GONE
             lottieAnim.cancelAnimation()
         })
@@ -75,7 +75,7 @@ class NewReleasesFragment : Fragment(), NewReleasesAdapter.Interaction {
 
     override fun onPause() {
         super.onPause()
-        mState = mLayoutManager.onSaveInstanceState()
+        mState = gridLayoutManager.onSaveInstanceState()
     }
 
     override fun onDestroy() {
@@ -88,14 +88,14 @@ class NewReleasesFragment : Fragment(), NewReleasesAdapter.Interaction {
         sharedElementReturnTransition = TransitionInflater.from(context)
                 .inflateTransition(android.R.transition.move)
         postponeEnterTransition()
-        mRecyclerView.viewTreeObserver.addOnPreDrawListener {
+        releasesRecycler.viewTreeObserver.addOnPreDrawListener {
             startPostponedEnterTransition()
             true
         }
     }
 
     override fun onItemSelected(item: Album, view: View) {
-        mViewModel.getAlbumInfo(item)
+        sharedViewModel.getAlbumInfo(item)
         val extras = FragmentNavigatorExtras(
                 view.findViewById<TextView>(R.id.release_name) to "${item.name}album",
                 view.findViewById<ImageView>(R.id.release_cover) to item.imageUrl,

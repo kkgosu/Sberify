@@ -1,14 +1,13 @@
 package com.example.sberify.presentation.ui.search
 
-import androidx.recyclerview.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
-import com.example.sberify.domain.model.Album
-import com.example.sberify.domain.model.Artist
-import com.example.sberify.domain.model.Track
+import com.example.sberify.models.domain.Album
+import com.example.sberify.models.domain.Artist
+import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.utils.createDiffCallback
 import com.example.sberify.presentation.ui.utils.inflateLayout
 import com.example.sberify.presentation.ui.utils.loadImage

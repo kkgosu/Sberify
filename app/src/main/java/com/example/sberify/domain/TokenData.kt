@@ -3,7 +3,7 @@ package com.example.sberify.domain
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import com.example.sberify.SberifyApp
-import com.example.sberify.domain.model.Token
+import com.example.sberify.models.domain.Token
 
 object TokenData {
     private const val TAG = "Pref"

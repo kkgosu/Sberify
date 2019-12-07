@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.di
+package com.example.sberify.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

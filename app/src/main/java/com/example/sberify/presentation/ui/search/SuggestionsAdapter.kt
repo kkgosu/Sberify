@@ -1,13 +1,13 @@
 package com.example.sberify.presentation.ui.search
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
-import com.example.sberify.domain.model.Suggestion
+import com.example.sberify.models.domain.Suggestion
 import kotlinx.android.synthetic.main.item_suggestion.view.*
 
 class SuggestionsAdapter(

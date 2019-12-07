@@ -1,4 +1,4 @@
-package com.example.sberify.domain.model
+package com.example.sberify.models.domain
 
 data class Token(val access_token: String,
                  val token_type: String,

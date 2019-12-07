@@ -3,9 +3,9 @@ package com.example.sberify.data.db.track
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.sberify.domain.model.Artist
-import com.example.sberify.domain.model.Image
-import com.example.sberify.domain.model.Track
+import com.example.sberify.models.domain.Artist
+import com.example.sberify.models.domain.Image
+import com.example.sberify.models.domain.Track
 
 @Entity(tableName = "tracks"/*,
         foreignKeys = [ForeignKey(entity = AlbumEntity::class, parentColumns = ["spotify_id"],

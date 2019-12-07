@@ -3,7 +3,7 @@ package com.example.sberify.presentation.ui.lyrics
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sberify.domain.IDatabaseRepository
-import com.example.sberify.domain.model.Track
+import com.example.sberify.models.domain.Track
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

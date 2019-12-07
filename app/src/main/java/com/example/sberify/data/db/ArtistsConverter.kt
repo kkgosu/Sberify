@@ -1,7 +1,7 @@
 package com.example.sberify.data.db
 
 import androidx.room.TypeConverter
-import com.example.sberify.domain.model.Artist
+import com.example.sberify.models.domain.Artist
 
 object ArtistsConverter {
 

@@ -1,4 +1,4 @@
-package com.example.sberify.domain.model
+package com.example.sberify.models.domain
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -17,7 +17,8 @@ data class Image(val url: String, val height: Int, val width: Int) : BaseModel()
 
     companion object CREATOR : Parcelable.Creator<Image> {
         override fun createFromParcel(parcel: Parcel): Image {
-            return Image(parcel.readString()!!, parcel.readInt(), parcel.readInt())
+            return Image(parcel.readString()!!, parcel.readInt(),
+                    parcel.readInt())
         }
 
         override fun newArray(size: Int): Array<Image?> {
