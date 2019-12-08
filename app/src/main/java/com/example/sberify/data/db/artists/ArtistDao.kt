@@ -13,5 +13,8 @@ interface ArtistDao {
 
     @Query("SELECT * FROM artists WHERE spotify_id = :id")
     fun getArtistById(id: String): LiveData<ArtistEntity>
+
+    @Query("SELECT * FROM artists WHERE name = :key")
+    fun getArtistByKeyword(key: String): LiveData<List<ArtistEntity>>
     
 }

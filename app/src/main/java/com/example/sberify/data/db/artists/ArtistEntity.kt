@@ -21,7 +21,7 @@ data class ArtistEntity(
     fun toArtist(): Artist =
             Artist(id = spotifyId,
                     name = name,
-                    image = Image(imageUrl!!, 0, 0),
+                    image = Image(imageUrl, 0, 0),
                     genres = null)
 
     companion object {

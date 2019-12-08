@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
 import com.example.sberify.R
+import com.example.sberify.data.Result
 import com.example.sberify.databinding.FragmentAlbumInfoStartBinding
 import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.models.domain.Track
@@ -40,9 +41,16 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
         tracksRecyclerView.adapter = albumInfoAdapter
 
         sharedViewModel.album.observe(viewLifecycleOwner, Observer {
-            it.tracks?.let { tracks ->
-                albumInfoAdapter.submitList(tracks)
+            when (it.status) {
+                Result.Status.SUCCESS -> {
+                    it.data?.let { album ->
+                        albumInfoAdapter.submitList(album.tracks!!)
+                    }
+                }
+                else -> {
+                }
             }
+
         })
         return mView
     }

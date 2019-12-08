@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import com.example.sberify.R
 import com.example.sberify.databinding.ActivityMainBinding
+import com.example.sberify.domain.TokenData
 import com.example.sberify.presentation.ui.utils.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.android.AndroidInjection
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
-    
+
     private lateinit var sharedViewModel: SharedViewModel
     private var currentNavController: LiveData<NavController>? = null
 
@@ -45,9 +46,11 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         sharedViewModel = ViewModelProvider(this, viewModelFactory).get(
                 SharedViewModel::class.java)
         sharedViewModel.token.observe(this, Observer {
-            println("Token ${it.access_token}")
+            it?.let {
+                TokenData.setToken(it)
+                println("Token ${it.access_token}")
+            }
         })
-        sharedViewModel.getData()
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -66,7 +69,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
                 fragmentManager = supportFragmentManager,
                 containerId = R.id.main_content,
                 intent = intent)
-        
+
         currentNavController = controller
     }
 

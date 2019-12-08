@@ -3,7 +3,6 @@ package com.example.sberify.data.db.album
 import androidx.room.*
 import com.example.sberify.data.db.artists.ArtistEntity
 import com.example.sberify.models.domain.Album
-import com.example.sberify.models.domain.Artist
 import com.example.sberify.models.domain.Track
 
 @Entity(tableName = "albums",
@@ -35,7 +34,7 @@ data class AlbumEntity(
 
     fun toAlbum(): Album =
             Album(id = spotifyId,
-                    artist = Artist(artistId, null, "", null),
+                    artist = artist.toArtist(),
                     name = name,
                     tracks = trackIds,
                     imageUrl = imageUrl,

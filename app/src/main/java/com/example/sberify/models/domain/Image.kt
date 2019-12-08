@@ -3,7 +3,7 @@ package com.example.sberify.models.domain
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Image(val url: String, val height: Int, val width: Int) : BaseModel(), Parcelable {
+data class Image(val url: String?, val height: Int, val width: Int) : BaseModel(), Parcelable {
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(url)

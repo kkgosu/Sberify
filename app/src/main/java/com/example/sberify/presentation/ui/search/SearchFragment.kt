@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
 import com.example.sberify.R
+import com.example.sberify.data.Result
 import com.example.sberify.databinding.FragmentSearchBinding
 import com.example.sberify.models.domain.*
 import com.example.sberify.presentation.ui.BaseFragment
@@ -63,15 +64,33 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
 
         sharedViewModel.artist.observe(viewLifecycleOwner, Observer {
             searchAdapter.currentSearchType = SearchType.ARTIST
-            searchAdapter.submitList(it)
+            when (it.status) {
+                Result.Status.SUCCESS -> {
+                    searchAdapter.submitList(it.data!!)
+                }
+                else -> {
+                }
+            }
         })
         sharedViewModel.albums.observe(viewLifecycleOwner, Observer {
             searchAdapter.currentSearchType = SearchType.ALBUM
-            searchAdapter.submitList(it)
+            when (it.status) {
+                Result.Status.SUCCESS -> {
+                    searchAdapter.submitList(it.data!!)
+                }
+                else -> {
+                }
+            }
         })
         sharedViewModel.track.observe(viewLifecycleOwner, Observer {
             searchAdapter.currentSearchType = SearchType.TRACK
-            searchAdapter.submitList(it)
+            when (it.status) {
+                Result.Status.SUCCESS -> {
+                    searchAdapter.submitList(it.data!!)
+                }
+                else -> {
+                }
+            }
         })
         sharedViewModel.suggestions.observe(viewLifecycleOwner, Observer {
             suggestions = it

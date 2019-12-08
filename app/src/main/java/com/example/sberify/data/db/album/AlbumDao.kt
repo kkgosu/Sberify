@@ -9,6 +9,12 @@ interface AlbumDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAlbum(albumEntity: AlbumEntity)
 
+    @Query("SELECT * FROM albums ORDER BY release_date DESC")
+    fun getAlbums(): LiveData<List<AlbumEntity>>
+
+    @Query("SELECT * FROM albums WHERE name = :key")
+    fun getAlbumsByKeyword(key: String): LiveData<List<AlbumEntity>>
+
     @Query("SELECT * FROM albums WHERE spotify_id = :id")
     fun getAlbumById(id: String): LiveData<AlbumEntity>
 

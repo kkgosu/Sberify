@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.transition.TransitionInflater
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
+import com.example.sberify.data.Result
 import com.example.sberify.databinding.FragmentNewReleasesBinding
 import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.BaseModel
@@ -29,11 +30,11 @@ class NewReleasesFragment : BaseFragment(), Injectable {
     private lateinit var releasesRecycler: RecyclerView
     private lateinit var lottieAnim: LottieAnimationView
     private var mState: Parcelable? = null
-    
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
         initBinding<FragmentNewReleasesBinding>(R.layout.fragment_new_releases, container)
-        
+
         releasesAdapter = NewReleasesAdapter(this)
         gridLayoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         releasesRecycler = mView.findViewById(R.id.new_releases_recycler)
@@ -46,19 +47,24 @@ class NewReleasesFragment : BaseFragment(), Injectable {
         lottieAnim = mView.findViewById(R.id.loading_animation)
 
         sharedViewModel.newReleases.observe(viewLifecycleOwner, Observer {
-            releasesAdapter.submitList(it)
+            when (it.status) {
+                Result.Status.SUCCESS -> {
+                    it.data?.let { album ->
+                        releasesAdapter.submitList(album)
+                    }
+                    lottieAnim.visibility = View.GONE
+                    lottieAnim.cancelAnimation()
+                }
+                Result.Status.LOADING -> {
+                    lottieAnim.visibility = View.VISIBLE
+                    lottieAnim.playAnimation()
+                }
+                Result.Status.ERROR -> {
+                    lottieAnim.visibility = View.VISIBLE
+                    lottieAnim.playAnimation()
+                }
+            }
         })
-
-        sharedViewModel.startLoadingAnim.observe(viewLifecycleOwner, Observer {
-            lottieAnim.visibility = View.VISIBLE
-            lottieAnim.playAnimation()
-        })
-
-        sharedViewModel.cancelLoadingAnim.observe(viewLifecycleOwner, Observer {
-            lottieAnim.visibility = View.GONE
-            lottieAnim.cancelAnimation()
-        })
-
         return mView
     }
 
