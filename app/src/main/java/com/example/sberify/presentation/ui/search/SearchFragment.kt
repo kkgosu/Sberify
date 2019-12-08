@@ -8,24 +8,19 @@ import android.widget.ImageView
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
 import com.example.sberify.R
 import com.example.sberify.databinding.FragmentSearchBinding
-import com.example.sberify.models.domain.Album
-import com.example.sberify.models.domain.Artist
-import com.example.sberify.models.domain.Suggestion
-import com.example.sberify.models.domain.Track
-import com.example.sberify.presentation.ui.SharedViewModel
+import com.example.sberify.models.domain.*
+import com.example.sberify.presentation.ui.BaseFragment
 
 
-class SearchFragment : Fragment(), SearchAdapter.Interaction, SuggestionsAdapter.Interaction {
+class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAdapter.Interaction {
+
     private var searchType = SearchType.ARTIST
 
     private lateinit var searchAdapter: SearchAdapter
@@ -34,23 +29,14 @@ class SearchFragment : Fragment(), SearchAdapter.Interaction, SuggestionsAdapter
     private lateinit var suggestionsRecycler: RecyclerView
     private var suggestions = emptyList<Suggestion>()
 
-    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var searchView: SearchView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        sharedViewModel = ViewModelProvider(requireActivity()).get(
-                SharedViewModel::class.java)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
-        val binding: FragmentSearchBinding = DataBindingUtil.inflate(inflater,
-                R.layout.fragment_search, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        val view = binding.root
-        resultsRecyclerView = view.findViewById(R.id.search_results)
-        suggestionsRecycler = view.findViewById(R.id.suggestion_recycler)
+        initBinding<FragmentSearchBinding>(R.layout.fragment_search, container)
+
+        resultsRecyclerView = mView.findViewById(R.id.search_results)
+        suggestionsRecycler = mView.findViewById(R.id.suggestion_recycler)
 
         searchAdapter = SearchAdapter(this)
         suggestionsAdapter = SuggestionsAdapter(this)
@@ -59,8 +45,8 @@ class SearchFragment : Fragment(), SearchAdapter.Interaction, SuggestionsAdapter
         suggestionsRecycler.apply {
             adapter = suggestionsAdapter
         }
-        searchView = view.findViewById(R.id.search_view)
-        view.findViewById<RadioGroup>(R.id.search_options_rg)
+        searchView = mView.findViewById(R.id.search_view)
+        mView.findViewById<RadioGroup>(R.id.search_options_rg)
                 .setOnCheckedChangeListener { _, checkedId ->
                     when (checkedId) {
                         R.id.artist_rb -> {
@@ -93,7 +79,7 @@ class SearchFragment : Fragment(), SearchAdapter.Interaction, SuggestionsAdapter
 
         })
         configureSearchView(searchView)
-        return view
+        return mView
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -115,7 +101,8 @@ class SearchFragment : Fragment(), SearchAdapter.Interaction, SuggestionsAdapter
         sharedViewModel.getLyrics(item)
         val extras = FragmentNavigatorExtras(
                 view.findViewById<TextView>(R.id.name) to item.name)
-        findNavController().navigate(R.id.action_searchFragment_to_lyricsFragment, null, null, extras)
+        findNavController().navigate(R.id.action_searchFragment_to_lyricsFragment, null, null,
+                extras)
     }
 
     override fun onAlbumSelected(item: Album, view: View) {
@@ -164,5 +151,8 @@ class SearchFragment : Fragment(), SearchAdapter.Interaction, SuggestionsAdapter
                 return true
             }
         })
+    }
+
+    override fun onItemSelected(position: Int, item: BaseModel, view: View) {
     }
 }

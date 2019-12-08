@@ -20,5 +20,8 @@ fun <T : BaseModel> createDiffCallback(): DiffUtil.ItemCallback<T> =
                     oldItem == newItem
         }
 
-inline fun <reified T : ViewDataBinding> inflateBindingLayout(@LayoutRes id: Int, parent: ViewGroup): T =
-        DataBindingUtil.inflate(LayoutInflater.from(parent.context), id, parent, false)
+inline fun <reified T : ViewDataBinding> inflateLayout(@LayoutRes id: Int, parent: ViewGroup?): T =
+        DataBindingUtil.inflate(LayoutInflater.from(parent?.context), id, parent, false)
+
+/*inline fun <reified T : ViewDataBinding> inflateFragmentLayout(inflater: LayoutInflater, @LayoutRes id: Int, container: ViewGroup): T =
+        DataBindingUtil.inflate(inflater, id, container, false)*/

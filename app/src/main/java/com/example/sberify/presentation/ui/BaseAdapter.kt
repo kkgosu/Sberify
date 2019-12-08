@@ -20,6 +20,6 @@ abstract class BaseAdapter<T : BaseModel> : RecyclerView.Adapter<RecyclerView.Vi
     }
 }
 
-interface Interaction1 {
+interface Interaction {
     fun onItemSelected(position: Int, item: BaseModel, view: View)
 }

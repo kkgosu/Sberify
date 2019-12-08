@@ -7,10 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -21,42 +18,32 @@ import com.example.sberify.R
 import com.example.sberify.databinding.FragmentNewReleasesBinding
 import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.BaseModel
-import com.example.sberify.presentation.ui.Interaction1
-import com.example.sberify.presentation.ui.SharedViewModel
-import dagger.android.support.AndroidSupportInjection
+import com.example.sberify.presentation.ui.BaseFragment
+import com.example.sberify.presentation.ui.Injectable
 
 
-class NewReleasesFragment : Fragment(), Interaction1 {
+class NewReleasesFragment : BaseFragment(), Injectable {
 
-    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var releasesAdapter: NewReleasesAdapter<Album>
     private lateinit var gridLayoutManager: StaggeredGridLayoutManager
     private lateinit var releasesRecycler: RecyclerView
     private lateinit var lottieAnim: LottieAnimationView
     private var mState: Parcelable? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidSupportInjection.inject(this)
-        super.onCreate(savedInstanceState)
-        sharedViewModel = ViewModelProvider(requireActivity()).get(
-                SharedViewModel::class.java)
-    }
-
+    
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
-        val binding: FragmentNewReleasesBinding = DataBindingUtil.inflate(inflater,
-                R.layout.fragment_new_releases, container, false)
-        val view = binding.root
+        initBinding<FragmentNewReleasesBinding>(R.layout.fragment_new_releases, container)
+        
         releasesAdapter = NewReleasesAdapter(this)
         gridLayoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
-        releasesRecycler = view.findViewById(R.id.new_releases_recycler)
+        releasesRecycler = mView.findViewById(R.id.new_releases_recycler)
         releasesRecycler.apply {
             layoutManager = gridLayoutManager
             adapter = releasesAdapter
             gridLayoutManager.onRestoreInstanceState(mState)
         }
 
-        lottieAnim = view.findViewById(R.id.loading_animation)
+        lottieAnim = mView.findViewById(R.id.loading_animation)
 
         sharedViewModel.newReleases.observe(viewLifecycleOwner, Observer {
             releasesAdapter.submitList(it)
@@ -72,7 +59,7 @@ class NewReleasesFragment : Fragment(), Interaction1 {
             lottieAnim.cancelAnimation()
         })
 
-        return view
+        return mView
     }
 
     override fun onPause() {

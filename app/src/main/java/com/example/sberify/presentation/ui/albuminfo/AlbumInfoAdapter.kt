@@ -7,15 +7,15 @@ import com.example.sberify.databinding.ItemTrackListedBinding
 import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.BaseAdapter
-import com.example.sberify.presentation.ui.Interaction1
-import com.example.sberify.presentation.ui.utils.inflateBindingLayout
+import com.example.sberify.presentation.ui.Interaction
+import com.example.sberify.presentation.ui.utils.inflateLayout
 import kotlinx.android.synthetic.main.item_track_listed.view.*
 
-class AlbumInfoAdapter<T : BaseModel>(private val interaction: Interaction1? = null) :
+class AlbumInfoAdapter<T : BaseModel>(private val interaction: Interaction? = null) :
         BaseAdapter<T>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = inflateBindingLayout<ItemTrackListedBinding>(R.layout.item_track_listed,
+        val binding = inflateLayout<ItemTrackListedBinding>(R.layout.item_track_listed,
                 parent)
         return ViewHolder(binding, interaction)
     }
@@ -32,7 +32,7 @@ class AlbumInfoAdapter<T : BaseModel>(private val interaction: Interaction1? = n
 
     class ViewHolder
     constructor(val binding: ItemTrackListedBinding,
-            private val interaction: Interaction1?) : RecyclerView.ViewHolder(binding.root) {
+            private val interaction: Interaction?) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Track) = with(itemView) {
             itemView.setOnClickListener {

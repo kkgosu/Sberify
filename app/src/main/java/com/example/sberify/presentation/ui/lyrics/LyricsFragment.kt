@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.transition.TransitionInflater
@@ -15,39 +13,32 @@ import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
 import com.example.sberify.databinding.FragmentLyricsBinding
 import com.example.sberify.di.injectViewModel
-import com.example.sberify.presentation.ui.SharedViewModel
-import dagger.android.support.AndroidSupportInjection
+import com.example.sberify.models.domain.BaseModel
+import com.example.sberify.presentation.ui.BaseFragment
+import com.example.sberify.presentation.ui.Injectable
 import javax.inject.Inject
 
-class LyricsFragment : Fragment() {
-
+class LyricsFragment : BaseFragment(), Injectable {
+    
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var lyricsViewModel: LyricsViewModel
     private lateinit var lottieAnim: LottieAnimationView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidSupportInjection.inject(this)
-        super.onCreate(savedInstanceState)
-        sharedViewModel = ViewModelProvider(requireActivity())
-                .get(SharedViewModel::class.java)
-        lyricsViewModel = injectViewModel(viewModelFactory)
-        sharedElementEnterTransition = TransitionInflater.from(context)
-                .inflateTransition(android.R.transition.move)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
-        val binding: FragmentLyricsBinding = DataBindingUtil.inflate(inflater,
-                R.layout.fragment_lyrics, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = sharedViewModel
-        val view = binding.root
-        val favoriteButton = view.findViewById<ImageButton>(R.id.favorite_text)
-        lottieAnim = view.findViewById(R.id.loading_animation)
 
+        initBinding<FragmentLyricsBinding>(R.layout.fragment_lyrics, container)
+                .viewModel = sharedViewModel
+
+        val favoriteButton = mView.findViewById<ImageButton>(R.id.favorite_text)
+        lyricsViewModel = injectViewModel(viewModelFactory)
+
+        sharedElementEnterTransition = TransitionInflater.from(context)
+                .inflateTransition(android.R.transition.move)
+
+        lottieAnim = mView.findViewById(R.id.loading_animation)
         sharedViewModel.lyrics.observe(viewLifecycleOwner, Observer {
             favoriteButton.apply {
                 setFavoriteIcon(this, !it.isFavorite)
@@ -61,20 +52,18 @@ class LyricsFragment : Fragment() {
         })
 
         sharedViewModel.startLoadingAnim.observe(viewLifecycleOwner, Observer {
-            lottieAnim.visibility = View.VISIBLE
-            lottieAnim.playAnimation()
+            showLottie()
         })
 
         sharedViewModel.cancelLoadingAnim.observe(viewLifecycleOwner, Observer {
-            lottieAnim.visibility = View.GONE
-            lottieAnim.cancelAnimation()
+            hideLottie()
         })
-        return view
+        return mView
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        lottieAnim.cancelAnimation()
+        hideLottie()
     }
 
     private fun setFavoriteIcon(imageButton: ImageButton, isFavorite: Boolean) {
@@ -90,9 +79,22 @@ class LyricsFragment : Fragment() {
         }
     }
 
+    private fun showLottie() {
+        lottieAnim.visibility = View.VISIBLE
+        lottieAnim.playAnimation()
+    }
+
+    private fun hideLottie() {
+        lottieAnim.visibility = View.GONE
+        lottieAnim.cancelAnimation()
+    }
+
     private fun startAnim(imageButton: ImageButton) {
         with(imageButton) {
             (drawable as AnimatedVectorDrawable).start()
         }
+    }
+
+    override fun onItemSelected(position: Int, item: BaseModel, view: View) {
     }
 }
