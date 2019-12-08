@@ -35,7 +35,6 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
         initBinding<FragmentSearchBinding>(R.layout.fragment_search, container)
-
         resultsRecyclerView = mView.findViewById(R.id.search_results)
         suggestionsRecycler = mView.findViewById(R.id.suggestion_recycler)
 
@@ -128,7 +127,7 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
         sharedViewModel.getAlbumInfo(item)
         val extras = FragmentNavigatorExtras(
                 view.findViewById<TextView>(R.id.release_name) to "${item.name}album",
-                view.findViewById<ImageView>(R.id.release_cover) to item.imageUrl,
+                view.findViewById<ImageView>(R.id.release_cover) to "${item.imageUrl}album",
                 view.findViewById<TextView>(R.id.artist_name) to "${item.artist.name}album")
         findNavController().navigate(R.id.action_searchFragment_to_albumInfoFragment, null, null,
                 extras)

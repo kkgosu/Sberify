@@ -12,7 +12,7 @@ interface AlbumDao {
     @Query("SELECT * FROM albums ORDER BY release_date DESC")
     fun getAlbums(): LiveData<List<AlbumEntity>>
 
-    @Query("SELECT * FROM albums WHERE name = :key")
+    @Query("SELECT * FROM albums WHERE name LIKE '%' || :key || '%' OR mname LIKE '%' || :key || '%'")
     fun getAlbumsByKeyword(key: String): LiveData<List<AlbumEntity>>
 
     @Query("SELECT * FROM albums WHERE spotify_id = :id")

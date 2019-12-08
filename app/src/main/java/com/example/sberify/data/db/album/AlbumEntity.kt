@@ -1,14 +1,17 @@
 package com.example.sberify.data.db.album
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.example.sberify.data.db.artists.ArtistEntity
 import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Track
 
-@Entity(tableName = "albums",
+@Entity(tableName = "albums"/*,
         foreignKeys = [ForeignKey(entity = ArtistEntity::class,
                 parentColumns = ["spotify_id"],
-                childColumns = ["artist_id"])])
+                childColumns = ["artist_id"])]*/)
 data class AlbumEntity(
         @PrimaryKey
         @ColumnInfo(name = "spotify_id", index = true)

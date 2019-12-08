@@ -1,9 +1,7 @@
 package com.example.sberify.presentation.ui.search
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
@@ -14,6 +12,7 @@ import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Artist
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.utils.createDiffCallback
+import com.example.sberify.presentation.ui.utils.inflateLayout
 
 class SearchAdapter(private val interaction: Interaction? = null) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -32,27 +31,19 @@ class SearchAdapter(private val interaction: Interaction? = null) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
             when (viewType) {
                 ARTIST_VIEW -> {
-                    val binding: ItemSearchBinding = DataBindingUtil.inflate(
-                            LayoutInflater.from(parent.context), R.layout.item_search, parent,
-                            false)
+                    val binding = inflateLayout<ItemSearchBinding>(R.layout.item_search, parent)
                     ViewHolderArtist(binding, interaction)
                 }
                 ALBUM_VIEW -> {
-                    val binding: ItemAlbumBinding = DataBindingUtil.inflate(
-                            LayoutInflater.from(parent.context), R.layout.item_album, parent,
-                            false)
+                    val binding = inflateLayout<ItemAlbumBinding>(R.layout.item_album, parent)
                     ViewHolderAlbum(binding, interaction)
                 }
                 TRACK_VIEW -> {
-                    val binding: ItemTrackBinding = DataBindingUtil.inflate(
-                            LayoutInflater.from(parent.context), R.layout.item_track, parent,
-                            false)
+                    val binding = inflateLayout<ItemTrackBinding>(R.layout.item_track, parent)
                     ViewHolderTrack(binding, interaction)
                 }
                 else -> {
-                    val binding: ItemSearchBinding = DataBindingUtil.inflate(
-                            LayoutInflater.from(parent.context), R.layout.item_search, parent,
-                            false)
+                    val binding = inflateLayout<ItemSearchBinding>(R.layout.item_search, parent)
                     ViewHolderArtist(binding, interaction)
                 }
             }
