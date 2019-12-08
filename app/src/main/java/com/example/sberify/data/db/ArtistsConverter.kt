@@ -11,6 +11,7 @@ object ArtistsConverter {
             from.joinToString(DELIMITER_COMMA) {
                 "${it.id}$DELIMITER_DASH${it.name}"
             }
+    
 
     @TypeConverter
     @JvmStatic

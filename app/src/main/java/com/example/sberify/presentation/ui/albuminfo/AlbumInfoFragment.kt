@@ -44,7 +44,9 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
             when (it.status) {
                 Result.Status.SUCCESS -> {
                     it.data?.let { album ->
-                        albumInfoAdapter.submitList(album.tracks!!)
+                        album.tracks?.let { tracks ->
+                            albumInfoAdapter.submitList(tracks)
+                        }
                     }
                 }
                 else -> {

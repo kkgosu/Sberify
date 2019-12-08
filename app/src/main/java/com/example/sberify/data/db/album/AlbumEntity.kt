@@ -24,7 +24,7 @@ data class AlbumEntity(
         val name: String,
 
         @ColumnInfo(name = "track_ids")
-        val trackIds: List<Track>,
+        val trackIds: List<Track>?,
 
         @ColumnInfo(name = "image_url")
         val imageUrl: String,
@@ -47,7 +47,7 @@ data class AlbumEntity(
                         artistId = album.artist.id,
                         artist = ArtistEntity.from(album.artist),
                         name = album.name,
-                        trackIds = album.tracks!!,
+                        trackIds = album.tracks,
                         imageUrl = album.imageUrl,
                         releaseDate = album.releaseDate)
 
