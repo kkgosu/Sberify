@@ -35,8 +35,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:text="@{viewModel.lyrics.name}"
-                    android:transitionName="@{viewModel.lyrics.name}"
+                    android:text="@{viewModel.lyrics.data.name}"
+                    android:transitionName="@{viewModel.lyrics.data.name}"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                     android:textColor="@color/white"
                     tools:text="Lazarus Phenomenon" />
@@ -44,7 +44,7 @@
                 <ImageButton
                     android:id="@+id/favorite_text"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@android:color/transparent" />
             </LinearLayout>
@@ -60,7 +60,7 @@
 
             <TextView
                 android:id="@+id/lyrics"
-                android:text="@{viewModel.lyrics.lyrics}"
+                android:text="@{viewModel.lyrics.data.lyrics}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding_default"

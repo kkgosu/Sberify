@@ -94,7 +94,7 @@ class NewReleasesFragment : BaseFragment(), Injectable {
             sharedViewModel.getAlbumInfo(item)
             val extras = FragmentNavigatorExtras(
                     view.findViewById<TextView>(R.id.release_name) to "${item.name}album",
-                    view.findViewById<ImageView>(R.id.release_cover) to item.imageUrl,
+                    view.findViewById<ImageView>(R.id.release_cover) to "${item.imageUrl}album",
                     view.findViewById<TextView>(R.id.artist_name) to "${item.artist.name}album")
 
             findNavController().navigate(R.id.action_newReleasesFragment_to_albumInfoFragment, null,

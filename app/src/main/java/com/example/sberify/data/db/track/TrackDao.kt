@@ -6,7 +6,7 @@ import androidx.room.*
 @Dao
 interface TrackDao {
     @Query("SELECT * FROM tracks WHERE spotify_id = :id")
-    fun getTracksById(id: String): LiveData<TrackEntity>
+    fun getTrackById(id: String): LiveData<TrackEntity>
 
     @Query("SELECT * FROM tracks WHERE album_id = :id")
     fun getTracksByAlbumId(id: String): LiveData<List<TrackEntity>>
@@ -20,9 +20,9 @@ interface TrackDao {
     @Query("SELECT * FROM tracks WHERE isFavorite = 1 ORDER BY name ASC")
     fun loadFavoriteTracks(): List<TrackEntity>
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateTrack(trackEntity: TrackEntity)
+    @Update(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun updateTrack(trackEntity: TrackEntity)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertTrack(trackEntity: TrackEntity)
 }

@@ -9,7 +9,6 @@ import com.example.sberify.domain.IDatabaseRepository
 import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.models.domain.*
-import com.example.sberify.presentation.ui.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,28 +28,13 @@ class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotif
     var artist: LiveData<Result<List<Artist>>> = MutableLiveData<Result<List<Artist>>>()
     var albums: LiveData<Result<List<Album>>> = MutableLiveData<Result<List<Album>>>()
     var track: LiveData<Result<List<Track>>> = MutableLiveData<Result<List<Track>>>()
-
-    private val _lyrics = MutableLiveData<Track>()
-    val lyrics: LiveData<Track> = _lyrics
-
+    var lyrics: LiveData<Result<Track>> = MutableLiveData<Result<Track>>()
+    
     private val _suggestions = MutableLiveData<List<Suggestion>>()
     val suggestions: LiveData<List<Suggestion>> = _suggestions
 
-    private val _cancelLoadingAnim = SingleLiveEvent<Unit>()
-    val cancelLoadingAnim = _cancelLoadingAnim
-
-    private val _startLoadingAnim = SingleLiveEvent<Unit>()
-    val startLoadingAnim = _startLoadingAnim
-
-
     fun getLyrics(track: Track) {
-        _lyrics.postValue(track)
-        _startLoadingAnim.call()
-        viewModelScope.launch(Dispatchers.IO) {
-            track.lyrics = geniusRepository.getLyrics(track)
-            _lyrics.postValue(track)
-            _cancelLoadingAnim.call()
-        }
+        lyrics = geniusRepository.getLyrics(track)
     }
 
     fun searchArtist(keyword: String) {

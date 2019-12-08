@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
                 android:scaleType="centerCrop"
-                android:transitionName="@{album.imageUrl}"
+                android:transitionName="@{album.imageUrl + `album`}"
                 app:image="@{album.imageUrl}"
                 tools:src="@drawable/ic_launcher_background" />
 

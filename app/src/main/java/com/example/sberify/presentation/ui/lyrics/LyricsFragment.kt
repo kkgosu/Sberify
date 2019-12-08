@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.transition.TransitionInflater
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
+import com.example.sberify.data.Result
 import com.example.sberify.databinding.FragmentLyricsBinding
 import com.example.sberify.di.injectViewModel
 import com.example.sberify.models.domain.BaseModel
@@ -19,7 +20,7 @@ import com.example.sberify.presentation.ui.Injectable
 import javax.inject.Inject
 
 class LyricsFragment : BaseFragment(), Injectable {
-    
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -41,22 +42,26 @@ class LyricsFragment : BaseFragment(), Injectable {
         lottieAnim = mView.findViewById(R.id.loading_animation)
         sharedViewModel.lyrics.observe(viewLifecycleOwner, Observer {
             favoriteButton.apply {
-                setFavoriteIcon(this, !it.isFavorite)
-                setOnClickListener { _ ->
-                    it.isFavorite = !it.isFavorite
-                    lyricsViewModel.updateTrack(it)
-                    setFavoriteIcon(this, it.isFavorite)
-                    startAnim(this)
+                    when (it.status) {
+                        Result.Status.SUCCESS -> {
+                            it.data?.let {
+                                hideLottie()
+                                setFavoriteIcon(this, !it.isFavorite)
+                                setOnClickListener { _ ->
+                                    it.isFavorite = !it.isFavorite
+                                    lyricsViewModel.updateTrack(it)
+                                    setFavoriteIcon(this, it.isFavorite)
+                                    startAnim(this)
+                                }
+                            }
+                        }
+                        Result.Status.LOADING -> {
+                            showLottie()
+                        }
+                        else -> {
+                        }
+                    }
                 }
-            }
-        })
-
-        sharedViewModel.startLoadingAnim.observe(viewLifecycleOwner, Observer {
-            showLottie()
-        })
-
-        sharedViewModel.cancelLoadingAnim.observe(viewLifecycleOwner, Observer {
-            hideLottie()
         })
         return mView
     }

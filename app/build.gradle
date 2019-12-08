@@ -72,6 +72,7 @@ android {
         implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
         implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
         implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+        implementation "androidx.room:room-ktx:$rootProject.roomVersion"
         kapt "androidx.room:room-compiler:$rootProject.roomVersion"
         implementation "androidx.work:work-runtime-ktx:$rootProject.workVersion"
 
