@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -18,21 +17,15 @@ import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.BaseFragment
 import com.example.sberify.presentation.ui.Interaction
-import com.example.sberify.presentation.ui.SharedViewModel
 
 class AlbumInfoFragment : BaseFragment(), Interaction {
 
     private lateinit var tracksRecyclerView: RecyclerView
     private lateinit var albumInfoAdapter: AlbumInfoAdapter<Track>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        sharedViewModel = ViewModelProvider(requireActivity()).get(
-                SharedViewModel::class.java)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
+        postponeEnterTransition()
         initBinding<FragmentAlbumInfoStartBinding>(R.layout.fragment_album_info_start, container)
                 .viewModel = sharedViewModel
 
@@ -43,9 +36,11 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
         sharedViewModel.album.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Result.Status.SUCCESS -> {
+                    binding.invalidateAll()
                     it.data?.let { album ->
                         album.tracks?.let { tracks ->
                             albumInfoAdapter.submitList(tracks)
+                            startPostponedEnterTransition()
                         }
                     }
                 }
@@ -59,15 +54,13 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        sharedElementReturnTransition = TransitionInflater.from(context)
-                .inflateTransition(android.R.transition.move)
+        exitTransition = TransitionInflater.from(context)
+                .inflateTransition(R.transition.grid_exit_transition)
         sharedElementEnterTransition = TransitionInflater.from(context)
-                .inflateTransition(android.R.transition.move)
-        postponeEnterTransition()
-        tracksRecyclerView.viewTreeObserver.addOnPreDrawListener {
-            startPostponedEnterTransition()
-            true
-        }
+                .inflateTransition(R.transition.image_shared_element_transition)
+        sharedElementReturnTransition = TransitionInflater.from(context)
+                .inflateTransition(R.transition.image_shared_element_transition)
+
     }
 
     override fun onItemSelected(position: Int, item: BaseModel, view: View) {

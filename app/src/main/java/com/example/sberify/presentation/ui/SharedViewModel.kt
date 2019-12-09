@@ -29,8 +29,8 @@ class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotif
     var newReleases: LiveData<Result<List<Album>>> = Transformations.switchMap(reloadTrigger) {
         spotifyRepository.getNewReleases()
     }
-
-    var album: LiveData<Result<Album>> = MutableLiveData<Result<Album>>()
+    private val _album = MutableLiveData<Result<Album>>()
+    var album: LiveData<Result<Album>> = _album
     var artist: LiveData<Result<List<Artist>>> = MutableLiveData<Result<List<Artist>>>()
     var albums: LiveData<Result<List<Album>>> = MutableLiveData<Result<List<Album>>>()
     var track: LiveData<Result<List<Track>>> = MutableLiveData<Result<List<Track>>>()

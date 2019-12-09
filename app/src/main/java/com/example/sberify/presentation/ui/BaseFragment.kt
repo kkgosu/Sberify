@@ -23,7 +23,7 @@ abstract class BaseFragment : Fragment(), Interaction {
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidSupportInjection.inject(this)
         super.onCreate(savedInstanceState)
-        sharedViewModel = ViewModelProvider(this, viewModelFactory).get(
+        sharedViewModel = ViewModelProvider(requireActivity()).get(
                 SharedViewModel::class.java)
     }
 

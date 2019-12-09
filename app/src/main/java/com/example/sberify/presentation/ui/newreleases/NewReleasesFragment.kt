@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -87,22 +88,28 @@ class NewReleasesFragment : BaseFragment(), Injectable {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        sharedElementReturnTransition = TransitionInflater.from(context)
-                .inflateTransition(android.R.transition.move)
         postponeEnterTransition()
-        releasesRecycler.viewTreeObserver.addOnPreDrawListener {
+        exitTransition = TransitionInflater.from(context)
+                .inflateTransition(R.transition.grid_exit_transition)
+        sharedElementReturnTransition = TransitionInflater.from(context)
+                .inflateTransition(R.transition.image_shared_element_transition)
+        sharedElementEnterTransition = TransitionInflater.from(context)
+                .inflateTransition(R.transition.image_shared_element_transition)
+        releasesRecycler.doOnPreDraw {
             startPostponedEnterTransition()
-            true
         }
     }
 
     override fun onItemSelected(position: Int, item: BaseModel, view: View) {
         if (item is Album) {
             sharedViewModel.getAlbumInfo(item)
+            val albumName = view.findViewById<TextView>(R.id.release_name)
+            val albumCover = view.findViewById<ImageView>(R.id.release_cover)
+            val artistName = view.findViewById<TextView>(R.id.artist_name)
             val extras = FragmentNavigatorExtras(
-                    view.findViewById<TextView>(R.id.release_name) to "${item.name}album",
-                    view.findViewById<ImageView>(R.id.release_cover) to "albumCover",
-                    view.findViewById<TextView>(R.id.artist_name) to "${item.artist.name}album")
+                    albumName to albumName.transitionName,
+                    albumCover to albumCover.transitionName,
+                    artistName to artistName.transitionName)
 
             findNavController().navigate(R.id.action_newReleasesFragment_to_albumInfoFragment, null,
                     null, extras)

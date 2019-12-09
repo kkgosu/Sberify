@@ -1,6 +1,5 @@
 package com.example.sberify.di
 
-import com.example.sberify.presentation.ui.BaseFragment
 import com.example.sberify.presentation.ui.albuminfo.AlbumInfoFragment
 import com.example.sberify.presentation.ui.favorite.FavoriteFragment
 import com.example.sberify.presentation.ui.lyrics.LyricsFragment
@@ -26,7 +25,4 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun contributeSearchFragment(): SearchFragment
-
-    @ContributesAndroidInjector
-    abstract fun contributeBaseFragment(): BaseFragment
 }

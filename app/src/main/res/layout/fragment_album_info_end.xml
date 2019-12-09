@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:transitionName="@{viewModel.album.data.imageUrl}"
+            android:transitionName="@{viewModel.album.data.imageUrl + `album`}"
             app:image="@{viewModel.album.data.imageUrl}"
             app:layout_constraintBottom_toTopOf="@id/guideline"
             app:layout_constraintTop_toTopOf="parent"
