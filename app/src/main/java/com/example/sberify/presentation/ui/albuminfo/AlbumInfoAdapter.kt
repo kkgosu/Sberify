@@ -9,7 +9,6 @@ import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.BaseAdapter
 import com.example.sberify.presentation.ui.Interaction
 import com.example.sberify.presentation.ui.utils.inflateLayout
-import kotlinx.android.synthetic.main.item_track_listed.view.*
 
 class AlbumInfoAdapter<T : BaseModel>(private val interaction: Interaction? = null) :
         BaseAdapter<T>() {
@@ -38,13 +37,6 @@ class AlbumInfoAdapter<T : BaseModel>(private val interaction: Interaction? = nu
             itemView.setOnClickListener {
                 interaction?.onItemSelected(adapterPosition, item, this)
             }
-            val builder = StringBuilder()
-            item.artists.forEach {
-                builder.append(it.name)
-                        .append(", ")
-            }
-            itemView.artist_name.text = builder.dropLast(2)
-                    .toString()
         }
     }
 }

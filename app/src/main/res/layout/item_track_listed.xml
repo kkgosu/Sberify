@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="track"
             type="com.example.sberify.models.domain.Track" />
@@ -42,6 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:text="@{track.artists}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 tools:text="FKA twigs, Future" />
         </LinearLayout>

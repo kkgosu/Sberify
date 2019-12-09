@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.sberify.presentation.ui.utils.inflateLayout
 import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
 abstract class BaseFragment : Fragment(), Interaction {
 
@@ -16,12 +17,13 @@ abstract class BaseFragment : Fragment(), Interaction {
     lateinit var binding: ViewDataBinding
     lateinit var mView: View
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        if (this is Injectable) {
-            AndroidSupportInjection.inject(this)
-        }
+        AndroidSupportInjection.inject(this)
         super.onCreate(savedInstanceState)
-        sharedViewModel = ViewModelProvider(requireActivity()).get(
+        sharedViewModel = ViewModelProvider(this, viewModelFactory).get(
                 SharedViewModel::class.java)
     }
 

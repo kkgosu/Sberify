@@ -3,9 +3,11 @@ package com.example.sberify.presentation.ui.utils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.databinding.BindingConversion
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
+import com.example.sberify.models.domain.Artist
 import com.example.sberify.models.domain.BaseModel
 import java.text.Normalizer
 
@@ -23,3 +25,13 @@ fun <T : BaseModel> createDiffCallback(): DiffUtil.ItemCallback<T> =
 inline fun <reified T : ViewDataBinding> inflateLayout(@LayoutRes id: Int, parent: ViewGroup?): T =
         DataBindingUtil.inflate(LayoutInflater.from(parent?.context), id, parent, false)
 
+
+@BindingConversion
+fun convertArtistsToString(artists: List<Artist>): String {
+    val builder = StringBuilder()
+    artists.forEach {
+        builder.append(it.name)
+                .append(", ")
+    }
+    return builder.dropLast(2).toString()
+}

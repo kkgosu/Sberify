@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:transitionName="@{viewModel.album.data.imageUrl}"
+            android:transitionName="albumCover"
             app:image="@{viewModel.album.data.imageUrl}"
             tools:src="@mipmap/ic_launcher" />
 

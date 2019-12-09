@@ -12,6 +12,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.transition.TransitionInflater
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
@@ -31,10 +32,11 @@ class NewReleasesFragment : BaseFragment(), Injectable {
     private lateinit var lottieAnim: LottieAnimationView
     private var mState: Parcelable? = null
 
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
         initBinding<FragmentNewReleasesBinding>(R.layout.fragment_new_releases, container)
-
         releasesAdapter = NewReleasesAdapter(this)
         gridLayoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
         releasesRecycler = mView.findViewById(R.id.new_releases_recycler)
@@ -44,11 +46,15 @@ class NewReleasesFragment : BaseFragment(), Injectable {
             gridLayoutManager.onRestoreInstanceState(mState)
         }
 
+        swipeRefreshLayout = mView.findViewById(R.id.refresh_layout)
+        swipeRefreshLayout.setOnRefreshListener {
+            sharedViewModel.refresh()
+        }
         lottieAnim = mView.findViewById(R.id.loading_animation)
-
         sharedViewModel.newReleases.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Result.Status.SUCCESS -> {
+                    swipeRefreshLayout.isRefreshing = false
                     it.data?.let { album ->
                         releasesAdapter.submitList(album)
                     }
@@ -65,6 +71,7 @@ class NewReleasesFragment : BaseFragment(), Injectable {
                 }
             }
         })
+        sharedViewModel.refresh()
         return mView
     }
 
@@ -94,7 +101,7 @@ class NewReleasesFragment : BaseFragment(), Injectable {
             sharedViewModel.getAlbumInfo(item)
             val extras = FragmentNavigatorExtras(
                     view.findViewById<TextView>(R.id.release_name) to "${item.name}album",
-                    view.findViewById<ImageView>(R.id.release_cover) to "${item.imageUrl}album",
+                    view.findViewById<ImageView>(R.id.release_cover) to "albumCover",
                     view.findViewById<TextView>(R.id.artist_name) to "${item.artist.name}album")
 
             findNavController().navigate(R.id.action_newReleasesFragment_to_albumInfoFragment, null,

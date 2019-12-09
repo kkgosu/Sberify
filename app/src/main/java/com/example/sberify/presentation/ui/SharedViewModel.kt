@@ -1,9 +1,6 @@
 package com.example.sberify.presentation.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.sberify.data.Result
 import com.example.sberify.domain.IDatabaseRepository
 import com.example.sberify.domain.IGeniusRepository
@@ -18,10 +15,19 @@ class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotif
         private val databaseRepository: IDatabaseRepository) : ViewModel() {
 
     val token: LiveData<Token> = spotifyRepository.getToken()
-    val newReleases = spotifyRepository.getNewReleases()
+
+    private val reloadTrigger = MutableLiveData<Boolean>()
+
+    fun refresh() {
+        reloadTrigger.value = true
+    }
 
     fun getAlbumInfo(album: Album) {
         this.album = spotifyRepository.getAlbumInfo(album.id)
+    }
+
+    var newReleases: LiveData<Result<List<Album>>> = Transformations.switchMap(reloadTrigger) {
+        spotifyRepository.getNewReleases()
     }
 
     var album: LiveData<Result<Album>> = MutableLiveData<Result<Album>>()
@@ -29,7 +35,7 @@ class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotif
     var albums: LiveData<Result<List<Album>>> = MutableLiveData<Result<List<Album>>>()
     var track: LiveData<Result<List<Track>>> = MutableLiveData<Result<List<Track>>>()
     var lyrics: LiveData<Result<Track>> = MutableLiveData<Result<Track>>()
-    
+
     private val _suggestions = MutableLiveData<List<Suggestion>>()
     val suggestions: LiveData<List<Suggestion>> = _suggestions
 

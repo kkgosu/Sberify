@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -19,13 +18,9 @@ import com.example.sberify.presentation.ui.BaseFragment
 import com.example.sberify.presentation.ui.Injectable
 import com.example.sberify.presentation.ui.Interaction
 import com.example.sberify.presentation.ui.albuminfo.AlbumInfoAdapter
-import javax.inject.Inject
 
 class FavoriteFragment : BaseFragment(), Interaction, Injectable {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
+    
     private lateinit var favoriteViewModel: FavoriteViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var albumInfoAdapter: AlbumInfoAdapter<Track>

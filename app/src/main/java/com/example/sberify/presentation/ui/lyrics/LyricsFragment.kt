@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.transition.TransitionInflater
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
@@ -17,13 +16,9 @@ import com.example.sberify.di.injectViewModel
 import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.presentation.ui.BaseFragment
 import com.example.sberify.presentation.ui.Injectable
-import javax.inject.Inject
 
 class LyricsFragment : BaseFragment(), Injectable {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
+    
     private lateinit var lyricsViewModel: LyricsViewModel
     private lateinit var lottieAnim: LottieAnimationView
 
