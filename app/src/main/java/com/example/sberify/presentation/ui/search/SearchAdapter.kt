@@ -16,9 +16,7 @@ import com.example.sberify.presentation.ui.utils.inflateLayout
 
 class SearchAdapter(private val interaction: Interaction? = null) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    var currentSearchType: SearchType = SearchType.ARTIST
-
+    
     private val DIFF_CALLBACK_ARTIST = createDiffCallback<Artist>()
     private val differArtist = AsyncListDiffer(this, DIFF_CALLBACK_ARTIST)
 
@@ -147,5 +145,7 @@ class SearchAdapter(private val interaction: Interaction? = null) :
         private const val ARTIST_VIEW = 0
         private const val ALBUM_VIEW = 1
         private const val TRACK_VIEW = 2
+
+        var currentSearchType: SearchType = SearchType.ARTIST
     }
 }

@@ -25,8 +25,6 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
 
     private var searchType = SearchType.ARTIST
 
-    private var isBack = false
-
     private lateinit var searchAdapter: SearchAdapter
     private lateinit var suggestionsAdapter: SuggestionsAdapter
     private lateinit var resultsRecyclerView: RecyclerView
@@ -54,8 +52,10 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
         sharedViewModel.artist.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Result.Status.SUCCESS -> {
-                    searchAdapter.submitList(it.data!!)
-                    isBack = false
+                    if (searchType == SearchType.ARTIST) {
+                        SearchAdapter.currentSearchType = searchType
+                        searchAdapter.submitList(it.data!!)
+                    }
                 }
                 else -> {
                 }
@@ -64,8 +64,10 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
         sharedViewModel.albums.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Result.Status.SUCCESS -> {
-                    searchAdapter.submitList(it.data!!)
-                    isBack = false
+                    if (searchType == SearchType.ALBUM) {
+                        SearchAdapter.currentSearchType = searchType
+                        searchAdapter.submitList(it.data!!)
+                    }
                 }
                 else -> {
                 }
@@ -74,8 +76,10 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
         sharedViewModel.tracks.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Result.Status.SUCCESS -> {
-                    searchAdapter.submitList(it.data!!)
-                    isBack = false
+                    if (searchType == SearchType.TRACK) {
+                        SearchAdapter.currentSearchType = searchType
+                        searchAdapter.submitList(it.data!!)
+                    }
                 }
                 else -> {
                 }
@@ -84,8 +88,8 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
         sharedViewModel.suggestions.observe(viewLifecycleOwner, Observer {
             suggestions = it
             suggestionsAdapter.submitList(suggestions)
-
         })
+
         return mView
     }
 
@@ -97,11 +101,6 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
         resultsRecyclerView.doOnPreDraw {
             startPostponedEnterTransition()
         }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        isBack = true
     }
 
     override fun onArtistSelected(position: Int, item: Artist, view: View) {
@@ -156,7 +155,6 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
             }
 
             override fun onQueryTextSubmit(query: String?): Boolean {
-                isBack = false
                 sharedViewModel.insertSuggestion(query!!)
                 sharedViewModel.search(query, searchType)
                 sView.clearFocus()
@@ -176,10 +174,6 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
                         R.id.track_rb -> {
                             searchType = SearchType.TRACK
                         }
-                    }
-                    searchAdapter.currentSearchType = searchType
-                    if (!isBack) {
-                        searchView.setQuery(searchView.query, true)
                     }
                 }
     }
