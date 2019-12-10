@@ -39,30 +39,32 @@ class LyricsFragment : BaseFragment(), Injectable {
         }
         lottieAnim = mView.findViewById(R.id.loading_animation)
         sharedViewModel.lyrics.observe(viewLifecycleOwner, Observer {
-            favoriteButton.apply {
-                when (it.status) {
-                    Result.Status.SUCCESS -> {
-                        startPostponedEnterTransition()
-                        it.data?.let {
-                            swipeRefreshLayout.isRefreshing = false
+            when (it.status) {
+                Result.Status.SUCCESS -> {
+                    startPostponedEnterTransition()
+                    it.data?.let { track ->
+                        swipeRefreshLayout.isRefreshing = false
+                        track.lyrics?.let {
                             hideLottie()
-                            setFavoriteIcon(this, !it.isFavorite)
-                            setOnClickListener { _ ->
-                                it.isFavorite = !it.isFavorite
-                                lyricsViewModel.updateTrack(it)
-                                setFavoriteIcon(this, it.isFavorite)
-                                startAnim(this)
+                            favoriteButton.apply {
+                                setFavoriteIcon(this, !track.isFavorite)
+                                setOnClickListener { _ ->
+                                    track.isFavorite = !track.isFavorite
+                                    lyricsViewModel.updateTrack(track)
+                                    setFavoriteIcon(this, track.isFavorite)
+                                    startAnim(this)
+                                }
                             }
                         }
                     }
-                    Result.Status.LOADING -> {
-                        showLottie()
-                        it.data?.let {
-                            startPostponedEnterTransition()
-                        }
+                }
+                Result.Status.LOADING -> {
+                    showLottie()
+                    it.data?.let {
+                        startPostponedEnterTransition()
                     }
-                    else -> {
-                    }
+                }
+                else -> {
                 }
             }
         })

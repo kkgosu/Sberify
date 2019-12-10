@@ -4,5 +4,5 @@ object SearchTypes {
     const val ALBUM = "album"
     const val ARTIST = "artist"
     const val PLAYLIST = "playlist"
-    const val TRACK = "tracks"
+    const val TRACK = "track"
 }

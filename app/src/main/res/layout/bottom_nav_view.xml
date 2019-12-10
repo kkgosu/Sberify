@@ -6,8 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/bottom_bar_height"
     android:layout_gravity="bottom"
-    app:itemIconTint="@color/black"
-    app:itemTextColor="@color/black"
+    android:background="@color/gray_800"
+    app:itemIconTint="@color/bnv"
+    app:itemTextColor="@color/bnv"
     app:menu="@menu/another_bottom_menu">
 
 </com.google.android.material.bottomnavigation.BottomNavigationView>
