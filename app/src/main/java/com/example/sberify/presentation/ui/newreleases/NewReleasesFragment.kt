@@ -31,9 +31,9 @@ class NewReleasesFragment : BaseFragment(), Injectable {
     private lateinit var gridLayoutManager: StaggeredGridLayoutManager
     private lateinit var releasesRecycler: RecyclerView
     private lateinit var lottieAnim: LottieAnimationView
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private var mState: Parcelable? = null
 
-    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {

@@ -30,6 +30,7 @@ class GeniusRepository @Inject constructor(
                 networkCall = { parseLyrics(track) },
                 saveCallResult = {
                     database.getTrackDao().insertTrack(TrackEntity.from(it))
+                    database.getTrackDao().updateTrack(TrackEntity.from(it))
                 })
     }
 

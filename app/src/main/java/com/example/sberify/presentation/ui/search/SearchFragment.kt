@@ -25,6 +25,8 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
 
     private var searchType = SearchType.ARTIST
 
+    private var isBack = false
+
     private lateinit var searchAdapter: SearchAdapter
     private lateinit var suggestionsAdapter: SuggestionsAdapter
     private lateinit var resultsRecyclerView: RecyclerView
@@ -47,28 +49,13 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
             adapter = suggestionsAdapter
         }
         searchView = mView.findViewById(R.id.search_view)
-        mView.findViewById<RadioGroup>(R.id.search_options_rg)
-                .setOnCheckedChangeListener { _, checkedId ->
-                    val query = searchView.query
-                    when (checkedId) {
-                        R.id.artist_rb -> {
-                            searchType = SearchType.ARTIST
-                        }
-                        R.id.album_rb -> {
-                            searchType = SearchType.ALBUM
-                        }
-                        R.id.track_rb -> {
-                            searchType = SearchType.TRACK
-                        }
-                    }
-                    searchAdapter.currentSearchType = searchType
-                    searchView.setQuery(query, true)
-                }
+        configureSearchView(searchView)
 
         sharedViewModel.artist.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Result.Status.SUCCESS -> {
                     searchAdapter.submitList(it.data!!)
+                    isBack = false
                 }
                 else -> {
                 }
@@ -78,6 +65,7 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
             when (it.status) {
                 Result.Status.SUCCESS -> {
                     searchAdapter.submitList(it.data!!)
+                    isBack = false
                 }
                 else -> {
                 }
@@ -87,6 +75,7 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
             when (it.status) {
                 Result.Status.SUCCESS -> {
                     searchAdapter.submitList(it.data!!)
+                    isBack = false
                 }
                 else -> {
                 }
@@ -97,7 +86,6 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
             suggestionsAdapter.submitList(suggestions)
 
         })
-        configureSearchView(searchView)
         return mView
     }
 
@@ -109,6 +97,11 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
         resultsRecyclerView.doOnPreDraw {
             startPostponedEnterTransition()
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        isBack = true
     }
 
     override fun onArtistSelected(position: Int, item: Artist, view: View) {
@@ -138,6 +131,11 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
         searchView.setQuery(query, true)
     }
 
+    override fun onResume() {
+        super.onResume()
+        suggestionsRecycler.visibility = View.GONE
+    }
+
     private fun configureSearchView(sView: SearchView?) {
         sView?.setOnQueryTextFocusChangeListener { _, hasFocus ->
             suggestionsRecycler.visibility = if (hasFocus) {
@@ -158,6 +156,7 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
             }
 
             override fun onQueryTextSubmit(query: String?): Boolean {
+                isBack = false
                 sharedViewModel.insertSuggestion(query!!)
                 sharedViewModel.search(query, searchType)
                 sView.clearFocus()
@@ -165,6 +164,24 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
                 return true
             }
         })
+        mView.findViewById<RadioGroup>(R.id.search_options_rg)
+                .setOnCheckedChangeListener { _, checkedId ->
+                    when (checkedId) {
+                        R.id.artist_rb -> {
+                            searchType = SearchType.ARTIST
+                        }
+                        R.id.album_rb -> {
+                            searchType = SearchType.ALBUM
+                        }
+                        R.id.track_rb -> {
+                            searchType = SearchType.TRACK
+                        }
+                    }
+                    searchAdapter.currentSearchType = searchType
+                    if (!isBack) {
+                        searchView.setQuery(searchView.query, true)
+                    }
+                }
     }
 
     override fun onItemSelected(position: Int, item: BaseModel, view: View) {

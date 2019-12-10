@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.lifecycle.Observer
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.transition.TransitionInflater
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
@@ -21,6 +22,8 @@ class LyricsFragment : BaseFragment(), Injectable {
 
     private lateinit var lyricsViewModel: LyricsViewModel
     private lateinit var lottieAnim: LottieAnimationView
+    private lateinit var favoriteButton: ImageButton
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
@@ -29,10 +32,11 @@ class LyricsFragment : BaseFragment(), Injectable {
                 .viewModel = sharedViewModel
         lyricsViewModel = injectViewModel(viewModelFactory)
 
-        val favoriteButton = mView.findViewById<ImageButton>(R.id.favorite_text)
-        sharedElementEnterTransition = TransitionInflater.from(context)
-                .inflateTransition(android.R.transition.move)
-
+        favoriteButton = mView.findViewById(R.id.favorite_text)
+        swipeRefreshLayout = mView.findViewById(R.id.refresh_layout)
+        swipeRefreshLayout.setOnRefreshListener {
+            sharedViewModel.refreshLyrics()
+        }
         lottieAnim = mView.findViewById(R.id.loading_animation)
         sharedViewModel.lyrics.observe(viewLifecycleOwner, Observer {
             favoriteButton.apply {
@@ -40,6 +44,7 @@ class LyricsFragment : BaseFragment(), Injectable {
                     Result.Status.SUCCESS -> {
                         startPostponedEnterTransition()
                         it.data?.let {
+                            swipeRefreshLayout.isRefreshing = false
                             hideLottie()
                             setFavoriteIcon(this, !it.isFavorite)
                             setOnClickListener { _ ->

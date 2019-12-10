@@ -67,6 +67,9 @@ class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotif
         lyricsTrigger.value = track
     }
 
+    fun refreshLyrics() {
+        lyricsTrigger.value = lyrics.value?.data!!
+    }
 
     fun insertSuggestion(text: String) {
         viewModelScope.launch(Dispatchers.IO) {
