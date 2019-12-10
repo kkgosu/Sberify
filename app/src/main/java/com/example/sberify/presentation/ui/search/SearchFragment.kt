@@ -49,6 +49,7 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
         searchView = mView.findViewById(R.id.search_view)
         mView.findViewById<RadioGroup>(R.id.search_options_rg)
                 .setOnCheckedChangeListener { _, checkedId ->
+                    val query = searchView.query
                     when (checkedId) {
                         R.id.artist_rb -> {
                             searchType = SearchType.ARTIST
@@ -61,6 +62,7 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
                         }
                     }
                     searchAdapter.currentSearchType = searchType
+                    searchView.setQuery(query, true)
                 }
 
         sharedViewModel.artist.observe(viewLifecycleOwner, Observer {

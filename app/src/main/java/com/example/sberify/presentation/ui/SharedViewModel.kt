@@ -18,11 +18,10 @@ class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotif
     val token: LiveData<Token> = spotifyRepository.getToken()
 
     private val reloadTrigger = MutableLiveData<Boolean>()
-    private val searchTrigger = MutableLiveData<SearchType>()
-
-    fun refresh() {
-        reloadTrigger.value = true
-    }
+    private val searchArtistTrigger = MutableLiveData<String>()
+    private val searchAlbumTrigger = MutableLiveData<String>()
+    private val searchTrackTrigger = MutableLiveData<String>()
+    private val lyricsTrigger = MutableLiveData<Track>()
 
     fun getAlbumInfo(album: Album) {
         this.album = spotifyRepository.getAlbumInfo(album.id)
@@ -31,40 +30,43 @@ class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotif
     val newReleases: LiveData<Result<List<Album>>> = Transformations.switchMap(reloadTrigger) {
         spotifyRepository.getNewReleases()
     }
+
+    val artist: LiveData<Result<List<Artist>>> = Transformations.switchMap(searchArtistTrigger) {
+        spotifyRepository.searchArtist(it)
+    }
+    var albums: LiveData<Result<List<Album>>> = Transformations.switchMap(searchAlbumTrigger) {
+        spotifyRepository.searchAlbum(it)
+    }
+    var tracks: LiveData<Result<List<Track>>> = Transformations.switchMap(searchTrackTrigger) {
+        spotifyRepository.searchTrack(it)
+    }
+
     private val _album = MutableLiveData<Result<Album>>()
     var album: LiveData<Result<Album>> = _album
-    var artist: LiveData<Result<List<Artist>>> = MutableLiveData<Result<List<Artist>>>()
-    var albums: LiveData<Result<List<Album>>> = MutableLiveData<Result<List<Album>>>()
-    var tracks: LiveData<Result<List<Track>>> = MutableLiveData<Result<List<Track>>>()
-    var lyrics: LiveData<Result<Track>> = MutableLiveData<Result<Track>>()
+
+    var lyrics: LiveData<Result<Track>> = Transformations.switchMap(lyricsTrigger) {
+        geniusRepository.getLyrics(it)
+    }
 
     private val _suggestions = MutableLiveData<List<Suggestion>>()
     val suggestions: LiveData<List<Suggestion>> = _suggestions
 
-    fun search(keyword: String, type: SearchType) {
-        searchTrigger.value = type
-        when (searchTrigger.value) {
-            SearchType.ARTIST -> {
-                artist = Transformations.switchMap(searchTrigger) {
-                    spotifyRepository.searchArtist(keyword)
-                }
-            }
-            SearchType.ALBUM -> {
-                albums = Transformations.switchMap(searchTrigger) {
-                    spotifyRepository.searchAlbum(keyword)
-                }
-            }
-            SearchType.TRACK -> {
-                tracks = Transformations.switchMap(searchTrigger) {
-                    spotifyRepository.searchTrack(keyword)
-                }
-            }
+    fun search(keyword: String, searchType: SearchType) {
+        when (searchType) {
+            SearchType.ARTIST -> searchArtistTrigger.value = keyword
+            SearchType.ALBUM -> searchAlbumTrigger.value = keyword
+            SearchType.TRACK -> searchTrackTrigger.value = keyword
         }
     }
 
-    fun getLyrics(track: Track) {
-        lyrics = geniusRepository.getLyrics(track)
+    fun refresh() {
+        reloadTrigger.value = true
     }
+
+    fun getLyrics(track: Track) {
+        lyricsTrigger.value = track
+    }
+
 
     fun insertSuggestion(text: String) {
         viewModelScope.launch(Dispatchers.IO) {

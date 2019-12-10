@@ -52,6 +52,9 @@ class LyricsFragment : BaseFragment(), Injectable {
                     }
                     Result.Status.LOADING -> {
                         showLottie()
+                        it.data?.let {
+                            startPostponedEnterTransition()
+                        }
                     }
                     else -> {
                     }

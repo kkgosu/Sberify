@@ -21,17 +21,18 @@ class GeniusRepository @Inject constructor(
     override fun getLyrics(track: Track): LiveData<Result<Track>> {
         return resultLiveData(
                 databaseQuery = {
-                    database.getTrackDao().getTrackById(track.id).map { 
+                    database.getTrackDao().getTrackById(track.id).map {
                         it?.let {
-                            it.toTrack()  
-                        }}
+                            it.toTrack()
+                        }
+                    }
                 },
                 networkCall = { parseLyrics(track) },
                 saveCallResult = {
                     database.getTrackDao().insertTrack(TrackEntity.from(it))
                 })
     }
-    
+
     private fun parseLyrics(track: Track): Result<Track> {
         var lyrics = ""
         val trackName: String = filterTrackName(track.name)
