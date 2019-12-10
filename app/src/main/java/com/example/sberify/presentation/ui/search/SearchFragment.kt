@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -59,10 +60,10 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
                             searchType = SearchType.TRACK
                         }
                     }
+                    searchAdapter.currentSearchType = searchType
                 }
 
         sharedViewModel.artist.observe(viewLifecycleOwner, Observer {
-            searchAdapter.currentSearchType = SearchType.ARTIST
             when (it.status) {
                 Result.Status.SUCCESS -> {
                     searchAdapter.submitList(it.data!!)
@@ -72,7 +73,6 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
             }
         })
         sharedViewModel.albums.observe(viewLifecycleOwner, Observer {
-            searchAdapter.currentSearchType = SearchType.ALBUM
             when (it.status) {
                 Result.Status.SUCCESS -> {
                     searchAdapter.submitList(it.data!!)
@@ -81,8 +81,7 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
                 }
             }
         })
-        sharedViewModel.track.observe(viewLifecycleOwner, Observer {
-            searchAdapter.currentSearchType = SearchType.TRACK
+        sharedViewModel.tracks.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Result.Status.SUCCESS -> {
                     searchAdapter.submitList(it.data!!)
@@ -102,12 +101,11 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        postponeEnterTransition()
         sharedElementReturnTransition = TransitionInflater.from(context)
                 .inflateTransition(android.R.transition.move)
-        postponeEnterTransition()
-        resultsRecyclerView.viewTreeObserver.addOnPreDrawListener {
+        resultsRecyclerView.doOnPreDraw {
             startPostponedEnterTransition()
-            true
         }
     }
 
@@ -159,13 +157,9 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
 
             override fun onQueryTextSubmit(query: String?): Boolean {
                 sharedViewModel.insertSuggestion(query!!)
+                sharedViewModel.search(query, searchType)
                 sView.clearFocus()
                 suggestionsRecycler.visibility = View.GONE
-                when (searchType) {
-                    SearchType.ARTIST -> sharedViewModel.searchArtist(query)
-                    SearchType.ALBUM -> sharedViewModel.searchAlbum(query)
-                    SearchType.TRACK -> sharedViewModel.searchTrack(query)
-                }
                 return true
             }
         })

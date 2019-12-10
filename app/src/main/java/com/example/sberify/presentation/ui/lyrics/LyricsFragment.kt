@@ -18,7 +18,7 @@ import com.example.sberify.presentation.ui.BaseFragment
 import com.example.sberify.presentation.ui.Injectable
 
 class LyricsFragment : BaseFragment(), Injectable {
-    
+
     private lateinit var lyricsViewModel: LyricsViewModel
     private lateinit var lottieAnim: LottieAnimationView
 
@@ -27,38 +27,47 @@ class LyricsFragment : BaseFragment(), Injectable {
 
         initBinding<FragmentLyricsBinding>(R.layout.fragment_lyrics, container)
                 .viewModel = sharedViewModel
-
-        val favoriteButton = mView.findViewById<ImageButton>(R.id.favorite_text)
         lyricsViewModel = injectViewModel(viewModelFactory)
 
+        val favoriteButton = mView.findViewById<ImageButton>(R.id.favorite_text)
         sharedElementEnterTransition = TransitionInflater.from(context)
                 .inflateTransition(android.R.transition.move)
 
         lottieAnim = mView.findViewById(R.id.loading_animation)
         sharedViewModel.lyrics.observe(viewLifecycleOwner, Observer {
             favoriteButton.apply {
-                    when (it.status) {
-                        Result.Status.SUCCESS -> {
-                            it.data?.let {
-                                hideLottie()
-                                setFavoriteIcon(this, !it.isFavorite)
-                                setOnClickListener { _ ->
-                                    it.isFavorite = !it.isFavorite
-                                    lyricsViewModel.updateTrack(it)
-                                    setFavoriteIcon(this, it.isFavorite)
-                                    startAnim(this)
-                                }
+                when (it.status) {
+                    Result.Status.SUCCESS -> {
+                        startPostponedEnterTransition()
+                        it.data?.let {
+                            hideLottie()
+                            setFavoriteIcon(this, !it.isFavorite)
+                            setOnClickListener { _ ->
+                                it.isFavorite = !it.isFavorite
+                                lyricsViewModel.updateTrack(it)
+                                setFavoriteIcon(this, it.isFavorite)
+                                startAnim(this)
                             }
                         }
-                        Result.Status.LOADING -> {
-                            showLottie()
-                        }
-                        else -> {
-                        }
+                    }
+                    Result.Status.LOADING -> {
+                        showLottie()
+                    }
+                    else -> {
                     }
                 }
+            }
         })
         return mView
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        postponeEnterTransition()
+        sharedElementEnterTransition = TransitionInflater.from(context)
+                .inflateTransition(R.transition.image_shared_element_transition)
+        sharedElementReturnTransition = TransitionInflater.from(context)
+                .inflateTransition(R.transition.image_shared_element_transition)
     }
 
     override fun onDestroy() {

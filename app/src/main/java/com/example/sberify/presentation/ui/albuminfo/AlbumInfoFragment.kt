@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.doOnPreDraw
+import androidx.databinding.OnRebindCallback
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -23,9 +25,10 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
     private lateinit var tracksRecyclerView: RecyclerView
     private lateinit var albumInfoAdapter: AlbumInfoAdapter<Track>
 
+    private var isBack = false
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
-        postponeEnterTransition()
         initBinding<FragmentAlbumInfoStartBinding>(R.layout.fragment_album_info_start, container)
                 .viewModel = sharedViewModel
 
@@ -37,10 +40,14 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
             when (it.status) {
                 Result.Status.SUCCESS -> {
                     binding.invalidateAll()
+                    binding.addOnRebindCallback(object : OnRebindCallback<FragmentAlbumInfoStartBinding>() {
+                        override fun onBound(binding: FragmentAlbumInfoStartBinding?) {
+                            startPostponedEnterTransition(isBack)
+                        }
+                    })
                     it.data?.let { album ->
                         album.tracks?.let { tracks ->
                             albumInfoAdapter.submitList(tracks)
-                            startPostponedEnterTransition()
                         }
                     }
                 }
@@ -52,19 +59,31 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
         return mView
     }
 
+    private fun startPostponedEnterTransition(flag: Boolean) {
+        if (flag) {
+            tracksRecyclerView.doOnPreDraw {
+                startPostponedEnterTransition()
+                isBack = !flag
+            }
+        } else {
+            startPostponedEnterTransition()
+        }
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        postponeEnterTransition()
         exitTransition = TransitionInflater.from(context)
                 .inflateTransition(R.transition.grid_exit_transition)
         sharedElementEnterTransition = TransitionInflater.from(context)
                 .inflateTransition(R.transition.image_shared_element_transition)
         sharedElementReturnTransition = TransitionInflater.from(context)
                 .inflateTransition(R.transition.image_shared_element_transition)
-
     }
 
     override fun onItemSelected(position: Int, item: BaseModel, view: View) {
         if (item is Track) {
+            isBack = true
             sharedViewModel.getLyrics(item)
             val extras = FragmentNavigatorExtras(
                     view.findViewById<TextView>(R.id.track_name) to item.name)
