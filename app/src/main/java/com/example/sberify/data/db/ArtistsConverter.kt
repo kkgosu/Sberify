@@ -11,7 +11,7 @@ object ArtistsConverter {
             from.joinToString(DELIMITER_COMMA) {
                 "${it.id}$DELIMITER_DASH${it.name}"
             }
-    
+
 
     @TypeConverter
     @JvmStatic
@@ -21,6 +21,6 @@ object ArtistsConverter {
                 Artist(str[0], null, str[1], emptyList())
             }
 
-    private const val DELIMITER_DASH = " - "
-    private const val DELIMITER_COMMA = ", "
+    private const val DELIMITER_DASH = "<-->"
+    private const val DELIMITER_COMMA = ":::"
 }

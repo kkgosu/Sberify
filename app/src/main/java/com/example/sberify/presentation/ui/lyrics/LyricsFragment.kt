@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.transition.TransitionInflater
@@ -48,7 +49,7 @@ class LyricsFragment : BaseFragment(), Injectable {
                             hideLottie()
                             favoriteButton.apply {
                                 setFavoriteIcon(this, !track.isFavorite)
-                                setOnClickListener { _ ->
+                                setOnClickListener {
                                     track.isFavorite = !track.isFavorite
                                     lyricsViewModel.updateTrack(track)
                                     setFavoriteIcon(this, track.isFavorite)
@@ -64,7 +65,11 @@ class LyricsFragment : BaseFragment(), Injectable {
                         startPostponedEnterTransition()
                     }
                 }
-                else -> {
+                Result.Status.ERROR -> {
+                    showLottie()
+                    Toast.makeText(requireContext(),
+                            "Error while getting lyrics. Please try again later", Toast.LENGTH_LONG)
+                            .show()
                 }
             }
         })
@@ -101,11 +106,13 @@ class LyricsFragment : BaseFragment(), Injectable {
     private fun showLottie() {
         lottieAnim.visibility = View.VISIBLE
         lottieAnim.playAnimation()
+        favoriteButton.visibility = View.GONE
     }
 
     private fun hideLottie() {
         lottieAnim.visibility = View.GONE
         lottieAnim.cancelAnimation()
+        favoriteButton.visibility = View.VISIBLE
     }
 
     private fun startAnim(imageButton: ImageButton) {
