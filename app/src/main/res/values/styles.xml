@@ -16,4 +16,8 @@
         <item name="android:paddingBottom">@dimen/bottom_bar_height</item>
     </style>
 
+    <style name="CollapsedExpandedTitleText">
+        <item name="android:textColor">@android:color/transparent</item>
+    </style>
+
 </resources>

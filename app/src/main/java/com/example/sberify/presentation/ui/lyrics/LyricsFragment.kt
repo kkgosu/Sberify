@@ -1,5 +1,6 @@
 package com.example.sberify.presentation.ui.lyrics
 
+import android.content.Context
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.lottie.LottieAnimationView
@@ -25,9 +27,14 @@ class LyricsFragment : BaseFragment(), Injectable {
     private lateinit var favoriteButton: ImageButton
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
-
         initBinding<FragmentLyricsBinding>(R.layout.fragment_lyrics, container)
                 .viewModel = sharedViewModel
         lyricsViewModel = injectViewModel(viewModelFactory)
