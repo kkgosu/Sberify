@@ -9,7 +9,6 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.transition.TransitionInflater
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
 import com.example.sberify.data.Result
@@ -78,11 +77,7 @@ class LyricsFragment : BaseFragment(), Injectable {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        postponeEnterTransition()
-        sharedElementEnterTransition = TransitionInflater.from(context)
-                .inflateTransition(R.transition.image_shared_element_transition)
-        sharedElementReturnTransition = TransitionInflater.from(context)
-                .inflateTransition(R.transition.image_shared_element_transition)
+        setupAnimations()
     }
 
     override fun onDestroy() {

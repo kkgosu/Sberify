@@ -7,6 +7,8 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.transition.TransitionInflater
+import com.example.sberify.R
 import com.example.sberify.presentation.ui.utils.inflateLayout
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -32,5 +34,15 @@ abstract class BaseFragment : Fragment(), Interaction {
         binding.lifecycleOwner = viewLifecycleOwner
         mView = binding.root
         return binding as T
+    }
+    
+    fun setupAnimations() {
+        postponeEnterTransition()
+        exitTransition = TransitionInflater.from(context)
+                .inflateTransition(R.transition.grid_exit_transition)
+        sharedElementEnterTransition = TransitionInflater.from(context)
+                .inflateTransition(R.transition.image_shared_element_transition)
+        sharedElementReturnTransition = TransitionInflater.from(context)
+                .inflateTransition(R.transition.image_shared_element_transition)
     }
 }

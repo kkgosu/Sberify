@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.transition.TransitionInflater
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
 import com.example.sberify.data.Result
@@ -88,13 +87,7 @@ class NewReleasesFragment : BaseFragment(), Injectable {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        postponeEnterTransition()
-        exitTransition = TransitionInflater.from(context)
-                .inflateTransition(R.transition.grid_exit_transition)
-        sharedElementReturnTransition = TransitionInflater.from(context)
-                .inflateTransition(R.transition.image_shared_element_transition)
-        sharedElementEnterTransition = TransitionInflater.from(context)
-                .inflateTransition(R.transition.image_shared_element_transition)
+        setupAnimations()
         releasesRecycler.doOnPreDraw {
             startPostponedEnterTransition()
         }

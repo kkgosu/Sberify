@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.TransitionInflater
 import com.example.sberify.R
 import com.example.sberify.data.Result
 import com.example.sberify.databinding.FragmentAlbumInfoStartBinding
@@ -72,13 +71,7 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        postponeEnterTransition()
-        exitTransition = TransitionInflater.from(context)
-                .inflateTransition(R.transition.grid_exit_transition)
-        sharedElementEnterTransition = TransitionInflater.from(context)
-                .inflateTransition(R.transition.image_shared_element_transition)
-        sharedElementReturnTransition = TransitionInflater.from(context)
-                .inflateTransition(R.transition.image_shared_element_transition)
+        setupAnimations()
     }
 
     override fun onItemSelected(position: Int, item: BaseModel, view: View) {
