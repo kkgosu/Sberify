@@ -117,7 +117,7 @@ class SpotifyRepository @Inject constructor(
                 },
                 networkCall = { getResult { mSpotifyApi.searchTrack(keyword, SearchTypes.TRACK) } },
                 saveCallResult = {
-                    val tracks = dataConverter.convertTracks(it.tracks.items)
+                    val tracks = dataConverter.convertTracks(it.tracks.items, "")
                     tracks?.forEach { track ->
                         database.getTrackDao().insertTrack(TrackEntity.from(track))
                     }

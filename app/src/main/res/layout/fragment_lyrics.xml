@@ -20,15 +20,17 @@
             app:elevation="4dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/expanded_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/gray_800"
-                app:contentScrim="@color/colorPrimary"
-                app:expandedTitleGravity="top|left"
+                android:transitionName="@{viewModel.lyrics.data.name}"
+                app:expandedTitleGravity="bottom|left"
                 app:expandedTitleTextAppearance="@style/CollapsedExpandedTitleText"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:title="@{viewModel.lyrics.data.name}">
 
-                <RelativeLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -43,26 +45,22 @@
                         android:id="@+id/favorite_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
                         android:background="@android:color/transparent"
-                        android:padding="16dp" />
-                </RelativeLayout>
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        app:layout_collapseMode="pin"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_scrollFlags="scroll|enterAlwaysCollapsed" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/collapsed_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
-                    app:title="@{viewModel.lyrics.data.name}">
-
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:background="@android:color/transparent"
-                        android:padding="16dp" />
-                </androidx.appcompat.widget.Toolbar>
+                    app:title="@{viewModel.lyrics.data.name}"
+                    app:titleTextColor="@color/white" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>

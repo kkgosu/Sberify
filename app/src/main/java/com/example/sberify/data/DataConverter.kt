@@ -10,7 +10,7 @@ class DataConverter : IConverter<BaseDataModel, BaseModel> {
             Album(it.id,
                     convertArtists(it.artists)[0],
                     it.name,
-                    convertTracks(it.tracks?.items),
+                    convertTracks(it.tracks?.items, it.images[0].url),
                     it.images[0].url,
                     it.release_date)
         }!!
@@ -33,20 +33,12 @@ class DataConverter : IConverter<BaseDataModel, BaseModel> {
         return artistsList
     }
 
-    override fun convertTracks(from: List<TrackData>?): List<Track>? {
-/*        val tracksList = arrayListOf<Track>()
-        from?.forEach {
-            tracksList.add(
-                    Track(it.id, it.name,
-                            convertImages(it.album?.images?.get(0)),
-                            convertArtists(it.artists)))
-        }*/
+    override fun convertTracks(from: List<TrackData>?, image: String): List<Track>? {
         return from?.map {
             Track(it.id, it.name,
-                    convertImages(it.album?.images?.get(0)),
+                    convertImages(it.album?.images?.get(0)) ?: Image(image, 0, 0),
                     convertArtists(it.artists))
         }
-       // return tracksList
     }
 
     override fun convertImages(from: ImageData?): Image? {

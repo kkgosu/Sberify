@@ -1,6 +1,7 @@
 package com.example.sberify.data.db
 
 import androidx.room.TypeConverter
+import com.example.sberify.models.domain.Image
 import com.example.sberify.models.domain.Track
 
 object TrackIdConverter {
@@ -9,7 +10,7 @@ object TrackIdConverter {
     fun fromList(list: List<Track>?): String? = list?.let { tracks ->
         tracks.joinToString(DELIMITER_DASH) {
             it.id + DELIMITER_COMMA + it.name + DELIMITER_COMMA + it.lyrics + DELIMITER_COMMA + it.isFavorite + DELIMITER_COMMA + ArtistsConverter.fromList(
-                    it.artists)
+                    it.artists) + DELIMITER_COMMA + it.image?.url
         }
     }
 
@@ -33,7 +34,7 @@ object TrackIdConverter {
                                 lyrics = track[2],
                                 isFavorite = track[3].toBoolean(),
                                 artists = ArtistsConverter.fromString(track[4]),
-                                image = null)
+                                image = Image(track[5]))
                     }
                 }
             }

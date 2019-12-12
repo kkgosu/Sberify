@@ -1,6 +1,5 @@
 package com.example.sberify.presentation.ui.lyrics
 
-import android.content.Context
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.lottie.LottieAnimationView
@@ -27,18 +27,14 @@ class LyricsFragment : BaseFragment(), Injectable {
     private lateinit var favoriteButton: ImageButton
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
         initBinding<FragmentLyricsBinding>(R.layout.fragment_lyrics, container)
                 .viewModel = sharedViewModel
         lyricsViewModel = injectViewModel(viewModelFactory)
-
+        val toolbar = mView.findViewById<Toolbar>(R.id.collapsed_toolbar)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         favoriteButton = mView.findViewById(R.id.favorite_text)
         swipeRefreshLayout = mView.findViewById(R.id.refresh_layout)
         swipeRefreshLayout.setOnRefreshListener {
@@ -80,11 +76,6 @@ class LyricsFragment : BaseFragment(), Injectable {
             }
         })
         return mView
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        setupAnimations()
     }
 
     override fun onDestroy() {
