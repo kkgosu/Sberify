@@ -35,6 +35,7 @@ class LyricsFragment : BaseFragment(), Injectable {
         val toolbar = mView.findViewById<Toolbar>(R.id.collapsed_toolbar)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
         favoriteButton = mView.findViewById(R.id.favorite_text)
         swipeRefreshLayout = mView.findViewById(R.id.refresh_layout)
         swipeRefreshLayout.setOnRefreshListener {
