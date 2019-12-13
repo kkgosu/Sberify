@@ -47,43 +47,7 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
         }
         searchView = mView.findViewById(R.id.search_view)
         configureSearchView(searchView)
-
-        sharedViewModel.artist.observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Result.Status.SUCCESS -> {
-                    if (searchType == SearchType.ARTIST) {
-                        SearchAdapter.currentSearchType = searchType
-                        searchAdapter.submitList(it.data!!)
-                    }
-                }
-                else -> {
-                }
-            }
-        })
-        sharedViewModel.albums.observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Result.Status.SUCCESS -> {
-                    if (searchType == SearchType.ALBUM) {
-                        SearchAdapter.currentSearchType = searchType
-                        searchAdapter.submitList(it.data!!)
-                    }
-                }
-                else -> {
-                }
-            }
-        })
-        sharedViewModel.tracks.observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Result.Status.SUCCESS -> {
-                    if (searchType == SearchType.TRACK) {
-                        SearchAdapter.currentSearchType = searchType
-                        searchAdapter.submitList(it.data!!)
-                    }
-                }
-                else -> {
-                }
-            }
-        })
+        setupArtistObserver()
         sharedViewModel.suggestions.observe(viewLifecycleOwner, Observer {
             suggestions = it
             suggestionsAdapter.submitList(suggestions)
@@ -132,6 +96,58 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
         suggestionsRecycler.visibility = View.GONE
     }
 
+
+    private fun setupArtistObserver() {
+        sharedViewModel.tracks.removeObservers(viewLifecycleOwner)
+        sharedViewModel.albums.removeObservers(viewLifecycleOwner)
+        sharedViewModel.artist.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Result.Status.SUCCESS -> {
+                    if (searchType == SearchType.ARTIST) {
+                        SearchAdapter.currentSearchType = searchType
+                        searchAdapter.submitList(it.data!!)
+                    }
+                }
+                else -> {
+                }
+            }
+        })
+    }
+
+    private fun setupAlbumObserver() {
+        sharedViewModel.tracks.removeObservers(viewLifecycleOwner)
+        sharedViewModel.artist.removeObservers(viewLifecycleOwner)
+        sharedViewModel.albums.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Result.Status.SUCCESS -> {
+                    if (searchType == SearchType.ALBUM) {
+                        SearchAdapter.currentSearchType = searchType
+                        searchAdapter.submitList(it.data!!)
+                    }
+                }
+                else -> {
+                }
+            }
+        })
+    }
+
+    private fun setupTrackObserver() {
+        sharedViewModel.artist.removeObservers(viewLifecycleOwner)
+        sharedViewModel.albums.removeObservers(viewLifecycleOwner)
+        sharedViewModel.tracks.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Result.Status.SUCCESS -> {
+                    if (searchType == SearchType.TRACK) {
+                        SearchAdapter.currentSearchType = searchType
+                        searchAdapter.submitList(it.data!!)
+                    }
+                }
+                else -> {
+                }
+            }
+        })
+    }
+
     private fun configureSearchView(sView: SearchView?) {
         sView?.setOnQueryTextFocusChangeListener { _, hasFocus ->
             suggestionsRecycler.visibility = if (hasFocus) {
@@ -164,12 +180,15 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
                     when (checkedId) {
                         R.id.artist_rb -> {
                             searchType = SearchType.ARTIST
+                            setupArtistObserver()
                         }
                         R.id.album_rb -> {
                             searchType = SearchType.ALBUM
+                            setupAlbumObserver()
                         }
                         R.id.track_rb -> {
                             searchType = SearchType.TRACK
+                            setupTrackObserver()
                         }
                     }
                 }

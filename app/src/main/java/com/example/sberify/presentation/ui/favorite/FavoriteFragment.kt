@@ -18,6 +18,7 @@ import com.example.sberify.presentation.ui.BaseFragment
 import com.example.sberify.presentation.ui.Injectable
 import com.example.sberify.presentation.ui.Interaction
 import com.example.sberify.presentation.ui.albuminfo.AlbumInfoAdapter
+import com.example.sberify.presentation.ui.utils.setDivider
 
 class FavoriteFragment : BaseFragment(), Interaction, Injectable {
 
@@ -31,7 +32,10 @@ class FavoriteFragment : BaseFragment(), Interaction, Injectable {
         favoriteViewModel = injectViewModel(viewModelFactory)
         albumInfoAdapter = AlbumInfoAdapter(this)
         recyclerView = mView.findViewById(R.id.favorite_recycler)
-        recyclerView.adapter = albumInfoAdapter
+        recyclerView.apply {
+            adapter = albumInfoAdapter
+            setDivider(R.drawable.divider)
+        }
 
         favoriteViewModel.favorite.observe(viewLifecycleOwner, Observer {
             albumInfoAdapter.submitList(it)
@@ -40,6 +44,7 @@ class FavoriteFragment : BaseFragment(), Interaction, Injectable {
         favoriteViewModel.loadFavorite()
         return mView
     }
+
 
     override fun onItemSelected(position: Int, item: BaseModel, view: View) {
         if (item is Track) {

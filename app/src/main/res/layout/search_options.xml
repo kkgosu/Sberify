@@ -12,7 +12,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:checked="true"
         android:text="@string/artist"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
         android:textSize="@dimen/test_size_small" />
