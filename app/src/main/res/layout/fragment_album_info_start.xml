@@ -52,8 +52,9 @@
             android:paddingStart="@dimen/padding_default"
             android:paddingEnd="@dimen/padding_default"
             android:text="@{viewModel.album.data.artist.name}"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             android:textColor="@color/white"
+            android:textSize="34sp"
             android:transitionName="@{viewModel.album.data.artist.name + `album`}"
             app:layout_constraintBottom_toTopOf="@id/release_date"
             tools:text="bbno$" />
@@ -64,8 +65,9 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_default"
             android:text="@{viewModel.album.data.releaseDate}"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             android:textColor="@color/white"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/recycler_tracks"
             tools:text="23.11.2019" />
 

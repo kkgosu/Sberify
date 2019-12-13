@@ -23,7 +23,7 @@ class AlbumInfoAdapter<T : BaseModel>(private val interaction: Interaction? = nu
         when (holder) {
             is ViewHolder -> {
                 val track = differ.currentList[position] as Track
-                holder.bind(track)
+                holder.bind(track, position + 1)
             }
         }
     }
@@ -32,9 +32,10 @@ class AlbumInfoAdapter<T : BaseModel>(private val interaction: Interaction? = nu
     constructor(private val binding: ItemTrackListedBinding,
             private val interaction: Interaction?) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Track) = with(itemView) {
+        fun bind(item: Track, position: Int) = with(itemView) {
             binding.apply {
                 track = item
+                pos = position
                 executePendingBindings()
             }
             itemView.setOnClickListener {

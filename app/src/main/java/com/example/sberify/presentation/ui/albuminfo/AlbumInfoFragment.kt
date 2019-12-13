@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.doOnPreDraw
 import androidx.databinding.OnRebindCallback
 import androidx.lifecycle.Observer
@@ -21,6 +19,7 @@ import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.BaseFragment
 import com.example.sberify.presentation.ui.Interaction
+import com.example.sberify.presentation.ui.utils.setDivider
 
 class AlbumInfoFragment : BaseFragment(), Interaction {
 
@@ -33,13 +32,13 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
             savedInstanceState: Bundle?): View? {
         initBinding<FragmentAlbumInfoStartBinding>(R.layout.fragment_album_info_start, container)
                 .viewModel = sharedViewModel
-        val toolbar = mView.findViewById<Toolbar>(R.id.collapsed_toolbar)
-        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
-        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setupToolbar()
         albumInfoAdapter = AlbumInfoAdapter(this)
         tracksRecyclerView = mView.findViewById(R.id.recycler_tracks)
-        tracksRecyclerView.adapter = albumInfoAdapter
-
+        tracksRecyclerView.apply {
+            adapter = albumInfoAdapter
+            setDivider(R.drawable.divider)
+        }
         sharedViewModel.album.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Result.Status.SUCCESS -> {
@@ -83,9 +82,11 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
         if (item is Track) {
             isBack = true
             sharedViewModel.getLyrics(item)
+            val trackName = view.findViewById<TextView>(R.id.track_name)
+            val albumCover = mView.findViewById<ImageView>(R.id.album_cover)
             val extras = FragmentNavigatorExtras(
-                    view.findViewById<TextView>(R.id.track_name) to item.name,
-                    mView.findViewById<ImageView>(R.id.album_cover) to "${item.image?.url}")
+                    trackName to (sharedViewModel.lyrics.value?.data?.name ?: item.name),
+                    albumCover to albumCover.transitionName)
             findNavController().navigate(R.id.action_albumInfoFragment_to_lyricsFragment, null,
                     null, extras)
         }

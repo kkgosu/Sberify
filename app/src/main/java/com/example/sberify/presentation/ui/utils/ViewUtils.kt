@@ -3,7 +3,11 @@ package com.example.sberify.presentation.ui.utils
 import android.app.Activity
 import android.view.View
 import android.widget.ImageView
+import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.target.Target
@@ -50,5 +54,14 @@ fun ImageView.bindingPalette(path: String?, palette: View) {
 private fun View.ifNotDestroyed(block: () -> Unit) {
     if (!(context as Activity).isDestroyed) {
         block()
+    }
+}
+
+fun RecyclerView.setDivider(@DrawableRes drawableRes: Int) {
+    val divider = DividerItemDecoration(this.context, DividerItemDecoration.VERTICAL)
+    val drawable = ContextCompat.getDrawable(this.context, drawableRes)
+    drawable?.let {
+        divider.setDrawable(it)
+        addItemDecoration(divider)
     }
 }

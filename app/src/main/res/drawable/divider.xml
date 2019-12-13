@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <size android:height="1dp" />
-    <solid android:color="#ff919191" />
-</shape>
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:insetLeft="48dp"
+    android:insetRight="0dp">
+
+    <shape>
+        <size android:height="0.5dp" />
+        <solid android:color="@color/gray_50" />
+    </shape>
+
+</inset>

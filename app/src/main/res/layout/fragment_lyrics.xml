@@ -29,14 +29,14 @@
                 app:expandedTitleGravity="bottom|left"
                 app:expandedTitleTextAppearance="@style/ExpandedTitleText"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:title="The Matrix - Smokepurpp"
-                app:titleAdapter="@{viewModel.lyrics.data}">
+                app:titleAdapter="@{viewModel.lyrics.data}"
+                tools:text="The Matrix - Smokepurpp">
 
                 <com.example.sberify.presentation.ui.utils.SquareImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
-                    android:transitionName="@{viewModel.lyrics.data.image.url}"
+                    android:transitionName="@{viewModel.album.data.imageUrl + `album`}"
                     app:image="@{viewModel.lyrics.data.image.url}"
                     app:layout_collapseMode="parallax" />
 
@@ -90,7 +90,6 @@
 Young Metro, young Metro, young Metro (Sheesh)
 Ayy (Ayy)
 Young Metro, young Metro" />
-
             </androidx.core.widget.NestedScrollView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

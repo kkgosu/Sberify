@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.OnRebindCallback
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -54,5 +56,11 @@ abstract class BaseFragment : Fragment(), Interaction {
                 startPostponedEnterTransition()
             }
         })
+    }
+    
+    fun setupToolbar() {
+        val toolbar = mView.findViewById<Toolbar>(R.id.collapsed_toolbar)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }

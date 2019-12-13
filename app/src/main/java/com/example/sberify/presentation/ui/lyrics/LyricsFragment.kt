@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.transition.TransitionInflater
@@ -30,12 +28,10 @@ class LyricsFragment : BaseFragment(), Injectable {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
+        lyricsViewModel = injectViewModel(viewModelFactory)
         initBinding<FragmentLyricsBinding>(R.layout.fragment_lyrics, container)
                 .viewModel = sharedViewModel
-        lyricsViewModel = injectViewModel(viewModelFactory)
-        val toolbar = mView.findViewById<Toolbar>(R.id.collapsed_toolbar)
-        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
-        (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setupToolbar()
         favoriteButton = mView.findViewById(R.id.favorite_text)
         swipeRefreshLayout = mView.findViewById(R.id.refresh_layout)
         swipeRefreshLayout.setOnRefreshListener {
@@ -79,10 +75,12 @@ class LyricsFragment : BaseFragment(), Injectable {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         postponeEnterTransition()
+        exitTransition = TransitionInflater.from(context)
+                .inflateTransition(android.R.transition.no_transition)
         sharedElementEnterTransition = TransitionInflater.from(context)
-                .inflateTransition(R.transition.image_shared_element_transition)
+                .inflateTransition(android.R.transition.no_transition)
         sharedElementReturnTransition = TransitionInflater.from(context)
-                .inflateTransition(R.transition.image_shared_element_transition)
+                .inflateTransition(android.R.transition.move)
     }
 
     override fun onDestroy() {
