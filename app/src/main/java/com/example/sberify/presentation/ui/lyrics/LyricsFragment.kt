@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.transition.TransitionInflater
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
 import com.example.sberify.data.Result
@@ -35,7 +36,6 @@ class LyricsFragment : BaseFragment(), Injectable {
         val toolbar = mView.findViewById<Toolbar>(R.id.collapsed_toolbar)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        (requireActivity() as AppCompatActivity).supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
         favoriteButton = mView.findViewById(R.id.favorite_text)
         swipeRefreshLayout = mView.findViewById(R.id.refresh_layout)
         swipeRefreshLayout.setOnRefreshListener {
@@ -77,6 +77,15 @@ class LyricsFragment : BaseFragment(), Injectable {
             }
         })
         return mView
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        postponeEnterTransition()
+        sharedElementEnterTransition = TransitionInflater.from(context)
+                .inflateTransition(R.transition.image_shared_element_transition)
+        sharedElementReturnTransition = TransitionInflater.from(context)
+                .inflateTransition(R.transition.image_shared_element_transition)
     }
 
     override fun onDestroy() {

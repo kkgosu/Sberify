@@ -7,6 +7,8 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.target.Target
+import com.example.sberify.models.domain.Track
+import com.google.android.material.appbar.CollapsingToolbarLayout
 
 @BindingAdapter("image")
 fun ImageView.loadImage(image: String?) = ifNotDestroyed {
@@ -17,6 +19,15 @@ fun ImageView.loadImage(image: String?) = ifNotDestroyed {
                 .override(Target.SIZE_ORIGINAL)
                 .centerCrop()
                 .into(this)
+    }
+}
+
+@BindingAdapter("titleAdapter")
+fun CollapsingToolbarLayout.setTitle(track: Track?) {
+    track?.let {
+        title = track.name + " - " + track.artists.joinToString(", ") {
+            it.name
+        }
     }
 }
 

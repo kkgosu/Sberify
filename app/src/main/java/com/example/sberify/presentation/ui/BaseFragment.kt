@@ -35,11 +35,11 @@ abstract class BaseFragment : Fragment(), Interaction {
         mView = binding.root
         return binding as T
     }
-    
+
     fun setupAnimations() {
         postponeEnterTransition()
         exitTransition = TransitionInflater.from(context)
-                .inflateTransition(R.transition.grid_exit_transition)
+                .inflateTransition(android.R.transition.fade)
         sharedElementEnterTransition = TransitionInflater.from(context)
                 .inflateTransition(R.transition.image_shared_element_transition)
         sharedElementReturnTransition = TransitionInflater.from(context)

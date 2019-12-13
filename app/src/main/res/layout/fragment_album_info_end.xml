@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.sberify.presentation.ui.SharedViewModel" />
@@ -12,6 +13,11 @@
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/collapsed_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp" />
 
         <com.example.sberify.presentation.ui.utils.SquareImageView
             android:id="@+id/album_cover"
