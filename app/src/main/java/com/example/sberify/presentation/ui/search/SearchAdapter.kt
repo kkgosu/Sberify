@@ -16,7 +16,7 @@ import com.example.sberify.presentation.ui.utils.inflateLayout
 
 class SearchAdapter(private val interaction: Interaction? = null) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    
+
     private val DIFF_CALLBACK_ARTIST = createDiffCallback<Artist>()
     private val differArtist = AsyncListDiffer(this, DIFF_CALLBACK_ARTIST)
 
@@ -50,17 +50,14 @@ class SearchAdapter(private val interaction: Interaction? = null) :
         when (holder) {
             is ViewHolderArtist -> {
                 val artist = differArtist.currentList[position]
-                holder.binding.artist = artist
                 holder.bind(artist)
             }
             is ViewHolderAlbum -> {
                 val album = differAlbum.currentList[position]
-                holder.binding.album = album
                 holder.bind(album)
             }
             is ViewHolderTrack -> {
                 val track = differTrack.currentList[position]
-                holder.binding.track = track
                 holder.bind(track)
             }
         }
@@ -102,10 +99,14 @@ class SearchAdapter(private val interaction: Interaction? = null) :
     }
 
     class ViewHolderArtist
-    constructor(val binding: ItemSearchBinding,
+    constructor(private val binding: ItemSearchBinding,
             private val interaction: Interaction?) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Artist) = with(itemView) {
+            binding.apply {
+                artist = item
+                executePendingBindings()
+            }
             itemView.setOnClickListener {
                 interaction?.onArtistSelected(adapterPosition, item, this)
             }
@@ -113,10 +114,15 @@ class SearchAdapter(private val interaction: Interaction? = null) :
     }
 
     class ViewHolderAlbum
-    constructor(val binding: ItemAlbumBinding,
+    constructor(private val binding: ItemAlbumBinding,
             private val interaction: Interaction?) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Album) = with(itemView) {
+            binding.apply {
+                album = item
+                palette = itemAlbumPalette
+                executePendingBindings()
+            }
             itemView.setOnClickListener {
                 interaction?.onAlbumSelected(item, this)
             }
@@ -125,10 +131,14 @@ class SearchAdapter(private val interaction: Interaction? = null) :
 
 
     class ViewHolderTrack
-    constructor(val binding: ItemTrackBinding,
+    constructor(private val binding: ItemTrackBinding,
             private val interaction: Interaction?) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Track) = with(itemView) {
+            binding.apply {
+                track = item
+                executePendingBindings()
+            }
             itemView.setOnClickListener {
                 interaction?.onTrackSelected(adapterPosition, item, this)
             }

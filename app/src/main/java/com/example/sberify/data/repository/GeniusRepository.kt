@@ -16,18 +16,22 @@ class GeniusRepository @Inject constructor(
         private val database: AppDatabase) : IGeniusRepository {
 
     override fun getLyrics(track: Track): LiveData<Result<Track>> {
+        var isExist = false
         return resultLiveData(
                 databaseQuery = {
                     database.getTrackDao().getTrackById(track.id).map {
                         it?.let {
+                            isExist = true
                             it.toTrack()
                         }
                     }
                 },
                 networkCall = { geniusParser.parseLyrics(track) },
                 saveCallResult = {
-                    database.getTrackDao().insertTrack(TrackEntity.from(it))
-                    database.getTrackDao().updateTrack(TrackEntity.from(it))
+                    if (!isExist) {
+                        database.getTrackDao().insertTrack(TrackEntity.from(it))
+                    }
+                    database.getTrackDao().updateTrackLyrics(it.id, it.lyrics!!)
                 })
     }
 }

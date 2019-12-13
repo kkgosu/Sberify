@@ -4,16 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="album"
             type="com.example.sberify.models.domain.Album" />
+
+        <variable
+            name="palette"
+            type="android.view.View" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <FrameLayout
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_small"
+        android:background="@color/black"
         app:cardBackgroundColor="@android:color/black"
         app:cardCornerRadius="@dimen/corner_radius_default"
         app:elevation="@dimen/elevation_default">
@@ -21,8 +26,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="@dimen/padding_default">
+            android:orientation="vertical">
 
             <com.example.sberify.presentation.ui.utils.SquareImageView
                 android:id="@+id/release_cover"
@@ -31,30 +35,38 @@
                 android:layout_gravity="top"
                 android:scaleType="centerCrop"
                 android:transitionName="@{album.imageUrl + `album`}"
-                app:image="@{album.imageUrl}"
+                app:palette="@{palette}"
+                app:paletteImage="@{album.imageUrl}"
                 tools:src="@drawable/ic_launcher_background" />
 
-            <TextView
-                android:id="@+id/release_name"
+            <LinearLayout
+                android:id="@+id/item_album_palette"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{album.name}"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                android:textColor="@color/white"
-                android:transitionName="@{album.name + `album`}"
-                tools:text="Courage (Deluxe Edition)" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/artist_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{album.artist.name}"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textColor="@color/white"
-                android:transitionName="@{album.artist.name + `album`}"
-                tools:text="Celine Dion" />
+                <TextView
+                    android:id="@+id/release_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{album.name}"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textColor="@color/white"
+                    android:transitionName="@{album.name + `album`}"
+                    tools:text="Courage (Deluxe Edition)" />
+
+                <TextView
+                    android:id="@+id/artist_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{album.artist.name}"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    android:textColor="@color/white"
+                    android:transitionName="@{album.artist.name + `album`}"
+                    tools:text="Celine Dion" />
+            </LinearLayout>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </FrameLayout>
 </layout>

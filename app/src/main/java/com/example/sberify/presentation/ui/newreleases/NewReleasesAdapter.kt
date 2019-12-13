@@ -22,18 +22,22 @@ class NewReleasesAdapter<T : BaseModel>(
         when (holder) {
             is ViewHolder -> {
                 val album = differ.currentList[position] as Album
-                holder.bindingItem.album = album
                 holder.bind(album)
             }
         }
     }
 
     class ViewHolder
-    constructor(val bindingItem: ItemAlbumBinding,
+    constructor(private val bindingItem: ItemAlbumBinding,
             private val interaction: Interaction?) : RecyclerView.ViewHolder(
             bindingItem.root) {
 
         fun bind(item: Album) = with(itemView) {
+            bindingItem.apply {
+                album = item
+                palette = itemAlbumPalette
+                executePendingBindings()
+            }
             itemView.setOnClickListener {
                 interaction?.onItemSelected(adapterPosition, item, this)
             }
