@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.databinding.OnRebindCallback
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -44,5 +45,14 @@ abstract class BaseFragment : Fragment(), Interaction {
                 .inflateTransition(R.transition.image_shared_element_transition)
         sharedElementReturnTransition = TransitionInflater.from(context)
                 .inflateTransition(R.transition.image_shared_element_transition)
+    }
+
+    fun <T : ViewDataBinding> invalidateBindings() {
+        binding.invalidateAll()
+        binding.addOnRebindCallback(object : OnRebindCallback<T>() {
+            override fun onBound(binding: T) {
+                startPostponedEnterTransition()
+            }
+        })
     }
 }

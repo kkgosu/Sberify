@@ -40,7 +40,7 @@ fun ImageView.bindingPalette(path: String?, palette: View) {
                 .load(path)
                 .transition(DrawableTransitionOptions.withCrossFade(375))
                 .listener(GlidePalette.with(path)
-                        .use(BitmapPalette.Profile.VIBRANT)
+                        .use(BitmapPalette.Profile.VIBRANT_DARK)
                         .intoBackground(palette)
                         .crossfade(true))
                 .into(this)

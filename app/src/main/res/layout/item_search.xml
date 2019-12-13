@@ -8,6 +8,10 @@
         <variable
             name="artist"
             type="com.example.sberify.models.domain.Artist" />
+
+        <variable
+            name="palette"
+            type="android.view.View" />
     </data>
 
 
@@ -15,15 +19,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_small"
-        app:cardBackgroundColor="@android:color/black"
+        app:cardBackgroundColor="@color/gray_800"
         app:cardCornerRadius="@dimen/corner_radius_default"
         app:elevation="@dimen/elevation_default">
 
         <LinearLayout
+            android:id="@+id/item_search_palette"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/padding_default">
+            android:orientation="vertical">
 
             <com.example.sberify.presentation.ui.utils.SquareImageView
                 android:id="@+id/search_image"
@@ -32,12 +36,14 @@
                 android:layout_gravity="top"
                 android:scaleType="centerCrop"
                 android:src="@drawable/icon_person"
-                app:image="@{artist.image.url}" />
+                app:palette="@{palette}"
+                app:paletteImage="@{artist.image.url}" />
 
             <TextView
                 android:id="@+id/search_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="4dp"
                 android:text="@{artist.name}"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"

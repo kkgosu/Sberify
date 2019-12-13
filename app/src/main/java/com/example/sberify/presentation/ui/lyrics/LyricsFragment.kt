@@ -45,7 +45,7 @@ class LyricsFragment : BaseFragment(), Injectable {
         sharedViewModel.lyrics.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Result.Status.SUCCESS -> {
-                    startPostponedEnterTransition()
+                    invalidateBindings<FragmentLyricsBinding>()
                     it.data?.let { track ->
                         swipeRefreshLayout.isRefreshing = false
                         track.lyrics?.let {
@@ -64,9 +64,6 @@ class LyricsFragment : BaseFragment(), Injectable {
                 }
                 Result.Status.LOADING -> {
                     showLottie()
-                    it.data?.let {
-                        startPostponedEnterTransition()
-                    }
                 }
                 Result.Status.ERROR -> {
                     showLottie()

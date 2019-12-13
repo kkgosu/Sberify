@@ -14,12 +14,12 @@
             type="android.view.View" />
     </data>
 
-    <FrameLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black"
-        app:cardBackgroundColor="@android:color/black"
+        android:layout_margin="@dimen/margin_small"
+        app:cardBackgroundColor="@color/gray_800"
         app:cardCornerRadius="@dimen/corner_radius_default"
         app:elevation="@dimen/elevation_default">
 
@@ -43,7 +43,8 @@
                 android:id="@+id/item_album_palette"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="4dp">
 
                 <TextView
                     android:id="@+id/release_name"
@@ -68,5 +69,5 @@
                     tools:text="Celine Dion" />
             </LinearLayout>
         </LinearLayout>
-    </FrameLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

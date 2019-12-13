@@ -2,18 +2,18 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray_800"
+        android:background="@color/black"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/search_view_height"
-            android:background="@color/white"
+            android:background="@color/white_ish"
             android:imeOptions="actionSearch"
             android:inputType="text"
             app:iconifiedByDefault="false"
@@ -31,7 +31,6 @@
                 style="@style/DefaultRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/gray_800"
                 app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                 app:spanCount="2" />
 

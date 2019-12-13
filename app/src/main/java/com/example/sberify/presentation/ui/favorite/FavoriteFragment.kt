@@ -20,7 +20,7 @@ import com.example.sberify.presentation.ui.Interaction
 import com.example.sberify.presentation.ui.albuminfo.AlbumInfoAdapter
 
 class FavoriteFragment : BaseFragment(), Interaction, Injectable {
-    
+
     private lateinit var favoriteViewModel: FavoriteViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var albumInfoAdapter: AlbumInfoAdapter<Track>
@@ -35,6 +35,7 @@ class FavoriteFragment : BaseFragment(), Interaction, Injectable {
 
         favoriteViewModel.favorite.observe(viewLifecycleOwner, Observer {
             albumInfoAdapter.submitList(it)
+            startPostponedEnterTransition()
         })
         favoriteViewModel.loadFavorite()
         return mView
@@ -48,5 +49,10 @@ class FavoriteFragment : BaseFragment(), Interaction, Injectable {
             findNavController().navigate(R.id.action_favoriteFragment_to_lyricsFragment, null, null,
                     extras)
         }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        setupAnimations()
     }
 }

@@ -105,6 +105,7 @@ class SearchAdapter(private val interaction: Interaction? = null) :
         fun bind(item: Artist) = with(itemView) {
             binding.apply {
                 artist = item
+                palette = itemSearchPalette
                 executePendingBindings()
             }
             itemView.setOnClickListener {
@@ -137,6 +138,7 @@ class SearchAdapter(private val interaction: Interaction? = null) :
         fun bind(item: Track) = with(itemView) {
             binding.apply {
                 track = item
+                palette = itemTrackPalette
                 executePendingBindings()
             }
             itemView.setOnClickListener {

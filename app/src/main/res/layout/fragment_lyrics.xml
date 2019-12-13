@@ -17,7 +17,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/gray_800"
+            android:background="@color/background"
             app:elevation="4dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -84,9 +84,12 @@
                     android:padding="@dimen/padding_default"
                     android:text="@{viewModel.lyrics.data.lyrics}"
                     android:textAlignment="textStart"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline2"
-                    android:textSize="22sp"
-                    tools:text="dnjasndjknajkndjandjksnadkjanjkdnajkdnjkajkdskjadnjka" />
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:textSize="20sp"
+                    tools:text="[Intro]
+Young Metro, young Metro, young Metro (Sheesh)
+Ayy (Ayy)
+Young Metro, young Metro" />
 
             </androidx.core.widget.NestedScrollView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
