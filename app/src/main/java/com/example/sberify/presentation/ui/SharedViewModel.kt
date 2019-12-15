@@ -16,7 +16,7 @@ class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotif
         private val databaseRepository: IDatabaseRepository) : ViewModel() {
 
     val token: LiveData<Token> = spotifyRepository.getToken()
-    
+
     private val reloadTrigger = MutableLiveData<Boolean>()
     private val searchArtistTrigger = MutableLiveData<String>()
     private val searchAlbumTrigger = MutableLiveData<String>()
@@ -68,7 +68,10 @@ class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotif
     }
 
     fun refreshLyrics() {
-        lyricsTrigger.value = lyrics.value?.data!!
+        val track = lyrics.value
+        track?.let {
+            lyricsTrigger.value = it.data
+        }
     }
 
     fun insertSuggestion(text: String) {

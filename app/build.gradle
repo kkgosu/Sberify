@@ -86,7 +86,7 @@ android {
         implementation 'com.github.florent37:glidepalette:2.1.2'
         implementation "com.airbnb.android:lottie:$rootProject.lottieVersion"
         implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-    
+
         testImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
         androidTestImplementation "androidx.test.espresso:espresso-contrib:$rootProject.espressoVersion"
         androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
@@ -94,6 +94,7 @@ android {
         androidTestImplementation "androidx.test.ext:junit:$rootProject.testExtJunit"
         androidTestImplementation "androidx.test.uiautomator:uiautomator:$rootProject.uiAutomatorVersion"
         testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
+        testImplementation "org.mockito:mockito-inline:$rootProject.mockitoVersion"
         testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
         testImplementation "org.hamcrest:hamcrest-library:$rootProject.hamcrestVersion"
         testImplementation "junit:junit:$rootProject.junitVersion"

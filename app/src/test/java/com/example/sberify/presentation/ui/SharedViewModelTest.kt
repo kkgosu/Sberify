@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.sberify.MockTestUtils.Companion.mockAlbum
+import com.example.sberify.MockTestUtils.Companion.mockToken
 import com.example.sberify.MockTestUtils.Companion.mockTrack
 import com.example.sberify.data.Result
 import com.example.sberify.domain.IDatabaseRepository
@@ -17,6 +18,8 @@ import com.example.sberify.presentation.ui.search.SearchType
 import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -169,9 +172,33 @@ class SharedViewModelTest {
 
         sharedViewModel.suggestions.observeForever(observer)
         sharedViewModel.getAllSuggestions()
+        delay(1000)
         verify(databaseRepository).getAllSuggestions()
         verify(observer).onChanged(suggestions)
         verifyNoMoreInteractions(databaseRepository)
         return@runBlocking
+    }
+
+    @Test
+    fun refreshLyrics() {
+        whenever(spotifyRepository.getToken()).thenReturn(MutableLiveData(mockToken()))
+
+        val result1 = Result.success(mockTrack())
+        val result2 = Result.success(mockTrack().copy(id = "2"))
+
+        val lyrics = mock<MutableLiveData<Result<Track>>>()
+
+        whenever(lyrics.value)
+                .thenReturn(result1)
+                .thenReturn(result2)
+
+        sharedViewModel = SharedViewModel(spotifyRepository, geniusRepository, databaseRepository)
+        
+        val initialValue = lyrics.value
+        sharedViewModel.refreshLyrics()
+        val newValue = lyrics.value
+        assertNotEquals(initialValue, newValue)
+        assertEquals(initialValue, result1)
+        assertEquals(result2, result2)
     }
 }

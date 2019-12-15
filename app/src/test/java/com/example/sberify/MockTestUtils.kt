@@ -12,14 +12,16 @@ class MockTestUtils {
 
         fun mockArtistData() =
                 ArtistData("1",
-                        emptyList(),
+                        listOf(mockImageData()),
                         "artistName",
                         emptyList(),
                         0)
 
+        fun mockAlbumsData() = AlbumsData(AlbumsData.Items(listOf(mockAlbumData())))
+
         fun mockAlbumData() = AlbumData("1",
-                emptyList(),
-                emptyList(),
+                listOf(mockArtistData()),
+                listOf(mockImageData()),
                 "albumName",
                 mockTrackDataItems(),
                 0,
@@ -35,9 +37,13 @@ class MockTestUtils {
 
         fun mockTrackDataItems(): TracksData.Items = TracksData.Items(emptyList())
 
-        fun mockTrack() = Track("1", "trackName", mockImage(), emptyList(), null, false)
+        fun mockTrack() = Track("1", "trackName", mockImage(), listOf(mockArtist()), null, false)
+        fun mockTrackDB() = Track("1", "trackName", Image(null),
+                listOf(mockArtistDB()), null, false)
+
         fun mockImage() = Image("url", 0, 0)
         fun mockArtist() = Artist("1", mockImage(), "artistName", emptyList())
+        fun mockArtistDB() = Artist("1", null, "artistName", emptyList())
         fun mockAlbum() = Album("1", mockArtist(), "albumName", emptyList(), "url", "01.01.1970")
     }
 }

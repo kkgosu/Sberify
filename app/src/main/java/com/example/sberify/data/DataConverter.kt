@@ -1,9 +1,11 @@
 package com.example.sberify.data
 
+import com.example.sberify.OpenForTesting
 import com.example.sberify.domain.IConverter
 import com.example.sberify.models.data.*
 import com.example.sberify.models.domain.*
 
+@OpenForTesting
 class DataConverter : IConverter<BaseDataModel, BaseModel> {
     override fun convertAlbums(from: List<AlbumData>?): List<Album> {
         return from?.map {
@@ -13,7 +15,7 @@ class DataConverter : IConverter<BaseDataModel, BaseModel> {
                     convertTracks(it.tracks?.items, it.images[0].url),
                     it.images[0].url,
                     it.release_date)
-        }!!
+        } ?: emptyList()
     }
 
     override fun convertArtists(from: List<ArtistData>): List<Artist> {

@@ -8,6 +8,7 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import com.nhaarman.mockitokotlin2.whenever
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
@@ -39,7 +40,8 @@ class FavoriteViewModelTest {
 
         favoriteViewModel.favorite.observeForever(observer)
         favoriteViewModel.loadFavorite()
-
+        
+        delay(1000)
         verify(databaseRepo).loadFavoriteTracks()
         verify(observer).onChanged(tracks)
         verifyNoMoreInteractions(databaseRepo)
