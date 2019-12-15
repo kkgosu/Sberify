@@ -16,7 +16,7 @@ class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotif
         private val databaseRepository: IDatabaseRepository) : ViewModel() {
 
     val token: LiveData<Token> = spotifyRepository.getToken()
-
+    
     private val reloadTrigger = MutableLiveData<Boolean>()
     private val searchArtistTrigger = MutableLiveData<String>()
     private val searchAlbumTrigger = MutableLiveData<String>()
@@ -34,17 +34,17 @@ class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotif
     val artist: LiveData<Result<List<Artist>>> = Transformations.switchMap(searchArtistTrigger) {
         spotifyRepository.searchArtist(it)
     }
-    var albums: LiveData<Result<List<Album>>> = Transformations.switchMap(searchAlbumTrigger) {
+    val albums: LiveData<Result<List<Album>>> = Transformations.switchMap(searchAlbumTrigger) {
         spotifyRepository.searchAlbum(it)
     }
-    var tracks: LiveData<Result<List<Track>>> = Transformations.switchMap(searchTrackTrigger) {
+    val tracks: LiveData<Result<List<Track>>> = Transformations.switchMap(searchTrackTrigger) {
         spotifyRepository.searchTrack(it)
     }
 
     private val _album = MutableLiveData<Result<Album>>()
     var album: LiveData<Result<Album>> = _album
 
-    var lyrics: LiveData<Result<Track>> = Transformations.switchMap(lyricsTrigger) {
+    val lyrics: LiveData<Result<Track>> = Transformations.switchMap(lyricsTrigger) {
         geniusRepository.getLyrics(it)
     }
 
