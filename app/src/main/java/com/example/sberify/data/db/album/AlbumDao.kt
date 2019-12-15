@@ -9,7 +9,7 @@ interface AlbumDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAlbum(albumEntity: AlbumEntity)
 
-    @Query("SELECT * FROM albums ORDER BY release_date DESC")
+    @Query("SELECT * FROM albums ORDER BY release_date DESC LIMIT 50")
     fun getAlbums(): LiveData<List<AlbumEntity>>
 
     @Query("SELECT * FROM albums WHERE name LIKE '%' || :key || '%' OR mname LIKE '%' || :key || '%'")

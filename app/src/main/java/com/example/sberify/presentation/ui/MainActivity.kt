@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         sharedViewModel.token.observe(this, Observer {
             it?.let {
                 TokenData.setToken(it)
+                sharedViewModel.refresh()
                 println("Token ${it.access_token}")
             }
         })
