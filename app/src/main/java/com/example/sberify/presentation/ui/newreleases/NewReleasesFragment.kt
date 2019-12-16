@@ -71,7 +71,6 @@ class NewReleasesFragment : BaseFragment(), Injectable {
                 }
             }
         })
-        
         sharedViewModel.refresh()
         return mView
     }
