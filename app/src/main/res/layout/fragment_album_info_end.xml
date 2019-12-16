@@ -12,7 +12,8 @@
 
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/black">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/collapsed_toolbar"
@@ -23,6 +24,7 @@
             android:id="@+id/album_cover"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:alpha=".85"
             android:scaleType="centerCrop"
             android:transitionName="@{viewModel.album.data.imageUrl + `album`}"
             app:image="@{viewModel.album.data.imageUrl}"

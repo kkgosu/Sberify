@@ -1,5 +1,8 @@
 package com.example.sberify.data.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
+import androidx.lifecycle.map
 import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.db.suggestions.SuggestionsEntity
 import com.example.sberify.data.db.track.TrackEntity
@@ -38,13 +41,14 @@ class DatabaseRepository @Inject constructor(
         }
     }
 
-    override suspend fun loadFavoriteTracks(): List<Track> {
-        return withContext(Dispatchers.IO) {
-            database.getTrackDao()
-                    .loadFavoriteTracks()
-                    .map {
-                        it.toTrack()
-                    }
-        }
-    }
+    override fun loadFavoriteTracks(): LiveData<List<Track>> =
+            liveData(Dispatchers.IO) {
+                val data = database.getTrackDao().loadFavoriteTracks().map {
+                    println("DatabaseRepository.loadFavoriteTracks")
+                    it.map { trackEntity -> trackEntity.toTrack() }
+                }
+                println("before emitSource")
+                emitSource(data)
+            }
+
 }

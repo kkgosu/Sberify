@@ -21,22 +21,20 @@ import com.example.sberify.presentation.ui.albuminfo.AlbumInfoAdapter
 import com.example.sberify.presentation.ui.utils.setDivider
 
 class FavoriteFragment : BaseFragment(), Interaction, Injectable {
-
+    
     private lateinit var favoriteViewModel: FavoriteViewModel
-    private lateinit var recyclerView: RecyclerView
     private lateinit var albumInfoAdapter: AlbumInfoAdapter<Track>
-
+    
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
         initBinding<FragmentFavoriteBinding>(R.layout.fragment_favorite, container)
         favoriteViewModel = injectViewModel(viewModelFactory)
         albumInfoAdapter = AlbumInfoAdapter(this)
-        recyclerView = mView.findViewById(R.id.favorite_recycler)
+        val recyclerView: RecyclerView = mView.findViewById(R.id.favorite_recycler)
         recyclerView.apply {
             adapter = albumInfoAdapter
             setDivider(R.drawable.divider)
         }
-
         favoriteViewModel.favorite.observe(viewLifecycleOwner, Observer {
             albumInfoAdapter.submitList(it)
             startPostponedEnterTransition()
@@ -44,7 +42,6 @@ class FavoriteFragment : BaseFragment(), Interaction, Injectable {
         favoriteViewModel.loadFavorite()
         return mView
     }
-
 
     override fun onItemSelected(position: Int, item: BaseModel, view: View) {
         if (item is Track) {
