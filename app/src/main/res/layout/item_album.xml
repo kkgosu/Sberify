@@ -65,7 +65,7 @@
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     android:textColor="@color/white"
-                    android:transitionName="@{album.artist.name + `album`}"
+                    android:transitionName="@{album.artist.name + `artist`}"
                     tools:text="Celine Dion" />
             </LinearLayout>
         </LinearLayout>

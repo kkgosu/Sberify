@@ -55,7 +55,7 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             android:textColor="@color/white"
             android:textSize="34sp"
-            android:transitionName="@{viewModel.album.data.artist.name + `album`}"
+            android:transitionName="@{viewModel.album.data.artist.name + `artist`}"
             app:layout_constraintBottom_toTopOf="@id/release_date"
             tools:text="bbno$" />
 
