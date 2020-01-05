@@ -10,11 +10,9 @@ object TokenData {
     private lateinit var prefs: SharedPreferences
 
     private fun initializePrefs() {
-        if (!TokenData::prefs.isInitialized) {
-            if (SberifyApp.getContext() != null) {
-                prefs = PreferenceManager
-                        .getDefaultSharedPreferences(SberifyApp.getContext())
-            }
+        if (!TokenData::prefs.isInitialized && SberifyApp.getContext() != null) {
+            prefs = PreferenceManager
+                    .getDefaultSharedPreferences(SberifyApp.getContext())
         }
     }
 

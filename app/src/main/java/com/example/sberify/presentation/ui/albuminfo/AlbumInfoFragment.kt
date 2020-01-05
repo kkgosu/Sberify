@@ -54,8 +54,6 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
                         }
                     }
                 }
-                else -> {
-                }
             }
 
         })

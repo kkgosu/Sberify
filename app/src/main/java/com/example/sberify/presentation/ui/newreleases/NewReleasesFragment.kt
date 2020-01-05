@@ -62,17 +62,20 @@ class NewReleasesFragment : BaseFragment(), Injectable {
                     lottieAnim.cancelAnimation()
                 }
                 Result.Status.LOADING -> {
-                    lottieAnim.visibility = View.VISIBLE
-                    lottieAnim.playAnimation()
+                    showAnimation()
                 }
                 Result.Status.ERROR -> {
-                    lottieAnim.visibility = View.VISIBLE
-                    lottieAnim.playAnimation()
+                    showAnimation()
                 }
             }
         })
         sharedViewModel.refresh()
         return mView
+    }
+
+    private fun showAnimation() {
+        lottieAnim.visibility = View.VISIBLE
+        lottieAnim.playAnimation()
     }
 
     override fun onPause() {

@@ -20,19 +20,17 @@ class GeniusParser {
 
         println(trackUrl)
         request = makeRequest(trackUrl)
-        if (request.status == Result.Status.ERROR) {
-            if (track.artists.size > 1) {
-                val stringBuilder = StringBuilder()
-                track.artists.forEachIndexed { index, artist ->
-                    stringBuilder.append(artist.name.normalize())
-                    if (index != track.artists.size - 1) {
-                        stringBuilder.append(" and ")
-                    }
+        if (request.status == Result.Status.ERROR && track.artists.size > 1) {
+            val stringBuilder = StringBuilder()
+            track.artists.forEachIndexed { index, artist ->
+                stringBuilder.append(artist.name.normalize())
+                if (index != track.artists.size - 1) {
+                    stringBuilder.append(" and ")
                 }
-                println(trackUrl)
-                trackUrl = filterLyricsUrl("$stringBuilder $trackName")
-                request = makeRequest(trackUrl)
             }
+            println(trackUrl)
+            trackUrl = filterLyricsUrl("$stringBuilder $trackName")
+            request = makeRequest(trackUrl)
         }
         if (request.status == Result.Status.SUCCESS) {
             request.data?.let {
@@ -67,7 +65,6 @@ class GeniusParser {
 
     @SuppressLint("DefaultLocale")
     private fun filterTrackName(trackName: String): String {
-        //val toLatin = Transliterator.getInstance(TRANSLITERATE_VALUE)
         var result: String = trackName.normalize()
         val regexFeat = Regex(".*(feat).*")
         val regexWith = Regex(".*[(\\[]with.*")

@@ -108,8 +108,6 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
                         searchAdapter.submitList(it.data!!)
                     }
                 }
-                else -> {
-                }
             }
         })
     }
@@ -125,8 +123,6 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
                         searchAdapter.submitList(it.data!!)
                     }
                 }
-                else -> {
-                }
             }
         })
     }
@@ -141,8 +137,6 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
                         SearchAdapter.currentSearchType = searchType
                         searchAdapter.submitList(it.data!!)
                     }
-                }
-                else -> {
                 }
             }
         })
