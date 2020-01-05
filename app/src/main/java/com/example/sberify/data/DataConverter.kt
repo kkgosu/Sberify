@@ -1,11 +1,9 @@
 package com.example.sberify.data
 
-import com.example.sberify.OpenForTesting
 import com.example.sberify.domain.IConverter
 import com.example.sberify.models.data.*
 import com.example.sberify.models.domain.*
 
-@OpenForTesting
 class DataConverter : IConverter<BaseDataModel, BaseModel> {
     override fun convertAlbums(from: List<AlbumData>?): List<Album> {
         return from?.map {
