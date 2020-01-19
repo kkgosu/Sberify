@@ -5,7 +5,10 @@ import com.example.sberify.data.Result
 import com.example.sberify.domain.IDatabaseRepository
 import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
-import com.example.sberify.models.domain.*
+import com.example.sberify.models.domain.Album
+import com.example.sberify.models.domain.Artist
+import com.example.sberify.models.domain.Suggestion
+import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.search.SearchType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,8 +17,6 @@ import javax.inject.Inject
 class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotifyRepository,
         private val geniusRepository: IGeniusRepository,
         private val databaseRepository: IDatabaseRepository) : ViewModel() {
-
-    val token: LiveData<Token> = spotifyRepository.getToken()
 
     private val reloadTrigger = MutableLiveData<Boolean>()
     private val searchArtistTrigger = MutableLiveData<String>()

@@ -20,6 +20,14 @@ object TokenData {
         setString("oauthtoken", token.access_token)
     }
 
+    fun setToken(token: String) {
+        setString("oauthtoken", token)
+    }
+    
+    fun setCode(code: String) {
+        setString("code", code)
+    }
+
     fun getToken(): String = getString("oauthtoken", "")
 
     private fun getString(pref: String, def: String): String {

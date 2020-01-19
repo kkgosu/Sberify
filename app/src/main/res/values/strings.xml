@@ -11,4 +11,6 @@
     <string name="album">Album</string>
     <string name="track">Track</string>
     <string name="new_releases">New releases</string>
+    <string name="com_spotify_sdk_redirect_scheme">spotify-sdk</string>
+    <string name="com_spotify_sdk_redirect_host">auth</string>
 </resources>
