@@ -8,12 +8,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import com.example.sberify.R
 import com.example.sberify.databinding.ActivityMainBinding
 import com.example.sberify.domain.TokenData
 import com.example.sberify.presentation.ui.utils.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.spotify.android.appremote.api.ConnectionParams
+import com.spotify.android.appremote.api.Connector
+import com.spotify.android.appremote.api.SpotifyAppRemote
 import com.spotify.sdk.android.auth.AuthorizationClient
 import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
@@ -21,7 +25,12 @@ import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.coroutines.Continuation
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
@@ -38,6 +47,8 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     private lateinit var accessToken: String
     private lateinit var accessCode: String
+
+    private var spotifyAppRemote: SpotifyAppRemote? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -56,6 +67,39 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
                 SharedViewModel::class.java)
         sharedViewModel.refresh()
     }
+
+    override fun onStart() {
+        super.onStart()
+
+        SpotifyAppRemote.disconnect(spotifyAppRemote)
+        lifecycleScope.launch {
+            try {
+                spotifyAppRemote = connectToAppRemote()
+                println("Connected")
+            } catch (error: Throwable) {
+                println(error.message)
+            }
+        }
+    }
+
+    private suspend fun connectToAppRemote(): SpotifyAppRemote? =
+            suspendCoroutine { continuation: Continuation<SpotifyAppRemote> ->
+                SpotifyAppRemote.connect(applicationContext,
+                        ConnectionParams.Builder(CLIENT_ID)
+                                .setRedirectUri(REDIRECT_URL)
+                                .setAuthMethod(ConnectionParams.AuthMethod.APP_ID)
+                                .showAuthView(true)
+                                .build(),
+                        object : Connector.ConnectionListener {
+                            override fun onConnected(p0: SpotifyAppRemote) {
+                                continuation.resume(p0)
+                            }
+
+                            override fun onFailure(p0: Throwable) {
+                                continuation.resumeWithException(p0)
+                            }
+                        })
+            }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
@@ -126,6 +170,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     companion object {
         private const val CLIENT_ID = "49e110cda5b64d6d89476f40687725c4"
+        private const val REDIRECT_URL = "spotify-sdk://auth"
         private const val AUTH_TOKEN_REQUEST_CODE = 0x10
         private const val AUTH_CODE_REQUEST_CODE = 0x11
     }

@@ -3,7 +3,6 @@ package com.example.sberify.domain
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import com.example.sberify.SberifyApp
-import com.example.sberify.models.domain.Token
 
 object TokenData {
     private const val TAG = "Pref"
@@ -14,10 +13,6 @@ object TokenData {
             prefs = PreferenceManager
                     .getDefaultSharedPreferences(SberifyApp.getContext())
         }
-    }
-
-    fun setToken(token: Token) {
-        setString("oauthtoken", token.access_token)
     }
 
     fun setToken(token: String) {

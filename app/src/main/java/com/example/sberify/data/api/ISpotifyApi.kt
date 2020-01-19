@@ -4,21 +4,16 @@ import com.example.sberify.models.data.AlbumData
 import com.example.sberify.models.data.AlbumsData
 import com.example.sberify.models.data.ArtistsData
 import com.example.sberify.models.data.TracksData
-import com.example.sberify.models.domain.Token
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ISpotifyApi {
 
     companion object {
-        const val TOKEN_URL = "https://accounts.spotify.com/api/token/"
         const val API_URL = "https://api.spotify.com/v1/"
     }
-
-    @FormUrlEncoded
-    @POST(TOKEN_URL)
-    suspend fun getToken(
-            @Field("grant_type") grandType: String = "client_credentials"): Response<Token>
 
     @GET("browse/new-releases")
     suspend fun getNewReleases(
