@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.sberify.R
 import com.example.sberify.databinding.FragmentFavoriteBinding
 import com.example.sberify.di.injectViewModel
@@ -29,6 +30,7 @@ class FavoriteFragment : BaseFragment(), Interaction, Injectable {
     private lateinit var favoriteViewModel: FavoriteViewModel
     private lateinit var tracksAdapter: AlbumInfoAdapter<Track>
     private lateinit var albumsAdapter: NewReleasesAdapter<Album>
+    private lateinit var gridLayoutManager: StaggeredGridLayoutManager
     private lateinit var recyclerViewTracks: RecyclerView
     private lateinit var recyclerViewAlbums: RecyclerView
 
@@ -38,6 +40,7 @@ class FavoriteFragment : BaseFragment(), Interaction, Injectable {
         favoriteViewModel = injectViewModel(viewModelFactory)
         tracksAdapter = AlbumInfoAdapter(this)
         albumsAdapter = NewReleasesAdapter(this)
+        gridLayoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
 
         recyclerViewTracks = mView.findViewById(R.id.favorite_tracks_recycler)
         recyclerViewAlbums = mView.findViewById(R.id.favorite_albums_recycler)
@@ -46,7 +49,10 @@ class FavoriteFragment : BaseFragment(), Interaction, Injectable {
             adapter = tracksAdapter
             setDivider(R.drawable.divider)
         }
-        recyclerViewAlbums.adapter = albumsAdapter
+        recyclerViewAlbums.apply {
+            layoutManager = gridLayoutManager
+            adapter = albumsAdapter
+        }
 
         favoriteViewModel.favoriteTracks.observe(viewLifecycleOwner, Observer {
             tracksAdapter.submitList(it)
