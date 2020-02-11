@@ -61,7 +61,7 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
                                 setFavoriteIcon(this, !album.isFavorite)
                                 setOnClickListener {
                                     album.isFavorite = !album.isFavorite
-                                    //update album through viewModel
+                                    sharedViewModel.updateFavoriteAlbum(album)
                                     setFavoriteIcon(this, album.isFavorite)
                                     startAnim(this)
                                 }

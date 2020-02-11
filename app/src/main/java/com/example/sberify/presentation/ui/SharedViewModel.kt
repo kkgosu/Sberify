@@ -11,12 +11,14 @@ import com.example.sberify.models.domain.Suggestion
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.search.SearchType
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotifyRepository,
-        private val geniusRepository: IGeniusRepository,
-        private val databaseRepository: IDatabaseRepository) : ViewModel() {
+class SharedViewModel @Inject constructor(
+    private val spotifyRepository: ISpotifyRepository,
+    private val geniusRepository: IGeniusRepository,
+    private val databaseRepository: IDatabaseRepository) : ViewModel() {
 
     private val reloadTrigger = MutableLiveData<Boolean>()
     private val searchArtistTrigger = MutableLiveData<String>()
@@ -86,4 +88,12 @@ class SharedViewModel @Inject constructor(private val spotifyRepository: ISpotif
             _suggestions.postValue(databaseRepository.getAllSuggestions())
         }
     }
+
+    fun updateFavoriteAlbum(album: Album) {
+        viewModelScope.launch(Dispatchers.IO) {
+            delay(800)
+            databaseRepository.updateAlbum(album)
+        }
+    }
+
 }

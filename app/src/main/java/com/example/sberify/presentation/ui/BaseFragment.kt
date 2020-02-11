@@ -31,7 +31,7 @@ abstract class BaseFragment : Fragment(), Interaction {
         AndroidSupportInjection.inject(this)
         super.onCreate(savedInstanceState)
         sharedViewModel = ViewModelProvider(requireActivity()).get(
-                SharedViewModel::class.java)
+            SharedViewModel::class.java)
     }
 
     fun <T : ViewDataBinding> initBinding(@LayoutRes id: Int, container: ViewGroup?): T {
@@ -59,7 +59,7 @@ abstract class BaseFragment : Fragment(), Interaction {
             }
         })
     }
-    
+
     fun setupToolbar() {
         val toolbar = mView.findViewById<Toolbar>(R.id.collapsed_toolbar)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)

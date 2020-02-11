@@ -8,11 +8,11 @@ class DataConverter : IConverter<BaseDataModel, BaseModel> {
     override fun convertAlbums(from: List<AlbumData>?): List<Album> {
         return from?.map {
             Album(it.id,
-                    convertArtists(it.artists)[0],
-                    it.name,
-                    convertTracks(it.tracks?.items, it.images[0].url),
-                    it.images[0].url,
-                    it.release_date)
+                convertArtists(it.artists)[0],
+                it.name,
+                convertTracks(it.tracks?.items, it.images[0].url),
+                it.images[0].url,
+                it.release_date)
         } ?: emptyList()
     }
 
@@ -26,9 +26,9 @@ class DataConverter : IConverter<BaseDataModel, BaseModel> {
                 }
             }
             artistsList.add(Artist(artistData.id,
-                    image,
-                    artistData.name,
-                    artistData.genres))
+                image,
+                artistData.name,
+                artistData.genres))
         }
         return artistsList
     }
@@ -36,8 +36,8 @@ class DataConverter : IConverter<BaseDataModel, BaseModel> {
     override fun convertTracks(from: List<TrackData>?, image: String): List<Track>? {
         return from?.map {
             Track(it.id, it.name,
-                    convertImages(it.album?.images?.get(0)) ?: Image(image, 0, 0),
-                    convertArtists(it.artists))
+                convertImages(it.album?.images?.get(0)) ?: Image(image, 0, 0),
+                convertArtists(it.artists))
         }
     }
 

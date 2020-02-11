@@ -26,4 +26,7 @@ interface AlbumDao {
 
     @Update(entity = AlbumEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateAlbumTracks(albumEntity: AlbumEntity)
+
+    @Update(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun updateAlbum(albumEntity: AlbumEntity)
 }
