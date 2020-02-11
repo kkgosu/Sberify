@@ -29,7 +29,19 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             app:navigationIcon="@drawable/ic_arrow_back"
-            app:title=" " />
+            app:title=" ">
+
+            <ImageButton
+                android:id="@+id/favorite_album"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:alpha="1"
+                android:background="@android:color/transparent"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp" />
+
+        </androidx.appcompat.widget.Toolbar>
 
         <TextView
             android:id="@+id/album_name"

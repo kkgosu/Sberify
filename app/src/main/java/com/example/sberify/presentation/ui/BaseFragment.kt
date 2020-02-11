@@ -1,8 +1,10 @@
 package com.example.sberify.presentation.ui
 
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -62,5 +64,27 @@ abstract class BaseFragment : Fragment(), Interaction {
         val toolbar = mView.findViewById<Toolbar>(R.id.collapsed_toolbar)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    fun setFavoriteIcon(imageButton: ImageButton, isFavorite: Boolean) {
+        with(imageButton) {
+            setImageDrawable(
+                if (isFavorite) {
+                    (requireContext().getDrawable(
+                        R.drawable.avd_heart_to_filled
+                    ))
+                } else {
+                    requireContext().getDrawable(
+                        R.drawable.avd_filled_heart_break
+                    )
+                }
+            )
+        }
+    }
+
+    fun startAnim(imageButton: ImageButton) {
+        with(imageButton) {
+            (drawable as AnimatedVectorDrawable).start()
+        }
     }
 }

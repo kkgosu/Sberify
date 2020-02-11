@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.doOnPreDraw
@@ -25,11 +26,12 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
 
     private lateinit var tracksRecyclerView: RecyclerView
     private lateinit var albumInfoAdapter: AlbumInfoAdapter<Track>
+    private lateinit var favoriteButton: ImageButton
 
     private var isBack = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View? {
         initBinding<FragmentAlbumInfoStartBinding>(R.layout.fragment_album_info_start, container)
                 .viewModel = sharedViewModel
         setupToolbar()
@@ -39,11 +41,15 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
             adapter = albumInfoAdapter
             setDivider(R.drawable.divider)
         }
+
+        favoriteButton = mView.findViewById(R.id.favorite_album)
+
         sharedViewModel.album.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Result.Status.SUCCESS -> {
                     binding.invalidateAll()
-                    binding.addOnRebindCallback(object : OnRebindCallback<FragmentAlbumInfoStartBinding>() {
+                    binding.addOnRebindCallback(object :
+                        OnRebindCallback<FragmentAlbumInfoStartBinding>() {
                         override fun onBound(binding: FragmentAlbumInfoStartBinding?) {
                             startPostponedEnterTransition(isBack)
                         }
@@ -51,6 +57,15 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
                     it.data?.let { album ->
                         album.tracks?.let { tracks ->
                             albumInfoAdapter.submitList(tracks)
+                            favoriteButton.apply {
+                                setFavoriteIcon(this, !album.isFavorite)
+                                setOnClickListener {
+                                    album.isFavorite = !album.isFavorite
+                                    //update album through viewModel
+                                    setFavoriteIcon(this, album.isFavorite)
+                                    startAnim(this)
+                                }
+                            }
                         }
                     }
                 }
@@ -58,17 +73,6 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
 
         })
         return mView
-    }
-
-    private fun startPostponedEnterTransition(flag: Boolean) {
-        if (flag) {
-            tracksRecyclerView.doOnPreDraw {
-                startPostponedEnterTransition()
-                isBack = !flag
-            }
-        } else {
-            startPostponedEnterTransition()
-        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -83,10 +87,24 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
             val trackName = view.findViewById<TextView>(R.id.track_name)
             val albumCover = mView.findViewById<ImageView>(R.id.album_cover)
             val extras = FragmentNavigatorExtras(
-                    trackName to (sharedViewModel.lyrics.value?.data?.name ?: item.name),
-                    albumCover to albumCover.transitionName)
-            findNavController().navigate(R.id.action_albumInfoFragment_to_lyricsFragment, null,
-                    null, extras)
+                trackName to (sharedViewModel.lyrics.value?.data?.name ?: item.name),
+                albumCover to albumCover.transitionName
+            )
+            findNavController().navigate(
+                R.id.action_albumInfoFragment_to_lyricsFragment, null,
+                null, extras
+            )
+        }
+    }
+
+    private fun startPostponedEnterTransition(flag: Boolean) {
+        if (flag) {
+            tracksRecyclerView.doOnPreDraw {
+                startPostponedEnterTransition()
+                isBack = !flag
+            }
+        } else {
+            startPostponedEnterTransition()
         }
     }
 }

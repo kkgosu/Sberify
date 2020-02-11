@@ -1,6 +1,5 @@
 package com.example.sberify.presentation.ui.lyrics
 
-import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +26,7 @@ class LyricsFragment : BaseFragment(), Injectable {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View? {
         lyricsViewModel = injectViewModel(viewModelFactory)
         initBinding<FragmentLyricsBinding>(R.layout.fragment_lyrics, container)
                 .viewModel = sharedViewModel
@@ -64,7 +63,7 @@ class LyricsFragment : BaseFragment(), Injectable {
                 Result.Status.ERROR -> {
                     showLottie()
                     Toast.makeText(requireContext(),
-                            "Error while getting lyrics. Please try again later", Toast.LENGTH_LONG)
+                        "Error while getting lyrics. Please try again later", Toast.LENGTH_LONG)
                             .show()
                 }
             }
@@ -88,19 +87,6 @@ class LyricsFragment : BaseFragment(), Injectable {
         hideLottie()
     }
 
-    private fun setFavoriteIcon(imageButton: ImageButton, isFavorite: Boolean) {
-        with(imageButton) {
-            setImageDrawable(
-                    if (isFavorite) {
-                        (requireContext().getDrawable(
-                                R.drawable.avd_heart_to_filled))
-                    } else {
-                        requireContext().getDrawable(
-                                R.drawable.avd_filled_heart_break)
-                    })
-        }
-    }
-
     private fun showLottie() {
         lottieAnim.visibility = View.VISIBLE
         lottieAnim.playAnimation()
@@ -111,12 +97,6 @@ class LyricsFragment : BaseFragment(), Injectable {
         lottieAnim.visibility = View.GONE
         lottieAnim.cancelAnimation()
         favoriteButton.visibility = View.VISIBLE
-    }
-
-    private fun startAnim(imageButton: ImageButton) {
-        with(imageButton) {
-            (drawable as AnimatedVectorDrawable).start()
-        }
     }
 
     override fun onItemSelected(position: Int, item: BaseModel, view: View) {

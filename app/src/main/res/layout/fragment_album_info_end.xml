@@ -17,7 +17,18 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/collapsed_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="56dp" />
+            android:layout_height="56dp">
+
+            <ImageButton
+                android:id="@+id/favorite_album"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:alpha="1"
+                android:background="@android:color/transparent"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp" />
+        </androidx.appcompat.widget.Toolbar>
 
         <com.example.sberify.presentation.ui.utils.SquareImageView
             android:id="@+id/album_cover"
