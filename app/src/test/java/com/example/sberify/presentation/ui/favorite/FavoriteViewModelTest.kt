@@ -38,7 +38,7 @@ class FavoriteViewModelTest {
         val tracks = listOf<Track>()
         whenever(databaseRepo.loadFavoriteTracks()).thenReturn(tracks)
 
-        favoriteViewModel.favorite.observeForever(observer)
+        favoriteViewModel.favoriteTracks.observeForever(observer)
         favoriteViewModel.loadFavorite()
         
         delay(1000)

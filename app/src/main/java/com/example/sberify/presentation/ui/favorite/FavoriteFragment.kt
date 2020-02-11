@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -12,32 +14,46 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
 import com.example.sberify.databinding.FragmentFavoriteBinding
 import com.example.sberify.di.injectViewModel
+import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.BaseFragment
 import com.example.sberify.presentation.ui.Injectable
 import com.example.sberify.presentation.ui.Interaction
 import com.example.sberify.presentation.ui.albuminfo.AlbumInfoAdapter
+import com.example.sberify.presentation.ui.newreleases.NewReleasesAdapter
 import com.example.sberify.presentation.ui.utils.setDivider
 
 class FavoriteFragment : BaseFragment(), Interaction, Injectable {
-    
+
     private lateinit var favoriteViewModel: FavoriteViewModel
-    private lateinit var albumInfoAdapter: AlbumInfoAdapter<Track>
-    
+    private lateinit var tracksAdapter: AlbumInfoAdapter<Track>
+    private lateinit var albumsAdapter: NewReleasesAdapter<Album>
+    private lateinit var recyclerViewTracks: RecyclerView
+    private lateinit var recyclerViewAlbums: RecyclerView
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View? {
         initBinding<FragmentFavoriteBinding>(R.layout.fragment_favorite, container)
         favoriteViewModel = injectViewModel(viewModelFactory)
-        albumInfoAdapter = AlbumInfoAdapter(this)
-        val recyclerView: RecyclerView = mView.findViewById(R.id.favorite_recycler)
-        recyclerView.apply {
-            adapter = albumInfoAdapter
+        tracksAdapter = AlbumInfoAdapter(this)
+        albumsAdapter = NewReleasesAdapter(this)
+
+        recyclerViewTracks = mView.findViewById(R.id.favorite_tracks_recycler)
+        recyclerViewAlbums = mView.findViewById(R.id.favorite_albums_recycler)
+
+        recyclerViewTracks.apply {
+            adapter = tracksAdapter
             setDivider(R.drawable.divider)
         }
-        favoriteViewModel.favorite.observe(viewLifecycleOwner, Observer {
-            albumInfoAdapter.submitList(it)
-            startPostponedEnterTransition()
+        recyclerViewAlbums.adapter = albumsAdapter
+
+        favoriteViewModel.favoriteTracks.observe(viewLifecycleOwner, Observer {
+            tracksAdapter.submitList(it)
+        })
+
+        favoriteViewModel.favoriteAlbums.observe(viewLifecycleOwner, Observer {
+            albumsAdapter.submitList(it)
         })
         favoriteViewModel.loadFavorite()
         return mView
@@ -47,14 +63,26 @@ class FavoriteFragment : BaseFragment(), Interaction, Injectable {
         if (item is Track) {
             sharedViewModel.getLyrics(item)
             val extras = FragmentNavigatorExtras(
-                    view.findViewById<TextView>(R.id.track_name) to item.name)
+                view.findViewById<TextView>(R.id.track_name) to item.name)
             findNavController().navigate(R.id.action_favoriteFragment_to_lyricsFragment, null, null,
-                    extras)
+                extras)
+        } else if (item is Album) {
+            sharedViewModel.getAlbumInfo(item)
+            val extras = FragmentNavigatorExtras(
+                view.findViewById<TextView>(R.id.release_name) to "${item.name}album",
+                view.findViewById<ImageView>(R.id.release_cover) to "${item.imageUrl}album",
+                view.findViewById<TextView>(R.id.artist_name) to "${item.artist.name}album")
+
+            findNavController().navigate(R.id.action_favoriteFragment_to_albumInfoFragment2, null,
+                null, extras)
         }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setupAnimations()
+        recyclerViewAlbums.doOnPreDraw {
+            startPostponedEnterTransition()
+        }
     }
 }

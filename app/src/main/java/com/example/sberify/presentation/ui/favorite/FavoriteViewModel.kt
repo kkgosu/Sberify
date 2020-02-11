@@ -5,21 +5,26 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.sberify.domain.IDatabaseRepository
+import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Track
 import javax.inject.Inject
 
 class FavoriteViewModel @Inject constructor(
-        private val databaseRepo: IDatabaseRepository) : ViewModel() {
+    private val databaseRepo: IDatabaseRepository) : ViewModel() {
 
-    private val reloadTrigger = MutableLiveData<Boolean>()
+    private val favoriteTracksTrigger = MutableLiveData<Boolean>()
+    private val favoriteAlbumsTrigger = MutableLiveData<Boolean>()
 
-    val favorite: LiveData<List<Track>> = Transformations.switchMap(reloadTrigger) {
-        println("FavoriteViewModel.")
+    val favoriteTracks: LiveData<List<Track>> = Transformations.switchMap(favoriteTracksTrigger) {
         databaseRepo.loadFavoriteTracks()
     }
 
+    val favoriteAlbums: LiveData<List<Album>> = Transformations.switchMap(favoriteAlbumsTrigger) {
+        databaseRepo.loadFavoriteAlbums()
+    }
+
     fun loadFavorite() {
-        println("FavoriteViewModel.loadFavorite")
-        reloadTrigger.value = true
+        favoriteTracksTrigger.value = true
+        favoriteAlbumsTrigger.value = true
     }
 }

@@ -13,4 +13,6 @@
     <string name="new_releases">New releases</string>
     <string name="com_spotify_sdk_redirect_scheme">spotify-sdk</string>
     <string name="com_spotify_sdk_redirect_host">auth</string>
+    <string name="favorite_tracks">Favorite tracks</string>
+    <string name="favorite_albums">Favorite albums</string>
 </resources>

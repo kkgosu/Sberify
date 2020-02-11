@@ -11,4 +11,5 @@ interface IDatabaseRepository {
     suspend fun updateTrack(track: Track)
     suspend fun updateAlbum(album: Album)
     fun loadFavoriteTracks(): LiveData<List<Track>>
+    fun loadFavoriteAlbums(): LiveData<List<Album>>
 }

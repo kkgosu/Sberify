@@ -29,4 +29,7 @@ interface AlbumDao {
 
     @Update(onConflict = OnConflictStrategy.IGNORE)
     suspend fun updateAlbum(albumEntity: AlbumEntity)
+
+    @Query("SELECT * FROM albums WHERE isFavorite = 1 ORDER BY name ASC")
+    fun loadFavoriteTracks(): LiveData<List<AlbumEntity>>
 }
