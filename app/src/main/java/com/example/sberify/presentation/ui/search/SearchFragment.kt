@@ -14,10 +14,10 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
+import com.example.sberify.base.BaseFragment
 import com.example.sberify.data.Result
 import com.example.sberify.databinding.FragmentSearchBinding
 import com.example.sberify.models.domain.*
-import com.example.sberify.presentation.ui.BaseFragment
 
 
 class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAdapter.Interaction {

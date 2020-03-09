@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui
+package com.example.sberify.base
 
 import android.view.View
 import androidx.recyclerview.widget.AsyncListDiffer

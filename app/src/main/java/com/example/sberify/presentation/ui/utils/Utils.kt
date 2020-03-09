@@ -14,16 +14,16 @@ import java.text.Normalizer
 fun String.normalize(): String = Normalizer.normalize(this, Normalizer.Form.NFD)
 
 fun <T : BaseModel> createDiffCallback(): DiffUtil.ItemCallback<T> =
-        object : DiffUtil.ItemCallback<T>() {
-            override fun areItemsTheSame(oldItem: T, newItem: T): Boolean =
-                    oldItem.baseId == newItem.baseId
+    object : DiffUtil.ItemCallback<T>() {
+        override fun areItemsTheSame(oldItem: T, newItem: T): Boolean =
+            oldItem.baseId == newItem.baseId
 
-            override fun areContentsTheSame(oldItem: T, newItem: T): Boolean =
-                    oldItem == newItem
-        }
+        override fun areContentsTheSame(oldItem: T, newItem: T): Boolean =
+            oldItem == newItem
+    }
 
 inline fun <reified T : ViewDataBinding> inflateLayout(@LayoutRes id: Int, parent: ViewGroup?): T =
-        DataBindingUtil.inflate(LayoutInflater.from(parent?.context), id, parent, false)
+    DataBindingUtil.inflate(LayoutInflater.from(parent?.context), id, parent, false)
 
 
 @BindingConversion
@@ -31,7 +31,7 @@ fun convertArtistsToString(artists: List<Artist>): String {
     val builder = StringBuilder()
     artists.forEach {
         builder.append(it.name)
-                .append(", ")
+            .append(", ")
     }
     return builder.dropLast(2).toString()
 }

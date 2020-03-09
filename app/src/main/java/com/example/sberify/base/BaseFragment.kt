@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui
+package com.example.sberify.base
 
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
@@ -11,30 +11,34 @@ import androidx.appcompat.widget.Toolbar
 import androidx.databinding.OnRebindCallback
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.transition.TransitionInflater
 import com.example.sberify.R
+import com.example.sberify.presentation.ui.SharedViewModel
+import com.example.sberify.presentation.ui.ViewModelFactory
 import com.example.sberify.presentation.ui.utils.inflateLayout
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-abstract class BaseFragment : Fragment(), Interaction {
+abstract class BaseFragment : Fragment(),
+    Interaction {
 
-    lateinit var sharedViewModel: SharedViewModel
     lateinit var binding: ViewDataBinding
     lateinit var mView: View
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
+    val sharedViewModel: SharedViewModel by activityViewModels { viewModelFactory }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidSupportInjection.inject(this)
         super.onCreate(savedInstanceState)
-        sharedViewModel = ViewModelProvider(requireActivity()).get(
-            SharedViewModel::class.java)
     }
 
-    fun <T : ViewDataBinding> initBinding(@LayoutRes id: Int, container: ViewGroup?): T {
+    protected inline fun <reified T : ViewDataBinding> initBinding(
+        @LayoutRes id: Int, container: ViewGroup?
+    ): T {
         binding = inflateLayout(id, container)
         binding.lifecycleOwner = viewLifecycleOwner
         mView = binding.root
@@ -44,11 +48,11 @@ abstract class BaseFragment : Fragment(), Interaction {
     fun setupAnimations() {
         postponeEnterTransition()
         exitTransition = TransitionInflater.from(context)
-                .inflateTransition(android.R.transition.fade)
+            .inflateTransition(android.R.transition.fade)
         sharedElementEnterTransition = TransitionInflater.from(context)
-                .inflateTransition(R.transition.image_shared_element_transition)
+            .inflateTransition(R.transition.image_shared_element_transition)
         sharedElementReturnTransition = TransitionInflater.from(context)
-                .inflateTransition(R.transition.image_shared_element_transition)
+            .inflateTransition(R.transition.image_shared_element_transition)
     }
 
     fun <T : ViewDataBinding> invalidateBindings() {

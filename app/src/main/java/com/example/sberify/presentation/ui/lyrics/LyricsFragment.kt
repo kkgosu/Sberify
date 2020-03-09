@@ -11,11 +11,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.transition.TransitionInflater
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
+import com.example.sberify.base.BaseFragment
 import com.example.sberify.data.Result
 import com.example.sberify.databinding.FragmentLyricsBinding
 import com.example.sberify.di.injectViewModel
 import com.example.sberify.models.domain.BaseModel
-import com.example.sberify.presentation.ui.BaseFragment
 import com.example.sberify.presentation.ui.Injectable
 
 class LyricsFragment : BaseFragment(), Injectable {

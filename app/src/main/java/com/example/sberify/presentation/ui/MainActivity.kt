@@ -3,11 +3,13 @@ package com.example.sberify.presentation.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import com.example.sberify.R
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 
-    private lateinit var sharedViewModel: SharedViewModel
+    private val sharedViewModel: SharedViewModel by viewModels { viewModelFactory }
     private var currentNavController: LiveData<NavController>? = null
 
     private lateinit var accessToken: String
@@ -55,16 +57,13 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         super.onCreate(savedInstanceState)
         requestToken()
 
-        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this,
-            R.layout.activity_main)
+        val binding: ActivityMainBinding by binding(R.layout.activity_main)
         binding.lifecycleOwner = this
 
         if (savedInstanceState == null) {
             setupBottomNavBar()
         }
 
-        sharedViewModel = ViewModelProvider(this, viewModelFactory).get(
-            SharedViewModel::class.java)
         sharedViewModel.refresh()
     }
 
@@ -86,10 +85,10 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         suspendCoroutine { continuation: Continuation<SpotifyAppRemote> ->
             SpotifyAppRemote.connect(applicationContext,
                 ConnectionParams.Builder(CLIENT_ID)
-                        .setRedirectUri(REDIRECT_URL)
-                        .setAuthMethod(ConnectionParams.AuthMethod.APP_ID)
-                        .showAuthView(true)
-                        .build(),
+                    .setRedirectUri(REDIRECT_URL)
+                    .setAuthMethod(ConnectionParams.AuthMethod.APP_ID)
+                    .showAuthView(true)
+                    .build(),
                 object : Connector.ConnectionListener {
                     override fun onConnected(p0: SpotifyAppRemote) {
                         continuation.resume(p0)
@@ -126,6 +125,14 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         }
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        return currentNavController?.value?.navigateUp() ?: false
+    }
+
+    private inline fun <reified T : ViewDataBinding> binding(
+        @LayoutRes resId: Int
+    ): Lazy<T> = lazy { DataBindingUtil.setContentView<T>(this, resId) }
+
     private fun onRequestCodeClicked() {
         val request = getAuthenticationRequest(AuthorizationResponse.Type.CODE)
         AuthorizationClient.openLoginActivity(this, AUTH_CODE_REQUEST_CODE, request)
@@ -138,35 +145,35 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     private fun getAuthenticationRequest(type: AuthorizationResponse.Type) =
         AuthorizationRequest.Builder(CLIENT_ID, type, getRedirectUri().toString())
-                .setShowDialog(false)
-                .setScopes(arrayOf("user-read-email"))
-                .setCampaign("sberify-token")
-                .build()
+            .setShowDialog(false)
+            .setScopes(arrayOf("user-read-email"))
+            .setCampaign("sberify-token")
+            .build()
 
     private fun getRedirectUri() =
         Uri.Builder()
-                .scheme(getString(R.string.com_spotify_sdk_redirect_scheme))
-                .authority(getString(R.string.com_spotify_sdk_redirect_host))
-                .build()
+            .scheme(getString(R.string.com_spotify_sdk_redirect_scheme))
+            .authority(getString(R.string.com_spotify_sdk_redirect_host))
+            .build()
 
     private fun setupBottomNavBar() {
         val bnv = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
 
-        val navGraphIds = listOf(R.navigation.new_releases, R.navigation.search,
-            R.navigation.favorite)
+        val navGraphIds = listOf(
+            R.navigation.new_releases, R.navigation.search,
+            R.navigation.favorite
+        )
 
         val controller = bnv.setupWithNavController(
             navGraphIds = navGraphIds,
             fragmentManager = supportFragmentManager,
             containerId = R.id.main_content,
-            intent = intent)
+            intent = intent
+        )
 
         currentNavController = controller
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return currentNavController?.value?.navigateUp() ?: false
-    }
 
     companion object {
         private const val CLIENT_ID = "49e110cda5b64d6d89476f40687725c4"
