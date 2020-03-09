@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.doOnPreDraw
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -54,13 +54,13 @@ class FavoriteFragment : BaseFragment(), Interaction, Injectable {
             adapter = albumsAdapter
         }
 
-        favoriteViewModel.favoriteTracks.observe(viewLifecycleOwner, Observer {
+        favoriteViewModel.favoriteTracks.observe(viewLifecycleOwner) {
             tracksAdapter.submitList(it)
-        })
+        }
 
-        favoriteViewModel.favoriteAlbums.observe(viewLifecycleOwner, Observer {
+        favoriteViewModel.favoriteAlbums.observe(viewLifecycleOwner) {
             albumsAdapter.submitList(it)
-        })
+        }
         favoriteViewModel.loadFavorite()
         return mView
     }

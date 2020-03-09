@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         requestToken()
 
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this,
-                R.layout.activity_main)
+            R.layout.activity_main)
         binding.lifecycleOwner = this
 
         if (savedInstanceState == null) {
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         }
 
         sharedViewModel = ViewModelProvider(this, viewModelFactory).get(
-                SharedViewModel::class.java)
+            SharedViewModel::class.java)
         sharedViewModel.refresh()
     }
 
@@ -83,23 +83,23 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     }
 
     private suspend fun connectToAppRemote(): SpotifyAppRemote? =
-            suspendCoroutine { continuation: Continuation<SpotifyAppRemote> ->
-                SpotifyAppRemote.connect(applicationContext,
-                        ConnectionParams.Builder(CLIENT_ID)
-                                .setRedirectUri(REDIRECT_URL)
-                                .setAuthMethod(ConnectionParams.AuthMethod.APP_ID)
-                                .showAuthView(true)
-                                .build(),
-                        object : Connector.ConnectionListener {
-                            override fun onConnected(p0: SpotifyAppRemote) {
-                                continuation.resume(p0)
-                            }
+        suspendCoroutine { continuation: Continuation<SpotifyAppRemote> ->
+            SpotifyAppRemote.connect(applicationContext,
+                ConnectionParams.Builder(CLIENT_ID)
+                        .setRedirectUri(REDIRECT_URL)
+                        .setAuthMethod(ConnectionParams.AuthMethod.APP_ID)
+                        .showAuthView(true)
+                        .build(),
+                object : Connector.ConnectionListener {
+                    override fun onConnected(p0: SpotifyAppRemote) {
+                        continuation.resume(p0)
+                    }
 
-                            override fun onFailure(p0: Throwable) {
-                                continuation.resumeWithException(p0)
-                            }
-                        })
-            }
+                    override fun onFailure(p0: Throwable) {
+                        continuation.resumeWithException(p0)
+                    }
+                })
+        }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
@@ -137,29 +137,29 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     }
 
     private fun getAuthenticationRequest(type: AuthorizationResponse.Type) =
-            AuthorizationRequest.Builder(CLIENT_ID, type, getRedirectUri().toString())
-                    .setShowDialog(false)
-                    .setScopes(arrayOf("user-read-email"))
-                    .setCampaign("sberify-token")
-                    .build()
+        AuthorizationRequest.Builder(CLIENT_ID, type, getRedirectUri().toString())
+                .setShowDialog(false)
+                .setScopes(arrayOf("user-read-email"))
+                .setCampaign("sberify-token")
+                .build()
 
     private fun getRedirectUri() =
-            Uri.Builder()
-                    .scheme(getString(R.string.com_spotify_sdk_redirect_scheme))
-                    .authority(getString(R.string.com_spotify_sdk_redirect_host))
-                    .build()
+        Uri.Builder()
+                .scheme(getString(R.string.com_spotify_sdk_redirect_scheme))
+                .authority(getString(R.string.com_spotify_sdk_redirect_host))
+                .build()
 
     private fun setupBottomNavBar() {
         val bnv = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
 
         val navGraphIds = listOf(R.navigation.new_releases, R.navigation.search,
-                R.navigation.favorite)
+            R.navigation.favorite)
 
         val controller = bnv.setupWithNavController(
-                navGraphIds = navGraphIds,
-                fragmentManager = supportFragmentManager,
-                containerId = R.id.main_content,
-                intent = intent)
+            navGraphIds = navGraphIds,
+            fragmentManager = supportFragmentManager,
+            containerId = R.id.main_content,
+            intent = intent)
 
         currentNavController = controller
     }

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.doOnPreDraw
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -35,7 +35,7 @@ class NewReleasesFragment : BaseFragment(), Injectable {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View? {
         initBinding<FragmentNewReleasesBinding>(R.layout.fragment_new_releases, container)
         releasesAdapter = NewReleasesAdapter(this)
         gridLayoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
@@ -51,7 +51,7 @@ class NewReleasesFragment : BaseFragment(), Injectable {
             sharedViewModel.refresh()
         }
         lottieAnim = mView.findViewById(R.id.loading_animation)
-        sharedViewModel.newReleases.observe(viewLifecycleOwner, Observer {
+        sharedViewModel.newReleases.observe(viewLifecycleOwner) {
             when (it.status) {
                 Result.Status.SUCCESS -> {
                     swipeRefreshLayout.isRefreshing = false
@@ -68,7 +68,7 @@ class NewReleasesFragment : BaseFragment(), Injectable {
                     showAnimation()
                 }
             }
-        })
+        }
         sharedViewModel.refresh()
         return mView
     }
@@ -103,12 +103,12 @@ class NewReleasesFragment : BaseFragment(), Injectable {
             val albumCover = view.findViewById<ImageView>(R.id.release_cover)
             val artistName = view.findViewById<TextView>(R.id.artist_name)
             val extras = FragmentNavigatorExtras(
-                    albumName to albumName.transitionName,
-                    albumCover to albumCover.transitionName,
-                    artistName to artistName.transitionName)
+                albumName to albumName.transitionName,
+                albumCover to albumCover.transitionName,
+                artistName to artistName.transitionName)
 
             findNavController().navigate(R.id.action_newReleasesFragment_to_albumInfoFragment, null,
-                    null, extras)
+                null, extras)
         }
     }
 }

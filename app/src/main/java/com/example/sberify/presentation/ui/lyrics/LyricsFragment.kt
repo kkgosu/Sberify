@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.transition.TransitionInflater
 import com.airbnb.lottie.LottieAnimationView
@@ -37,7 +37,7 @@ class LyricsFragment : BaseFragment(), Injectable {
             sharedViewModel.refreshLyrics()
         }
         lottieAnim = mView.findViewById(R.id.loading_animation)
-        sharedViewModel.lyrics.observe(viewLifecycleOwner, Observer {
+        sharedViewModel.lyrics.observe(viewLifecycleOwner) {
             when (it.status) {
                 Result.Status.SUCCESS -> {
                     invalidateBindings<FragmentLyricsBinding>()
@@ -67,7 +67,7 @@ class LyricsFragment : BaseFragment(), Injectable {
                             .show()
                 }
             }
-        })
+        }
         return mView
     }
 

@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.doOnPreDraw
 import androidx.databinding.OnRebindCallback
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -44,7 +44,7 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
 
         favoriteButton = mView.findViewById(R.id.favorite_album)
 
-        sharedViewModel.album.observe(viewLifecycleOwner, Observer {
+        sharedViewModel.album.observe(viewLifecycleOwner) {
             when (it.status) {
                 Result.Status.SUCCESS -> {
                     binding.invalidateAll()
@@ -71,7 +71,7 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
                 }
             }
 
-        })
+        }
         return mView
     }
 
