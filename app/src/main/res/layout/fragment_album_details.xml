@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.sberify.presentation.ui.SharedViewModel" />
+
+        <variable
+            name="container"
+            type="androidx.coordinatorlayout.widget.CoordinatorLayout" />
+
+        <variable
+            name="fab"
+            type="com.google.android.material.floatingactionbutton.FloatingActionButton" />
+
+        <variable
+            name="activity"
+            type="androidx.appcompat.app.AppCompatActivity" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/detail_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:fitsSystemWindows="false">
+
+        <com.google.android.material.appbar.AppBarLayout
+            bindFab="@{fab}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background"
+                app:contentScrim="@android:color/transparent"
+                app:expandedTitleGravity="top|left"
+                app:expandedTitleTextAppearance="@style/ExpandedTitleText"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/background">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/album_cover"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:scaleType="centerCrop"
+                        app:image="@{viewModel.album.data.imageUrl}"
+                        app:layout_constraintDimensionRatio="1:1.2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fab_favorite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_small"
+                        android:background="@android:color/transparent"
+                        app:layout_constraintBottom_toBottomOf="@id/album_cover"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/album_cover"
+                        app:layout_goneMarginBottom="26dp" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        app:layout_constraintBottom_toBottomOf="@id/album_cover"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/album_cover" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/detail_toolbar"
+                    simpleToolbarTitle="@{viewModel.album.data.name}"
+                    simpleToolbarWithHome="@{activity}"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="21dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/album_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/padding_default"
+                    android:paddingEnd="@dimen/padding_default"
+                    android:text="@{viewModel.album.data.name}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:textColor="@color/white"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="i don't care at alldadad" />
+
+                <TextView
+                    android:id="@+id/artist_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/padding_default"
+                    android:paddingEnd="@dimen/padding_default"
+                    android:text="@{viewModel.album.data.artist.name}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:textColor="@color/white"
+                    android:textStyle="italic"
+                    android:transitionName="@{viewModel.album.data.artist.name + `artist`}"
+                    app:layout_constraintBottom_toTopOf="@id/release_date"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/album_name"
+                    tools:text="bbno$" />
+
+                <TextView
+                    android:id="@+id/release_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding_default"
+                    android:text="@{viewModel.album.data.releaseDate}"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@id/recycler_tracks"
+                    tools:text="23.11.2019" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_tracks"
+                    style="@style/DefaultRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@color/white"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:listitem="@layout/item_track_listed" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
