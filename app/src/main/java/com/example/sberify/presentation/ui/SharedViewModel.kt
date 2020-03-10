@@ -18,8 +18,10 @@ import javax.inject.Inject
 class SharedViewModel @Inject constructor(
     private val spotifyRepository: ISpotifyRepository,
     private val geniusRepository: IGeniusRepository,
-    private val databaseRepository: IDatabaseRepository) : ViewModel() {
+    private val databaseRepository: IDatabaseRepository
+) : ViewModel() {
 
+    private val albumInfoTrigger = MutableLiveData<Album>()
     private val reloadTrigger = MutableLiveData<Boolean>()
     private val searchArtistTrigger = MutableLiveData<String>()
     private val searchAlbumTrigger = MutableLiveData<String>()
@@ -27,7 +29,7 @@ class SharedViewModel @Inject constructor(
     private val lyricsTrigger = MutableLiveData<Track>()
 
     fun getAlbumInfo(album: Album) {
-        this.album = spotifyRepository.getAlbumInfo(album.id)
+        albumInfoTrigger.value = album
     }
 
     val newReleases: LiveData<Result<List<Album>>> = Transformations.switchMap(reloadTrigger) {
@@ -44,8 +46,9 @@ class SharedViewModel @Inject constructor(
         spotifyRepository.searchTrack(it)
     }
 
-    private val _album = MutableLiveData<Result<Album>>()
-    var album: LiveData<Result<Album>> = _album
+    val album: LiveData<Result<Album>> = Transformations.switchMap(albumInfoTrigger) {
+        spotifyRepository.getAlbumInfo(it.id)
+    }
 
     val lyrics: LiveData<Result<Track>> = Transformations.switchMap(lyricsTrigger) {
         geniusRepository.getLyrics(it)

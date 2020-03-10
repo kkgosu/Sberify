@@ -17,10 +17,12 @@
     </style>
 
     <style name="ExpandedTitleText" parent="TextAppearance.MaterialComponents.Headline3">
-        <item name="android:textColor">@color/white</item>
+        <!-- <item name="android:textColor">@color/white</item>-->
+        <item name="android:textColor">@android:color/transparent</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">30sp</item>
     </style>
+
     <style name="CollapsedTitleText" parent="TextAppearance.MaterialComponents.Headline4">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">20sp</item>

@@ -10,12 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.target.Target
-import com.example.sberify.R
 import com.example.sberify.models.domain.Track
 import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
@@ -98,18 +98,19 @@ fun bindTransformFab(view: View, fab: FloatingActionButton, container: Coordinat
     }
 }
 
-fun AppCompatActivity.simpleToolbarWithHome(toolbar: MaterialToolbar, title_: String = "") {
-    setSupportActionBar(toolbar)
-    supportActionBar?.run {
-        setHomeAsUpIndicator(R.drawable.ic_arrow_back)
-        setDisplayHomeAsUpEnabled(true)
-        title = title_
+fun Fragment.simpleToolbarWithHome(toolbar: MaterialToolbar, title_: String? = "") {
+    (requireActivity() as AppCompatActivity).apply {
+        setSupportActionBar(toolbar)
+        supportActionBar?.run {
+            setDisplayHomeAsUpEnabled(true)
+            title = title_
+        }
     }
 }
 
 @BindingAdapter("simpleToolbarWithHome", "simpleToolbarTitle")
-fun bindToolbarWithTitle(toolbar: MaterialToolbar, activity: AppCompatActivity, title: String) {
-    activity.simpleToolbarWithHome(toolbar, title)
+fun bindToolbarWithTitle(toolbar: MaterialToolbar, fragment: Fragment, title: String?) {
+    fragment.simpleToolbarWithHome(toolbar, title)
 }
 
 internal fun getTransform(mStartView: View, mEndView: View): MaterialContainerTransform {

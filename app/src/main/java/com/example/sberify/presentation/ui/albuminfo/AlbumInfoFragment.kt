@@ -17,7 +17,7 @@ import com.example.sberify.R
 import com.example.sberify.base.BaseFragment
 import com.example.sberify.base.Interaction
 import com.example.sberify.data.Result
-import com.example.sberify.databinding.FragmentAlbumInfoStartBinding
+import com.example.sberify.databinding.FragmentAlbumDetailsBinding
 import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.utils.setDivider
@@ -30,10 +30,16 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
 
     private var isBack = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        initBinding<FragmentAlbumInfoStartBinding>(R.layout.fragment_album_info_start, container)
-                .viewModel = sharedViewModel
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        initBinding<FragmentAlbumDetailsBinding>(R.layout.fragment_album_details, container).apply {
+            viewModel = sharedViewModel
+            fragment = this@AlbumInfoFragment
+            setContainer(detailContainer)
+            fab = fabFavorite
+        }
         setupToolbar()
         albumInfoAdapter = AlbumInfoAdapter(this)
         tracksRecyclerView = mView.findViewById(R.id.recycler_tracks)
@@ -42,15 +48,15 @@ class AlbumInfoFragment : BaseFragment(), Interaction {
             setDivider(R.drawable.divider)
         }
 
-        favoriteButton = mView.findViewById(R.id.favorite_album)
+        favoriteButton = mView.findViewById(R.id.fab_favorite)
 
         sharedViewModel.album.observe(viewLifecycleOwner) {
             when (it.status) {
                 Result.Status.SUCCESS -> {
                     binding.invalidateAll()
                     binding.addOnRebindCallback(object :
-                        OnRebindCallback<FragmentAlbumInfoStartBinding>() {
-                        override fun onBound(binding: FragmentAlbumInfoStartBinding?) {
+                        OnRebindCallback<FragmentAlbumDetailsBinding>() {
+                        override fun onBound(binding: FragmentAlbumDetailsBinding?) {
                             startPostponedEnterTransition(isBack)
                         }
                     })

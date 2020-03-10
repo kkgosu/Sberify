@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -20,8 +18,9 @@
             type="com.google.android.material.floatingactionbutton.FloatingActionButton" />
 
         <variable
-            name="activity"
-            type="androidx.appcompat.app.AppCompatActivity" />
+            name="fragment"
+            type="androidx.fragment.app.Fragment" />
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -41,7 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/background"
-                app:contentScrim="@android:color/transparent"
+                app:collapsedTitleTextAppearance="@style/CollapsedTitleText"
+                app:contentScrim="@color/background"
                 app:expandedTitleGravity="top|left"
                 app:expandedTitleTextAppearance="@style/ExpandedTitleText"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
@@ -85,19 +85,19 @@
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/detail_toolbar"
                     simpleToolbarTitle="@{viewModel.album.data.name}"
-                    simpleToolbarWithHome="@{activity}"
+                    simpleToolbarWithHome="@{fragment}"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:navigationIcon="@drawable/ic_arrow_back" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="21dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
