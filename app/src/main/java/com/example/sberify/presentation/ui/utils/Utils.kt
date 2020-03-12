@@ -1,6 +1,7 @@
 package com.example.sberify.presentation.ui.utils
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.BindingConversion
@@ -25,6 +26,12 @@ fun <T : BaseModel> createDiffCallback(): DiffUtil.ItemCallback<T> =
 inline fun <reified T : ViewDataBinding> inflateLayout(@LayoutRes id: Int, parent: ViewGroup?): T =
     DataBindingUtil.inflate(LayoutInflater.from(parent?.context), id, parent, false)
 
+inline fun <reified T : ViewDataBinding> bindings(view: View): Lazy<T> =
+    lazy {
+        requireNotNull(DataBindingUtil.bind<T>(view)) {
+            "cannot find the matched view to layout."
+        }
+    }
 
 @BindingConversion
 fun convertArtistsToString(artists: List<Artist>): String {
@@ -35,3 +42,4 @@ fun convertArtistsToString(artists: List<Artist>): String {
     }
     return builder.dropLast(2).toString()
 }
+

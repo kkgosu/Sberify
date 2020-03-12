@@ -33,9 +33,23 @@ class NewReleasesFragment : BaseFragment(), Injectable {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private var mState: Parcelable? = null
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return binding<FragmentNewReleasesBinding>(
+            inflater,
+            R.layout.fragment_new_releases,
+            container
+        ).apply {
+            viewModel = sharedViewModel
+            anim = loadingAnimation
+            adapter = NewReleasesAdapter1()
+            swipeRefresh = refreshLayout
+        }.root
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+
+
         initBinding<FragmentNewReleasesBinding>(R.layout.fragment_new_releases, container)
         releasesAdapter = NewReleasesAdapter(this)
         gridLayoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
@@ -105,10 +119,13 @@ class NewReleasesFragment : BaseFragment(), Injectable {
             val extras = FragmentNavigatorExtras(
                 albumName to albumName.transitionName,
                 albumCover to albumCover.transitionName,
-                artistName to artistName.transitionName)
+                artistName to artistName.transitionName
+            )
 
-            findNavController().navigate(R.id.action_newReleasesFragment_to_albumInfoFragment, null,
-                null, extras)
+            findNavController().navigate(
+                R.id.action_newReleasesFragment_to_albumInfoFragment, null,
+                null, extras
+            )
         }
     }
 }

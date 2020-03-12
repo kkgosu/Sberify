@@ -2,12 +2,14 @@ package com.example.sberify.base
 
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.databinding.DataBindingUtil
 import androidx.databinding.OnRebindCallback
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -35,6 +37,12 @@ abstract class BaseFragment : Fragment(),
         AndroidSupportInjection.inject(this)
         super.onCreate(savedInstanceState)
     }
+
+    protected inline fun <reified T : ViewDataBinding> binding(
+        inflater: LayoutInflater,
+        @LayoutRes resId: Int,
+        container: ViewGroup?
+    ): T = DataBindingUtil.inflate(inflater, resId, container, false)
 
     protected inline fun <reified T : ViewDataBinding> initBinding(
         @LayoutRes id: Int, container: ViewGroup?

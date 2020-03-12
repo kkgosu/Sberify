@@ -8,8 +8,8 @@ import com.example.sberify.presentation.ui.utils.createDiffCallback
 
 abstract class BaseAdapter<T : BaseModel> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val DIFF_CALLBACK = createDiffCallback<T>()
-    val differ = AsyncListDiffer(this, DIFF_CALLBACK)
+    private val diffCallback = createDiffCallback<T>()
+    val differ = AsyncListDiffer(this, diffCallback)
 
     override fun getItemCount(): Int {
         return differ.currentList.size
