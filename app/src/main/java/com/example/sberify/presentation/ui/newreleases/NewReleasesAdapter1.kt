@@ -1,8 +1,6 @@
 package com.example.sberify.presentation.ui.newreleases
 
 import android.view.View
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import com.example.sberify.R
 import com.example.sberify.base.BaseAdapter1
 import com.example.sberify.base.BaseViewHolder
@@ -19,21 +17,12 @@ class NewReleasesAdapter1(private val interaction: Interaction? = null) : BaseAd
         addSection(arrayListOf<Album>())
     }
 
-    private val diffCallback = object : DiffUtil.ItemCallback<Album>() {
-        override fun areItemsTheSame(oldItem: Album, newItem: Album): Boolean =
-            oldItem.baseId == newItem.baseId
-
-        override fun areContentsTheSame(oldItem: Album, newItem: Album): Boolean =
-            oldItem == newItem
-    }
-    private val differ = AsyncListDiffer(this, diffCallback)
-
-    override fun getItemCount(): Int {
-        return differ.currentList.size
-    }
-
-    fun submitList(list: List<Album>) {
-        differ.submitList(list)
+    fun addAlbumList(albums: List<Album>) {
+        sections().first().run {
+            clear()
+            addAll(albums)
+            notifyDataSetChanged()
+        }
     }
 
     override fun layout(sectionRow: SectionRow): Int = R.layout.item_album

@@ -19,23 +19,25 @@ fun bindAdapter(view: RecyclerView, baseAdapter: BaseAdapter1) {
 @BindingAdapter("adapterAlbumList", "animation", "swipeRefreshLayout")
 fun bindAdapterPosterList(
     view: RecyclerView,
-    albums: Result<List<Album>>,
+    albums: Result<List<Album>>?,
     anim: LottieAnimationView,
     swipeRefreshLayout: SwipeRefreshLayout
 ) {
-    when (albums.status) {
-        Result.Status.SUCCESS -> {
-            swipeRefreshLayout.isRefreshing = false
-            albums.data?.let { album ->
-                (view.adapter as? NewReleasesAdapter1)?.submitList(album)
+    albums?.let {
+        when (albums.status) {
+            Result.Status.SUCCESS -> {
+                swipeRefreshLayout.isRefreshing = false
+                albums.data?.let { album ->
+                    (view.adapter as? NewReleasesAdapter1)?.addAlbumList(album)
+                }
+                hideAnimation(anim)
             }
-            hideAnimation(anim)
-        }
-        Result.Status.LOADING -> {
-            showAnimation(anim)
-        }
-        Result.Status.ERROR -> {
-            showAnimation(anim)
+            Result.Status.LOADING -> {
+                showAnimation(anim)
+            }
+            Result.Status.ERROR -> {
+                showAnimation(anim)
+            }
         }
     }
 }

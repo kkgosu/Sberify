@@ -119,17 +119,16 @@ abstract class BaseAdapter1 :
         }
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return layout(sectionRowFromPosition(position))
-    }
-
-    /** gets all item counts on the sections. */
     override fun getItemCount(): Int {
         var itemCount = 0
         for (section in sections) {
             itemCount += section.size
         }
         return itemCount
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return layout(sectionRowFromPosition(position))
     }
 
     protected fun objectFromSectionRow(sectionRow: SectionRow): Any {
