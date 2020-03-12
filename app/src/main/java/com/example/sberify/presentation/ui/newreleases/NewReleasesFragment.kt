@@ -4,9 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.example.sberify.R
 import com.example.sberify.base.BaseFragment
@@ -42,18 +39,6 @@ class NewReleasesFragment : BaseFragment(), Injectable, NewReleasesAdapter1.Inte
 
     override fun onItemSelected(item: Album, view: View) {
         sharedViewModel.getAlbumInfo(item)
-        val albumName = view.findViewById<TextView>(R.id.release_name)
-        val albumCover = view.findViewById<ImageView>(R.id.release_cover)
-        val artistName = view.findViewById<TextView>(R.id.artist_name)
-        val extras = FragmentNavigatorExtras(
-            albumName to albumName.transitionName,
-            albumCover to albumCover.transitionName,
-            artistName to artistName.transitionName
-        )
-
-        findNavController().navigate(
-            R.id.action_newReleasesFragment_to_albumInfoFragment, null,
-            null, extras
-        )
+        findNavController().navigate(R.id.action_newReleasesFragment_to_albumInfoFragment)
     }
 }
