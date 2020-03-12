@@ -7,6 +7,18 @@
         <variable
             name="viewModel"
             type="com.example.sberify.presentation.ui.SharedViewModel" />
+
+        <variable
+            name="anim"
+            type="com.airbnb.lottie.LottieAnimationView" />
+
+        <variable
+            name="adapter"
+            type="com.example.sberify.presentation.ui.newreleases.NewReleasesAdapter" />
+
+        <variable
+            name="swipeRefresh"
+            type="androidx.swiperefreshlayout.widget.SwipeRefreshLayout" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -24,6 +36,10 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/new_releases_recycler"
                 style="@style/DefaultRecycler"
+                adapter="@{adapter}"
+                adapterAlbumList="@{viewModel.newReleases}"
+                animation="@{anim}"
+                swipeRefreshLayout="@{swipeRefresh}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:listitem="@layout/item_album" />

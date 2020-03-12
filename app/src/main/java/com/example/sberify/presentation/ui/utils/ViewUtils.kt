@@ -4,6 +4,7 @@ import android.app.Activity
 import android.graphics.Color
 import android.transition.TransitionManager
 import android.view.View
+import android.widget.BaseAdapter
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
@@ -13,10 +14,15 @@ import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.target.Target
+import com.example.sberify.data.Result
+import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Track
+import com.example.sberify.presentation.ui.newreleases.NewReleasesAdapter
 import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
 import com.google.android.material.appbar.AppBarLayout
@@ -121,6 +127,45 @@ internal fun getTransform(mStartView: View, mEndView: View): MaterialContainerTr
         duration = 650
         scrimColor = Color.TRANSPARENT
     }
+}
+
+@BindingAdapter("adapter")
+fun bindAdapter(view: RecyclerView, baseAdapter: BaseAdapter) {
+    view.adapter = baseAdapter
+}
+
+@BindingAdapter("adapterAlbumList", "animation", "swipeRefreshLayout")
+fun bindAdapterPosterList(
+    view: RecyclerView,
+    albums: Result<List<Album>>,
+    anim: LottieAnimationView,
+    swipeRefreshLayout: SwipeRefreshLayout
+) {
+    when (albums.status) {
+        Result.Status.SUCCESS -> {
+            swipeRefreshLayout.isRefreshing = false
+            albums.data?.let { album ->
+                (view.adapter as? NewReleasesAdapter<Album>)?.submitList(album)
+            }
+            hideAnimation(anim)
+        }
+        Result.Status.LOADING -> {
+            showAnimation(anim)
+        }
+        Result.Status.ERROR -> {
+            showAnimation(anim)
+        }
+    }
+}
+
+private fun hideAnimation(anim: LottieAnimationView) {
+    anim.visibility = View.GONE
+    anim.cancelAnimation()
+}
+
+private fun showAnimation(anim: LottieAnimationView) {
+    anim.visibility = View.VISIBLE
+    anim.playAnimation()
 }
 
 private fun View.ifNotDestroyed(block: () -> Unit) {
