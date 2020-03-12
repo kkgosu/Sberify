@@ -14,7 +14,6 @@ class AlbumDetailsAdapter(private val interaction: Interaction? = null) : BaseAd
     }
 
     init {
-        println("AlbumDetailsAdapter.init")
         addSection(arrayListOf<Track>())
     }
 
