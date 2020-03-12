@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="bottom_bar_height">50dp</dimen>
     <dimen name="margin_item_list_horizontal">20dp</dimen>
     <dimen name="padding_search_icon">12dp</dimen>
@@ -12,4 +12,7 @@
     <dimen name="margin_small">4dp</dimen>
     <dimen name="test_size_medium">18sp</dimen>
     <dimen name="test_size_small">14sp</dimen>
+
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="design_fab_image_size" tools:override="true">56dp</dimen>
 </resources>
