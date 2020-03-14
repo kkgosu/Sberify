@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
+import androidx.databinding.OnRebindCallback
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.example.sberify.R
@@ -38,24 +39,24 @@ class AlbumInfoFragment : BaseFragment(), AlbumDetailsAdapter.Interaction {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        bind.recyclerTracks.apply {
-            doOnPreDraw {
-                startPostponedEnterTransition()
-            }
-        }
+        postponeEnterTransition()
         bind.executePendingBindings()
+        bind.addOnRebindCallback(object : OnRebindCallback<FragmentAlbumDetailsBinding>() {
+            override fun onBound(binding: FragmentAlbumDetailsBinding?) {
+                bind.recyclerTracks.apply {
+                    doOnPreDraw {
+                        startPostponedEnterTransition()
+                    }
+                }
+            }
+        })
         exitTransition = Hold()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        bind.invalidateAll() //fix for recyclerView
     }
 
     override fun onItemSelected(item: Track, view: View) {
         sharedViewModel.getLyrics(item)
         val extras = FragmentNavigatorExtras(
-            view to item.id
+            view to view.transitionName
         )
         findNavController().navigate(
             AlbumInfoFragmentDirections.navigateToLyricsFragment(item), extras
