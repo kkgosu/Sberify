@@ -21,6 +21,10 @@
             name="fragment"
             type="androidx.fragment.app.Fragment" />
 
+        <variable
+            name="adapter"
+            type="com.example.sberify.presentation.ui.albuminfo.AlbumDetailsAdapter" />
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -98,6 +102,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/recycler_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -152,6 +157,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_tracks"
                     style="@style/DefaultRecycler"
+                    adapter="@{adapter}"
                     adapterTrackList="@{viewModel.album}"
                     fab="@{fab}"
                     viewModel="@{viewModel}"

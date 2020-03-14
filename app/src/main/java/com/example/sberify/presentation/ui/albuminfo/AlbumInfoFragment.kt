@@ -7,16 +7,19 @@ import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sberify.R
 import com.example.sberify.base.BaseFragment
 import com.example.sberify.databinding.FragmentAlbumDetailsBinding
 import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.models.domain.Track
 import com.google.android.material.transition.Hold
+import kotlinx.android.synthetic.main.fragment_album_details.*
 
 class AlbumInfoFragment : BaseFragment(), AlbumDetailsAdapter.Interaction {
 
     private lateinit var bind: FragmentAlbumDetailsBinding
+    private lateinit var manager: LinearLayoutManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +33,7 @@ class AlbumInfoFragment : BaseFragment(), AlbumDetailsAdapter.Interaction {
             lifecycleOwner = this@AlbumInfoFragment
             viewModel = sharedViewModel
             fragment = this@AlbumInfoFragment
-            recyclerTracks.adapter = AlbumDetailsAdapter(this@AlbumInfoFragment)
+            adapter = AlbumDetailsAdapter(this@AlbumInfoFragment)
             setContainer(detailContainer)
             fab = fabFavorite
         }
@@ -39,7 +42,7 @@ class AlbumInfoFragment : BaseFragment(), AlbumDetailsAdapter.Interaction {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         postponeEnterTransition()
-        bind.recyclerTracks.apply {
+        recycler_tracks.apply {
             doOnPreDraw {
                 startPostponedEnterTransition()
             }
