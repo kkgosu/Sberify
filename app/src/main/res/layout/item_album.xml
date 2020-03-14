@@ -35,7 +35,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
                 android:scaleType="centerCrop"
-                android:transitionName="@{album.imageUrl + `album`}"
                 app:palette="@{palette}"
                 app:paletteImage="@{album.imageUrl}"
                 tools:src="@drawable/ic_launcher_background" />
@@ -55,7 +54,6 @@
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                     android:textColor="@color/white"
-                    android:transitionName="@{album.name + `album`}"
                     tools:text="Courage (Deluxe Edition)" />
 
                 <TextView
@@ -66,7 +64,6 @@
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     android:textColor="@color/white"
-                    android:transitionName="@{album.artist.name + `artist`}"
                     tools:text="Celine Dion" />
             </LinearLayout>
         </LinearLayout>

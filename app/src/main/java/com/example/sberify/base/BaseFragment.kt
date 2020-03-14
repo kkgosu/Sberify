@@ -14,7 +14,6 @@ import androidx.databinding.OnRebindCallback
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.transition.TransitionInflater
 import com.example.sberify.R
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.ViewModelFactory
@@ -54,13 +53,7 @@ abstract class BaseFragment : Fragment(),
     }
 
     fun setupAnimations() {
-        postponeEnterTransition()
-        exitTransition = TransitionInflater.from(context)
-            .inflateTransition(android.R.transition.fade)
-        sharedElementEnterTransition = TransitionInflater.from(context)
-            .inflateTransition(R.transition.image_shared_element_transition)
-        sharedElementReturnTransition = TransitionInflater.from(context)
-            .inflateTransition(R.transition.image_shared_element_transition)
+
     }
 
     fun <T : ViewDataBinding> invalidateBindings() {

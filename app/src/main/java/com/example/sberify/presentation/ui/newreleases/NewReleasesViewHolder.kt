@@ -19,7 +19,7 @@ class NewReleasesViewHolder(
         if (data is Album) {
             this.data = data
             binding.apply {
-                ViewCompat.setTransitionName(binding.cardView, data.name)
+                ViewCompat.setTransitionName(binding.cardView, data.id)
                 album = data
                 palette = itemAlbumPalette
                 executePendingBindings()
