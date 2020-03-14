@@ -83,10 +83,10 @@ class LyricsFragment : BaseFragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         lyrics_container.transitionName = navArgs.item.id
         title.text = navArgs.item.name
-        binding.executePendingBindings()
 
         sharedElementEnterTransition = MaterialContainerTransform(requireContext()).apply {
             pathMotion = MaterialArcMotion()
+            duration = 450
         }
     }
 

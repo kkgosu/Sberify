@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
-import androidx.databinding.OnRebindCallback
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.example.sberify.R
@@ -31,7 +30,7 @@ class AlbumInfoFragment : BaseFragment(), AlbumDetailsAdapter.Interaction {
             lifecycleOwner = this@AlbumInfoFragment
             viewModel = sharedViewModel
             fragment = this@AlbumInfoFragment
-            adapter = AlbumDetailsAdapter(this@AlbumInfoFragment)
+            recyclerTracks.adapter = AlbumDetailsAdapter(this@AlbumInfoFragment)
             setContainer(detailContainer)
             fab = fabFavorite
         }
@@ -40,17 +39,14 @@ class AlbumInfoFragment : BaseFragment(), AlbumDetailsAdapter.Interaction {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         postponeEnterTransition()
-        bind.executePendingBindings()
-        bind.addOnRebindCallback(object : OnRebindCallback<FragmentAlbumDetailsBinding>() {
-            override fun onBound(binding: FragmentAlbumDetailsBinding?) {
-                bind.recyclerTracks.apply {
-                    doOnPreDraw {
-                        startPostponedEnterTransition()
-                    }
-                }
+        bind.recyclerTracks.apply {
+            doOnPreDraw {
+                startPostponedEnterTransition()
             }
-        })
-        exitTransition = Hold()
+        }
+        exitTransition = Hold().apply {
+            duration = 450
+        }
     }
 
     override fun onItemSelected(item: Track, view: View) {

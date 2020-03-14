@@ -21,10 +21,6 @@
             name="fragment"
             type="androidx.fragment.app.Fragment" />
 
-        <variable
-            name="adapter"
-            type="com.example.sberify.presentation.ui.albuminfo.AlbumDetailsAdapter" />
-
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -35,6 +31,7 @@
         android:fitsSystemWindows="false">
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
             bindFab="@{fab}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -155,7 +152,6 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_tracks"
                     style="@style/DefaultRecycler"
-                    adapter="@{adapter}"
                     adapterTrackList="@{viewModel.album}"
                     fab="@{fab}"
                     viewModel="@{viewModel}"
