@@ -5,11 +5,13 @@ import android.graphics.Color
 import android.transition.TransitionManager
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.target.Target
+import com.example.sberify.data.Result
 import com.example.sberify.models.domain.Track
 import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
@@ -37,6 +39,40 @@ fun CollapsingToolbarLayout.setTitle(track: Track?) {
     track?.let {
         title = track.name + " - " + track.artists.joinToString(", ") {
             it.name
+        }
+    }
+}
+
+@BindingAdapter("bindName")
+fun bindTextViewWithName(view: TextView, track: Result<Track>?) {
+    track?.let {
+        when (it.status) {
+            Result.Status.SUCCESS -> {
+                it.data?.let { track ->
+                    view.text = track.name
+                }
+            }
+            Result.Status.LOADING -> {
+            }
+            Result.Status.ERROR -> {
+            }
+        }
+    }
+}
+
+@BindingAdapter("bindLyrics")
+fun bindTextViewWithLyrics(view: TextView, track: Result<Track>?) {
+    track?.let {
+        when (it.status) {
+            Result.Status.SUCCESS -> {
+                it.data?.let { track ->
+                    view.text = track.lyrics
+                }
+            }
+            Result.Status.LOADING -> {
+            }
+            Result.Status.ERROR -> {
+            }
         }
     }
 }
@@ -73,21 +109,23 @@ fun bindAppBarLayoutWithFab(appBarLayout: AppBarLayout, fab: FloatingActionButto
     )
 }
 
-@BindingAdapter("transformFab", "transformContainer")
-fun bindTransformFab(view: View, fab: FloatingActionButton, container: CoordinatorLayout) {
-    fab.setOnClickListener {
-        fab.tag = View.GONE
-        TransitionManager.beginDelayedTransition(container, getTransform(view, fab))
-        fab.visibility = View.GONE
-        view.visibility = View.VISIBLE
-    }
+@BindingAdapter("transformItem", "transformContainer")
+fun bindTransformItem(view: View, item: View?, container: CoordinatorLayout) {
+    item?.let {
 
-    view.setOnClickListener {
-        fab.tag = View.VISIBLE
-        TransitionManager.beginDelayedTransition(container, getTransform(view, fab))
-        fab.visibility = View.VISIBLE
-        view.visibility = View.GONE
+        item.setOnClickListener {
+            item.tag = View.GONE
+            TransitionManager.beginDelayedTransition(container, getTransform(item, view))
+            item.visibility = View.GONE
+            view.visibility = View.VISIBLE
+        }
 
+        view.setOnClickListener {
+            item.tag = View.VISIBLE
+            TransitionManager.beginDelayedTransition(container, getTransform(view, item))
+            item.visibility = View.VISIBLE
+            view.visibility = View.GONE
+        }
     }
 }
 

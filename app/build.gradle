@@ -87,6 +87,7 @@ android {
         implementation 'com.github.florent37:glidepalette:2.1.2'
         implementation "com.airbnb.android:lottie:$rootProject.lottieVersion"
         implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+        implementation "com.github.skydoves:transformationlayout:1.0.1"
         
         implementation 'com.spotify.android:auth:1.2.2'
 

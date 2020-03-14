@@ -16,11 +16,16 @@
         android:name="com.example.sberify.presentation.ui.albuminfo.AlbumInfoFragment"
         android:label="AlbumInfoFragment">
         <action
-            android:id="@+id/action_albumInfoFragment_to_lyricsFragment"
+            android:id="@+id/navigate_to_lyricsFragment"
             app:destination="@id/lyricsFragment" />
     </fragment>
     <fragment
         android:id="@+id/lyricsFragment"
         android:name="com.example.sberify.presentation.ui.lyrics.LyricsFragment"
-        android:label="LyricsFragment" />
+        android:label="LyricsFragment">
+        <argument
+            android:name="item"
+            app:argType="com.example.sberify.models.domain.Track"
+            app:nullable="false" />
+    </fragment>
 </navigation>

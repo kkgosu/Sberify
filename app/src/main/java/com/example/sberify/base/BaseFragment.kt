@@ -73,7 +73,7 @@ abstract class BaseFragment : Fragment(),
     }
 
     fun setupToolbar() {
-        val toolbar = mView.findViewById<Toolbar>(R.id.collapsed_toolbar)
+        val toolbar = mView.findViewById<Toolbar>(R.id.toolbar)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

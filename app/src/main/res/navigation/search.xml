@@ -26,5 +26,10 @@
     <fragment
         android:id="@+id/lyricsFragment"
         android:name="com.example.sberify.presentation.ui.lyrics.LyricsFragment"
-        android:label="LyricsFragment" />
+        android:label="LyricsFragment">
+        <argument
+            android:name="item"
+            app:argType="com.example.sberify.models.domain.Track"
+            app:nullable="false" />
+    </fragment>
 </navigation>

@@ -1,8 +1,9 @@
 package com.example.sberify.presentation.ui.albuminfo
 
 import android.view.View
+import androidx.core.view.ViewCompat
 import com.example.sberify.base.BaseViewHolder
-import com.example.sberify.databinding.ItemTrackListedBinding
+import com.example.sberify.databinding.ItemTrackLineBinding
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.utils.bindings
 
@@ -12,12 +13,13 @@ class AlbumDetailsViewHolder(
 ) : BaseViewHolder(view) {
 
     private lateinit var data: Track
-    private val binding: ItemTrackListedBinding by bindings(view)
+    private val binding: ItemTrackLineBinding by bindings(view)
 
     override fun bindData(data: Any) {
         if (data is Track) {
             this.data = data
             binding.apply {
+                ViewCompat.setTransitionName(binding.itemContainer, data.id)
                 track = data
                 pos = adapterPosition + 1
                 executePendingBindings()
@@ -26,7 +28,7 @@ class AlbumDetailsViewHolder(
     }
 
     override fun onClick(v: View?) {
-        interaction?.onItemSelected(data, v!!)
+        interaction?.onItemSelected(data, binding.itemContainer)
     }
 
     override fun onLongClick(v: View?): Boolean = false

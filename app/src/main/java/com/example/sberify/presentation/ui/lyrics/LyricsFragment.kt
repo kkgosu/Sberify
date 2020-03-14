@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.navArgs
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.transition.TransitionInflater
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
 import com.example.sberify.base.BaseFragment
@@ -17,6 +17,9 @@ import com.example.sberify.databinding.FragmentLyricsBinding
 import com.example.sberify.di.injectViewModel
 import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.presentation.ui.Injectable
+import com.google.android.material.transition.Hold
+import com.google.android.material.transition.MaterialContainerTransform
+import kotlinx.android.synthetic.main.fragment_lyrics.*
 
 class LyricsFragment : BaseFragment(), Injectable {
 
@@ -25,13 +28,17 @@ class LyricsFragment : BaseFragment(), Injectable {
     private lateinit var favoriteButton: ImageButton
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    private val navArgs by navArgs<LyricsFragmentArgs>()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         lyricsViewModel = injectViewModel(viewModelFactory)
         initBinding<FragmentLyricsBinding>(R.layout.fragment_lyrics, container)
-                .viewModel = sharedViewModel
+            .viewModel = sharedViewModel
         setupToolbar()
-        favoriteButton = mView.findViewById(R.id.favorite_text)
+        favoriteButton = mView.findViewById(R.id.favorite_button)
         swipeRefreshLayout = mView.findViewById(R.id.refresh_layout)
         swipeRefreshLayout.setOnRefreshListener {
             sharedViewModel.refreshLyrics()
@@ -62,25 +69,27 @@ class LyricsFragment : BaseFragment(), Injectable {
                 }
                 Result.Status.ERROR -> {
                     showLottie()
-                    Toast.makeText(requireContext(),
-                        "Error while getting lyrics. Please try again later", Toast.LENGTH_LONG)
-                            .show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Error while getting lyrics. Please try again later", Toast.LENGTH_LONG
+                    )
+                        .show()
                 }
             }
         }
         return mView
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        postponeEnterTransition()
-        exitTransition = TransitionInflater.from(context)
-                .inflateTransition(android.R.transition.no_transition)
-        sharedElementEnterTransition = TransitionInflater.from(context)
-                .inflateTransition(android.R.transition.no_transition)
-        sharedElementReturnTransition = TransitionInflater.from(context)
-                .inflateTransition(android.R.transition.move)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        lyrics_container.transitionName = navArgs.item.id
+        title.text = navArgs.item.name
+        binding.executePendingBindings()
+
+        sharedElementEnterTransition = MaterialContainerTransform(requireContext())
+        sharedElementReturnTransition = MaterialContainerTransform(requireContext())
+        exitTransition = Hold()
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
