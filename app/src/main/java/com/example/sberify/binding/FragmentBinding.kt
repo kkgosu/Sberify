@@ -1,11 +1,12 @@
 package com.example.sberify.binding
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
-import com.google.android.material.appbar.MaterialToolbar
+import kotlinx.android.synthetic.main.fragment_lyrics.*
 
-fun Fragment.simpleToolbarWithHome(toolbar: MaterialToolbar, title_: String? = "") {
+fun Fragment.simpleToolbarWithHome(toolbar: Toolbar, title_: String? = "") {
     (requireActivity() as AppCompatActivity).apply {
         setSupportActionBar(toolbar)
         supportActionBar?.run {
@@ -16,6 +17,17 @@ fun Fragment.simpleToolbarWithHome(toolbar: MaterialToolbar, title_: String? = "
 }
 
 @BindingAdapter("simpleToolbarWithHome", "simpleToolbarTitle")
-fun bindToolbarWithTitle(toolbar: MaterialToolbar, fragment: Fragment, title: String?) {
+fun bindToolbarWithTitle(toolbar: Toolbar, fragment: Fragment, title: String?) {
     fragment.simpleToolbarWithHome(toolbar, title)
+}
+
+@BindingAdapter("simpleToolbar", "toolbarTitle")
+fun bindToolbar(toolbar: Toolbar, fragment: Fragment, title_: String?) {
+    fragment.run {
+        back.setOnClickListener {
+            (requireActivity() as AppCompatActivity).onBackPressed()
+        }
+
+        title.text = title_
+    }
 }

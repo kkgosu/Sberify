@@ -1,7 +1,5 @@
 package com.example.sberify.binding
 
-import android.graphics.drawable.AnimatedVectorDrawable
-import android.widget.ImageButton
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -13,9 +11,7 @@ import com.example.sberify.models.domain.Album
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.albuminfo.AlbumDetailsAdapter
 import com.example.sberify.presentation.ui.newreleases.NewReleasesAdapter1
-import com.example.sberify.presentation.ui.utils.hideAnimation
-import com.example.sberify.presentation.ui.utils.setDivider
-import com.example.sberify.presentation.ui.utils.showAnimation
+import com.example.sberify.presentation.ui.utils.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 @BindingAdapter("adapter")
@@ -54,28 +50,6 @@ fun bindAdapterAlbumDetails(
             Result.Status.ERROR -> {
             }
         }
-    }
-}
-
-fun setFavoriteIcon(imageButton: ImageButton, isFavorite: Boolean) {
-    with(imageButton) {
-        setImageDrawable(
-            if (isFavorite) {
-                (context.getDrawable(
-                    R.drawable.avd_heart_to_filled
-                ))
-            } else {
-                context.getDrawable(
-                    R.drawable.avd_filled_heart_break
-                )
-            }
-        )
-    }
-}
-
-fun startAnim(imageButton: ImageButton) {
-    with(imageButton) {
-        (drawable as AnimatedVectorDrawable).start()
     }
 }
 
