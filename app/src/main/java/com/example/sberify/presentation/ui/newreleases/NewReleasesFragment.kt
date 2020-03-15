@@ -30,7 +30,7 @@ class NewReleasesFragment : BaseFragment(), Injectable, NewReleasesAdapter1.Inte
         ).apply {
             lifecycleOwner = this@NewReleasesFragment
             viewModel = sharedViewModel
-            anim = loadingAnimation
+            anim = animation.loadingAnimation
             adapter = NewReleasesAdapter1(this@NewReleasesFragment)
             swipeRefresh = refreshLayout.apply {
                 setOnRefreshListener { sharedViewModel.refresh() }

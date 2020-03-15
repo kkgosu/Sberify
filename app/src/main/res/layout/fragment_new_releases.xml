@@ -32,15 +32,9 @@
             android:layout_height="match_parent"
             android:background="@color/background">
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/loading_animation"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/background"
-                android:visibility="gone"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/music_fly"
-                app:lottie_speed="1.3" />
+            <include
+                android:id="@+id/animation"
+                layout="@layout/loading_anim" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/new_releases_recycler"
