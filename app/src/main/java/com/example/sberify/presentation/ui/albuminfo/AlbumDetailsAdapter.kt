@@ -10,7 +10,7 @@ import com.example.sberify.models.domain.Track
 class AlbumDetailsAdapter(private val interaction: Interaction? = null) : BaseAdapter1() {
 
     interface Interaction {
-        fun onItemSelected(item: Track, view: View)
+        fun onTrackSelected(item: Track, view: View)
     }
 
     init {

@@ -63,7 +63,7 @@ class AlbumInfoFragment : BaseFragment(), AlbumDetailsAdapter.Interaction {
         }
     }
 
-    override fun onItemSelected(item: Track, view: View) {
+    override fun onTrackSelected(item: Track, view: View) {
         sharedViewModel.getLyrics(item)
         val extras = FragmentNavigatorExtras(
             view to view.transitionName

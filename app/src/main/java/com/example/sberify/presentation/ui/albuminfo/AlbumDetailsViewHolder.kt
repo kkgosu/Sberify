@@ -28,7 +28,7 @@ class AlbumDetailsViewHolder(
     }
 
     override fun onClick(v: View?) {
-        interaction?.onItemSelected(data, binding.itemContainer)
+        interaction?.onTrackSelected(data, binding.itemContainer)
     }
 
     override fun onLongClick(v: View?): Boolean = false

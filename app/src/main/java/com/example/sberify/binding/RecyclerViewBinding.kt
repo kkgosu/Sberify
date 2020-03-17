@@ -8,6 +8,7 @@ import com.example.sberify.R
 import com.example.sberify.base.BaseAdapter1
 import com.example.sberify.data.Result
 import com.example.sberify.models.domain.Album
+import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.albuminfo.AlbumDetailsAdapter
 import com.example.sberify.presentation.ui.newreleases.NewReleasesAdapter1
@@ -17,6 +18,23 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 @BindingAdapter("adapter")
 fun bindAdapter(view: RecyclerView, baseAdapter: BaseAdapter1) {
     view.adapter = baseAdapter
+}
+
+@BindingAdapter("bindFavTracks")
+fun bindFavTracks(
+    recyclerView: RecyclerView,
+    tracks: List<Track>?
+) {
+    recyclerView.setDivider(R.drawable.divider)
+    tracks?.let { (recyclerView.adapter as? AlbumDetailsAdapter)?.addTrackList(it) }
+}
+
+@BindingAdapter("bindFavAlbums")
+fun bindFavAlbums(
+    recyclerView: RecyclerView,
+    albums: List<Album>?
+) {
+    albums?.let { (recyclerView.adapter as? NewReleasesAdapter1)?.addAlbumList(it) }
 }
 
 @BindingAdapter("adapterTrackList", "fab", "viewModel")

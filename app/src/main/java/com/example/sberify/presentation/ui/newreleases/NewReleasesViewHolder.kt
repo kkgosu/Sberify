@@ -28,7 +28,7 @@ class NewReleasesViewHolder(
     }
 
     override fun onClick(v: View?) {
-        interaction?.onItemSelected(data, v!!)
+        interaction?.onAlbumSelected(data, v!!)
     }
 
     override fun onLongClick(v: View?): Boolean = false

@@ -29,9 +29,9 @@ class NewReleasesFragment : BaseFragment(), Injectable, NewReleasesAdapter1.Inte
             container
         ).apply {
             lifecycleOwner = this@NewReleasesFragment
+            adapter = NewReleasesAdapter1(this@NewReleasesFragment)
             viewModel = sharedViewModel
             anim = animation.loadingAnimation
-            adapter = NewReleasesAdapter1(this@NewReleasesFragment)
             swipeRefresh = refreshLayout.apply {
                 setOnRefreshListener { sharedViewModel.refresh() }
             }
@@ -54,7 +54,7 @@ class NewReleasesFragment : BaseFragment(), Injectable, NewReleasesAdapter1.Inte
     override fun onItemSelected(position: Int, item: BaseModel, view: View) {
     }
 
-    override fun onItemSelected(item: Album, view: View) {
+    override fun onAlbumSelected(item: Album, view: View) {
         sharedViewModel.getAlbumInfo(item)
         val extras = FragmentNavigatorExtras(
             view to view.transitionName

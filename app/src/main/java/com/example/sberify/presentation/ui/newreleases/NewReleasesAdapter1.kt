@@ -10,7 +10,7 @@ import com.example.sberify.models.domain.Album
 class NewReleasesAdapter1(private val interaction: Interaction? = null) : BaseAdapter1() {
 
     interface Interaction {
-        fun onItemSelected(item: Album, view: View)
+        fun onAlbumSelected(item: Album, view: View)
     }
 
     init {
