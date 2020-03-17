@@ -18,9 +18,17 @@
     <fragment
         android:id="@+id/lyricsFragment"
         android:name="com.example.sberify.presentation.ui.lyrics.LyricsFragment"
-        android:label="LyricsFragment" />
+        android:label="LyricsFragment" >
+        <argument
+            android:name="item"
+            app:argType="com.example.sberify.models.domain.Track" />
+    </fragment>
     <fragment
         android:id="@+id/albumInfoFragment2"
         android:name="com.example.sberify.presentation.ui.albuminfo.AlbumInfoFragment"
-        android:label="AlbumInfoFragment" />
+        android:label="AlbumInfoFragment" >
+        <argument
+            android:name="item"
+            app:argType="com.example.sberify.models.domain.Album" />
+    </fragment>
 </navigation>
