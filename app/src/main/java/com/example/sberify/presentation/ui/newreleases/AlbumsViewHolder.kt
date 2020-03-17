@@ -7,7 +7,7 @@ import com.example.sberify.databinding.ItemAlbumBinding
 import com.example.sberify.models.domain.Album
 import com.example.sberify.presentation.ui.utils.bindings
 
-class NewReleasesViewHolder(
+class AlbumsViewHolder(
     view: View,
     private val interaction: AlbumsAdapter.Interaction?
 ) : BaseViewHolder(view) {
