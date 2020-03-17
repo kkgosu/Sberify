@@ -17,7 +17,10 @@ import com.example.sberify.R
 import com.example.sberify.base.BaseFragment
 import com.example.sberify.data.Result
 import com.example.sberify.databinding.FragmentSearchBinding
-import com.example.sberify.models.domain.*
+import com.example.sberify.models.domain.Album
+import com.example.sberify.models.domain.Artist
+import com.example.sberify.models.domain.Suggestion
+import com.example.sberify.models.domain.Track
 
 
 class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAdapter.Interaction {
@@ -193,8 +196,5 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
                     }
                 }
             }
-    }
-
-    override fun onItemSelected(position: Int, item: BaseModel, view: View) {
     }
 }

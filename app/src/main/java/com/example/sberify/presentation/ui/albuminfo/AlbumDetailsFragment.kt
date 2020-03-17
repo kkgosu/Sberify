@@ -17,9 +17,9 @@ import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.android.synthetic.main.fragment_album_details.*
 
-class AlbumInfoFragment : BaseFragment(), AlbumDetailsAdapter.Interaction {
+class AlbumDetailsFragment : BaseFragment(), AlbumDetailsAdapter.Interaction {
 
-    private val navArgs by navArgs<AlbumInfoFragmentArgs>()
+    private val navArgs by navArgs<AlbumDetailsFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,10 +30,10 @@ class AlbumInfoFragment : BaseFragment(), AlbumDetailsAdapter.Interaction {
             R.layout.fragment_album_details,
             container
         ).apply {
-            lifecycleOwner = this@AlbumInfoFragment
+            lifecycleOwner = this@AlbumDetailsFragment
             viewModel = sharedViewModel
-            fragment = this@AlbumInfoFragment
-            adapter = AlbumDetailsAdapter(this@AlbumInfoFragment)
+            fragment = this@AlbumDetailsFragment
+            adapter = AlbumDetailsAdapter(this@AlbumDetailsFragment)
             fab = fabFavorite
         }.root
     }
@@ -68,7 +68,7 @@ class AlbumInfoFragment : BaseFragment(), AlbumDetailsAdapter.Interaction {
             view to view.transitionName
         )
         findNavController().navigate(
-            AlbumInfoFragmentDirections.navigateToLyricsFragment(item), extras
+            AlbumDetailsFragmentDirections.navigateToLyricsFragment(item), extras
         )
     }
 }

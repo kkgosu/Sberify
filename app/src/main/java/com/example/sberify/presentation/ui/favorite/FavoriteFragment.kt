@@ -12,7 +12,6 @@ import com.example.sberify.R
 import com.example.sberify.base.BaseFragment
 import com.example.sberify.databinding.FragmentFavoriteBinding
 import com.example.sberify.models.domain.Album
-import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.Injectable
 import com.example.sberify.presentation.ui.albuminfo.AlbumDetailsAdapter
@@ -41,9 +40,6 @@ class FavoriteFragment : BaseFragment(), Injectable, AlbumDetailsAdapter.Interac
 
             favoriteViewModel.loadFavorite()
         }.root
-    }
-
-    override fun onItemSelected(position: Int, item: BaseModel, view: View) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -11,7 +11,6 @@ import com.example.sberify.R
 import com.example.sberify.base.BaseFragment
 import com.example.sberify.databinding.FragmentNewReleasesBinding
 import com.example.sberify.models.domain.Album
-import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.presentation.ui.Injectable
 import com.google.android.material.transition.Hold
 import kotlinx.android.synthetic.main.fragment_new_releases.*
@@ -49,9 +48,6 @@ class NewReleasesFragment : BaseFragment(), Injectable, AlbumsAdapter.Interactio
         exitTransition = Hold().apply {
             duration = 450
         }
-    }
-
-    override fun onItemSelected(position: Int, item: BaseModel, view: View) {
     }
 
     override fun onAlbumSelected(item: Album, view: View) {

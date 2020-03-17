@@ -15,8 +15,7 @@ import com.example.sberify.presentation.ui.utils.inflateLayout
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-abstract class BaseFragment : Fragment(),
-    Interaction {
+abstract class BaseFragment : Fragment() {
 
     lateinit var binding: ViewDataBinding
     lateinit var mView: View

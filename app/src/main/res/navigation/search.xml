@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/albumInfoFragment"
-        android:name="com.example.sberify.presentation.ui.albuminfo.AlbumInfoFragment"
+        android:name="com.example.sberify.presentation.ui.albuminfo.AlbumDetailsFragment"
         android:label="AlbumInfoFragment">
         <action
             android:id="@+id/navigate_to_lyricsFragment"

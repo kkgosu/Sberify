@@ -9,7 +9,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.sberify.R
 import com.example.sberify.base.BaseFragment
 import com.example.sberify.databinding.FragmentLyricsBinding
-import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.presentation.ui.Injectable
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
@@ -47,6 +46,4 @@ class LyricsFragment : BaseFragment(), Injectable {
         }
     }
 
-    override fun onItemSelected(position: Int, item: BaseModel, view: View) {
-    }
 }

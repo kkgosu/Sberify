@@ -1,6 +1,6 @@
 package com.example.sberify.di
 
-import com.example.sberify.presentation.ui.albuminfo.AlbumInfoFragment
+import com.example.sberify.presentation.ui.albuminfo.AlbumDetailsFragment
 import com.example.sberify.presentation.ui.favorite.FavoriteFragment
 import com.example.sberify.presentation.ui.lyrics.LyricsFragment
 import com.example.sberify.presentation.ui.newreleases.NewReleasesFragment
@@ -15,7 +15,7 @@ abstract class FragmentModule {
     abstract fun contributeNewReleasesFragment(): NewReleasesFragment 
 
     @ContributesAndroidInjector
-    abstract fun contributeAlbumInfoFragment(): AlbumInfoFragment
+    abstract fun contributeAlbumInfoFragment(): AlbumDetailsFragment
 
     @ContributesAndroidInjector
     abstract fun contributeFavoriteFragment(): FavoriteFragment
