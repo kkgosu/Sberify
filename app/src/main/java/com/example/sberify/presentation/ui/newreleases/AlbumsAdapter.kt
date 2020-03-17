@@ -25,7 +25,6 @@ class AlbumsAdapter(private val interaction: Interaction? = null) :
             override fun areContentsTheSame(oldItem: Album, newItem: Album): Boolean {
                 return oldItem == newItem
             }
-
         }
 
         differ = AsyncListDiffer(this, diffCallback) as AsyncListDiffer<Any>
@@ -36,7 +35,9 @@ class AlbumsAdapter(private val interaction: Interaction? = null) :
     override fun viewHolder(layout: Int, view: View): BaseViewHolder =
         AlbumsViewHolder(view, interaction)
 
-    fun submitList(list: List<Album>) {
-        differ.submitList(list)
+    override fun submitList(list: List<Any>) {
+        if (list[0] is Album) {
+            differ.submitList(list)
+        }
     }
 }

@@ -11,7 +11,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.sberify.R
 import com.example.sberify.base.BaseFragment
 import com.example.sberify.databinding.FragmentAlbumDetailsBinding
-import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.models.domain.Track
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialArcMotion
@@ -71,9 +70,5 @@ class AlbumInfoFragment : BaseFragment(), AlbumDetailsAdapter.Interaction {
         findNavController().navigate(
             AlbumInfoFragmentDirections.navigateToLyricsFragment(item), extras
         )
-    }
-
-    override fun onItemSelected(position: Int, item: BaseModel, view: View) {
-
     }
 }

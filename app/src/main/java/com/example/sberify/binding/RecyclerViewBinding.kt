@@ -26,7 +26,7 @@ fun bindFavTracks(
     tracks: List<Track>?
 ) {
     recyclerView.setDivider(R.drawable.divider)
-    tracks?.let { (recyclerView.adapter as? AlbumDetailsAdapter)?.addTrackList(it) }
+    tracks?.let { (recyclerView.adapter as? AlbumDetailsAdapter)?.submitList(it) }
 }
 
 @BindingAdapter("bindFavAlbums")
@@ -50,7 +50,7 @@ fun bindAdapterAlbumDetails(
             Result.Status.SUCCESS -> {
                 albumDetails.data?.let { album ->
                     album.tracks?.let { tracks ->
-                        (view.adapter as? AlbumDetailsAdapter)?.addTrackList(tracks)
+                        (view.adapter as? AlbumDetailsAdapter)?.submitList(tracks)
                         fab.apply {
                             setFavoriteIcon(this, !album.isFavorite)
                             setOnClickListener {

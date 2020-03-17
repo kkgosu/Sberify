@@ -11,6 +11,8 @@ abstract class BaseAdapter2 : RecyclerView.Adapter<BaseViewHolder>() {
 
     protected lateinit var differ: AsyncListDiffer<Any>
 
+    abstract fun submitList(list: List<Any>)
+
     protected abstract fun layout(position: Int): Int
     protected abstract fun viewHolder(@LayoutRes layout: Int, view: View): BaseViewHolder
 
@@ -23,9 +25,7 @@ abstract class BaseAdapter2 : RecyclerView.Adapter<BaseViewHolder>() {
         holder.bindData(differ.currentList[position])
     }
 
-    override fun getItemCount(): Int {
-        return differ.currentList.size
-    }
+    override fun getItemCount(): Int = differ.currentList.size
 
     override fun getItemViewType(position: Int): Int = layout(position)
 
@@ -33,5 +33,4 @@ abstract class BaseAdapter2 : RecyclerView.Adapter<BaseViewHolder>() {
         val layoutInflater = LayoutInflater.from(viewGroup.context)
         return layoutInflater.inflate(viewType, viewGroup, false)
     }
-
 }
