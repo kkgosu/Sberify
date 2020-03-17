@@ -11,7 +11,7 @@ import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.albuminfo.AlbumDetailsAdapter
-import com.example.sberify.presentation.ui.newreleases.NewReleasesAdapter1
+import com.example.sberify.presentation.ui.newreleases.AlbumsAdapter
 import com.example.sberify.presentation.ui.utils.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -34,7 +34,7 @@ fun bindFavAlbums(
     recyclerView: RecyclerView,
     albums: List<Album>?
 ) {
-    albums?.let { (recyclerView.adapter as? NewReleasesAdapter1)?.addAlbumList(it) }
+    albums?.let { (recyclerView.adapter as? AlbumsAdapter)?.submitList(it) }
 }
 
 @BindingAdapter("adapterTrackList", "fab", "viewModel")
@@ -83,7 +83,7 @@ fun bindAdapterAlbumList(
             Result.Status.SUCCESS -> {
                 swipeRefreshLayout.isRefreshing = false
                 albums.data?.let { album ->
-                    (view.adapter as? NewReleasesAdapter1)?.addAlbumList(album)
+                    (view.adapter as? AlbumsAdapter)?.submitList(album)
                 }
                 hideAnimation(anim)
             }

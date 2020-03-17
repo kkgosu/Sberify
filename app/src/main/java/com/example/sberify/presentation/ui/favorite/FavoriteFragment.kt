@@ -16,12 +16,12 @@ import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.Injectable
 import com.example.sberify.presentation.ui.albuminfo.AlbumDetailsAdapter
-import com.example.sberify.presentation.ui.newreleases.NewReleasesAdapter1
+import com.example.sberify.presentation.ui.newreleases.AlbumsAdapter
 import com.google.android.material.transition.Hold
 import kotlinx.android.synthetic.main.fragment_favorite.*
 
 class FavoriteFragment : BaseFragment(), Injectable, AlbumDetailsAdapter.Interaction,
-    NewReleasesAdapter1.Interaction {
+    AlbumsAdapter.Interaction {
 
     private val favoriteViewModel: FavoriteViewModel by viewModels { viewModelFactory }
 
@@ -37,7 +37,7 @@ class FavoriteFragment : BaseFragment(), Injectable, AlbumDetailsAdapter.Interac
             lifecycleOwner = this@FavoriteFragment
             favoriteVM = favoriteViewModel
             tracksAdapter = AlbumDetailsAdapter(this@FavoriteFragment)
-            albumsAdapter = NewReleasesAdapter1(this@FavoriteFragment)
+            albumsAdapter = AlbumsAdapter(this@FavoriteFragment)
 
             favoriteViewModel.loadFavorite()
         }.root

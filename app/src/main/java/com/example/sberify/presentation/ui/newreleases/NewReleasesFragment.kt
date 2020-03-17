@@ -17,7 +17,7 @@ import com.google.android.material.transition.Hold
 import kotlinx.android.synthetic.main.fragment_new_releases.*
 
 
-class NewReleasesFragment : BaseFragment(), Injectable, NewReleasesAdapter1.Interaction {
+class NewReleasesFragment : BaseFragment(), Injectable, AlbumsAdapter.Interaction {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +29,7 @@ class NewReleasesFragment : BaseFragment(), Injectable, NewReleasesAdapter1.Inte
             container
         ).apply {
             lifecycleOwner = this@NewReleasesFragment
-            adapter = NewReleasesAdapter1(this@NewReleasesFragment)
+            adapter = AlbumsAdapter(this@NewReleasesFragment)
             viewModel = sharedViewModel
             anim = animation.loadingAnimation
             swipeRefresh = refreshLayout.apply {

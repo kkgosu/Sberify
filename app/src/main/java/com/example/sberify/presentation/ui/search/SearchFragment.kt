@@ -32,8 +32,10 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
 
     private lateinit var searchView: SearchView
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         initBinding<FragmentSearchBinding>(R.layout.fragment_search, container)
         resultsRecyclerView = mView.findViewById(R.id.search_results)
         suggestionsRecycler = mView.findViewById(R.id.suggestion_recycler)
@@ -58,7 +60,6 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        setupAnimations()
         resultsRecyclerView.doOnPreDraw {
             startPostponedEnterTransition()
         }
@@ -73,17 +74,23 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
         val extras = FragmentNavigatorExtras(
             view.findViewById<TextView>(R.id.release_name) to "${item.name}album",
             view.findViewById<ImageView>(R.id.release_cover) to "${item.imageUrl}album",
-            view.findViewById<TextView>(R.id.artist_name) to "${item.artist.name}album")
-        findNavController().navigate(R.id.action_searchFragment_to_albumInfoFragment, null, null,
-            extras)
+            view.findViewById<TextView>(R.id.artist_name) to "${item.artist.name}album"
+        )
+        findNavController().navigate(
+            R.id.action_searchFragment_to_albumInfoFragment, null, null,
+            extras
+        )
     }
 
     override fun onTrackSelected(position: Int, item: Track, view: View) {
         sharedViewModel.getLyrics(item)
         val extras = FragmentNavigatorExtras(
-            view.findViewById<TextView>(R.id.name) to item.name)
-        findNavController().navigate(R.id.action_searchFragment_to_lyricsFragment, null, null,
-            extras)
+            view.findViewById<TextView>(R.id.name) to item.name
+        )
+        findNavController().navigate(
+            R.id.action_searchFragment_to_lyricsFragment, null, null,
+            extras
+        )
     }
 
     override fun onSuggestionSelected(position: Int, item: Suggestion) {
@@ -170,22 +177,22 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
             }
         })
         mView.findViewById<RadioGroup>(R.id.search_options_rg)
-                .setOnCheckedChangeListener { _, checkedId ->
-                    when (checkedId) {
-                        R.id.artist_rb -> {
-                            searchType = SearchType.ARTIST
-                            setupArtistObserver()
-                        }
-                        R.id.album_rb -> {
-                            searchType = SearchType.ALBUM
-                            setupAlbumObserver()
-                        }
-                        R.id.track_rb -> {
-                            searchType = SearchType.TRACK
-                            setupTrackObserver()
-                        }
+            .setOnCheckedChangeListener { _, checkedId ->
+                when (checkedId) {
+                    R.id.artist_rb -> {
+                        searchType = SearchType.ARTIST
+                        setupArtistObserver()
+                    }
+                    R.id.album_rb -> {
+                        searchType = SearchType.ALBUM
+                        setupAlbumObserver()
+                    }
+                    R.id.track_rb -> {
+                        searchType = SearchType.TRACK
+                        setupTrackObserver()
                     }
                 }
+            }
     }
 
     override fun onItemSelected(position: Int, item: BaseModel, view: View) {

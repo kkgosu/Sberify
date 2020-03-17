@@ -15,7 +15,7 @@
 
         <variable
             name="albumsAdapter"
-            type="com.example.sberify.presentation.ui.newreleases.NewReleasesAdapter1" />
+            type="com.example.sberify.presentation.ui.newreleases.AlbumsAdapter" />
 
 
     </data>

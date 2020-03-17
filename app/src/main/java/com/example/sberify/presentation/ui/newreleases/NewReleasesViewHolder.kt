@@ -9,7 +9,7 @@ import com.example.sberify.presentation.ui.utils.bindings
 
 class NewReleasesViewHolder(
     view: View,
-    private val interaction: NewReleasesAdapter1.Interaction?
+    private val interaction: AlbumsAdapter.Interaction?
 ) : BaseViewHolder(view) {
 
     private lateinit var data: Album
