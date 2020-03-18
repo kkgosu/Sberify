@@ -11,7 +11,8 @@ import com.example.sberify.models.domain.Suggestion
 import kotlinx.android.synthetic.main.item_suggestion.view.*
 
 class SuggestionsAdapter(
-        private val interaction: Interaction? = null) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val interaction: Interaction? = null
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Suggestion>() {
 
@@ -30,8 +31,11 @@ class SuggestionsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return ViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.item_suggestion, parent,
-                        false), interaction)
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_suggestion, parent,
+                false
+            ), interaction
+        )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -50,9 +54,12 @@ class SuggestionsAdapter(
         differ.submitList(list)
     }
 
+    fun getList(): List<Suggestion> = differ.currentList
+
     class ViewHolder
     constructor(itemView: View, private val interaction: Interaction?) : RecyclerView.ViewHolder(
-            itemView) {
+        itemView
+    ) {
 
         fun bind(item: Suggestion) = with(itemView) {
             setOnClickListener {

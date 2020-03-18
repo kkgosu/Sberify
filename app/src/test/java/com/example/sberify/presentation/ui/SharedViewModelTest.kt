@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.sberify.MockTestUtils.Companion.mockAlbum
-import com.example.sberify.MockTestUtils.Companion.mockToken
 import com.example.sberify.MockTestUtils.Companion.mockTrack
 import com.example.sberify.data.Result
 import com.example.sberify.domain.IDatabaseRepository
@@ -54,7 +53,6 @@ class SharedViewModelTest {
         val album = mockAlbum()
         sharedViewModel.album.observeForever(observer)
         sharedViewModel.getAlbumInfo(album)
-        verify(spotifyRepository).getToken()
         verify(spotifyRepository).getAlbumInfo(album.id)
         verifyNoMoreInteractions(spotifyRepository)
         return@runBlocking
@@ -65,7 +63,6 @@ class SharedViewModelTest {
         val observer = mock<Observer<Result<List<Album>>>>()
         sharedViewModel.newReleases.observeForever(observer)
         sharedViewModel.refresh()
-        verify(spotifyRepository).getToken()
         verify(spotifyRepository).getNewReleases()
         verifyNoMoreInteractions(spotifyRepository)
         return@runBlocking
@@ -74,9 +71,8 @@ class SharedViewModelTest {
     @Test
     fun getArtist() = runBlocking {
         val observer = mock<Observer<Result<List<Artist>>>>()
-        sharedViewModel.artist.observeForever(observer)
+        sharedViewModel.artists.observeForever(observer)
         sharedViewModel.search("1", SearchType.ARTIST)
-        verify(spotifyRepository).getToken()
         verify(spotifyRepository).searchArtist("1")
         verifyNoMoreInteractions(spotifyRepository)
         return@runBlocking
@@ -126,7 +122,7 @@ class SharedViewModelTest {
         sharedViewModel.albums.observeForever(observer2)
 
         val observer3 = mock<Observer<Result<List<Artist>>>>()
-        sharedViewModel.artist.observeForever(observer3)
+        sharedViewModel.artists.observeForever(observer3)
 
         sharedViewModel.search("key", SearchType.ARTIST)
         sharedViewModel.search("key", SearchType.ALBUM)
@@ -181,7 +177,6 @@ class SharedViewModelTest {
 
     @Test
     fun refreshLyrics() {
-        whenever(spotifyRepository.getToken()).thenReturn(MutableLiveData(mockToken()))
 
         val result1 = Result.success(mockTrack())
         val result2 = Result.success(mockTrack().copy(id = "2"))

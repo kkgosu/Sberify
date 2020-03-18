@@ -4,66 +4,43 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RadioGroup
-import android.widget.TextView
-import androidx.appcompat.widget.SearchView
 import androidx.core.view.doOnPreDraw
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.example.sberify.R
 import com.example.sberify.base.BaseFragment
-import com.example.sberify.data.Result
 import com.example.sberify.databinding.FragmentSearchBinding
 import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Artist
 import com.example.sberify.models.domain.Suggestion
 import com.example.sberify.models.domain.Track
+import kotlinx.android.synthetic.main.fragment_search.*
 
 
 class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAdapter.Interaction {
-
-    private var searchType = SearchType.ARTIST
-
-    private lateinit var searchAdapter: SearchAdapter
-    private lateinit var suggestionsAdapter: SuggestionsAdapter
-    private lateinit var resultsRecyclerView: RecyclerView
-    private lateinit var suggestionsRecycler: RecyclerView
-    private var suggestions = emptyList<Suggestion>()
-
-    private lateinit var searchView: SearchView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        initBinding<FragmentSearchBinding>(R.layout.fragment_search, container)
-        resultsRecyclerView = mView.findViewById(R.id.search_results)
-        suggestionsRecycler = mView.findViewById(R.id.suggestion_recycler)
-
-        searchAdapter = SearchAdapter(this)
-        suggestionsAdapter = SuggestionsAdapter(this)
-
-        resultsRecyclerView.adapter = searchAdapter
-        suggestionsRecycler.apply {
-            adapter = suggestionsAdapter
-        }
-        searchView = mView.findViewById(R.id.search_view)
-        configureSearchView(searchView)
-        setupArtistObserver()
-        sharedViewModel.suggestions.observe(viewLifecycleOwner) {
-            suggestions = it
-            suggestionsAdapter.submitList(suggestions)
-        }
-
-        return mView
+        return binding<FragmentSearchBinding>(
+            inflater,
+            R.layout.fragment_search,
+            container
+        ).apply {
+            lifecycleOwner = this@SearchFragment
+            fragment = this@SearchFragment
+            suggestionAdapter = SuggestionsAdapter(this@SearchFragment)
+            searchAdapter = SearchAdapter(this@SearchFragment)
+            sharedVM = sharedViewModel
+            suggestionRecyclerView = suggestionRecycler
+            radioGroup = searchOptionsRg
+        }.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        resultsRecyclerView.doOnPreDraw {
+        search_results.doOnPreDraw {
             startPostponedEnterTransition()
         }
     }
@@ -75,9 +52,7 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
     override fun onAlbumSelected(item: Album, view: View) {
         sharedViewModel.getAlbumInfo(item)
         val extras = FragmentNavigatorExtras(
-            view.findViewById<TextView>(R.id.release_name) to "${item.name}album",
-            view.findViewById<ImageView>(R.id.release_cover) to "${item.imageUrl}album",
-            view.findViewById<TextView>(R.id.artist_name) to "${item.artist.name}album"
+            view to view.transitionName
         )
         findNavController().navigate(
             R.id.action_searchFragment_to_albumInfoFragment, null, null,
@@ -88,7 +63,7 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
     override fun onTrackSelected(position: Int, item: Track, view: View) {
         sharedViewModel.getLyrics(item)
         val extras = FragmentNavigatorExtras(
-            view.findViewById<TextView>(R.id.name) to item.name
+            view to view.transitionName
         )
         findNavController().navigate(
             R.id.action_searchFragment_to_lyricsFragment, null, null,
@@ -98,19 +73,19 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
 
     override fun onSuggestionSelected(position: Int, item: Suggestion) {
         val query = item.text
-        searchView.setQuery(query, true)
+        search_view.setQuery(query, true)
     }
 
     override fun onResume() {
         super.onResume()
-        suggestionsRecycler.visibility = View.GONE
+        suggestion_recycler.visibility = View.GONE
     }
 
 
-    private fun setupArtistObserver() {
+/*    private fun setupArtistObserver() {
         sharedViewModel.tracks.removeObservers(viewLifecycleOwner)
         sharedViewModel.albums.removeObservers(viewLifecycleOwner)
-        sharedViewModel.artist.observe(viewLifecycleOwner) {
+        sharedViewModel.artists.observe(viewLifecycleOwner) {
             when (it.status) {
                 Result.Status.SUCCESS -> {
                     if (searchType == SearchType.ARTIST) {
@@ -124,7 +99,7 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
 
     private fun setupAlbumObserver() {
         sharedViewModel.tracks.removeObservers(viewLifecycleOwner)
-        sharedViewModel.artist.removeObservers(viewLifecycleOwner)
+        sharedViewModel.artists.removeObservers(viewLifecycleOwner)
         sharedViewModel.albums.observe(viewLifecycleOwner) {
             when (it.status) {
                 Result.Status.SUCCESS -> {
@@ -138,7 +113,7 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
     }
 
     private fun setupTrackObserver() {
-        sharedViewModel.artist.removeObservers(viewLifecycleOwner)
+        sharedViewModel.artists.removeObservers(viewLifecycleOwner)
         sharedViewModel.albums.removeObservers(viewLifecycleOwner)
         sharedViewModel.tracks.observe(viewLifecycleOwner) {
             when (it.status) {
@@ -196,5 +171,5 @@ class SearchFragment : BaseFragment(), SearchAdapter.Interaction, SuggestionsAda
                     }
                 }
             }
-    }
+    }*/
 }

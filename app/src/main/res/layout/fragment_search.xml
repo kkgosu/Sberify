@@ -3,6 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="searchAdapter"
+            type="com.example.sberify.presentation.ui.search.SearchAdapter" />
+
+        <variable
+            name="suggestionAdapter"
+            type="com.example.sberify.presentation.ui.search.SuggestionsAdapter" />
+
+        <variable
+            name="sharedVM"
+            type="com.example.sberify.presentation.ui.SharedViewModel" />
+
+        <variable
+            name="fragment"
+            type="androidx.fragment.app.Fragment" />
+
+        <variable
+            name="suggestionRecyclerView"
+            type="androidx.recyclerview.widget.RecyclerView" />
+
+        <variable
+            name="radioGroup"
+            type="android.widget.RadioGroup" />
+
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,6 +39,9 @@
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_view"
+            suggestionAdapter="@{suggestionAdapter}"
+            suggestionRecycler="@{suggestionRecyclerView}"
+            viewModel="@{sharedVM}"
             android:layout_width="match_parent"
             android:layout_height="@dimen/search_view_height"
             android:background="@color/white_ish"
@@ -20,7 +51,44 @@
             app:queryHint="@string/search_hint"
             app:suggestionRowLayout="@layout/item_suggestion" />
 
-        <include layout="@layout/search_options" />
+        <RadioGroup
+            android:id="@+id/search_options_rg"
+            bindRadioGroup="@{radioGroup}"
+            fragment="@{fragment}"
+            viewModel="@{sharedVM}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white_ish"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_default">
+
+            <RadioButton
+                android:id="@+id/artist_rb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/artist"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:textSize="@dimen/test_size_small" />
+
+            <RadioButton
+                android:id="@+id/album_rb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/album"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:textSize="@dimen/test_size_small" />
+
+            <RadioButton
+                android:id="@+id/track_rb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/track"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                android:textSize="@dimen/test_size_small" />
+        </RadioGroup>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -29,6 +97,12 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/search_results"
                 style="@style/DefaultRecycler"
+                adapter="@{searchAdapter}"
+                fragment="@{fragment}"
+                searchAlbum="@{sharedVM.albums}"
+                searchArtist="@{sharedVM.artists}"
+                searchTrack="@{sharedVM.tracks}"
+                viewModel="@{sharedVM}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
@@ -36,6 +110,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/suggestion_recycler"
+                adapter="@{suggestionAdapter}"
+                bindSuggestions="@{sharedVM.suggestions}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
