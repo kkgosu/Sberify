@@ -9,18 +9,20 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.example.sberify.R
+import com.example.sberify.adapters.AlbumInteraction
+import com.example.sberify.adapters.TrackInteraction
 import com.example.sberify.base.BaseFragment
 import com.example.sberify.databinding.FragmentFavoriteBinding
 import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.Injectable
-import com.example.sberify.presentation.ui.albuminfo.AlbumDetailsAdapter
 import com.example.sberify.presentation.ui.newreleases.AlbumsAdapter
 import com.google.android.material.transition.Hold
 import kotlinx.android.synthetic.main.fragment_favorite.*
 
-class FavoriteFragment : BaseFragment(), Injectable, AlbumDetailsAdapter.Interaction,
-    AlbumsAdapter.Interaction {
+class FavoriteFragment : BaseFragment(), Injectable,
+    TrackInteraction,
+    AlbumInteraction {
 
     private val favoriteViewModel: FavoriteViewModel by viewModels { viewModelFactory }
 
@@ -52,10 +54,6 @@ class FavoriteFragment : BaseFragment(), Injectable, AlbumDetailsAdapter.Interac
         favorite_tracks_recycler.doOnNextLayout {
             startPostponedEnterTransition()
         }
-
-/*        favorite_albums_recycler.doOnNextLayout {
-            startPostponedEnterTransition()
-        }*/
 
         exitTransition = Hold().apply {
             duration = 450

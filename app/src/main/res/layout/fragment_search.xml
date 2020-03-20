@@ -7,7 +7,7 @@
 
         <variable
             name="searchAdapter"
-            type="com.example.sberify.presentation.ui.search.SearchAdapter" />
+            type="com.example.sberify.presentation.ui.search.SearchAdapter1" />
 
         <variable
             name="suggestionAdapter"
@@ -16,10 +16,6 @@
         <variable
             name="sharedVM"
             type="com.example.sberify.presentation.ui.SharedViewModel" />
-
-        <variable
-            name="fragment"
-            type="androidx.fragment.app.Fragment" />
 
         <variable
             name="suggestionRecyclerView"
@@ -54,8 +50,6 @@
         <RadioGroup
             android:id="@+id/search_options_rg"
             bindRadioGroup="@{radioGroup}"
-            fragment="@{fragment}"
-            viewModel="@{sharedVM}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white_ish"
@@ -98,11 +92,9 @@
                 android:id="@+id/search_results"
                 style="@style/DefaultRecycler"
                 adapter="@{searchAdapter}"
-                fragment="@{fragment}"
                 searchAlbum="@{sharedVM.albums}"
                 searchArtist="@{sharedVM.artists}"
                 searchTrack="@{sharedVM.tracks}"
-                viewModel="@{sharedVM}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"

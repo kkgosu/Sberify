@@ -8,8 +8,6 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.BindingAdapter
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
@@ -61,30 +59,19 @@ fun ImageView.bindingPalette(path: String?, palette: View) {
     }
 }
 
-@BindingAdapter("bindRadioGroup", "viewModel", "fragment")
+@BindingAdapter("bindRadioGroup")
 fun RadioGroup.bindRadioGroup(
-    group: RadioGroup,
-    viewModel: SharedViewModel,
-    fragment: Fragment
+    group: RadioGroup
 ) {
     group.setOnCheckedChangeListener { _, checkedId ->
         when (checkedId) {
             R.id.artist_rb -> {
-                viewModel.albums.removeObservers(fragment)
-                viewModel.tracks.removeObservers(fragment)
-                viewModel.artists.observe(fragment) {}
                 currentSearchType = SearchType.ARTIST
             }
             R.id.album_rb -> {
-                viewModel.artists.removeObservers(fragment)
-                viewModel.tracks.removeObservers(fragment)
-                viewModel.album.observe(fragment) {}
                 currentSearchType = SearchType.ALBUM
             }
             R.id.track_rb -> {
-                viewModel.artists.removeObservers(fragment)
-                viewModel.albums.removeObservers(fragment)
-                viewModel.tracks.observe(fragment) {}
                 currentSearchType = SearchType.TRACK
             }
         }

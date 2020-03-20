@@ -1,6 +1,5 @@
 package com.example.sberify.presentation.ui.search
 
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +13,7 @@ import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.utils.createDiffCallback
 import com.example.sberify.presentation.ui.utils.inflateLayout
 
-class SearchAdapter(private val interaction: Interaction? = null) :
+class SearchAdapter() :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val DIFF_CALLBACK_ARTIST = createDiffCallback<Artist>()
@@ -30,19 +29,19 @@ class SearchAdapter(private val interaction: Interaction? = null) :
             when (viewType) {
                 ARTIST_VIEW -> {
                     val binding = inflateLayout<ItemSearchBinding>(R.layout.item_search, parent)
-                    ViewHolderArtist(binding, interaction)
+                    ViewHolderArtist(binding)
                 }
                 ALBUM_VIEW -> {
                     val binding = inflateLayout<ItemAlbumBinding>(R.layout.item_album, parent)
-                    ViewHolderAlbum(binding, interaction)
+                    ViewHolderAlbum(binding)
                 }
                 TRACK_VIEW -> {
                     val binding = inflateLayout<ItemTrackBinding>(R.layout.item_track, parent)
-                    ViewHolderTrack(binding, interaction)
+                    ViewHolderTrack(binding)
                 }
                 else -> {
                     val binding = inflateLayout<ItemSearchBinding>(R.layout.item_search, parent)
-                    ViewHolderArtist(binding, interaction)
+                    ViewHolderArtist(binding)
                 }
             }
 
@@ -99,8 +98,7 @@ class SearchAdapter(private val interaction: Interaction? = null) :
     }
 
     class ViewHolderArtist
-    constructor(private val binding: ItemSearchBinding,
-            private val interaction: Interaction?) : RecyclerView.ViewHolder(binding.root) {
+    constructor(private val binding: ItemSearchBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Artist) = with(itemView) {
             binding.apply {
@@ -109,14 +107,12 @@ class SearchAdapter(private val interaction: Interaction? = null) :
                 executePendingBindings()
             }
             itemView.setOnClickListener {
-                interaction?.onArtistSelected(adapterPosition, item, this)
             }
         }
     }
 
     class ViewHolderAlbum
-    constructor(private val binding: ItemAlbumBinding,
-            private val interaction: Interaction?) : RecyclerView.ViewHolder(binding.root) {
+    constructor(private val binding: ItemAlbumBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Album) = with(itemView) {
             binding.apply {
@@ -125,15 +121,13 @@ class SearchAdapter(private val interaction: Interaction? = null) :
                 executePendingBindings()
             }
             itemView.setOnClickListener {
-                interaction?.onAlbumSelected(item, this)
             }
         }
     }
 
 
     class ViewHolderTrack
-    constructor(private val binding: ItemTrackBinding,
-            private val interaction: Interaction?) : RecyclerView.ViewHolder(binding.root) {
+    constructor(private val binding: ItemTrackBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Track) = with(itemView) {
             binding.apply {
@@ -142,15 +136,8 @@ class SearchAdapter(private val interaction: Interaction? = null) :
                 executePendingBindings()
             }
             itemView.setOnClickListener {
-                interaction?.onTrackSelected(adapterPosition, item, this)
             }
         }
-    }
-
-    interface Interaction {
-        fun onArtistSelected(position: Int, item: Artist, view: View)
-        fun onAlbumSelected(item: Album, view: View)
-        fun onTrackSelected(position: Int, item: Track, view: View)
     }
 
     companion object {

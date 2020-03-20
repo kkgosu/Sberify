@@ -8,6 +8,7 @@ import androidx.core.view.doOnNextLayout
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.example.sberify.R
+import com.example.sberify.adapters.AlbumInteraction
 import com.example.sberify.base.BaseFragment
 import com.example.sberify.databinding.FragmentNewReleasesBinding
 import com.example.sberify.models.domain.Album
@@ -16,7 +17,8 @@ import com.google.android.material.transition.Hold
 import kotlinx.android.synthetic.main.fragment_new_releases.*
 
 
-class NewReleasesFragment : BaseFragment(), Injectable, AlbumsAdapter.Interaction {
+class NewReleasesFragment : BaseFragment(), Injectable,
+    AlbumInteraction {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,10 +41,8 @@ class NewReleasesFragment : BaseFragment(), Injectable, AlbumsAdapter.Interactio
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         postponeEnterTransition()
-        new_releases_recycler.apply {
-            doOnNextLayout {
-                startPostponedEnterTransition()
-            }
+        new_releases_recycler.doOnNextLayout {
+            startPostponedEnterTransition()
         }
 
         exitTransition = Hold().apply {

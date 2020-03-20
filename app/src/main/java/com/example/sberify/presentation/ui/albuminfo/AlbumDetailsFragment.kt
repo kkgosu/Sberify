@@ -9,6 +9,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.sberify.R
+import com.example.sberify.adapters.TrackInteraction
 import com.example.sberify.base.BaseFragment
 import com.example.sberify.databinding.FragmentAlbumDetailsBinding
 import com.example.sberify.models.domain.Track
@@ -17,7 +18,8 @@ import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.android.synthetic.main.fragment_album_details.*
 
-class AlbumDetailsFragment : BaseFragment(), AlbumDetailsAdapter.Interaction {
+class AlbumDetailsFragment : BaseFragment(),
+    TrackInteraction {
 
     private val navArgs by navArgs<AlbumDetailsFragmentArgs>()
 
@@ -46,10 +48,9 @@ class AlbumDetailsFragment : BaseFragment(), AlbumDetailsAdapter.Interaction {
             release_date.text = releaseDate
         }
         postponeEnterTransition()
-        recycler_tracks.apply {
-            doOnNextLayout {
-                startPostponedEnterTransition()
-            }
+        recycler_tracks.doOnNextLayout {
+            startPostponedEnterTransition()
+
         }
 
         sharedElementEnterTransition = MaterialContainerTransform(requireContext()).apply {

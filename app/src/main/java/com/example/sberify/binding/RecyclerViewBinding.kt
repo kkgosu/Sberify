@@ -1,7 +1,6 @@
 package com.example.sberify.binding
 
 import androidx.databinding.BindingAdapter
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.lottie.LottieAnimationView
@@ -15,7 +14,7 @@ import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.albuminfo.AlbumDetailsAdapter
 import com.example.sberify.presentation.ui.favorite.FavoriteAdapter
 import com.example.sberify.presentation.ui.newreleases.AlbumsAdapter
-import com.example.sberify.presentation.ui.search.SearchAdapter
+import com.example.sberify.presentation.ui.search.SearchAdapter1
 import com.example.sberify.presentation.ui.search.SearchType
 import com.example.sberify.presentation.ui.search.SuggestionsAdapter
 import com.example.sberify.presentation.ui.search.currentSearchType
@@ -27,24 +26,18 @@ fun bindAdapter(view: RecyclerView, baseAdapter: RecyclerView.Adapter<RecyclerVi
     view.adapter = baseAdapter
 }
 
-@BindingAdapter("searchArtist", "searchTrack", "searchAlbum", "fragment", "viewModel")
+@BindingAdapter("searchArtist", "searchTrack", "searchAlbum")
 fun bindSearchArtist(
     recyclerView: RecyclerView,
     artist: Result<List<Artist>>?,
     track: Result<List<Track>>?,
-    album: Result<List<Album>>?,
-    fragment: Fragment,
-    viewModel: SharedViewModel
+    album: Result<List<Album>>?
 ) {
     when (artist?.status) {
         Result.Status.SUCCESS -> {
             if (currentSearchType == SearchType.ARTIST) {
-                viewModel.apply {
-                    tracks.removeObservers(fragment)
-                    albums.removeObservers(fragment)
-                }
                 artist.data?.let {
-                    (recyclerView.adapter as? SearchAdapter)?.submitList(it)
+                    (recyclerView.adapter as? SearchAdapter1)?.items = (it)
                 }
             }
         }
@@ -52,12 +45,8 @@ fun bindSearchArtist(
     when (album?.status) {
         Result.Status.SUCCESS -> {
             if (currentSearchType == SearchType.ALBUM) {
-                viewModel.apply {
-                    tracks.removeObservers(fragment)
-                    artists.removeObservers(fragment)
-                }
                 album.data?.let {
-                    (recyclerView.adapter as? SearchAdapter)?.submitList(it)
+                    (recyclerView.adapter as? SearchAdapter1)?.items = (it)
                 }
             }
         }
@@ -65,12 +54,8 @@ fun bindSearchArtist(
     when (track?.status) {
         Result.Status.SUCCESS -> {
             if (currentSearchType == SearchType.TRACK) {
-                viewModel.apply {
-                    albums.removeObservers(fragment)
-                    artists.removeObservers(fragment)
-                }
                 track.data?.let {
-                    (recyclerView.adapter as? SearchAdapter)?.submitList(it)
+                    (recyclerView.adapter as? SearchAdapter1)?.items = (it)
                 }
             }
         }
