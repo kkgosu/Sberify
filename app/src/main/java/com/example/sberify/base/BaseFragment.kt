@@ -2,7 +2,6 @@ package com.example.sberify.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
@@ -11,14 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.ViewModelFactory
-import com.example.sberify.presentation.ui.utils.inflateLayout
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 abstract class BaseFragment : Fragment() {
-
-    lateinit var binding: ViewDataBinding
-    lateinit var mView: View
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -35,13 +30,4 @@ abstract class BaseFragment : Fragment() {
         @LayoutRes resId: Int,
         container: ViewGroup?
     ): T = DataBindingUtil.inflate(inflater, resId, container, false)
-
-    protected inline fun <reified T : ViewDataBinding> initBinding(
-        @LayoutRes id: Int, container: ViewGroup?
-    ): T {
-        binding = inflateLayout(id, container)
-        binding.lifecycleOwner = viewLifecycleOwner
-        mView = binding.root
-        return binding as T
-    }
 }

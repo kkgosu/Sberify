@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
-import com.example.sberify.base.BaseAdapter
 import com.example.sberify.data.Result
 import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Artist
@@ -15,15 +14,12 @@ import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.albuminfo.AlbumDetailsAdapter
 import com.example.sberify.presentation.ui.newreleases.AlbumsAdapter
-import com.example.sberify.presentation.ui.search.SearchAdapter
-import com.example.sberify.presentation.ui.search.SearchType
-import com.example.sberify.presentation.ui.search.SuggestionsAdapter
-import com.example.sberify.presentation.ui.search.currentSearchType
+import com.example.sberify.presentation.ui.search.*
 import com.example.sberify.presentation.ui.utils.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 @BindingAdapter("adapter")
-fun bindAdapter(view: RecyclerView, baseAdapter: BaseAdapter) {
+fun bindAdapter(view: RecyclerView, baseAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
     view.adapter = baseAdapter
 }
 
@@ -85,21 +81,18 @@ fun bindSuggestions(
     suggestions?.let { (recyclerView.adapter as? SuggestionsAdapter)?.submitList(it) }
 }
 
-@BindingAdapter("bindFavTracks")
+@BindingAdapter("bindFavTracks", "bindFavAlbums")
 fun bindFavTracks(
     recyclerView: RecyclerView,
-    tracks: List<Track>?
-) {
-    recyclerView.setDivider(R.drawable.divider)
-    tracks?.let { (recyclerView.adapter as? AlbumDetailsAdapter)?.submitList(it) }
-}
-
-@BindingAdapter("bindFavAlbums")
-fun bindFavAlbums(
-    recyclerView: RecyclerView,
+    tracks: List<Track>?,
     albums: List<Album>?
 ) {
-    albums?.let { (recyclerView.adapter as? AlbumsAdapter)?.submitList(it) }
+    recyclerView.setDivider(R.drawable.divider)
+    tracks?.let { tracks1 ->
+        albums?.let {
+            (recyclerView.adapter as? TrackAdapter)?.items = (tracks1 + it)
+        }
+    }
 }
 
 @BindingAdapter("adapterTrackList", "fab", "viewModel")

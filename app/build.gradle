@@ -88,6 +88,10 @@ android {
         implementation "com.airbnb.android:lottie:$rootProject.lottieVersion"
         implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
         implementation "com.github.skydoves:transformationlayout:1.0.1"
+
+        implementation 'com.hannesdorfmann:adapterdelegates4-kotlin-dsl:4.3.0'
+        implementation 'com.hannesdorfmann:adapterdelegates4-kotlin-dsl-layoutcontainer:4.3.0'
+        implementation 'com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.0'
         
         implementation 'com.spotify.android:auth:1.2.2'
 
