@@ -16,7 +16,6 @@ import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.Injectable
 import com.example.sberify.presentation.ui.albuminfo.AlbumDetailsAdapter
 import com.example.sberify.presentation.ui.newreleases.AlbumsAdapter
-import com.example.sberify.presentation.ui.search.TrackAdapter
 import com.google.android.material.transition.Hold
 import kotlinx.android.synthetic.main.fragment_favorite.*
 
@@ -36,7 +35,11 @@ class FavoriteFragment : BaseFragment(), Injectable, AlbumDetailsAdapter.Interac
         ).apply {
             lifecycleOwner = this@FavoriteFragment
             favoriteVM = favoriteViewModel
-            tracksAdapter = TrackAdapter(this@FavoriteFragment, this@FavoriteFragment)
+            tracksAdapter =
+                FavoriteAdapter(
+                    this@FavoriteFragment,
+                    this@FavoriteFragment
+                )
             albumsAdapter = AlbumsAdapter(this@FavoriteFragment)
 
             favoriteViewModel.loadFavorite()
@@ -74,7 +77,7 @@ class FavoriteFragment : BaseFragment(), Injectable, AlbumDetailsAdapter.Interac
         val extras = FragmentNavigatorExtras(
             view to view.transitionName
         )
-        println((favorite_tracks_recycler.adapter as TrackAdapter).itemCount)
+        println((favorite_tracks_recycler.adapter as FavoriteAdapter).itemCount)
         findNavController().navigate(
             FavoriteFragmentDirections.actionFavoriteFragmentToAlbumInfoFragment2(
                 item

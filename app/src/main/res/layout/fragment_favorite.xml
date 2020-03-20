@@ -11,7 +11,7 @@
 
         <variable
             name="tracksAdapter"
-            type="com.example.sberify.presentation.ui.search.TrackAdapter" />
+            type="com.example.sberify.presentation.ui.favorite.FavoriteAdapter" />
 
         <variable
             name="albumsAdapter"
@@ -38,6 +38,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/favorite_tracks_recycler"
+            style="@style/DefaultRecycler"
             adapter="@{tracksAdapter}"
             bindFavAlbums="@{favoriteVM.favoriteAlbums}"
             bindFavTracks="@{favoriteVM.favoriteTracks}"
@@ -48,28 +49,6 @@
             app:layout_constraintTop_toBottomOf="@id/favorite_tracks_label"
             tools:itemCount="5"
             tools:listitem="@layout/item_track_listed" />
-
-        <TextView
-            android:id="@+id/favorite_albums_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/padding_default"
-            android:text="@string/favorite_albums"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            app:layout_constraintTop_toBottomOf="@id/favorite_tracks_recycler" />
-
-        <!--        <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/favorite_albums_recycler"
-                    style="@style/DefaultRecycler"
-                    adapter="@{albumsAdapter}"
-                    bindFavAlbums="@{favoriteVM.favoriteAlbums}"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@id/favorite_albums_label"
-                    app:spanCount="2"
-                    tools:listitem="@layout/item_album" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

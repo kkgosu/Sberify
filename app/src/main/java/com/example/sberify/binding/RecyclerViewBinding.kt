@@ -13,8 +13,12 @@ import com.example.sberify.models.domain.Suggestion
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.albuminfo.AlbumDetailsAdapter
+import com.example.sberify.presentation.ui.favorite.FavoriteAdapter
 import com.example.sberify.presentation.ui.newreleases.AlbumsAdapter
-import com.example.sberify.presentation.ui.search.*
+import com.example.sberify.presentation.ui.search.SearchAdapter
+import com.example.sberify.presentation.ui.search.SearchType
+import com.example.sberify.presentation.ui.search.SuggestionsAdapter
+import com.example.sberify.presentation.ui.search.currentSearchType
 import com.example.sberify.presentation.ui.utils.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -88,9 +92,9 @@ fun bindFavTracks(
     albums: List<Album>?
 ) {
     recyclerView.setDivider(R.drawable.divider)
-    tracks?.let { tracks1 ->
+    tracks?.let {
         albums?.let {
-            (recyclerView.adapter as? TrackAdapter)?.items = (tracks1 + it)
+            (recyclerView.adapter as? FavoriteAdapter)?.items = tracks + albums
         }
     }
 }

@@ -1,13 +1,15 @@
-package com.example.sberify.presentation.ui.search
+package com.example.sberify.presentation.ui.favorite
 
 import androidx.recyclerview.widget.DiffUtil
+import com.example.sberify.base.albumAdapterDelegate
+import com.example.sberify.base.trackAdapterDelegate
 import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.presentation.ui.albuminfo.AlbumDetailsAdapter
 import com.example.sberify.presentation.ui.newreleases.AlbumsAdapter
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
 
-class TrackAdapter(
+class FavoriteAdapter(
     private val trackInteraction: AlbumDetailsAdapter.Interaction?,
     private val albumInteraction: AlbumsAdapter.Interaction
 ) :
@@ -21,11 +23,8 @@ class TrackAdapter(
             .addDelegate(albumAdapterDelegate { album, view ->
                 albumInteraction.onAlbumSelected(album, view)
             })
-
     }
-
     companion object {
-
         private val DIFF_CALLBACK: DiffUtil.ItemCallback<BaseModel> =
             object : DiffUtil.ItemCallback<BaseModel>() {
                 override fun areItemsTheSame(oldItem: BaseModel, newItem: BaseModel): Boolean =

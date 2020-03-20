@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui.search
+package com.example.sberify.base
 
 import android.view.View
 import androidx.core.view.ViewCompat
