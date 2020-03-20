@@ -4,11 +4,11 @@ import android.view.View
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.example.sberify.R
-import com.example.sberify.base.BaseAdapter2
+import com.example.sberify.base.BaseAdapter
 import com.example.sberify.base.BaseViewHolder
 import com.example.sberify.models.domain.Track
 
-class AlbumDetailsAdapter(private val interaction: Interaction? = null) : BaseAdapter2() {
+class AlbumDetailsAdapter(private val interaction: Interaction? = null) : BaseAdapter() {
 
     interface Interaction {
         fun onTrackSelected(item: Track, view: View)

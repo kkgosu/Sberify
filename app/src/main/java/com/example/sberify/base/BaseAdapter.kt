@@ -7,7 +7,7 @@ import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseAdapter2 : RecyclerView.Adapter<BaseViewHolder>() {
+abstract class BaseAdapter : RecyclerView.Adapter<BaseViewHolder>() {
 
     protected lateinit var differ: AsyncListDiffer<Any>
 

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
-import com.example.sberify.base.BaseAdapter1
+import com.example.sberify.base.BaseAdapter
 import com.example.sberify.data.Result
 import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Artist
@@ -23,7 +23,7 @@ import com.example.sberify.presentation.ui.utils.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 @BindingAdapter("adapter")
-fun bindAdapter(view: RecyclerView, baseAdapter: BaseAdapter1) {
+fun bindAdapter(view: RecyclerView, baseAdapter: BaseAdapter) {
     view.adapter = baseAdapter
 }
 

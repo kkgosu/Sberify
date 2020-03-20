@@ -4,12 +4,12 @@ import android.view.View
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.example.sberify.R
-import com.example.sberify.base.BaseAdapter2
+import com.example.sberify.base.BaseAdapter
 import com.example.sberify.base.BaseViewHolder
 import com.example.sberify.models.domain.Album
 
 class AlbumsAdapter(private val interaction: Interaction? = null) :
-    BaseAdapter2() {
+    BaseAdapter() {
 
     interface Interaction {
         fun onAlbumSelected(item: Album, view: View)
