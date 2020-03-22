@@ -18,9 +18,9 @@ import com.example.sberify.data.Result
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.lyrics.LyricsViewModel
+import com.example.sberify.presentation.ui.search.SearchFragment.Companion.CURRENT_SEARCH_TYPE
 import com.example.sberify.presentation.ui.search.SearchType
 import com.example.sberify.presentation.ui.search.SuggestionsAdapter
-import com.example.sberify.presentation.ui.search.currentSearchType
 import com.example.sberify.presentation.ui.utils.hideAnimation
 import com.example.sberify.presentation.ui.utils.setFavoriteIcon
 import com.example.sberify.presentation.ui.utils.showAnimation
@@ -66,13 +66,13 @@ fun RadioGroup.bindRadioGroup(
     group.setOnCheckedChangeListener { _, checkedId ->
         when (checkedId) {
             R.id.artist_rb -> {
-                currentSearchType = SearchType.ARTIST
+                CURRENT_SEARCH_TYPE = SearchType.ARTIST
             }
             R.id.album_rb -> {
-                currentSearchType = SearchType.ALBUM
+                CURRENT_SEARCH_TYPE = SearchType.ALBUM
             }
             R.id.track_rb -> {
-                currentSearchType = SearchType.TRACK
+                CURRENT_SEARCH_TYPE = SearchType.TRACK
             }
         }
     }
@@ -107,7 +107,7 @@ fun bindSearchView(
 
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.insertSuggestion(query!!)
-                viewModel.search(query, currentSearchType)
+                viewModel.search(query, CURRENT_SEARCH_TYPE)
                 clearFocus()
                 suggestionsRecycler.visibility = View.GONE
                 return true
@@ -125,18 +125,26 @@ fun bindLyrics(
     when (track?.status) {
         Result.Status.SUCCESS -> {
             track.data?.lyrics?.let {
+                println("<top>.bindLyrics.Success")
                 hideAnimation(anim)
                 textView.visibility = View.VISIBLE
                 textView.text = it
             }
+            if (track.data?.lyrics == null) {
+                println("null lyrics = error")
+                hideAnimation(anim)
+                textView.visibility = View.GONE
+            }
         }
         Result.Status.LOADING -> {
+            println("<top>.bindLyrics.Loading")
             showAnimation(anim)
             textView.visibility = View.GONE
         }
         Result.Status.ERROR -> {
+            println("<top>.bindLyrics.error")
             hideAnimation(anim)
-            textView.visibility = View.VISIBLE
+            textView.visibility = View.GONE
         }
     }
 }
@@ -150,7 +158,7 @@ fun bindFavoriteButton(
     when (track?.status) {
         Result.Status.SUCCESS -> {
             val data = track.data
-            data?.lyrics?.let {
+            data?.let {
                 favButton.apply {
                     setFavoriteIcon(this, !data.isFavorite)
                     setOnClickListener {

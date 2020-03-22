@@ -1,150 +1,34 @@
 package com.example.sberify.presentation.ui.search
 
-import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.RecyclerView
-import com.example.sberify.R
-import com.example.sberify.databinding.ItemAlbumBinding
-import com.example.sberify.databinding.ItemSearchBinding
-import com.example.sberify.databinding.ItemTrackBinding
-import com.example.sberify.models.domain.Album
-import com.example.sberify.models.domain.Artist
-import com.example.sberify.models.domain.Track
-import com.example.sberify.presentation.ui.utils.createDiffCallback
-import com.example.sberify.presentation.ui.utils.inflateLayout
+import androidx.recyclerview.widget.DiffUtil
+import com.example.sberify.adapters.*
+import com.example.sberify.models.domain.BaseModel
+import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
-class SearchAdapter() :
-        RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SearchAdapter(
+    private val trackInteraction: TrackInteraction?,
+    private val albumInteraction: AlbumInteraction?
+) : AsyncListDifferDelegationAdapter<BaseModel>(DIFF_CALLBACK) {
 
-    private val DIFF_CALLBACK_ARTIST = createDiffCallback<Artist>()
-    private val differArtist = AsyncListDiffer(this, DIFF_CALLBACK_ARTIST)
-
-    private val DIFF_CALLBACK_ALBUM = createDiffCallback<Album>()
-    private val differAlbum = AsyncListDiffer(this, DIFF_CALLBACK_ALBUM)
-
-    private val DIFF_CALLBACK_TRACK = createDiffCallback<Track>()
-    private val differTrack = AsyncListDiffer(this, DIFF_CALLBACK_TRACK)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-            when (viewType) {
-                ARTIST_VIEW -> {
-                    val binding = inflateLayout<ItemSearchBinding>(R.layout.item_search, parent)
-                    ViewHolderArtist(binding)
-                }
-                ALBUM_VIEW -> {
-                    val binding = inflateLayout<ItemAlbumBinding>(R.layout.item_album, parent)
-                    ViewHolderAlbum(binding)
-                }
-                TRACK_VIEW -> {
-                    val binding = inflateLayout<ItemTrackBinding>(R.layout.item_track, parent)
-                    ViewHolderTrack(binding)
-                }
-                else -> {
-                    val binding = inflateLayout<ItemSearchBinding>(R.layout.item_search, parent)
-                    ViewHolderArtist(binding)
-                }
-            }
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is ViewHolderArtist -> {
-                val artist = differArtist.currentList[position]
-                holder.bind(artist)
-            }
-            is ViewHolderAlbum -> {
-                val album = differAlbum.currentList[position]
-                holder.bind(album)
-            }
-            is ViewHolderTrack -> {
-                val track = differTrack.currentList[position]
-                holder.bind(track)
-            }
-        }
-    }
-
-    override fun getItemCount(): Int =
-            when (currentSearchType) {
-                SearchType.ARTIST -> differArtist.currentList.size
-                SearchType.ALBUM -> differAlbum.currentList.size
-                SearchType.TRACK -> differTrack.currentList.size
-            }
-
-    override fun getItemViewType(position: Int): Int =
-            when (currentSearchType) {
-                SearchType.ARTIST -> ARTIST_VIEW
-                SearchType.ALBUM -> ALBUM_VIEW
-                SearchType.TRACK -> TRACK_VIEW
-            }
-
-    @JvmName("submitListArtist")
-    fun submitList(list: List<Artist>) {
-        differAlbum.submitList(emptyList())
-        differTrack.submitList(emptyList())
-        differArtist.submitList(list)
-    }
-
-    @JvmName("submitListTrack")
-    fun submitList(list: List<Track>) {
-        differArtist.submitList(emptyList())
-        differAlbum.submitList(emptyList())
-        differTrack.submitList(list)
-    }
-
-    @JvmName("submitListAlbum")
-    fun submitList(list: List<Album>) {
-        differArtist.submitList(emptyList())
-        differTrack.submitList(emptyList())
-        differAlbum.submitList(list)
-    }
-
-    class ViewHolderArtist
-    constructor(private val binding: ItemSearchBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(item: Artist) = with(itemView) {
-            binding.apply {
-                artist = item
-                palette = itemSearchPalette
-                executePendingBindings()
-            }
-            itemView.setOnClickListener {
-            }
-        }
-    }
-
-    class ViewHolderAlbum
-    constructor(private val binding: ItemAlbumBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(item: Album) = with(itemView) {
-            binding.apply {
-                album = item
-                palette = itemAlbumPalette
-                executePendingBindings()
-            }
-            itemView.setOnClickListener {
-            }
-        }
-    }
-
-
-    class ViewHolderTrack
-    constructor(private val binding: ItemTrackBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(item: Track) = with(itemView) {
-            binding.apply {
-                track = item
-                palette = itemTrackPalette
-                executePendingBindings()
-            }
-            itemView.setOnClickListener {
-            }
-        }
+    init {
+        delegatesManager
+            .addDelegate(albumAdapterDelegate { album, view ->
+                albumInteraction?.onAlbumSelected(album, view)
+            })
+            .addDelegate(trackCardViewAdapterDelegate { track, view ->
+                trackInteraction?.onTrackSelected(track, view)
+            })
+            .addDelegate(artistAdapterDelegate())
     }
 
     companion object {
-        private const val ARTIST_VIEW = 0
-        private const val ALBUM_VIEW = 1
-        private const val TRACK_VIEW = 2
+        private val DIFF_CALLBACK: DiffUtil.ItemCallback<BaseModel> =
+            object : DiffUtil.ItemCallback<BaseModel>() {
+                override fun areItemsTheSame(oldItem: BaseModel, newItem: BaseModel): Boolean =
+                    oldItem.baseId == newItem.baseId
 
-        var currentSearchType: SearchType = SearchType.ARTIST
+                override fun areContentsTheSame(oldItem: BaseModel, newItem: BaseModel): Boolean =
+                    oldItem == newItem
+            }
     }
 }

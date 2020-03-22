@@ -14,10 +14,10 @@ import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.albuminfo.AlbumDetailsAdapter
 import com.example.sberify.presentation.ui.favorite.FavoriteAdapter
 import com.example.sberify.presentation.ui.newreleases.AlbumsAdapter
-import com.example.sberify.presentation.ui.search.SearchAdapter1
+import com.example.sberify.presentation.ui.search.SearchAdapter
+import com.example.sberify.presentation.ui.search.SearchFragment.Companion.CURRENT_SEARCH_TYPE
 import com.example.sberify.presentation.ui.search.SearchType
 import com.example.sberify.presentation.ui.search.SuggestionsAdapter
-import com.example.sberify.presentation.ui.search.currentSearchType
 import com.example.sberify.presentation.ui.utils.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -35,27 +35,27 @@ fun bindSearchArtist(
 ) {
     when (artist?.status) {
         Result.Status.SUCCESS -> {
-            if (currentSearchType == SearchType.ARTIST) {
+            if (CURRENT_SEARCH_TYPE == SearchType.ARTIST) {
                 artist.data?.let {
-                    (recyclerView.adapter as? SearchAdapter1)?.items = (it)
+                    (recyclerView.adapter as? SearchAdapter)?.items = (it)
                 }
             }
         }
     }
     when (album?.status) {
         Result.Status.SUCCESS -> {
-            if (currentSearchType == SearchType.ALBUM) {
+            if (CURRENT_SEARCH_TYPE == SearchType.ALBUM) {
                 album.data?.let {
-                    (recyclerView.adapter as? SearchAdapter1)?.items = (it)
+                    (recyclerView.adapter as? SearchAdapter)?.items = (it)
                 }
             }
         }
     }
     when (track?.status) {
         Result.Status.SUCCESS -> {
-            if (currentSearchType == SearchType.TRACK) {
+            if (CURRENT_SEARCH_TYPE == SearchType.TRACK) {
                 track.data?.let {
-                    (recyclerView.adapter as? SearchAdapter1)?.items = (it)
+                    (recyclerView.adapter as? SearchAdapter)?.items = (it)
                 }
             }
         }

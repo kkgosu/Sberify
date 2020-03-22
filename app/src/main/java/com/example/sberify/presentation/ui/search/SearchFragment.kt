@@ -32,7 +32,7 @@ class SearchFragment : BaseFragment(), AlbumInteraction, TrackInteraction,
         ).apply {
             lifecycleOwner = this@SearchFragment
             suggestionAdapter = SuggestionsAdapter(this@SearchFragment)
-            searchAdapter = SearchAdapter1(this@SearchFragment, this@SearchFragment)
+            searchAdapter = SearchAdapter(this@SearchFragment, this@SearchFragment)
             sharedVM = sharedViewModel
             suggestionRecyclerView = suggestionRecycler
             radioGroup = searchOptionsRg
@@ -73,5 +73,9 @@ class SearchFragment : BaseFragment(), AlbumInteraction, TrackInteraction,
     override fun onSuggestionSelected(position: Int, item: Suggestion) {
         val query = item.text
         search_view.setQuery(query, true)
+    }
+
+    companion object {
+        var CURRENT_SEARCH_TYPE: SearchType = SearchType.ARTIST
     }
 }

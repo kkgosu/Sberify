@@ -12,11 +12,12 @@ import java.io.IOException
 
 class GeniusParser {
 
-    suspend fun parseLyrics(track: Track): Result<Track> {
+    fun parseLyrics(track: Track): Result<Track> {
         var request: Result<Document>
         val trackName: String = filterTrackName(track.name)
         var trackUrl: String = filterLyricsUrl(
-                "${track.artists[0].name.normalize()} $trackName")
+            "${track.artists[0].name.normalize()} $trackName"
+        )
 
         println(trackUrl)
         request = makeRequest(trackUrl)
@@ -41,12 +42,16 @@ class GeniusParser {
         return Result.error(request.message ?: "error")
     }
 
-    private suspend fun makeRequest(trackUrl: String): Result<Document> {
+    private fun makeRequest(trackUrl: String): Result<Document> {
         return try {
-            val response = Jsoup.connect("https://genius.com/$trackUrl").execute()
+            val response = Jsoup
+                .connect("https://genius.com/$trackUrl")
+                .timeout(5000)
+                .execute()
             getResult { response }
         } catch (e: IOException) {
-            Result.error(e.localizedMessage, null)
+            println(e.message)
+            Result.error(e.message.toString(), null)
         }
     }
 
@@ -58,9 +63,9 @@ class GeniusParser {
     private fun filterLyricsUrl(track: String): String {
         val regex = Regex("[^A-Za-z0-9\\-&]")
         return "$track lyrics"
-                .replace(" ", "-")
-                .replace("&", "and")
-                .replace(regex, "")
+            .replace(" ", "-")
+            .replace("&", "and")
+            .replace(regex, "")
     }
 
     @SuppressLint("DefaultLocale")
@@ -70,9 +75,9 @@ class GeniusParser {
         val regexWith = Regex(".*[(\\[]with.*")
         result = when {
             result.toLowerCase().matches(regexFeat) -> result.substringBefore("feat")
-                    .dropLast(2)
+                .dropLast(2)
             result.toLowerCase().matches(regexWith) -> result.substringBefore("with")
-                    .dropLast(2)
+                .dropLast(2)
             else -> result
         }
         return result
@@ -80,20 +85,21 @@ class GeniusParser {
 
     private fun cleanPreserveLineBreaks(bodyHtml: String): String {
         var prettyPrintedBodyFragment: String = Jsoup.clean(
-                bodyHtml, "",
-                Whitelist.none().addTags("br", "p"), Document.OutputSettings().prettyPrint(true))
+            bodyHtml, "",
+            Whitelist.none().addTags("br", "p"), Document.OutputSettings().prettyPrint(true)
+        )
         prettyPrintedBodyFragment = prettyPrintedBodyFragment.replace("<br>", "\n")
-                .replace("<p>", "\n\n")
-                .replace("</p>", "\n\n")
-                .replace("\n +", "\n")
-                .replace("^\\s*", "")
-                .drop(2)
-                .dropLast(2)
+            .replace("<p>", "\n\n")
+            .replace("</p>", "\n\n")
+            .replace("\n +", "\n")
+            .replace("^\\s*", "")
+            .drop(2)
+            .dropLast(2)
 
         return prettyPrintedBodyFragment
     }
 
-    private suspend fun getResult(call: suspend () -> Connection.Response): Result<Document> {
+    private fun getResult(call: () -> Connection.Response): Result<Document> {
         try {
             val response = call()
             if (response.statusCode() == 200) {
