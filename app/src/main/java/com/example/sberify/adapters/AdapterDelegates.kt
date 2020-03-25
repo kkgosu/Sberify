@@ -13,7 +13,7 @@ import com.example.sberify.models.domain.Track
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
 
-fun trackAdapterDelegate(itemClickListener: (Track, View) -> Unit) =
+fun trackListedAdapterDelegate(itemClickListener: (Track, View) -> Unit) =
     adapterDelegateViewBinding<Track, BaseModel, ItemTrackLineBinding>({ layoutInflater, parent ->
         ItemTrackLineBinding.inflate(layoutInflater, parent, false)
     }) {

@@ -97,7 +97,7 @@ fun bindAdapterAlbumDetails(
             Result.Status.SUCCESS -> {
                 albumDetails.data?.let { album ->
                     album.tracks?.let { tracks ->
-                        (view.adapter as? AlbumDetailsAdapter)?.submitList(tracks)
+                        (view.adapter as? AlbumDetailsAdapter)?.items = tracks
                         fab.apply {
                             setFavoriteIcon(this, !album.isFavorite)
                             setOnClickListener {

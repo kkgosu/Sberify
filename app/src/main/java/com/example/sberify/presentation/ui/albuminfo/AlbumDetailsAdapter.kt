@@ -1,40 +1,14 @@
 package com.example.sberify.presentation.ui.albuminfo
 
-import android.view.View
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
-import com.example.sberify.R
 import com.example.sberify.adapters.TrackInteraction
-import com.example.sberify.base.BaseAdapter
-import com.example.sberify.base.BaseViewHolder
-import com.example.sberify.models.domain.Track
+import com.example.sberify.adapters.trackListedAdapterDelegate
+import com.example.sberify.base.BaseAdapter1
 
-class AlbumDetailsAdapter(private val interaction: TrackInteraction? = null) : BaseAdapter() {
+class AlbumDetailsAdapter(private val trackInteraction: TrackInteraction?) : BaseAdapter1() {
 
     init {
-        val diffCallback = object : DiffUtil.ItemCallback<Track>() {
-
-            override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(oldItem: Track, newItem: Track): Boolean {
-                return oldItem == newItem
-            }
-        }
-
-        differ = AsyncListDiffer(this, diffCallback) as AsyncListDiffer<Any>
+        delegatesManager.addDelegate(trackListedAdapterDelegate { track, view ->
+            trackInteraction?.onTrackSelected(track, view)
+        })
     }
-
-    override fun layout(position: Int): Int = R.layout.item_track_line
-
-    override fun viewHolder(layout: Int, view: View): BaseViewHolder =
-        AlbumDetailsViewHolder(view, interaction)
-
-    override fun submitList(list: List<Any>) {
-        if (list[0] is Track) {
-            differ.submitList(list)
-        }
-    }
-
 }
