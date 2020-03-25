@@ -2,10 +2,7 @@
     <string name="app_name">Sberify</string>
     <string name="favorite">Favorite</string>
     <string name="search">Search</string>
-    <string name="delete">Delete</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_hint">Artist, album, track…</string>
     <string name="artist">Artist</string>
     <string name="album">Album</string>
@@ -14,5 +11,7 @@
     <string name="com_spotify_sdk_redirect_scheme">spotify-sdk</string>
     <string name="com_spotify_sdk_redirect_host">auth</string>
     <string name="favorite_tracks">Favorite tracks</string>
-    <string name="favorite_albums">Favorite albums</string>
+    <string name="back_to_previous_screen">Back to previous screen</string>
+    <string name="add_to_favorite">Add to favorite</string>
+    <string name="history">History</string>
 </resources>

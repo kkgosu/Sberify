@@ -1,6 +1,7 @@
 package com.example.sberify.presentation.ui.favorite
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.sberify.domain.IDatabaseRepository
 import com.example.sberify.models.domain.Track
@@ -35,15 +36,15 @@ class FavoriteViewModelTest {
     @Test
     fun loadFavorite() = runBlocking {
         val observer = mock<Observer<List<Track>>>()
-        val tracks = listOf<Track>()
+        val tracks = MutableLiveData(listOf<Track>())
         whenever(databaseRepo.loadFavoriteTracks()).thenReturn(tracks)
 
         favoriteViewModel.favoriteTracks.observeForever(observer)
         favoriteViewModel.loadFavorite()
-        
+
         delay(1000)
         verify(databaseRepo).loadFavoriteTracks()
-        verify(observer).onChanged(tracks)
+        verify(observer).onChanged(tracks.value)
         verifyNoMoreInteractions(databaseRepo)
         return@runBlocking
     }

@@ -6,5 +6,4 @@ data class AlbumData(val id: String,
         val name: String,
         val tracks: TracksData.Items?,
         val popularity: Int? = null,
-        val release_date: String) : BaseDataModel() {
-}
+        val release_date: String) : BaseDataModel()

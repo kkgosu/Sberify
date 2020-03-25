@@ -25,14 +25,6 @@ android {
         }
     }
 
-    buildTypes.each {
-        Properties properties = new Properties()
-        properties.load(project.rootProject.file("local.properties").newDataInputStream())
-        def basic = properties.getProperty("basic", "")
-        it.buildConfigField 'String', "BASIC", basic
-        it.resValue 'string', "basic", basic
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

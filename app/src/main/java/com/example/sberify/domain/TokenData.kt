@@ -5,7 +5,6 @@ import androidx.preference.PreferenceManager
 import com.example.sberify.SberifyApp
 
 object TokenData {
-    private const val TAG = "Pref"
     private lateinit var prefs: SharedPreferences
 
     private fun initializePrefs() {

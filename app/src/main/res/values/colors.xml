@@ -5,15 +5,8 @@
     <color name="colorAccent">#19bb4f</color>
     <color name="white">#ffffff</color>
 
-    <color name="textColorPrimary">@color/white</color>
-
-    <color name="search_layover_bg">@color/gray</color>
-    <color name="search_field_bg">@color/white_ish</color>
-
     <color name="transparent">#00FFFFFF</color>
     <color name="black">#ff000000</color>
-    <color name="gray">#ff888888</color>
-    <color name="white_50">#88ffffff</color>
     <color name="black_50">#88000000</color>
     <color name="gray_50">#88888888</color>
 
