@@ -2,14 +2,8 @@ package com.example.sberify.adapters
 
 import android.view.View
 import androidx.core.view.ViewCompat
-import com.example.sberify.databinding.ItemAlbumBinding
-import com.example.sberify.databinding.ItemSearchBinding
-import com.example.sberify.databinding.ItemTrackBinding
-import com.example.sberify.databinding.ItemTrackLineBinding
-import com.example.sberify.models.domain.Album
-import com.example.sberify.models.domain.Artist
-import com.example.sberify.models.domain.BaseModel
-import com.example.sberify.models.domain.Track
+import com.example.sberify.databinding.*
+import com.example.sberify.models.domain.*
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
 
@@ -77,3 +71,15 @@ fun artistAdapterDelegate() =
             }
         }
     }
+
+fun headerAdapterDelegate() =
+    adapterDelegateViewBinding<Header, BaseModel, ItemHeaderBinding>({ layoutInflater, parent ->
+        ItemHeaderBinding.inflate(layoutInflater, parent, false)
+    }) {
+        bind {
+            binding.apply {
+                headerText.text = item.header
+            }
+        }
+    }
+

@@ -1,9 +1,6 @@
 package com.example.sberify.presentation.ui.favorite
 
-import com.example.sberify.adapters.AlbumInteraction
-import com.example.sberify.adapters.TrackInteraction
-import com.example.sberify.adapters.albumAdapterDelegate
-import com.example.sberify.adapters.trackCardViewAdapterDelegate
+import com.example.sberify.adapters.*
 import com.example.sberify.base.BaseAdapter1
 
 
@@ -20,5 +17,6 @@ class FavoriteAdapter(
             .addDelegate(albumAdapterDelegate { album, view ->
                 albumInteraction?.onAlbumSelected(album, view)
             })
+            .addDelegate(headerAdapterDelegate())
     }
 }

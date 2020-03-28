@@ -6,10 +6,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
 import com.example.sberify.data.Result
-import com.example.sberify.models.domain.Album
-import com.example.sberify.models.domain.Artist
-import com.example.sberify.models.domain.Suggestion
-import com.example.sberify.models.domain.Track
+import com.example.sberify.models.domain.*
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.albuminfo.AlbumDetailsAdapter
 import com.example.sberify.presentation.ui.favorite.FavoriteAdapter
@@ -76,16 +73,13 @@ fun bindFavTracks(
     tracks: List<Track>?,
     albums: List<Album>?
 ) {
-/*    recyclerView.addItemDecoration(
-        HeaderItemDecoration(
-            recyclerView.context,
-            recyclerView,
-            R.layout.header
-        )
-    )*/
     tracks?.let {
         albums?.let {
-            (recyclerView.adapter as? FavoriteAdapter)?.items = tracks + albums
+            (recyclerView.adapter as? FavoriteAdapter)?.items =
+                listOf(Header("Favorite tracks")) +
+                        tracks +
+                        listOf(Header("Favorite albums")) +
+                        albums
         }
     }
 }
