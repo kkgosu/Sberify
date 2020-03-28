@@ -76,7 +76,13 @@ fun bindFavTracks(
     tracks: List<Track>?,
     albums: List<Album>?
 ) {
-    recyclerView.setDivider(R.drawable.divider)
+/*    recyclerView.addItemDecoration(
+        HeaderItemDecoration(
+            recyclerView.context,
+            recyclerView,
+            R.layout.header
+        )
+    )*/
     tracks?.let {
         albums?.let {
             (recyclerView.adapter as? FavoriteAdapter)?.items = tracks + albums

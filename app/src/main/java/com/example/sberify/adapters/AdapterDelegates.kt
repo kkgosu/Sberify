@@ -30,23 +30,6 @@ fun trackListedAdapterDelegate(itemClickListener: (Track, View) -> Unit) =
         }
     }
 
-fun albumAdapterDelegate(itemClickListener: (Album, View) -> Unit) =
-    adapterDelegateViewBinding<Album, BaseModel, ItemAlbumBinding>({ layoutInflater, parent ->
-        ItemAlbumBinding.inflate(layoutInflater, parent, false)
-    }) {
-        binding.root.setOnClickListener {
-            itemClickListener.invoke(item, it)
-        }
-        bind {
-            binding.apply {
-                ViewCompat.setTransitionName(binding.cardView, item.id)
-                album = item
-                palette = itemAlbumPalette
-                executePendingBindings()
-            }
-        }
-    }
-
 fun trackCardViewAdapterDelegate(itemClickListener: (Track, View) -> Unit) =
     adapterDelegateViewBinding<Track, BaseModel, ItemTrackBinding>({ layoutInflater, parent ->
         ItemTrackBinding.inflate(layoutInflater, parent, false)
@@ -59,6 +42,23 @@ fun trackCardViewAdapterDelegate(itemClickListener: (Track, View) -> Unit) =
                 ViewCompat.setTransitionName(binding.itemContainer, item.id)
                 track = item
                 palette = itemTrackPalette
+                executePendingBindings()
+            }
+        }
+    }
+
+fun albumAdapterDelegate(itemClickListener: (Album, View) -> Unit) =
+    adapterDelegateViewBinding<Album, BaseModel, ItemAlbumBinding>({ layoutInflater, parent ->
+        ItemAlbumBinding.inflate(layoutInflater, parent, false)
+    }) {
+        binding.root.setOnClickListener {
+            itemClickListener.invoke(item, it)
+        }
+        bind {
+            binding.apply {
+                ViewCompat.setTransitionName(binding.cardView, item.id)
+                album = item
+                palette = itemAlbumPalette
                 executePendingBindings()
             }
         }
