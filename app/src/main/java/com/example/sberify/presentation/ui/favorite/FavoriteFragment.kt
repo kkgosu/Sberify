@@ -10,13 +10,14 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.example.sberify.R
 import com.example.sberify.adapters.AlbumInteraction
+import com.example.sberify.adapters.AlbumsAdapter
 import com.example.sberify.adapters.TrackInteraction
+import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseFragment
 import com.example.sberify.databinding.FragmentFavoriteBinding
 import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.Injectable
-import com.example.sberify.presentation.ui.newreleases.AlbumsAdapter
 import com.google.android.material.transition.Hold
 import kotlinx.android.synthetic.main.fragment_favorite.*
 
@@ -38,10 +39,7 @@ class FavoriteFragment : BaseFragment(), Injectable,
             lifecycleOwner = this@FavoriteFragment
             favoriteVM = favoriteViewModel
             tracksAdapter =
-                FavoriteAdapter(
-                    this@FavoriteFragment,
-                    this@FavoriteFragment
-                )
+                TrackListedAdapter(this@FavoriteFragment)
             albumsAdapter = AlbumsAdapter(this@FavoriteFragment)
 
             favoriteViewModel.loadFavorite()
@@ -75,7 +73,6 @@ class FavoriteFragment : BaseFragment(), Injectable,
         val extras = FragmentNavigatorExtras(
             view to view.transitionName
         )
-        println((favorite_tracks_recycler.adapter as FavoriteAdapter).itemCount)
         findNavController().navigate(
             FavoriteFragmentDirections.actionFavoriteFragmentToAlbumInfoFragment2(
                 item

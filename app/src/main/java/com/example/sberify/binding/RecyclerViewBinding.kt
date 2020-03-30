@@ -5,11 +5,13 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
+import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.data.Result
-import com.example.sberify.models.domain.*
+import com.example.sberify.models.domain.Album
+import com.example.sberify.models.domain.Artist
+import com.example.sberify.models.domain.Suggestion
+import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.SharedViewModel
-import com.example.sberify.presentation.ui.albuminfo.AlbumDetailsAdapter
-import com.example.sberify.presentation.ui.favorite.FavoriteAdapter
 import com.example.sberify.presentation.ui.newreleases.AlbumsAdapter
 import com.example.sberify.presentation.ui.search.SearchAdapter
 import com.example.sberify.presentation.ui.search.SearchFragment.Companion.CURRENT_SEARCH_TYPE
@@ -67,37 +69,41 @@ fun bindSuggestions(
     suggestions?.let { (recyclerView.adapter as? SuggestionsAdapter)?.submitList(it) }
 }
 
-@BindingAdapter("bindFavTracks", "bindFavAlbums")
+@BindingAdapter("bindFavTracks")
 fun bindFavTracks(
     recyclerView: RecyclerView,
-    tracks: List<Track>?,
+    tracks: List<Track>?
+) {
+    recyclerView.setDivider(R.drawable.divider)
+    tracks?.let {
+        (recyclerView.adapter as? TrackListedAdapter)?.items = tracks
+    }
+}
+
+@BindingAdapter("bindFavAlbums")
+fun bindFavAlbums(
+    recyclerView: RecyclerView,
     albums: List<Album>?
 ) {
-    tracks?.let {
-        albums?.let {
-            (recyclerView.adapter as? FavoriteAdapter)?.items =
-                listOf(Header("Favorite tracks")) +
-                        tracks +
-                        listOf(Header("Favorite albums")) +
-                        albums
-        }
+    albums?.let {
+        (recyclerView.adapter as? com.example.sberify.adapters.AlbumsAdapter)?.items = albums
     }
 }
 
 @BindingAdapter("adapterTrackList", "fab", "viewModel")
 fun bindAdapterAlbumDetails(
-    view: RecyclerView,
+    recyclerView: RecyclerView,
     albumDetails: Result<Album>?,
     fab: FloatingActionButton,
     viewModel: SharedViewModel
 ) {
-    view.setDivider(R.drawable.divider)
+    recyclerView.setDivider(R.drawable.divider)
     albumDetails?.let {
         when (albumDetails.status) {
             Result.Status.SUCCESS -> {
                 albumDetails.data?.let { album ->
                     album.tracks?.let { tracks ->
-                        (view.adapter as? AlbumDetailsAdapter)?.items = tracks
+                        (recyclerView.adapter as? TrackListedAdapter)?.items = tracks
                         fab.apply {
                             setFavoriteIcon(this, !album.isFavorite)
                             setOnClickListener {
@@ -120,7 +126,7 @@ fun bindAdapterAlbumDetails(
 
 @BindingAdapter("adapterAlbumList", "animation", "swipeRefreshLayout")
 fun bindAdapterAlbumList(
-    view: RecyclerView,
+    recyclerView: RecyclerView,
     albums: Result<List<Album>>?,
     anim: LottieAnimationView,
     swipeRefreshLayout: SwipeRefreshLayout
@@ -130,7 +136,7 @@ fun bindAdapterAlbumList(
             Result.Status.SUCCESS -> {
                 swipeRefreshLayout.isRefreshing = false
                 albums.data?.let { album ->
-                    (view.adapter as? AlbumsAdapter)?.submitList(album)
+                    (recyclerView.adapter as? AlbumsAdapter)?.submitList(album)
                 }
                 hideAnimation(anim)
             }

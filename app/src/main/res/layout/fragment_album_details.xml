@@ -19,7 +19,7 @@
 
         <variable
             name="adapter"
-            type="com.example.sberify.presentation.ui.albuminfo.AlbumDetailsAdapter" />
+            type="com.example.sberify.adapters.TrackListedAdapter" />
 
     </data>
 

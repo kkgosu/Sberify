@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.sberify.R
 import com.example.sberify.adapters.TrackInteraction
+import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseFragment
 import com.example.sberify.databinding.FragmentAlbumDetailsBinding
 import com.example.sberify.models.domain.Track
@@ -35,7 +36,8 @@ class AlbumDetailsFragment : BaseFragment(),
             lifecycleOwner = this@AlbumDetailsFragment
             viewModel = sharedViewModel
             fragment = this@AlbumDetailsFragment
-            adapter = AlbumDetailsAdapter(this@AlbumDetailsFragment)
+            adapter =
+                TrackListedAdapter(this@AlbumDetailsFragment)
             fab = fabFavorite
         }.root
     }
