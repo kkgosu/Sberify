@@ -130,11 +130,6 @@ fun bindLyrics(
                 textView.visibility = View.VISIBLE
                 textView.text = it
             }
-            if (track.data?.lyrics == null) {
-                println("null lyrics = error")
-                hideAnimation(anim)
-                textView.visibility = View.GONE
-            }
         }
         Result.Status.LOADING -> {
             println("<top>.bindLyrics.Loading")

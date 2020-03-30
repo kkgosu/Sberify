@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 
 fun <T, A> resultLiveData(
     databaseQuery: () -> LiveData<T>,
@@ -22,6 +23,7 @@ fun <T, A> resultLiveData(
             emitSource(newSource)
         } else if (responseStatus.status == Result.Status.ERROR) {
             emit(Result.error(responseStatus.message!!))
+            delay(100)
             emitSource(source)
         }
     }

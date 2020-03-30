@@ -50,8 +50,8 @@ class GeniusParser {
                 .execute()
             getResult { response }
         } catch (e: IOException) {
-            println(e.message)
-            Result.error(e.message.toString(), null)
+            println("mkRequest ${e.message}")
+            return Result.error(e.message.toString(), null)
         }
     }
 
