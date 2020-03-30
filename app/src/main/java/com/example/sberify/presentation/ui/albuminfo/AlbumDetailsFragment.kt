@@ -48,6 +48,7 @@ class AlbumDetailsFragment : BaseFragment(),
             artist_name.text = artist.name
             album_name.text = name
             release_date.text = releaseDate
+            detail_toolbar.title = name
         }
         postponeEnterTransition()
         recycler_tracks.doOnNextLayout {

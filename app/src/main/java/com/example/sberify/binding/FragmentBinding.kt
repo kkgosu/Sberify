@@ -6,19 +6,18 @@ import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_lyrics.*
 
-fun Fragment.simpleToolbarWithHome(toolbar: Toolbar, title_: String? = "") {
+fun Fragment.simpleToolbarWithHome(toolbar: Toolbar) {
     (requireActivity() as AppCompatActivity).apply {
         setSupportActionBar(toolbar)
         supportActionBar?.run {
             setDisplayHomeAsUpEnabled(true)
-            title = title_
         }
     }
 }
 
-@BindingAdapter("simpleToolbarWithHome", "simpleToolbarTitle")
-fun bindToolbarWithTitle(toolbar: Toolbar, fragment: Fragment, title: String?) {
-    fragment.simpleToolbarWithHome(toolbar, title)
+@BindingAdapter("simpleToolbarWithHome")
+fun bindToolbarWithTitle(toolbar: Toolbar, fragment: Fragment) {
+    fragment.simpleToolbarWithHome(toolbar)
 }
 
 @BindingAdapter("simpleToolbar", "toolbarTitle")
