@@ -1,12 +1,11 @@
-package com.example.sberify.presentation.ui.search
+package com.example.sberify.adapters
 
-import com.example.sberify.adapters.*
-import com.example.sberify.base.BaseAdapter1
+import com.example.sberify.base.BaseAdapter
 
 class SearchAdapter(
     private val trackInteraction: TrackInteraction?,
     private val albumInteraction: AlbumInteraction?
-) : BaseAdapter1() {
+) : BaseAdapter() {
 
     init {
         delegatesManager

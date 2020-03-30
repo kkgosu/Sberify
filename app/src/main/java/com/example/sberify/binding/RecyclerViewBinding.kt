@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
+import com.example.sberify.adapters.AlbumsAdapter
+import com.example.sberify.adapters.SearchAdapter
 import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.data.Result
 import com.example.sberify.models.domain.Album
@@ -12,8 +14,6 @@ import com.example.sberify.models.domain.Artist
 import com.example.sberify.models.domain.Suggestion
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.SharedViewModel
-import com.example.sberify.presentation.ui.newreleases.AlbumsAdapter
-import com.example.sberify.presentation.ui.search.SearchAdapter
 import com.example.sberify.presentation.ui.search.SearchFragment.Companion.CURRENT_SEARCH_TYPE
 import com.example.sberify.presentation.ui.search.SearchType
 import com.example.sberify.presentation.ui.search.SuggestionsAdapter
@@ -86,7 +86,7 @@ fun bindFavAlbums(
     albums: List<Album>?
 ) {
     albums?.let {
-        (recyclerView.adapter as? com.example.sberify.adapters.AlbumsAdapter)?.items = albums
+        (recyclerView.adapter as? AlbumsAdapter)?.items = albums
     }
 }
 
@@ -136,7 +136,7 @@ fun bindAdapterAlbumList(
             Result.Status.SUCCESS -> {
                 swipeRefreshLayout.isRefreshing = false
                 albums.data?.let { album ->
-                    (recyclerView.adapter as? AlbumsAdapter)?.submitList(album)
+                    (recyclerView.adapter as? AlbumsAdapter)?.items = album
                 }
                 hideAnimation(anim)
             }

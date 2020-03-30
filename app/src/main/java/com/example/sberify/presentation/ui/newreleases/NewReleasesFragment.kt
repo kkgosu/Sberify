@@ -9,6 +9,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.example.sberify.R
 import com.example.sberify.adapters.AlbumInteraction
+import com.example.sberify.adapters.AlbumsAdapter
 import com.example.sberify.base.BaseFragment
 import com.example.sberify.databinding.FragmentNewReleasesBinding
 import com.example.sberify.models.domain.Album

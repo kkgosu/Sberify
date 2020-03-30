@@ -15,7 +15,7 @@
 
         <variable
             name="adapter"
-            type="com.example.sberify.presentation.ui.newreleases.AlbumsAdapter" />
+            type="com.example.sberify.adapters.AlbumsAdapter" />
 
         <variable
             name="swipeRefresh"

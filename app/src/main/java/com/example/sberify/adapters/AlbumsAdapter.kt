@@ -1,8 +1,8 @@
 package com.example.sberify.adapters
 
-import com.example.sberify.base.BaseAdapter1
+import com.example.sberify.base.BaseAdapter
 
-class AlbumsAdapter(private val albumInteraction: AlbumInteraction?) : BaseAdapter1() {
+class AlbumsAdapter(private val albumInteraction: AlbumInteraction?) : BaseAdapter() {
 
     init {
         delegatesManager.addDelegate(albumAdapterDelegate { album, view ->

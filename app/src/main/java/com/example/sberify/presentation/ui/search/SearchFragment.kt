@@ -9,6 +9,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.example.sberify.R
 import com.example.sberify.adapters.AlbumInteraction
+import com.example.sberify.adapters.SearchAdapter
 import com.example.sberify.adapters.TrackInteraction
 import com.example.sberify.base.BaseFragment
 import com.example.sberify.databinding.FragmentSearchBinding
@@ -32,7 +33,10 @@ class SearchFragment : BaseFragment(), AlbumInteraction, TrackInteraction,
         ).apply {
             lifecycleOwner = this@SearchFragment
             suggestionAdapter = SuggestionsAdapter(this@SearchFragment)
-            searchAdapter = SearchAdapter(this@SearchFragment, this@SearchFragment)
+            searchAdapter = SearchAdapter(
+                this@SearchFragment,
+                this@SearchFragment
+            )
             sharedVM = sharedViewModel
             suggestionRecyclerView = suggestionRecycler
             radioGroup = searchOptionsRg

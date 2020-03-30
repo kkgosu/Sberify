@@ -7,7 +7,7 @@
 
         <variable
             name="searchAdapter"
-            type="com.example.sberify.presentation.ui.search.SearchAdapter" />
+            type="com.example.sberify.adapters.SearchAdapter" />
 
         <variable
             name="suggestionAdapter"
