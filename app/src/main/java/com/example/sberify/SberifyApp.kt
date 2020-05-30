@@ -3,6 +3,7 @@ package com.example.sberify
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.sberify.di.ApiModule
 import com.example.sberify.di.DaggerAppComponent
 import com.example.sberify.di.DbModule
@@ -21,6 +22,8 @@ class SberifyApp : Application(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
         instance = this
         
         DaggerAppComponent.builder()
