@@ -18,10 +18,10 @@
         android:id="@+id/item_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_small"
-        app:cardBackgroundColor="@color/gray_800"
-        app:cardCornerRadius="@dimen/corner_radius_default"
-        app:elevation="@dimen/elevation_default">
+        android:layout_margin="@dimen/margin_xsmall"
+        app:cardBackgroundColor="@color/background2"
+        app:cardCornerRadius="@dimen/corner_radius_medium"
+        app:elevation="@dimen/elevation_medium">
 
         <LinearLayout
             android:id="@+id/item_track_palette"
@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="4dp">
+                android:padding="@dimen/padding_xsmall">
 
                 <TextView
                     android:id="@+id/name"

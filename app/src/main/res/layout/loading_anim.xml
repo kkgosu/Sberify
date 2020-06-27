@@ -6,7 +6,7 @@
         android:id="@+id/loading_animation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
+        android:background="@color/background0"
         android:visibility="gone"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/music_fly"

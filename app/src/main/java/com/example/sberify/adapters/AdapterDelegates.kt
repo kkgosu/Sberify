@@ -8,8 +8,8 @@ import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
 
 fun trackListedAdapterDelegate(itemClickListener: (Track, View) -> Unit) =
-    adapterDelegateViewBinding<Track, BaseModel, ItemTrackLineBinding>({ layoutInflater, parent ->
-        ItemTrackLineBinding.inflate(layoutInflater, parent, false)
+    adapterDelegateViewBinding<Track, BaseModel, ItemTrackListedBinding>({ layoutInflater, parent ->
+        ItemTrackListedBinding.inflate(layoutInflater, parent, false)
     }) {
         binding.root.setOnClickListener {
             itemClickListener.invoke(item, it)

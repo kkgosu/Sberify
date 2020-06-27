@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/bottom_bar_height"
     android:layout_gravity="bottom"
-    android:background="@color/gray_800"
+    android:background="@color/background2"
     app:itemIconTint="@color/bnv"
     app:itemTextColor="@color/bnv"
     app:menu="@menu/another_bottom_menu">

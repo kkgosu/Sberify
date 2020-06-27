@@ -30,7 +30,7 @@
         android:id="@+id/lyrics_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray_900">
+        android:background="@color/background1">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -38,8 +38,7 @@
             toolbarTitle="@{viewModel.lyrics.data.name}"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/gray_800"
-            android:elevation="@dimen/elevation_default"
+            android:background="@color/background1"
             app:contentInsetStart="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -51,10 +50,10 @@
                 <ImageButton
                     android:id="@+id/back"
                     android:layout_width="?attr/actionBarSize"
-                    android:layout_height="0dp"
+                    android:layout_height="@dimen/match_constraint"
                     android:background="@color/transparent"
-                    android:padding="10dp"
                     android:contentDescription="@string/back_to_previous_screen"
+                    android:padding="@dimen/padding_medium_large"
                     android:src="@drawable/ic_arrow_back"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -62,8 +61,8 @@
 
                 <TextView
                     android:id="@+id/title"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="@dimen/match_constraint"
                     android:gravity="center"
                     android:textAppearance="@style/CollapsedTitleText"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -75,12 +74,12 @@
                     android:id="@+id/favorite_button"
                     track="@{viewModel.lyrics}"
                     viewModel="@{lyricsVM}"
-                    android:contentDescription="@string/add_to_favorite"
                     android:layout_width="?attr/actionBarSize"
-                    android:layout_height="0dp"
+                    android:layout_height="@dimen/match_constraint"
                     android:alpha="1"
-                    android:background="@android:color/transparent"
-                    android:padding="10dp"
+                    android:background="@color/transparent"
+                    android:contentDescription="@string/add_to_favorite"
+                    android:padding="@dimen/padding_medium_large"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -93,7 +92,7 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/match_constraint"
             android:clipToPadding="false"
             android:paddingBottom="@dimen/bottom_bar_height"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -105,11 +104,9 @@
                 lyrics="@{viewModel.lyrics}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/padding_default"
+                android:padding="@dimen/padding_medium"
                 android:textAlignment="textStart"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-                android:textColor="@color/white_ish"
-                android:textSize="20sp"
+                android:textAppearance="@style/LyricsTextAppearance"
                 tools:text="[Intro]
 Young Metro, young Metro, young Metro (Sheesh)
 Ayy (Ayy)

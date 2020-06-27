@@ -26,7 +26,6 @@
         android:fillViewport="true"
         android:scrollbars="vertical">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,7 +35,7 @@
                 android:id="@+id/favorite_tracks_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/padding_default"
+                android:padding="@dimen/padding_medium"
                 android:text="@string/favorite_tracks"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
@@ -60,7 +59,7 @@
                 android:id="@+id/favorite_albums_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/padding_default"
+                android:padding="@dimen/padding_medium"
                 android:text="@string/favorite_albums"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"

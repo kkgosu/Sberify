@@ -30,7 +30,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
+        android:background="@color/background0"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.SearchView
@@ -40,7 +40,7 @@
             viewModel="@{sharedVM}"
             android:layout_width="match_parent"
             android:layout_height="@dimen/search_view_height"
-            android:background="@color/white_ish"
+            android:background="@color/background1_inverted"
             android:imeOptions="actionSearch"
             android:inputType="text"
             app:iconifiedByDefault="false"
@@ -52,9 +52,9 @@
             bindRadioGroup="@{radioGroup}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white_ish"
+            android:background="@color/background1_inverted"
             android:orientation="horizontal"
-            android:padding="@dimen/padding_default">
+            android:padding="@dimen/padding_medium">
 
             <RadioButton
                 android:id="@+id/artist_rb"
@@ -63,7 +63,7 @@
                 android:layout_weight="1"
                 android:text="@string/artist"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:textSize="@dimen/test_size_small" />
+                android:textSize="@dimen/text_size_small" />
 
             <RadioButton
                 android:id="@+id/album_rb"
@@ -72,7 +72,7 @@
                 android:layout_weight="1"
                 android:text="@string/album"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:textSize="@dimen/test_size_small" />
+                android:textSize="@dimen/text_size_small" />
 
             <RadioButton
                 android:id="@+id/track_rb"
@@ -81,7 +81,7 @@
                 android:layout_weight="1"
                 android:text="@string/track"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:textSize="@dimen/test_size_small" />
+                android:textSize="@dimen/text_size_small" />
         </RadioGroup>
 
         <FrameLayout
@@ -106,7 +106,7 @@
                 bindSuggestions="@{sharedVM.suggestions}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@color/background1_inverted"
                 android:layoutAnimation="@anim/layout_animation_fall_down"
                 android:visibility="visible"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

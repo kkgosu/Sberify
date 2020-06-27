@@ -18,11 +18,11 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_small"
+        android:layout_margin="@dimen/margin_xsmall"
         android:foreground="?attr/selectableItemBackground"
-        app:cardBackgroundColor="@color/gray_800"
-        app:cardCornerRadius="@dimen/corner_radius_default"
-        app:elevation="@dimen/elevation_default">
+        app:cardBackgroundColor="@color/background2"
+        app:cardCornerRadius="@dimen/corner_radius_medium"
+        app:elevation="@dimen/elevation_medium">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="4dp">
+                android:padding="@dimen/padding_xsmall">
 
                 <TextView
                     android:id="@+id/release_name"

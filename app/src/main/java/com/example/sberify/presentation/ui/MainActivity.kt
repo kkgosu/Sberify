@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -56,6 +57,8 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         requestToken()
+
+        window.statusBarColor = ContextCompat.getColor(this, R.color.background1)
 
         val binding: ActivityMainBinding by binding(R.layout.activity_main)
         binding.lifecycleOwner = this
