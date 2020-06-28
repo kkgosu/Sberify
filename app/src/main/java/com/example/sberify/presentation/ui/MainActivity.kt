@@ -12,6 +12,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
 import androidx.navigation.NavController
 import com.example.sberify.R
 import com.example.sberify.databinding.ActivityMainBinding
@@ -56,9 +57,8 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        requestToken()
-
         window.statusBarColor = ContextCompat.getColor(this, R.color.background1)
+        requestToken()
 
         val binding: ActivityMainBinding by binding(R.layout.activity_main)
         binding.lifecycleOwner = this
@@ -68,6 +68,17 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         }
 
         sharedViewModel.refresh()
+
+        sharedViewModel.play.observe(this) {track ->
+            spotifyAppRemote?.playerApi?.play("spotify:track:${track.id}")
+            spotifyAppRemote
+                ?.playerApi
+                ?.subscribeToPlayerState()
+                ?.setEventCallback {
+                    val stateTrack = it.track
+                    println("Now playing ${stateTrack.name} by ${stateTrack.artist.name}")
+                }
+        }
     }
 
     override fun onStart() {
@@ -84,24 +95,10 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         }
     }
 
-    private suspend fun connectToAppRemote(): SpotifyAppRemote? =
-        suspendCoroutine { continuation: Continuation<SpotifyAppRemote> ->
-            SpotifyAppRemote.connect(applicationContext,
-                ConnectionParams.Builder(CLIENT_ID)
-                    .setRedirectUri(REDIRECT_URL)
-                    .setAuthMethod(ConnectionParams.AuthMethod.APP_ID)
-                    .showAuthView(true)
-                    .build(),
-                object : Connector.ConnectionListener {
-                    override fun onConnected(p0: SpotifyAppRemote) {
-                        continuation.resume(p0)
-                    }
-
-                    override fun onFailure(p0: Throwable) {
-                        continuation.resumeWithException(p0)
-                    }
-                })
-        }
+    override fun onStop() {
+        super.onStop()
+        SpotifyAppRemote.disconnect(spotifyAppRemote)
+    }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
@@ -131,6 +128,25 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     override fun onSupportNavigateUp(): Boolean {
         return currentNavController?.value?.navigateUp() ?: false
     }
+
+    private suspend fun connectToAppRemote(): SpotifyAppRemote? =
+        suspendCoroutine { continuation: Continuation<SpotifyAppRemote> ->
+            SpotifyAppRemote.connect(applicationContext,
+                ConnectionParams.Builder(CLIENT_ID)
+                    .setRedirectUri(REDIRECT_URL)
+                    .setAuthMethod(ConnectionParams.AuthMethod.APP_ID)
+                    .showAuthView(true)
+                    .build(),
+                object : Connector.ConnectionListener {
+                    override fun onConnected(p0: SpotifyAppRemote) {
+                        continuation.resume(p0)
+                    }
+
+                    override fun onFailure(p0: Throwable) {
+                        continuation.resumeWithException(p0)
+                    }
+                })
+        }
 
     private inline fun <reified T : ViewDataBinding> binding(
         @LayoutRes resId: Int

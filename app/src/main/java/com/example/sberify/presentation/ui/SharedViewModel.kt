@@ -28,6 +28,13 @@ class SharedViewModel @Inject constructor(
     private val searchTrackTrigger = MutableLiveData<String>()
     private val lyricsTrigger = MutableLiveData<Track>()
 
+    private val playTrigger = MutableLiveData<Track>()
+    val play: LiveData<Track> = playTrigger
+
+    fun onPlayClick(track: Track) {
+        playTrigger.value = track
+    }
+
     fun getAlbumInfo(album: Album) {
         albumInfoTrigger.value = album
     }

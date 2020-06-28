@@ -172,6 +172,28 @@ fun bindFavoriteButton(
     }
 }
 
+@BindingAdapter("track", "sharedVM")
+fun bindPlayButton(
+    playButton: FloatingActionButton,
+    track: Result<Track>?,
+    sharedVM: SharedViewModel
+) {
+    when (track?.status) {
+        Result.Status.SUCCESS -> {
+            val data = track.data
+            data?.let {trackData ->
+                playButton.setOnClickListener {
+                    sharedVM.onPlayClick(trackData)
+                }
+            }
+        }
+        Result.Status.LOADING -> {
+        }
+        Result.Status.ERROR -> {
+        }
+    }
+}
+
 @BindingAdapter("bindFab")
 fun bindAppBarLayoutWithFab(appBarLayout: AppBarLayout, fab: FloatingActionButton) {
     appBarLayout.addOnOffsetChangedListener(

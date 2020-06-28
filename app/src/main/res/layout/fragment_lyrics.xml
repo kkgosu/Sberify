@@ -14,6 +14,10 @@
             type="android.widget.ImageButton" />
 
         <variable
+            name="play"
+            type="com.google.android.material.floatingactionbutton.FloatingActionButton" />
+
+        <variable
             name="lyricsVM"
             type="com.example.sberify.presentation.ui.lyrics.LyricsViewModel" />
 
@@ -89,6 +93,22 @@
         <include
             android:id="@+id/animation"
             layout="@layout/loading_anim" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/play_button"
+            sharedVM="@{viewModel}"
+            track="@{viewModel.lyrics}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginBottom="66dp"
+            android:padding="@dimen/padding_medium"
+            android:src="@drawable/ic_play_arrow_black_24dp"
+            android:textColor="@color/white"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/white" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"

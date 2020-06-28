@@ -34,6 +34,7 @@ class LyricsFragment : BaseFragment(), Injectable {
             lyricsVM = lyricsViewModel
             anim = animation.loadingAnimation
             favorite = favoriteButton
+            play = playButton
         }.root
     }
 
