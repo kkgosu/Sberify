@@ -56,8 +56,8 @@ class AlbumDetailsFragment : BaseFragment(),
 
         }
 
-        sharedElementEnterTransition = MaterialContainerTransform(requireContext()).apply {
-            pathMotion = MaterialArcMotion()
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            setPathMotion(MaterialArcMotion())
             duration = 450
         }
 

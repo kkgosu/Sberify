@@ -39,7 +39,7 @@ android {
         implementation project(':spotify-app-remote')
         implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
         implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
-        implementation "androidx.preference:preference-ktx:$rootProject.ktxVersion"
+        implementation "androidx.preference:preference-ktx:$rootProject.preferenceVersion"
         implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintlayoutVersion"
         implementation "androidx.legacy:legacy-support-v4:1.0.0"
 
@@ -78,7 +78,7 @@ android {
         implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
         implementation 'com.github.florent37:glidepalette:2.1.2'
         implementation "com.airbnb.android:lottie:$rootProject.lottieVersion"
-        implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+        implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
         implementation "com.github.skydoves:transformationlayout:1.0.1"
 
         implementation 'com.hannesdorfmann:adapterdelegates4-kotlin-dsl:4.3.0'

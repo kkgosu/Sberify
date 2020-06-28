@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
                 ?.subscribeToPlayerState()
                 ?.setEventCallback {
                     val stateTrack = it.track
-                    println("Now playing ${stateTrack.name} by ${stateTrack.artist.name}")
+                    println("Now playing ${stateTrack.name} by ${stateTrack.artist.name}. Song id: ${stateTrack.uri}")
                 }
         }
     }
