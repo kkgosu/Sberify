@@ -6,16 +6,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.R
 import com.example.sberify.adapters.AlbumsAdapter
-import com.example.sberify.adapters.SearchAdapter
 import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.data.Result
 import com.example.sberify.models.domain.Album
-import com.example.sberify.models.domain.Artist
 import com.example.sberify.models.domain.Suggestion
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.SharedViewModel
-import com.example.sberify.presentation.ui.search.SearchFragment.Companion.CURRENT_SEARCH_TYPE
-import com.example.sberify.presentation.ui.search.SearchType
 import com.example.sberify.presentation.ui.search.SuggestionsAdapter
 import com.example.sberify.presentation.ui.utils.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -23,42 +19,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 @BindingAdapter("adapter")
 fun bindAdapter(view: RecyclerView, baseAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
     view.adapter = baseAdapter
-}
-
-@BindingAdapter("searchArtist", "searchTrack", "searchAlbum")
-fun bindSearchArtist(
-    recyclerView: RecyclerView,
-    artist: Result<List<Artist>>?,
-    track: Result<List<Track>>?,
-    album: Result<List<Album>>?
-) {
-    when (artist?.status) {
-        Result.Status.SUCCESS -> {
-            if (CURRENT_SEARCH_TYPE == SearchType.ARTIST) {
-                artist.data?.let {
-                    (recyclerView.adapter as? SearchAdapter)?.items = (it)
-                }
-            }
-        }
-    }
-    when (album?.status) {
-        Result.Status.SUCCESS -> {
-            if (CURRENT_SEARCH_TYPE == SearchType.ALBUM) {
-                album.data?.let {
-                    (recyclerView.adapter as? SearchAdapter)?.items = (it)
-                }
-            }
-        }
-    }
-    when (track?.status) {
-        Result.Status.SUCCESS -> {
-            if (CURRENT_SEARCH_TYPE == SearchType.TRACK) {
-                track.data?.let {
-                    (recyclerView.adapter as? SearchAdapter)?.items = (it)
-                }
-            }
-        }
-    }
 }
 
 @BindingAdapter("bindSuggestions")

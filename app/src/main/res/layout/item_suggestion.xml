@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
@@ -15,7 +16,8 @@
         android:layout_centerVertical="true"
         android:contentDescription="@string/history"
         android:padding="@dimen/padding_large"
-        android:src="@drawable/ic_history_black_24dp" />
+        android:src="@drawable/ic_history_black_24dp"
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/suggestion_text"
@@ -25,5 +27,6 @@
         android:layout_toEndOf="@+id/suggestion_icon"
         android:padding="@dimen/padding_large"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textColor="@color/white"
         tools:text="String1" />
 </RelativeLayout>

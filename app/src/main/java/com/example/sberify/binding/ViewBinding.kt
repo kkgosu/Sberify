@@ -4,23 +4,16 @@ import android.app.Activity
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.RadioGroup
 import android.widget.TextView
-import androidx.appcompat.widget.SearchView
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.target.Target
-import com.example.sberify.R
 import com.example.sberify.data.Result
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.lyrics.LyricsViewModel
-import com.example.sberify.presentation.ui.search.SearchFragment.Companion.CURRENT_SEARCH_TYPE
-import com.example.sberify.presentation.ui.search.SearchType
-import com.example.sberify.presentation.ui.search.SuggestionsAdapter
 import com.example.sberify.presentation.ui.utils.hideAnimation
 import com.example.sberify.presentation.ui.utils.setFavoriteIcon
 import com.example.sberify.presentation.ui.utils.showAnimation
@@ -56,63 +49,6 @@ fun ImageView.bindingPalette(path: String?, palette: View) {
                     .crossfade(true)
             )
             .into(this)
-    }
-}
-
-@BindingAdapter("bindRadioGroup")
-fun RadioGroup.bindRadioGroup(
-    group: RadioGroup
-) {
-    group.setOnCheckedChangeListener { _, checkedId ->
-        when (checkedId) {
-            R.id.artist_rb -> {
-                CURRENT_SEARCH_TYPE = SearchType.ARTIST
-            }
-            R.id.album_rb -> {
-                CURRENT_SEARCH_TYPE = SearchType.ALBUM
-            }
-            R.id.track_rb -> {
-                CURRENT_SEARCH_TYPE = SearchType.TRACK
-            }
-        }
-    }
-}
-
-@BindingAdapter("suggestionRecycler", "suggestionAdapter", "viewModel")
-fun bindSearchView(
-    searchView: SearchView,
-    suggestionsRecycler: RecyclerView,
-    suggestionsAdapter: SuggestionsAdapter,
-    viewModel: SharedViewModel
-) {
-    searchView.apply {
-        setOnQueryTextFocusChangeListener { v, hasFocus ->
-            suggestionsRecycler.visibility = if (hasFocus) {
-                viewModel.getAllSuggestions()
-                suggestionsRecycler.scheduleLayoutAnimation()
-                View.VISIBLE
-            } else {
-                View.GONE
-            }
-        }
-
-        setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextChange(newText: String?): Boolean {
-                newText?.let { query ->
-                    suggestionsAdapter.submitList(
-                        suggestionsAdapter.getList().filter { it.text.contains(query, true) })
-                }
-                return true
-            }
-
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                viewModel.insertSuggestion(query!!)
-                viewModel.search(query, CURRENT_SEARCH_TYPE)
-                clearFocus()
-                suggestionsRecycler.visibility = View.GONE
-                return true
-            }
-        })
     }
 }
 
@@ -181,7 +117,7 @@ fun bindPlayButton(
     when (track?.status) {
         Result.Status.SUCCESS -> {
             val data = track.data
-            data?.let {trackData ->
+            data?.let { trackData ->
                 playButton.setOnClickListener {
                     sharedVM.onPlayClick(trackData)
                 }
