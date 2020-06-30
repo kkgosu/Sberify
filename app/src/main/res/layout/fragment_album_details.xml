@@ -133,7 +133,7 @@
                     app:layout_collapseMode="pin"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:navigationIcon="@drawable/ic_arrow_back" />
+                    app:navigationIcon="@drawable/ic_arrow_back_24dp" />
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
