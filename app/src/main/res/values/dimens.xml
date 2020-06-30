@@ -12,6 +12,8 @@
 
     <!--margins-->
     <dimen name="margin_xsmall">4dp</dimen>
+    <dimen name="margin_medium">8dp</dimen>
+    <dimen name="margin_large">16dp</dimen>
 
     <!--paddings-->
     <dimen name="padding_xsmall">4dp</dimen>
@@ -27,5 +29,6 @@
     <dimen name="text_size_small_large">20dp</dimen>
     <dimen name="text_size_large">20dp</dimen>
     <dimen name="item_number_width">32dp</dimen>
+    <dimen name="icon_size_medium">36dp</dimen>
 
 </resources>

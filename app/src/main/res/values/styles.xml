@@ -31,4 +31,10 @@
         <item name="android:textColor">@color/white_100</item>
         <item name="android:textSize">@dimen/text_size_small_large</item>
     </style>
+
+    <style name="SwitchTextAppearance">
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline5
+        </item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>

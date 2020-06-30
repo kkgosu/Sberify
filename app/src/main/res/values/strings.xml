@@ -15,4 +15,5 @@
     <string name="add_to_favorite">Add to favorite</string>
     <string name="history">History</string>
     <string name="favorite_albums">Favorite Albums</string>
+    <string name="filters">Filters</string>
 </resources>
