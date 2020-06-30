@@ -5,17 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.sberify.databinding.SearchBottomSheetLayoutBinding
+import com.example.sberify.databinding.FilterBottomSheetLayoutBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 /**
  * @author Konstantin Koval
  * @since 30.06.2020
  */
-class SearchBottomSheetFragment : BottomSheetDialogFragment() {
+class FilterBottomSheetFragment : BottomSheetDialogFragment() {
 
     private lateinit var listener: OnSwitchChangeListener
-    private var _binding: SearchBottomSheetLayoutBinding? = null
+    private var _binding: FilterBottomSheetLayoutBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -23,7 +23,7 @@ class SearchBottomSheetFragment : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = SearchBottomSheetLayoutBinding.inflate(inflater, container, false)
+        _binding = FilterBottomSheetLayoutBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -61,16 +61,18 @@ class SearchBottomSheetFragment : BottomSheetDialogFragment() {
 
     companion object {
 
-        const val ALBUM_SWITCH_CHECKED_KEY = "AlbumSwitchChecked"
-        const val ARTIST_SWITCH_CHECKED_KEY = "ArtistSwitchChecked"
-        const val TRACK_SWITCH_CHECKED_KEY = "TrackSwitchChecked"
+        const val TAG = "FilterBottomSheetFragment"
+
+        private const val ALBUM_SWITCH_CHECKED_KEY = "AlbumSwitchChecked"
+        private const val ARTIST_SWITCH_CHECKED_KEY = "ArtistSwitchChecked"
+        private const val TRACK_SWITCH_CHECKED_KEY = "TrackSwitchChecked"
 
         fun newInstance(
             albumChecked: Boolean,
             artistChecked: Boolean,
             trackChecked: Boolean
-        ): SearchBottomSheetFragment {
-            return SearchBottomSheetFragment().apply {
+        ): FilterBottomSheetFragment {
+            return FilterBottomSheetFragment().apply {
                 arguments = Bundle().apply {
                     ALBUM_SWITCH_CHECKED_KEY to albumChecked
                     ARTIST_SWITCH_CHECKED_KEY to artistChecked

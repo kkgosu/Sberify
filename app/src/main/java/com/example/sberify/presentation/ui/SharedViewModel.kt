@@ -9,7 +9,6 @@ import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Artist
 import com.example.sberify.models.domain.Suggestion
 import com.example.sberify.models.domain.Track
-import com.example.sberify.presentation.ui.search.SearchType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -20,6 +19,10 @@ class SharedViewModel @Inject constructor(
     private val geniusRepository: IGeniusRepository,
     private val databaseRepository: IDatabaseRepository
 ) : ViewModel() {
+
+    var isAlbumChecked: Boolean = false
+    var isArtistChecked: Boolean = false
+    var isTrackChecked: Boolean = false
 
     private val albumInfoTrigger = MutableLiveData<Album>()
     private val reloadTrigger = MutableLiveData<Boolean>()
@@ -64,12 +67,12 @@ class SharedViewModel @Inject constructor(
     private val _suggestions = MutableLiveData<List<Suggestion>>()
     val suggestions: LiveData<List<Suggestion>> = _suggestions
 
-    fun search(keyword: String, searchType: SearchType) {
-        when (searchType) {
+    fun search(keyword: String) {
+/*        when (searchType) {
             SearchType.ARTIST -> searchArtistTrigger.value = keyword
             SearchType.ALBUM -> searchAlbumTrigger.value = keyword
             SearchType.TRACK -> searchTrackTrigger.value = keyword
-        }
+        }*/
     }
 
     fun refresh() {

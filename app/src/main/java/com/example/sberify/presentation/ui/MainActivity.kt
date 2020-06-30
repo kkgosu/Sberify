@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 import com.example.sberify.R
 import com.example.sberify.databinding.ActivityMainBinding
 import com.example.sberify.domain.TokenData
+import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment
 import com.example.sberify.presentation.ui.utils.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.spotify.android.appremote.api.ConnectionParams
@@ -36,7 +37,8 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
+class MainActivity : AppCompatActivity(), HasSupportFragmentInjector,
+    FilterBottomSheetFragment.OnSwitchChangeListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -69,7 +71,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
         sharedViewModel.refresh()
 
-        sharedViewModel.play.observe(this) {track ->
+        sharedViewModel.play.observe(this) { track ->
             spotifyAppRemote?.playerApi?.play("spotify:track:${track.id}")
             spotifyAppRemote
                 ?.playerApi
@@ -199,6 +201,18 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         private const val REDIRECT_URL = "spotify-sdk://auth"
         private const val AUTH_TOKEN_REQUEST_CODE = 0x10
         private const val AUTH_CODE_REQUEST_CODE = 0x11
+    }
+
+    override fun onArtistCheck(checked: Boolean) {
+        sharedViewModel.isArtistChecked = checked
+    }
+
+    override fun onAlbumCheck(checked: Boolean) {
+        sharedViewModel.isAlbumChecked = checked
+    }
+
+    override fun onTrackCheck(checked: Boolean) {
+        sharedViewModel.isTrackChecked = checked
     }
 }
 
