@@ -7,24 +7,43 @@
     android:background="@color/background0"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_view"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/search_view_height"
-        android:background="@color/background2"
-        android:imeOptions="actionSearch"
-        android:inputType="text"
-        app:iconifiedByDefault="false"
-        app:queryHint="@string/search_hint"
-        app:suggestionRowLayout="@layout/item_suggestion">
+        android:layout_height="wrap_content"
+        android:background="@color/background1"
+        app:navigationIcon="@drawable/ic_arrow_back_24dp">
 
-        <ImageButton
-            android:id="@+id/filter_image_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="end|center_vertical"
-            android:src="@drawable/ic_filter_list_black_24dp" />
-    </androidx.appcompat.widget.SearchView>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_view"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="match_parent"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                app:iconifiedByDefault="false"
+                app:layout_constraintEnd_toStartOf="@id/filter_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:queryHint="@string/search_hint"
+                app:searchIcon="@null"
+                app:suggestionRowLayout="@layout/item_suggestion" />
+
+            <ImageButton
+                android:id="@+id/filter_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_large"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/ic_filter_list_black_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
+
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -42,7 +61,6 @@
             android:id="@+id/suggestion_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/background2"
             android:layoutAnimation="@anim/layout_animation_fall_down"
             android:visibility="visible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

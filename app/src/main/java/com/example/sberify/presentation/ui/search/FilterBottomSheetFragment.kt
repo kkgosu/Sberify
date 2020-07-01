@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.sberify.R
 import com.example.sberify.databinding.FilterBottomSheetLayoutBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -17,6 +18,14 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
     private lateinit var listener: OnSwitchChangeListener
     private var _binding: FilterBottomSheetLayoutBinding? = null
     private val binding get() = _binding!!
+
+    override fun getTheme(): Int {
+        return R.style.BaseBottomSheetDialog
+    }
+
+    override fun setStyle(style: Int, theme: Int) {
+        super.setStyle(style, theme)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

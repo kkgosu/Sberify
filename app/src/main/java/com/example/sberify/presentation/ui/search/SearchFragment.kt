@@ -62,19 +62,23 @@ class SearchFragment : BaseFragment(),
         binding.searchResults.doOnNextLayout {
             startPostponedEnterTransition()
         }
-        (binding.searchView as? EditText)?.apply {
+        (binding.searchView.findViewById<View>(R.id.search_src_text) as EditText).apply {
             setTextColor(
                 ContextCompat.getColor(
                     requireContext(),
                     R.color.white
                 )
             )
-            setHintTextColor(ContextCompat.getColor(requireContext(), R.color.white_100))
+            setHintTextColor(ContextCompat.getColor(requireContext(), R.color.gray_400))
         }
         if (searchAdapter.itemCount == 0) {
             binding.searchView.requestFocus()
         } else {
             binding.searchView.clearFocus()
+        }
+
+        binding.filterButton.setOnClickListener {
+            showFilterBottomSheet()
         }
 
         binding.searchView.apply {
@@ -113,8 +117,6 @@ class SearchFragment : BaseFragment(),
                 }
             })
         }
-
-        binding.filterImageButton.setOnClickListener { showFilterBottomSheet() }
     }
 
     private fun showFilterBottomSheet() {

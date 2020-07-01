@@ -8,6 +8,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="BottomSheet" parent="@style/Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="android:background">@drawable/top_corners_rounded_background</item>
+    </style>
+
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+
     <style name="DefaultRecycler">
         <item name="android:clipToPadding">false</item>
         <item name="android:orientation">vertical</item>
@@ -33,8 +42,8 @@
     </style>
 
     <style name="SwitchTextAppearance">
-        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline5
-        </item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
+        <item name="android:textColor">@color/white_100</item>
+        <item name="android:textSize">@dimen/text_size_small_large</item>
     </style>
 </resources>

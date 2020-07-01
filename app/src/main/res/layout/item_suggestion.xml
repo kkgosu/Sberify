@@ -17,7 +17,7 @@
         android:contentDescription="@string/history"
         android:padding="@dimen/padding_large"
         android:src="@drawable/ic_history_black_24dp"
-        app:tint="@color/white" />
+        app:tint="@color/white_100" />
 
     <TextView
         android:id="@+id/suggestion_text"
@@ -27,6 +27,6 @@
         android:layout_toEndOf="@+id/suggestion_icon"
         android:padding="@dimen/padding_large"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-        android:textColor="@color/white"
+        android:textColor="@color/white_100"
         tools:text="String1" />
 </RelativeLayout>
