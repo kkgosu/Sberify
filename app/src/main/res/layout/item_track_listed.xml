@@ -30,9 +30,8 @@
             android:gravity="center"
             android:text="@{String.valueOf(pos)}"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            android:textColor="@color/gray_50"
+            android:textColor="@color/white_100"
             tools:text="01" />
-
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -48,6 +47,7 @@
                 android:layout_weight="1"
                 android:text="@{track.name}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                android:textColor="@color/white_100"
                 android:transitionName="@{track.name}"
                 tools:text="thousand eyes" />
 
@@ -58,6 +58,7 @@
                 android:layout_weight="1"
                 android:text="@{track.artists}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:textColor="@color/white_100"
                 tools:text="FKA twigs, Future" />
         </LinearLayout>
     </LinearLayout>

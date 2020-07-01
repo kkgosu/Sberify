@@ -57,7 +57,6 @@ fun bindAdapterAlbumDetails(
     fab: FloatingActionButton,
     viewModel: SharedViewModel
 ) {
-    recyclerView.setDivider(R.drawable.divider)
     albumDetails?.let {
         when (albumDetails.status) {
             Result.Status.SUCCESS -> {

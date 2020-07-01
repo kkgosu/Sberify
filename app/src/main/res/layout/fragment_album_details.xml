@@ -23,12 +23,12 @@
 
     </data>
 
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/detail_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background0"
+        android:background="@color/background1"
+        android:paddingBottom="@dimen/bottom_bar_height"
         android:fitsSystemWindows="false">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -41,9 +41,9 @@
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/background0"
+                android:background="@color/background1"
                 app:collapsedTitleTextAppearance="@style/CollapsedTitleText"
-                app:contentScrim="@color/background0"
+                app:contentScrim="@color/background1"
                 app:scrimVisibleHeightTrigger="200dp"
                 app:expandedTitleGravity="top|left"
                 app:expandedTitleTextAppearance="@style/ExpandedTitleText"
@@ -52,12 +52,12 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/background0">
+                    android:background="@color/background1">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/album_cover"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
+                        android:layout_width="@dimen/match_constraint"
+                        android:layout_height="@dimen/match_constraint"
                         android:scaleType="centerCrop"
                         app:image="@{viewModel.album.data.imageUrl}"
                         app:layout_constraintDimensionRatio="1:1.2"
@@ -150,8 +150,9 @@
                 adapterTrackList="@{viewModel.album}"
                 fab="@{fab}"
                 viewModel="@{viewModel}"
+                android:paddingBottom="0dp"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="@dimen/match_constraint"
                 android:background="@color/white"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
