@@ -23,10 +23,6 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
         return R.style.BaseBottomSheetDialog
     }
 
-    override fun setStyle(style: Int, theme: Int) {
-        super.setStyle(style, theme)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
