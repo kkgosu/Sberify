@@ -2,6 +2,7 @@ package com.example.sberify.adapters
 
 import android.view.View
 import androidx.core.view.ViewCompat
+import com.example.sberify.binding.bindingPalette
 import com.example.sberify.databinding.*
 import com.example.sberify.models.domain.*
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
@@ -58,6 +59,37 @@ fun albumAdapterDelegate(itemClickListener: (Album, View) -> Unit) =
         }
     }
 
+fun albumHorizontalAdapterDelegate(itemClickListener: (Album, View) -> Unit) =
+    adapterDelegateViewBinding<Album, BaseModel, ItemAlbumHorizontalBinding>({ layoutInflater, parent ->
+        ItemAlbumHorizontalBinding.inflate(layoutInflater, parent, false)
+    }) {
+        binding.root.setOnClickListener {
+            itemClickListener.invoke(item, it)
+        }
+        bind {
+            binding.apply {
+                ViewCompat.setTransitionName(binding.cardView, item.id)
+                releaseCover.bindingPalette(item.imageUrl, itemAlbumPalette)
+                releaseName.text = item.name
+                artistName.text = item.artist.name
+            }
+        }
+    }
+
+fun suggestionAdapterDelegate(itemClickListener: (Int, Suggestion) -> Unit) =
+    adapterDelegateViewBinding<Suggestion, Suggestion, ItemSuggestionBinding>({ layoutInflater, parent ->
+        ItemSuggestionBinding.inflate(layoutInflater, parent, false)
+    }) {
+        binding.root.setOnClickListener {
+            itemClickListener.invoke(adapterPosition, item)
+        }
+        bind {
+            binding.apply {
+                suggestionText.text = item.text
+            }
+        }
+    }
+
 fun artistAdapterDelegate() =
     adapterDelegateViewBinding<Artist, BaseModel, ItemSearchBinding>({ layoutInflater, parent ->
         ItemSearchBinding.inflate(layoutInflater, parent, false)
@@ -71,15 +103,3 @@ fun artistAdapterDelegate() =
             }
         }
     }
-
-fun headerAdapterDelegate() =
-    adapterDelegateViewBinding<Header, BaseModel, ItemHeaderBinding>({ layoutInflater, parent ->
-        ItemHeaderBinding.inflate(layoutInflater, parent, false)
-    }) {
-        bind {
-            binding.apply {
-                headerText.text = item.header
-            }
-        }
-    }
-

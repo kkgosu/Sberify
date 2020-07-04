@@ -26,13 +26,15 @@ import com.example.sberify.presentation.ui.SharedViewModel
 
 class SearchFragment : BaseFragment(),
     AlbumInteraction, TrackInteraction,
-    SuggestionsAdapter.Interaction {
+    SuggestionInteraction {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var searchAdapter: SearchAdapter
-    private lateinit var suggestionsAdapter: SuggestionsAdapter
+    private val suggestionsAdapter = SuggestionAdapter(this)
+    private val artistsAdapter = AlbumsAdapter(this)
+    private val albumsAdapter = AlbumsHorizontalAdapter(this)
+    private val tracksListedAdapter = TrackListedAdapter(this)
 
     private val viewModel by activityViewModels<SharedViewModel>()
 
@@ -109,9 +111,9 @@ class SearchFragment : BaseFragment(),
 
                 override fun onQueryTextChange(newText: String?): Boolean {
                     newText?.let { query ->
-                        this@SearchFragment.suggestionsAdapter.submitList(
-                            this@SearchFragment.suggestionsAdapter.getList().filter { it.text.contains(query, true) }
-                        )
+                        this@SearchFragment.suggestionsAdapter.items = (
+                                this@SearchFragment.suggestionsAdapter.items.filter { it.text.contains(query, true) }
+                                )
                     }
                     return true
                 }
@@ -148,7 +150,6 @@ class SearchFragment : BaseFragment(),
     }
 
     override fun onSuggestionSelected(position: Int, item: Suggestion) {
-        val query = item.text
-        binding.searchView.setQuery(query, true)
+        binding.searchView.setQuery(item.text, true)
     }
 }
