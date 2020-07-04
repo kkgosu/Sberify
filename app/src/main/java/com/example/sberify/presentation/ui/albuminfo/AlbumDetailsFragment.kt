@@ -53,7 +53,6 @@ class AlbumDetailsFragment : BaseFragment(),
         postponeEnterTransition()
         recycler_tracks.doOnNextLayout {
             startPostponedEnterTransition()
-
         }
 
         sharedElementEnterTransition = MaterialContainerTransform().apply {

@@ -1,10 +1,12 @@
 package com.example.sberify.presentation.ui.search
 
-import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResultListener
 import com.example.sberify.R
 import com.example.sberify.databinding.FilterBottomSheetLayoutBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -15,7 +17,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
  */
 class FilterBottomSheetFragment : BottomSheetDialogFragment() {
 
-    private lateinit var listener: OnSwitchChangeListener
     private var _binding: FilterBottomSheetLayoutBinding? = null
     private val binding get() = _binding!!
 
@@ -32,58 +33,32 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
+    override fun onCancel(dialog: DialogInterface) {
+        val bundle = bundleOf(
+            ARTIST_SWITCH_CHECKED_KEY to binding.artistSwitch.isChecked,
+            ALBUM_SWITCH_CHECKED_KEY to binding.albumSwitch.isChecked,
+            TRACK_SWITCH_CHECKED_KEY to binding.trackSwitch.isChecked
+        )
+        parentFragmentManager.setFragmentResult("requestKey", bundle)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.albumSwitch.setOnCheckedChangeListener { _, isChecked ->
-            listener.onAlbumCheck(isChecked)
+        parentFragmentManager.setFragmentResultListener("showFilter", this) { _, result ->
+            binding.artistSwitch.isChecked = result.getBoolean(ARTIST_SWITCH_CHECKED_KEY, false)
+            binding.albumSwitch.isChecked = result.getBoolean(ALBUM_SWITCH_CHECKED_KEY, false)
+            binding.trackSwitch.isChecked = result.getBoolean(TRACK_SWITCH_CHECKED_KEY, false)
         }
-        binding.artistSwitch.setOnCheckedChangeListener { _, isChecked ->
-            listener.onArtistCheck(isChecked)
-        }
-        binding.trackSwitch.setOnCheckedChangeListener { _, isChecked ->
-            listener.onTrackCheck(isChecked)
-        }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        listener = if (context is OnSwitchChangeListener) {
-            context
-        } else {
-            throw RuntimeException("You should implement OnSwitchChangeListener")
-        }
-    }
-
-    interface OnSwitchChangeListener {
-        fun onArtistCheck(checked: Boolean)
-        fun onAlbumCheck(checked: Boolean)
-        fun onTrackCheck(checked: Boolean)
     }
 
     companion object {
-
         const val TAG = "FilterBottomSheetFragment"
-
-        private const val ALBUM_SWITCH_CHECKED_KEY = "AlbumSwitchChecked"
-        private const val ARTIST_SWITCH_CHECKED_KEY = "ArtistSwitchChecked"
-        private const val TRACK_SWITCH_CHECKED_KEY = "TrackSwitchChecked"
-
-        fun newInstance(
-            albumChecked: Boolean,
-            artistChecked: Boolean,
-            trackChecked: Boolean
-        ): FilterBottomSheetFragment {
-            return FilterBottomSheetFragment().apply {
-                arguments = Bundle().apply {
-                    ALBUM_SWITCH_CHECKED_KEY to albumChecked
-                    ARTIST_SWITCH_CHECKED_KEY to artistChecked
-                    TRACK_SWITCH_CHECKED_KEY to trackChecked
-                }
-            }
-        }
+        const val ARTIST_SWITCH_CHECKED_KEY = "ArtistSwitchChecked"
+        const val ALBUM_SWITCH_CHECKED_KEY = "AlbumSwitchChecked"
+        const val TRACK_SWITCH_CHECKED_KEY = "TrackSwitchChecked"
     }
 }

@@ -71,7 +71,7 @@ class SharedViewModelTest {
     @Test
     fun getArtist() = runBlocking {
         val observer = mock<Observer<Result<List<Artist>>>>()
-        sharedViewModel.artists.observeForever(observer)
+        sharedViewModel.artistsSearchResult.observeForever(observer)
         sharedViewModel.search("1", SearchType.ARTIST)
         verify(spotifyRepository).searchArtist("1")
         verifyNoMoreInteractions(spotifyRepository)
@@ -81,7 +81,7 @@ class SharedViewModelTest {
     @Test
     fun getAlbums() = runBlocking {
         val observer = mock<Observer<Result<List<Album>>>>()
-        sharedViewModel.albums.observeForever(observer)
+        sharedViewModel.albumsSearchResult.observeForever(observer)
         sharedViewModel.search("1", SearchType.ALBUM)
         verify(spotifyRepository).searchAlbum("1")
         return@runBlocking
@@ -90,7 +90,7 @@ class SharedViewModelTest {
     @Test
     fun getTracks() = runBlocking {
         val observer = mock<Observer<Result<List<Track>>>>()
-        sharedViewModel.tracks.observeForever(observer)
+        sharedViewModel.tracksSearchResult.observeForever(observer)
         sharedViewModel.search("1", SearchType.TRACK)
         verify(spotifyRepository).searchTrack("1")
         return@runBlocking
@@ -116,13 +116,13 @@ class SharedViewModelTest {
     @Test
     fun search() {
         val observer1 = mock<Observer<Result<List<Track>>>>()
-        sharedViewModel.tracks.observeForever(observer1)
+        sharedViewModel.tracksSearchResult.observeForever(observer1)
 
         val observer2 = mock<Observer<Result<List<Album>>>>()
-        sharedViewModel.albums.observeForever(observer2)
+        sharedViewModel.albumsSearchResult.observeForever(observer2)
 
         val observer3 = mock<Observer<Result<List<Artist>>>>()
-        sharedViewModel.artists.observeForever(observer3)
+        sharedViewModel.artistsSearchResult.observeForever(observer3)
 
         sharedViewModel.search("key", SearchType.ARTIST)
         sharedViewModel.search("key", SearchType.ALBUM)

@@ -9,6 +9,7 @@ import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Artist
 import com.example.sberify.models.domain.Suggestion
 import com.example.sberify.models.domain.Track
+import com.example.sberify.presentation.ui.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -20,9 +21,23 @@ class SharedViewModel @Inject constructor(
     private val databaseRepository: IDatabaseRepository
 ) : ViewModel() {
 
-    var isAlbumChecked: Boolean = false
-    var isArtistChecked: Boolean = false
-    var isTrackChecked: Boolean = false
+    var isAlbumChecked = false
+    var isArtistChecked = false
+    var isTrackChecked = false
+
+    private val _showFiltersFragment = SingleLiveEvent<Unit>()
+    val showFiltersFragment = _showFiltersFragment
+
+    private val _refreshContentVisibility = SingleLiveEvent<Unit>()
+    val refreshContentVisibility = _refreshContentVisibility
+
+    fun checkFiltersAndSearch(keyword: String) {
+        if (!isAlbumChecked && !isArtistChecked && !isTrackChecked) {
+            _showFiltersFragment.call()
+        } else {
+            search(keyword)
+        }
+    }
 
     private val albumInfoTrigger = MutableLiveData<Album>()
     private val reloadTrigger = MutableLiveData<Boolean>()
@@ -46,13 +61,13 @@ class SharedViewModel @Inject constructor(
         spotifyRepository.getNewReleases()
     }
 
-    val artists: LiveData<Result<List<Artist>>> = Transformations.switchMap(searchArtistTrigger) {
+    val artistsSearchResult: LiveData<Result<List<Artist>>> = Transformations.switchMap(searchArtistTrigger) {
         spotifyRepository.searchArtist(it)
     }
-    val albums: LiveData<Result<List<Album>>> = Transformations.switchMap(searchAlbumTrigger) {
+    val albumsSearchResult: LiveData<Result<List<Album>>> = Transformations.switchMap(searchAlbumTrigger) {
         spotifyRepository.searchAlbum(it)
     }
-    val tracks: LiveData<Result<List<Track>>> = Transformations.switchMap(searchTrackTrigger) {
+    val tracksSearchResult: LiveData<Result<List<Track>>> = Transformations.switchMap(searchTrackTrigger) {
         spotifyRepository.searchTrack(it)
     }
 
@@ -68,11 +83,14 @@ class SharedViewModel @Inject constructor(
     val suggestions: LiveData<List<Suggestion>> = _suggestions
 
     fun search(keyword: String) {
-/*        when (searchType) {
-            SearchType.ARTIST -> searchArtistTrigger.value = keyword
-            SearchType.ALBUM -> searchAlbumTrigger.value = keyword
-            SearchType.TRACK -> searchTrackTrigger.value = keyword
-        }*/
+        searchArtistTrigger.applySearch(isArtistChecked, keyword)
+        searchAlbumTrigger.applySearch(isAlbumChecked, keyword)
+        searchTrackTrigger.applySearch(isTrackChecked, keyword)
+        refreshContentVisibility()
+    }
+
+    fun refreshContentVisibility() {
+        refreshContentVisibility.call()
     }
 
     fun refresh() {
@@ -109,4 +127,6 @@ class SharedViewModel @Inject constructor(
         }
     }
 
+    private fun MutableLiveData<String>.applySearch(isChecked: Boolean, keyword: String) =
+        takeIf { isChecked }?.apply { value = keyword }
 }
