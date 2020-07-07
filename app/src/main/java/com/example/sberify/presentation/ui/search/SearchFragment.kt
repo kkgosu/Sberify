@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.core.view.doOnNextLayout
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -20,7 +19,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.sberify.R
 import com.example.sberify.adapters.*
-import com.example.sberify.base.BaseFragment
+import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentSearchBinding
 import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Suggestion
@@ -30,17 +29,11 @@ import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Comp
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.TRACK_SWITCH_CHECKED_KEY
 import com.example.sberify.presentation.ui.utils.applyResultObserver
 import com.example.sberify.presentation.ui.utils.visible
-import com.google.android.material.transition.Hold
-import com.google.android.material.transition.MaterialArcMotion
-import com.google.android.material.transition.MaterialContainerTransform
 
 
-class SearchFragment : BaseFragment(),
+class SearchFragment : BaseViewBindingFragment<FragmentSearchBinding>(),
     AlbumInteraction, TrackInteraction,
     SuggestionInteraction {
-
-    private var _binding: FragmentSearchBinding? = null
-    private val binding get() = _binding!!
 
     private val suggestionsAdapter = SuggestionAdapter(this)
     private val artistsAdapter = AlbumsAdapter(this)
@@ -49,102 +42,27 @@ class SearchFragment : BaseFragment(),
 
     private var keyword: String = ""
 
-    override fun onCreateView(
+    override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        postponeEnterTransition()
-        sharedElementEnterTransition = MaterialContainerTransform().apply {
-            setPathMotion(MaterialArcMotion())
-            duration = 450
-        }
-        exitTransition = Hold().apply {
-            duration = 450
-        }
+    override fun setupViews() {
+        setupSearchView()
+        setupAnimationsForRecyclers(binding.artistsResults, binding.albumsResults, binding.tracksResults)
         binding.suggestionRecycler.adapter = suggestionsAdapter
-        binding.artistsResults.apply {
-            doOnNextLayout {
-                startPostponedEnterTransition()
-            }
-        }
         binding.albumsResults.apply {
-            doOnNextLayout {
-                startPostponedEnterTransition()
-            }
             adapter = albumsAdapter
             LinearSnapHelper().attachToRecyclerView(this)
         }
-        binding.tracksResults.apply {
-            doOnNextLayout {
-                startPostponedEnterTransition()
-            }
-            adapter = tracksListedAdapter
-        }
-        (binding.searchView.findViewById<View>(R.id.search_src_text) as EditText).apply {
-            setTextColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.white
-                )
-            )
-            setHintTextColor(ContextCompat.getColor(requireContext(), R.color.gray_400))
-        }
-        binding.searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
-            .setColorFilter(ContextCompat.getColor(requireContext(), R.color.white_100))
-
+        binding.tracksResults.adapter = tracksListedAdapter
         binding.filterButton.setOnClickListener {
             showFilterBottomSheet()
             hideKeyboard()
-        }
-
-        binding.searchView.apply {
-            clearFocus()
-            setOnQueryTextFocusChangeListener { _, hasFocus ->
-                binding.suggestionRecycler.visibility = if (hasFocus) {
-                    sharedViewModel.getAllSuggestions()
-                    binding.suggestionRecycler.scheduleLayoutAnimation()
-                    showKeyboard()
-                    View.VISIBLE
-                } else {
-                    View.GONE
-                }
-            }
-
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    query?.let {
-                        sharedViewModel.insertSuggestion(it)
-                        keyword = it
-                        clearFocus()
-                        binding.suggestionRecycler.visibility = View.GONE
-                    }
-                    sharedViewModel.checkFiltersAndSearch(keyword)
-                    return true
-                }
-
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    newText?.let { query ->
-                        this@SearchFragment.suggestionsAdapter.items = (
-                                this@SearchFragment.suggestionsAdapter.items.filter { it.text.contains(query, true) }
-                                )
-                    }
-                    return true
-                }
-            })
-        }
-
-        if (artistsAdapter.itemCount == 0 && albumsAdapter.itemCount == 0 && tracksListedAdapter.itemCount == 0) {
-            binding.searchView.requestFocus()
-            binding.suggestionRecycler.visibility = View.VISIBLE
-        } else {
-            binding.searchView.clearFocus()
-            binding.suggestionRecycler.visibility = View.GONE
         }
 
         sharedViewModel.artistsSearchResult.applyResultObserver(viewLifecycleOwner,
@@ -191,11 +109,6 @@ class SearchFragment : BaseFragment(),
         hideKeyboard()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
     override fun onAlbumSelected(item: Album, view: View) {
         sharedViewModel.getAlbumInfo(item)
         val extras = FragmentNavigatorExtras(
@@ -220,6 +133,59 @@ class SearchFragment : BaseFragment(),
 
     override fun onSuggestionSelected(position: Int, item: Suggestion) {
         binding.searchView.setQuery(item.text, true)
+    }
+
+    private fun setupSearchView() {
+        binding.searchView.apply {
+            clearFocus()
+            (findViewById<View>(R.id.search_src_text) as EditText).apply {
+                setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                setHintTextColor(ContextCompat.getColor(requireContext(), R.color.gray_400))
+            }
+            findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
+                .setColorFilter(ContextCompat.getColor(requireContext(), R.color.white_100))
+
+            setOnQueryTextFocusChangeListener { _, hasFocus ->
+                binding.suggestionRecycler.visibility = if (hasFocus) {
+                    sharedViewModel.getAllSuggestions()
+                    binding.suggestionRecycler.scheduleLayoutAnimation()
+                    showKeyboard()
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
+            }
+
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    query?.let {
+                        sharedViewModel.insertSuggestion(it)
+                        keyword = it
+                        clearFocus()
+                        binding.suggestionRecycler.visibility = View.GONE
+                    }
+                    sharedViewModel.checkFiltersAndSearch(keyword)
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    newText?.let { query ->
+                        this@SearchFragment.suggestionsAdapter.items = (
+                                this@SearchFragment.suggestionsAdapter.items.filter { it.text.contains(query, true) }
+                                )
+                    }
+                    return true
+                }
+            })
+
+            if (artistsAdapter.itemCount == 0 && albumsAdapter.itemCount == 0 && tracksListedAdapter.itemCount == 0) {
+                requestFocus()
+                binding.suggestionRecycler.visibility = View.VISIBLE
+            } else {
+                clearFocus()
+                binding.suggestionRecycler.visibility = View.GONE
+            }
+        }
     }
 
     private fun setContentVisibility() {
