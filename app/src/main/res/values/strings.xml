@@ -7,6 +7,9 @@
     <string name="artist">Artist</string>
     <string name="album">Album</string>
     <string name="track">Track</string>
+    <string name="artists">Artists</string>
+    <string name="albums">Albums</string>
+    <string name="tracks">Tracks</string>
     <string name="new_releases">New releases</string>
     <string name="com_spotify_sdk_redirect_scheme">spotify-sdk</string>
     <string name="com_spotify_sdk_redirect_host">auth</string>
