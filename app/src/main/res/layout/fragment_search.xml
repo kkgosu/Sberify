@@ -47,6 +47,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
+    <include layout="@layout/top_bottom_content_divider" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/suggestion_recycler"
         android:layout_width="match_parent"
