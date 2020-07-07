@@ -17,6 +17,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.sberify.R
 import com.example.sberify.adapters.*
 import com.example.sberify.base.BaseFragment
@@ -77,6 +78,7 @@ class SearchFragment : BaseFragment(),
                 startPostponedEnterTransition()
             }
             adapter = albumsAdapter
+            LinearSnapHelper().attachToRecyclerView(this)
         }
         binding.tracksResults.apply {
             doOnNextLayout {

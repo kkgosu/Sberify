@@ -127,6 +127,7 @@
                 android:padding="@dimen/padding_medium"
                 android:textAlignment="textStart"
                 android:textAppearance="@style/LyricsTextAppearance"
+                android:textIsSelectable="true"
                 tools:text="[Intro]
 Young Metro, young Metro, young Metro (Sheesh)
 Ayy (Ayy)

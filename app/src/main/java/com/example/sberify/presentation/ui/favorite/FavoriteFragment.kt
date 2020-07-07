@@ -10,7 +10,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.example.sberify.R
 import com.example.sberify.adapters.AlbumInteraction
-import com.example.sberify.adapters.AlbumsAdapter
+import com.example.sberify.adapters.AlbumsHorizontalAdapter
 import com.example.sberify.adapters.TrackInteraction
 import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseFragment
@@ -40,7 +40,7 @@ class FavoriteFragment : BaseFragment(), Injectable,
             favoriteVM = favoriteViewModel
             tracksAdapter =
                 TrackListedAdapter(this@FavoriteFragment)
-            albumsAdapter = AlbumsAdapter(this@FavoriteFragment)
+            albumsAdapter = AlbumsHorizontalAdapter(this@FavoriteFragment)
 
             favoriteViewModel.loadFavorite()
         }.root
