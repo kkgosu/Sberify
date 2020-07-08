@@ -1,137 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lyrics_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background1">
 
-    <data>
-
-        <variable
-            name="fragment"
-            type="androidx.fragment.app.Fragment" />
-
-        <variable
-            name="favorite"
-            type="android.widget.ImageButton" />
-
-        <variable
-            name="play"
-            type="com.google.android.material.floatingactionbutton.FloatingActionButton" />
-
-        <variable
-            name="lyricsVM"
-            type="com.example.sberify.presentation.ui.lyrics.LyricsViewModel" />
-
-        <variable
-            name="anim"
-            type="com.airbnb.lottie.LottieAnimationView" />
-
-        <variable
-            name="viewModel"
-            type="com.example.sberify.presentation.ui.SharedViewModel" />
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/lyrics_container"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background1">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/background1"
+        app:contentInsetStart="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            simpleToolbar="@{fragment}"
-            toolbarTitle="@{viewModel.lyrics.data.name}"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/background1"
-            app:contentInsetStart="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageButton
-                    android:id="@+id/back"
-                    android:layout_width="?attr/actionBarSize"
-                    android:layout_height="@dimen/match_constraint"
-                    android:background="@color/transparent"
-                    android:contentDescription="@string/back_to_previous_screen"
-                    android:padding="@dimen/padding_medium_large"
-                    android:src="@drawable/ic_arrow_back_24dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="@dimen/match_constraint"
-                    android:layout_height="@dimen/match_constraint"
-                    android:gravity="center"
-                    android:textAppearance="@style/CollapsedTitleText"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/favorite_button"
-                    app:layout_constraintStart_toEndOf="@id/back"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageButton
-                    android:id="@+id/favorite_button"
-                    track="@{viewModel.lyrics}"
-                    viewModel="@{lyricsVM}"
-                    android:layout_width="?attr/actionBarSize"
-                    android:layout_height="@dimen/match_constraint"
-                    android:alpha="1"
-                    android:background="@color/transparent"
-                    android:contentDescription="@string/add_to_favorite"
-                    android:padding="@dimen/padding_medium_large"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.appcompat.widget.Toolbar>
-
-        <include
-            android:id="@+id/animation"
-            layout="@layout/loading_anim" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/play_button"
-            sharedVM="@{viewModel}"
-            track="@{viewModel.lyrics}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/fab_margin"
-            android:layout_marginBottom="66dp"
-            android:padding="@dimen/padding_medium"
-            android:src="@drawable/ic_play_arrow_black_24dp"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/colorPrimary"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@color/white" />
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/match_constraint"
-            android:clipToPadding="false"
-            android:paddingBottom="@dimen/bottom_bar_height"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar">
+            android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/lyrics"
-                animation="@{anim}"
-                lyrics="@{viewModel.lyrics}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/padding_medium"
-                android:textAlignment="textStart"
-                android:textAppearance="@style/LyricsTextAppearance"
-                android:textIsSelectable="true"
-                tools:text="[Intro]
+                android:id="@+id/title"
+                android:layout_width="@dimen/match_constraint"
+                android:layout_height="@dimen/match_constraint"
+                android:gravity="center"
+                android:textAppearance="@style/CollapsedTitleText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/favorite_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/favorite_button"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="@dimen/match_constraint"
+                android:alpha="1"
+                android:background="@color/transparent"
+                android:contentDescription="@string/add_to_favorite"
+                android:padding="@dimen/padding_medium_large"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <include
+        android:id="@+id/animation"
+        layout="@layout/loading_anim" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/play_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="66dp"
+        android:padding="@dimen/padding_medium"
+        android:src="@drawable/ic_play_arrow_black_24dp"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/match_constraint"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/bottom_bar_height"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <TextView
+            android:id="@+id/lyrics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_medium"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/LyricsTextAppearance"
+            android:textIsSelectable="true"
+            tools:text="[Intro]
 Young Metro, young Metro, young Metro (Sheesh)
 Ayy (Ayy)
 Young Metro, young Metro" />
-        </androidx.core.widget.NestedScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

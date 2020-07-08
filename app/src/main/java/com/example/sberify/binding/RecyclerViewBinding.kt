@@ -34,12 +34,12 @@ fun bindAdapterAlbumDetails(
                     album.tracks?.let { tracks ->
                         (recyclerView.adapter as? TrackListedAdapter)?.items = tracks
                         fab.apply {
-                            setFavoriteIcon(this, !album.isFavorite)
+                            setFavoriteIcon(!album.isFavorite)
                             setOnClickListener {
                                 album.isFavorite = !album.isFavorite
                                 viewModel.updateFavoriteAlbum(album)
-                                setFavoriteIcon(this, album.isFavorite)
-                                startAnim(this)
+                                setFavoriteIcon(album.isFavorite)
+                                startAnim()
                             }
                         }
                     }
@@ -67,13 +67,13 @@ fun bindAdapterAlbumList(
                 albums.data?.let { album ->
                     (recyclerView.adapter as? AlbumsAdapter)?.items = album
                 }
-                hideAnimation(anim)
+                anim.hideAnimation()
             }
             Result.Status.LOADING -> {
-                showAnimation(anim)
+                anim.showAnimation()
             }
             Result.Status.ERROR -> {
-                showAnimation(anim)
+                anim.showAnimation()
             }
         }
     }
