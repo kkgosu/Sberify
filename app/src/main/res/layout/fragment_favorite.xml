@@ -1,92 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:viewBindingIgnore="true">
+    android:id="@+id/nested_scroll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background1"
+    android:fillViewport="true"
+    android:paddingBottom="@dimen/bottom_bar_height"
+    android:scrollbars="vertical">
 
-    <data>
-
-        <variable
-            name="favoriteVM"
-            type="com.example.sberify.presentation.ui.favorite.FavoriteViewModel" />
-
-        <variable
-            name="tracksAdapter"
-            type="com.example.sberify.adapters.TrackListedAdapter" />
-
-        <variable
-            name="albumsAdapter"
-            type="com.example.sberify.adapters.AlbumsHorizontalAdapter" />
-
-    </data>
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nested_scroll"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background1"
-        android:fillViewport="true"
-        android:paddingBottom="@dimen/bottom_bar_height"
-        android:scrollbars="vertical">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TextView
+            android:id="@+id/favorite_albums_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_xsmall"
+            android:text="@string/albums"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            android:textColor="@color/white_100"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/favorite_albums_recycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_xsmall"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/favorite_albums_label"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_album_horizontal" />
 
-            <TextView
-                android:id="@+id/favorite_albums_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_medium"
-                android:layout_marginTop="@dimen/margin_xsmall"
-                android:text="@string/albums"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-                android:textColor="@color/white_100"
-                android:visibility="visible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/favorite_tracks_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_xsmall"
+            android:text="@string/tracks"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            android:textColor="@color/white_100"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/favorite_albums_recycler" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/favorite_albums_recycler"
-                adapter="@{albumsAdapter}"
-                bindFavAlbums="@{favoriteVM.favoriteAlbums}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_xsmall"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/favorite_albums_label"
-                tools:itemCount="2"
-                tools:listitem="@layout/item_album_horizontal" />
-
-            <TextView
-                android:id="@+id/favorite_tracks_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_medium"
-                android:layout_marginTop="@dimen/margin_xsmall"
-                android:text="@string/tracks"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-                android:textColor="@color/white_100"
-                android:visibility="visible"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/favorite_albums_recycler" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/favorite_tracks_recycler"
-                adapter="@{tracksAdapter}"
-                bindFavTracks="@{favoriteVM.favoriteTracks}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_xsmall"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/favorite_tracks_label"
-                tools:itemCount="5"
-                tools:listitem="@layout/item_track_listed" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/favorite_tracks_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_xsmall"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/favorite_tracks_label"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_track_listed" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-
-</layout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

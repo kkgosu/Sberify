@@ -5,11 +5,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airbnb.lottie.LottieAnimationView
 import com.example.sberify.adapters.AlbumsAdapter
-import com.example.sberify.adapters.AlbumsHorizontalAdapter
 import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.data.Result
 import com.example.sberify.models.domain.Album
-import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.utils.hideAnimation
 import com.example.sberify.presentation.ui.utils.setFavoriteIcon
@@ -20,26 +18,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 @BindingAdapter("adapter")
 fun bindAdapter(view: RecyclerView, baseAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>) {
     view.adapter = baseAdapter
-}
-
-@BindingAdapter("bindFavTracks")
-fun bindFavTracks(
-    recyclerView: RecyclerView,
-    tracks: List<Track>?
-) {
-    tracks?.let {
-        (recyclerView.adapter as? TrackListedAdapter)?.items = tracks
-    }
-}
-
-@BindingAdapter("bindFavAlbums")
-fun bindFavAlbums(
-    recyclerView: RecyclerView,
-    albums: List<Album>?
-) {
-    albums?.let {
-        (recyclerView.adapter as? AlbumsHorizontalAdapter)?.items = albums
-    }
 }
 
 @BindingAdapter("adapterTrackList", "fab", "viewModel")

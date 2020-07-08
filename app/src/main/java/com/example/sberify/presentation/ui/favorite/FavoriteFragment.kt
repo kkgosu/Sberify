@@ -4,58 +4,56 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.doOnNextLayout
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import com.example.sberify.R
+import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.sberify.adapters.AlbumInteraction
 import com.example.sberify.adapters.AlbumsHorizontalAdapter
 import com.example.sberify.adapters.TrackInteraction
 import com.example.sberify.adapters.TrackListedAdapter
-import com.example.sberify.base.BaseFragment
+import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentFavoriteBinding
 import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.Injectable
-import com.google.android.material.transition.Hold
-import kotlinx.android.synthetic.main.fragment_favorite.*
 
-class FavoriteFragment : BaseFragment(), Injectable,
+class FavoriteFragment : BaseViewBindingFragment<FragmentFavoriteBinding>(), Injectable,
     TrackInteraction,
     AlbumInteraction {
 
     private val favoriteViewModel: FavoriteViewModel by viewModels { viewModelFactory }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return binding<FragmentFavoriteBinding>(
-            inflater,
-            R.layout.fragment_favorite,
-            container
-        ).apply {
-            lifecycleOwner = this@FavoriteFragment
-            favoriteVM = favoriteViewModel
-            tracksAdapter =
-                TrackListedAdapter(this@FavoriteFragment)
-            albumsAdapter = AlbumsHorizontalAdapter(this@FavoriteFragment)
+    private val albumsHorizontalAdapter = AlbumsHorizontalAdapter(this)
+    private val tracksAdapter = TrackListedAdapter(this)
 
-            favoriteViewModel.loadFavorite()
-        }.root
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        postponeEnterTransition()
-        favorite_tracks_recycler.doOnNextLayout {
-            startPostponedEnterTransition()
+    override fun setupViews() {
+        setupAnimationsForRecyclers(binding.favoriteAlbumsRecycler, binding.favoriteTracksRecycler)
+        binding.favoriteAlbumsRecycler.apply {
+            adapter = albumsHorizontalAdapter
+            LinearSnapHelper().attachToRecyclerView(this)
+        }
+        binding.favoriteTracksRecycler.adapter = tracksAdapter
+
+        favoriteViewModel.favoriteAlbums.observe(viewLifecycleOwner) {
+            albumsHorizontalAdapter.items = it
         }
 
-        exitTransition = Hold().apply {
-            duration = 450
+        favoriteViewModel.favoriteTracks.observe(viewLifecycleOwner) {
+            tracksAdapter.items = it
         }
+
+        favoriteViewModel.loadFavorite()
     }
 
     override fun onTrackSelected(item: Track, view: View) {
