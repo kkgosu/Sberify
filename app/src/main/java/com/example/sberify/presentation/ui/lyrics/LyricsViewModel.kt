@@ -10,7 +10,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LyricsViewModel @Inject constructor(
-        private val databaseRepository: IDatabaseRepository) : ViewModel() {
+    private val databaseRepository: IDatabaseRepository
+) : ViewModel() {
 
     fun updateTrack(track: Track) {
         viewModelScope.launch(Dispatchers.IO) {

@@ -5,6 +5,7 @@
     android:id="@+id/lyrics_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/bottom_bar_height"
     android:background="@color/background1">
 
     <androidx.appcompat.widget.Toolbar
@@ -35,7 +36,6 @@
                 android:id="@+id/favorite_button"
                 android:layout_width="?attr/actionBarSize"
                 android:layout_height="@dimen/match_constraint"
-                android:alpha="1"
                 android:background="@color/transparent"
                 android:contentDescription="@string/add_to_favorite"
                 android:padding="@dimen/padding_medium_large"
@@ -63,9 +63,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/white" />
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="@dimen/match_constraint"
+        android:animateLayoutChanges="true"
         android:clipToPadding="false"
         android:paddingBottom="@dimen/bottom_bar_height"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -83,5 +84,5 @@
 Young Metro, young Metro, young Metro (Sheesh)
 Ayy (Ayy)
 Young Metro, young Metro" />
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

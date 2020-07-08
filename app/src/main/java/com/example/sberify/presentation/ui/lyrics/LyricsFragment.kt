@@ -30,7 +30,6 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>(), Injecta
     override fun setupViews() {
         startPostponedEnterTransition()
         binding.lyricsContainer.transitionName = navArgs.item.id
-        binding.title.text = navArgs.item.name
         (requireActivity() as AppCompatActivity).apply {
             setSupportActionBar(binding.toolbar)
             supportActionBar?.run {
@@ -42,13 +41,14 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>(), Injecta
         }
         sharedViewModel.lyrics.applyResultObserver(viewLifecycleOwner,
             success = { track ->
+                binding.title.text = track.name
                 binding.animation.loadingAnimation.hideAnimation()
                 binding.lyrics.apply {
                     text = track.lyrics
                     visibility = View.VISIBLE
                 }
                 binding.favoriteButton.apply {
-                    setFavoriteIcon(track.isFavorite)
+                    setFavoriteIcon(!track.isFavorite)
                     setOnClickListener {
                         track.isFavorite = !track.isFavorite
                         lyricsViewModel.updateTrack(track)
