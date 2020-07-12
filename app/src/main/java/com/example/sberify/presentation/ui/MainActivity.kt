@@ -18,7 +18,7 @@ import androidx.navigation.NavController
 import com.example.sberify.R
 import com.example.sberify.databinding.ActivityMainBinding
 import com.example.sberify.domain.TokenData
-import com.example.sberify.presentation.ui.utils.ConnectionLiveData
+import com.example.sberify.presentation.ui.utils.NetworkObserver
 import com.example.sberify.presentation.ui.utils.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -36,7 +36,6 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 class MainActivity : AppCompatActivity(), LifecycleOwner, HasSupportFragmentInjector {
@@ -63,15 +62,13 @@ class MainActivity : AppCompatActivity(), LifecycleOwner, HasSupportFragmentInje
         window.statusBarColor = ContextCompat.getColor(this, R.color.background1)
 
         var hasConnection = false
-        val connectionLiveData = ConnectionLiveData(this)
+        val connectionLiveData = NetworkObserver(this)
         connectionLiveData.observe(this) {
             hasConnection = it
             if (it) {
                 requestToken()
             } else {
-                Snackbar.make(findViewById(R.id.bottom_nav_view), getString(R.string.internet_connection_message), Snackbar.LENGTH_SHORT)
-                    .setBackgroundTint(ContextCompat.getColor(this, R.color.colorAccent))
-                    .show()
+                showSnackbar()
             }
         }
 
@@ -86,9 +83,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner, HasSupportFragmentInje
                         println("Now playing ${stateTrack.name} by ${stateTrack.artist.name}. Song id: ${stateTrack.uri}")
                     }
             } else {
-                Snackbar.make(findViewById(R.id.bottom_nav_view), getString(R.string.internet_connection_message), Snackbar.LENGTH_SHORT)
-                    .setBackgroundTint(ContextCompat.getColor(this, R.color.colorAccent))
-                    .show()
+                showSnackbar()
             }
         }
 
@@ -164,7 +159,6 @@ class MainActivity : AppCompatActivity(), LifecycleOwner, HasSupportFragmentInje
                     }
 
                     override fun onFailure(p0: Throwable) {
-                        continuation.resumeWithException(p0)
                     }
                 })
         }
@@ -212,6 +206,13 @@ class MainActivity : AppCompatActivity(), LifecycleOwner, HasSupportFragmentInje
         )
 
         currentNavController = controller
+    }
+
+    private fun showSnackbar() {
+        Snackbar.make(findViewById(R.id.bottom_nav_view), getString(R.string.internet_connection_message), Snackbar.LENGTH_SHORT)
+            .setBackgroundTint(ContextCompat.getColor(this, R.color.colorAccent))
+            .setAnchorView(R.id.bottom_nav_view)
+            .show()
     }
 
 
