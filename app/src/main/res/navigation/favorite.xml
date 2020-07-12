@@ -30,5 +30,8 @@
         <argument
             android:name="item"
             app:argType="com.example.sberify.models.domain.Album" />
+        <action
+            android:id="@+id/navigate_to_lyricsFragment"
+            app:destination="@id/lyricsFragment" />
     </fragment>
 </navigation>
