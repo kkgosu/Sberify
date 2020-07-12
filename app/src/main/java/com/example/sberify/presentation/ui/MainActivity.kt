@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
@@ -17,8 +18,10 @@ import androidx.navigation.NavController
 import com.example.sberify.R
 import com.example.sberify.databinding.ActivityMainBinding
 import com.example.sberify.domain.TokenData
+import com.example.sberify.presentation.ui.utils.ConnectionLiveData
 import com.example.sberify.presentation.ui.utils.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote
@@ -36,7 +39,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
+class MainActivity : AppCompatActivity(), LifecycleOwner, HasSupportFragmentInjector {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -58,7 +61,36 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         window.statusBarColor = ContextCompat.getColor(this, R.color.background1)
-        requestToken()
+
+        var hasConnection = false
+        val connectionLiveData = ConnectionLiveData(this)
+        connectionLiveData.observe(this) {
+            hasConnection = it
+            if (it) {
+                requestToken()
+            } else {
+                Snackbar.make(findViewById(R.id.bottom_nav_view), getString(R.string.internet_connection_message), Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(ContextCompat.getColor(this, R.color.colorAccent))
+                    .show()
+            }
+        }
+
+        sharedViewModel.play.observe(this) { track ->
+            if (hasConnection) {
+                spotifyAppRemote?.playerApi?.play("spotify:track:${track.id}")
+                spotifyAppRemote
+                    ?.playerApi
+                    ?.subscribeToPlayerState()
+                    ?.setEventCallback {
+                        val stateTrack = it.track
+                        println("Now playing ${stateTrack.name} by ${stateTrack.artist.name}. Song id: ${stateTrack.uri}")
+                    }
+            } else {
+                Snackbar.make(findViewById(R.id.bottom_nav_view), getString(R.string.internet_connection_message), Snackbar.LENGTH_SHORT)
+                    .setBackgroundTint(ContextCompat.getColor(this, R.color.colorAccent))
+                    .show()
+            }
+        }
 
         val binding: ActivityMainBinding by binding(R.layout.activity_main)
         binding.lifecycleOwner = this
@@ -68,17 +100,6 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         }
 
         sharedViewModel.refresh()
-
-        sharedViewModel.play.observe(this) { track ->
-            spotifyAppRemote?.playerApi?.play("spotify:track:${track.id}")
-            spotifyAppRemote
-                ?.playerApi
-                ?.subscribeToPlayerState()
-                ?.setEventCallback {
-                    val stateTrack = it.track
-                    println("Now playing ${stateTrack.name} by ${stateTrack.artist.name}. Song id: ${stateTrack.uri}")
-                }
-        }
     }
 
     override fun onStart() {
