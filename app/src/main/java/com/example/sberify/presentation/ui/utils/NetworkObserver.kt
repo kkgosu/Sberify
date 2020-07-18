@@ -29,7 +29,6 @@ class NetworkObserver(context: Context) : LiveData<Boolean>() {
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("MissingPermission")
     override fun onActive() {
-        super.onActive()
         when {
             (CURRENT_VERSION >= NOUGAT) -> connectivityManager.registerDefaultNetworkCallback(
                 connectivityManagerCallback()
@@ -39,8 +38,7 @@ class NetworkObserver(context: Context) : LiveData<Boolean>() {
     }
 
     override fun onInactive() {
-        super.onInactive()
-        connectivityManager.unregisterNetworkCallback(connectivityManagerCallback())
+        connectivityManager.unregisterNetworkCallback(networkCallback)
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
