@@ -68,7 +68,7 @@ class AlbumDetailsFragment : BaseFragment(),
     override fun onTrackSelected(item: Track, view: View) {
         sharedViewModel.getLyrics(item)
         val extras = FragmentNavigatorExtras(
-            view to view.transitionName
+            view to view.transitionName,
         )
         findNavController().navigate(
             AlbumDetailsFragmentDirections.navigateToLyricsFragment(item), extras

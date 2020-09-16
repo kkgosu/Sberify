@@ -30,19 +30,17 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>(), Injecta
     override fun setupViews() {
         startPostponedEnterTransition()
         binding.lyricsContainer.transitionName = navArgs.item.id
+        binding.title.text = navArgs.item.name
+        binding.animation.loadingAnimation.showAnimation()
         (requireActivity() as AppCompatActivity).apply {
             setSupportActionBar(binding.toolbar)
-            supportActionBar?.run {
-                setDisplayHomeAsUpEnabled(true)
-            }
+            supportActionBar?.run { setDisplayHomeAsUpEnabled(true) }
         }
         binding.playButton.setOnClickListener {
             sharedViewModel.onPlayClick(navArgs.item)
         }
         sharedViewModel.lyrics.applyResultObserver(viewLifecycleOwner,
             success = { track ->
-                binding.title.text = track.name
-                binding.animation.loadingAnimation.hideAnimation()
                 binding.lyrics.apply {
                     text = track.lyrics
                     visibility = View.VISIBLE
@@ -57,15 +55,16 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>(), Injecta
                     }
                 }
             },
-            loading = {
-                binding.animation.loadingAnimation.showAnimation()
-                binding.lyrics.visibility = View.GONE
-            },
+            loading = { binding.lyrics.visibility = View.GONE },
             error = {
                 Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
-                binding.animation.loadingAnimation.hideAnimation()
                 binding.lyrics.visibility = View.GONE
             }
         )
+    }
+
+    override fun onDestroy() {
+        binding.animation.loadingAnimation.hideAnimation()
+        super.onDestroy()
     }
 }
