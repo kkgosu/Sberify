@@ -6,7 +6,7 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId 'com.example.sberify'
         minSdkVersion rootProject.minSdkVersion
@@ -46,7 +46,7 @@ android {
         implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintlayoutVersion"
         implementation "androidx.legacy:legacy-support-v4:1.0.0"
 
-        def activity_version = "1.1.0"
+        def activity_version = "1.2.0-alpha08"
         implementation "androidx.activity:activity-ktx:$activity_version"
 
         implementation "androidx.fragment:fragment-ktx:$rootProject.fragmentVersion"
