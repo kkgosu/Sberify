@@ -6,8 +6,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
 import com.example.sberify.data.Result
 import com.example.sberify.models.domain.Artist
 import java.text.Normalizer
@@ -36,7 +34,7 @@ inline fun <T> LiveData<Result<T>>.applyResultObserver(
     crossinline success: (T) -> Unit,
     crossinline loading: () -> Unit,
     crossinline error: (message: String?) -> Unit
-): Observer<Result<T>> =
+): Unit =
     observe(owner) {
         when (it.status) {
             Result.Status.SUCCESS -> it.data?.let { data -> success.invoke(data) }
