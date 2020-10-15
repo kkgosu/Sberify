@@ -15,11 +15,9 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    dataBinding {
-        enabled = true
-    }
-    viewBinding {
-        enabled = true
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
     }
     buildTypes {
         release {
@@ -46,7 +44,7 @@ android {
         implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintlayoutVersion"
         implementation "androidx.legacy:legacy-support-v4:1.0.0"
 
-        def activity_version = "1.2.0-alpha08"
+        def activity_version = "1.2.0-beta01"
         implementation "androidx.activity:activity-ktx:$activity_version"
 
         implementation "androidx.fragment:fragment-ktx:$rootProject.fragmentVersion"
