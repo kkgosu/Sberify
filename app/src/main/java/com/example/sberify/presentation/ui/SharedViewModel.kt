@@ -5,6 +5,7 @@ import com.example.sberify.data.Result
 import com.example.sberify.domain.IDatabaseRepository
 import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
+import com.example.sberify.domain.TokenData
 import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Artist
 import com.example.sberify.models.domain.Suggestion
@@ -129,4 +130,13 @@ class SharedViewModel @Inject constructor(
 
     private fun MutableLiveData<String>.applySearch(isChecked: Boolean, keyword: String) =
         takeIf { isChecked }?.apply { value = keyword }
+
+    fun getTestLyrics() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val token = "mc4kpYFMt8Bmwmh8C405XVyssRenr9jYYPSRZugczF_ygAUu217bCzJnNVruSOJQ"
+            TokenData.setGeniusToken(token)
+            geniusRepository.getKendrikLamar()
+            println("genius token $token")
+        }
+    }
 }

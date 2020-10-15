@@ -93,6 +93,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner, HasAndroidInjector {
         }
 
         sharedViewModel.refresh()
+        sharedViewModel.getTestLyrics()
     }
 
     override fun onStart() {
@@ -127,13 +128,13 @@ class MainActivity : AppCompatActivity(), LifecycleOwner, HasAndroidInjector {
             response.code?.let {
                 accessCode = it
                 println(accessCode)
-                TokenData.setCode(accessCode)
+                TokenData.setSpotifyCode(accessCode)
             }
         } else if (AUTH_TOKEN_REQUEST_CODE == requestCode) {
             response.accessToken?.let {
                 accessToken = it
                 println(accessToken)
-                TokenData.setToken(accessToken)
+                TokenData.setSpotifyToken(accessToken)
                 sharedViewModel.refresh()
             }
         }

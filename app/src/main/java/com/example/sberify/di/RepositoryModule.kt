@@ -2,6 +2,7 @@ package com.example.sberify.di
 
 import com.example.sberify.data.DataConverter
 import com.example.sberify.data.GeniusParser
+import com.example.sberify.data.api.IGeniusApi
 import com.example.sberify.data.api.ISpotifyApi
 import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.repository.DatabaseRepository
@@ -31,17 +32,23 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideSpotifyRepository(dataConverter: DataConverter,
-            database: AppDatabase,
-            spotifyApi: ISpotifyApi): ISpotifyRepository {
+    fun provideSpotifyRepository(
+        dataConverter: DataConverter,
+        database: AppDatabase,
+        spotifyApi: ISpotifyApi
+    ): ISpotifyRepository {
         return SpotifyRepository(dataConverter, database, spotifyApi)
     }
 
+
     @Provides
     @Singleton
-    fun provideGeniusRepository(geniusParser: GeniusParser,
-            appDatabase: AppDatabase): IGeniusRepository {
-        return GeniusRepository(geniusParser, appDatabase)
+    fun provideGeniusRepository(
+        geniusParser: GeniusParser,
+        appDatabase: AppDatabase,
+        geniusApi: IGeniusApi
+    ): IGeniusRepository {
+        return GeniusRepository(geniusParser, appDatabase, geniusApi)
     }
 
     @Provides
