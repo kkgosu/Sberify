@@ -93,7 +93,6 @@ class MainActivity : AppCompatActivity(), LifecycleOwner, HasAndroidInjector {
         }
 
         sharedViewModel.refresh()
-        sharedViewModel.getTestLyrics()
     }
 
     override fun onStart() {

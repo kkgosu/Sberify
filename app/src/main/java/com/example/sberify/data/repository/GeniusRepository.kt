@@ -10,8 +10,7 @@ import com.example.sberify.data.db.track.TrackEntity
 import com.example.sberify.data.resultLiveData
 import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.models.domain.Track
-import retrofit2.Response
-import java.io.IOException
+import com.example.sberify.presentation.ui.utils.ResponseHandler.getResult
 import javax.inject.Inject
 
 class GeniusRepository @Inject constructor(
@@ -20,29 +19,16 @@ class GeniusRepository @Inject constructor(
     private val geniusApi: IGeniusApi,
 ) : IGeniusRepository {
 
-    override suspend fun getKendrikLamar(): String {
-        return getResult { geniusApi.getToken() }.data.toString()
-    }
-
-    protected suspend fun <T> getResult(call: suspend () -> Response<T>): Result<T> {
-        try {
-            val response = call()
-            if (response.isSuccessful) {
-                val body = response.body()
-                if (body != null) return Result.success(body)
-            }
-            return error(" ${response.code()} ${response.message()}")
-        } catch (e: IOException) {
-            return error(e.message ?: e.toString())
+    override suspend fun getLyrics(track: Track): LiveData<Result<Track>> {
+        val query = "${track.artists.firstOrNull()?.name.orEmpty()} ${track.name}"
+        val responseResult = getResult { geniusApi.getPath(query) }
+        val url = responseResult.data?.response?.hits?.firstOrNull { !it.result.url.contains("annotated") && it.type == "song" }?.let {
+            it.result.url
+        } ?: run {
+            throw IllegalStateException("Didn't find lyrics :C")
         }
-    }
-
-    private fun <T> error(message: String): Result<T> {
-        println(message)
-        return Result.error("Network call has failed for a following reason: $message")
-    }
-
-    override fun getLyrics(track: Track): LiveData<Result<Track>> {
+        println(query)
+        println(url)
         var isExist = false
         return resultLiveData(
             databaseQuery = {
@@ -53,7 +39,7 @@ class GeniusRepository @Inject constructor(
                     }
                 }
             },
-            networkCall = { geniusParser.parseLyrics(track) },
+            networkCall = { geniusParser.parseLyrics(track, url) },
             saveCallResult = {
                 if (!isExist) {
                     database.getTrackDao().insertTrack(TrackEntity.from(it))

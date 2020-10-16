@@ -11,9 +11,7 @@ import com.example.sberify.models.domain.Artist
 import com.example.sberify.models.domain.Suggestion
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.utils.SingleLiveEvent
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class SharedViewModel @Inject constructor(
@@ -21,6 +19,11 @@ class SharedViewModel @Inject constructor(
     private val geniusRepository: IGeniusRepository,
     private val databaseRepository: IDatabaseRepository
 ) : ViewModel() {
+
+    init {
+        val token = "rBpO2QDlufzcQpxStgKY9lF1qtxUfVvJx3Hpv4rck6myBpA8TdPPDenhKJCKZF_S"
+        TokenData.setGeniusToken(token)
+    }
 
     var isAlbumChecked = false
     var isArtistChecked = false
@@ -77,7 +80,13 @@ class SharedViewModel @Inject constructor(
     }
 
     val lyrics: LiveData<Result<Track>> = Transformations.switchMap(lyricsTrigger) {
-        geniusRepository.getLyrics(it)
+        runBlocking(Dispatchers.IO) {
+            try {
+                withContext(Dispatchers.Default) { geniusRepository.getLyrics(it) }
+            } catch (e: Exception) {
+                MutableLiveData()
+            }
+        }
     }
 
     private val _suggestions = MutableLiveData<List<Suggestion>>()
@@ -104,8 +113,8 @@ class SharedViewModel @Inject constructor(
 
     fun refreshLyrics() {
         val track = lyrics.value
-        track?.let {
-            lyricsTrigger.value = it.data
+        track?.data.let {
+            lyricsTrigger.value = it
         }
     }
 
@@ -130,13 +139,4 @@ class SharedViewModel @Inject constructor(
 
     private fun MutableLiveData<String>.applySearch(isChecked: Boolean, keyword: String) =
         takeIf { isChecked }?.apply { value = keyword }
-
-    fun getTestLyrics() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val token = "mc4kpYFMt8Bmwmh8C405XVyssRenr9jYYPSRZugczF_ygAUu217bCzJnNVruSOJQ"
-            TokenData.setGeniusToken(token)
-            geniusRepository.getKendrikLamar()
-            println("genius token $token")
-        }
-    }
 }

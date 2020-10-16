@@ -1,11 +1,11 @@
-package com.example.sberify.data.api
+package com.example.sberify.presentation.ui.utils
 
 import com.example.sberify.data.Result
 import retrofit2.Response
 import java.io.IOException
 
-abstract class BaseResponseHandler {
-    protected suspend fun <T> getResult(call: suspend () -> Response<T>): Result<T> {
+object ResponseHandler {
+    suspend fun <T> getResult(call: suspend () -> Response<T>): Result<T> {
         try {
             val response = call()
             if (response.isSuccessful) {

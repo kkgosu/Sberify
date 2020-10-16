@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.example.sberify.data.DataConverter
 import com.example.sberify.data.Result
-import com.example.sberify.data.api.BaseResponseHandler
 import com.example.sberify.data.api.ISpotifyApi
 import com.example.sberify.data.api.SearchTypes
 import com.example.sberify.data.db.AppDatabase
@@ -16,13 +15,14 @@ import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Artist
 import com.example.sberify.models.domain.Track
+import com.example.sberify.presentation.ui.utils.ResponseHandler.getResult
 import javax.inject.Inject
 
 class SpotifyRepository @Inject constructor(
     private val dataConverter: DataConverter,
     private val database: AppDatabase,
     private val mSpotifyApi: ISpotifyApi
-) : BaseResponseHandler(), ISpotifyRepository {
+) : ISpotifyRepository {
 
 
     override fun getNewReleases(): LiveData<Result<List<Album>>> {
