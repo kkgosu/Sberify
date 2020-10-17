@@ -5,8 +5,8 @@
     android:id="@+id/lyrics_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/bottom_bar_height"
-    android:background="@color/background1">
+    android:background="@color/background1"
+    android:paddingBottom="@dimen/bottom_bar_height">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -73,8 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/match_constraint"
         android:animateLayoutChanges="true"
-        android:clipToPadding="false"
-        android:paddingBottom="@dimen/bottom_bar_height"
+        android:background="@color/background1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 

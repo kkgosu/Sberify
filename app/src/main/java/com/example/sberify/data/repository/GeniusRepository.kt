@@ -1,6 +1,7 @@
 package com.example.sberify.data.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.example.sberify.data.GeniusParser
 import com.example.sberify.data.Result
@@ -20,15 +21,17 @@ class GeniusRepository @Inject constructor(
 ) : IGeniusRepository {
 
     override suspend fun getLyrics(track: Track): LiveData<Result<Track>> {
-        val query = "${track.artists.firstOrNull()?.name.orEmpty()} ${track.name}"
+        val filterTrackName = filterTrackName(track.name)
+        val query = filterQuery("${track.artists.firstOrNull()?.name.orEmpty()} $filterTrackName")
         val responseResult = getResult { geniusApi.getPath(query) }
-        val url = responseResult.data?.response?.hits?.firstOrNull { !it.result.url.contains("annotated") && it.type == "song" }?.let {
-            it.result.url
-        } ?: run {
-            throw IllegalStateException("Didn't find lyrics :C")
-        }
+        val url = responseResult.data?.response?.hits?.find {
+            it.type == "song" && !it.result.url.contains("annotated", ignoreCase = true) && !it.result.url.contains("spotify", ignoreCase = true)
+        }?.result?.url
         println(query)
         println(url)
+        if (url == null || url.isEmpty()) {
+            return MutableLiveData(Result.error(message = "Didn't find lyrics :C"))
+        }
         var isExist = false
         return resultLiveData(
             databaseQuery = {
@@ -46,5 +49,13 @@ class GeniusRepository @Inject constructor(
                 }
                 database.getTrackDao().updateTrackLyrics(it.id, it.lyrics!!)
             })
+    }
+
+    private fun filterTrackName(name: String): String = name.takeWhile { it != '(' && it != '[' }
+
+    private fun filterQuery(query: String): String = query.replace(notAllowedChars, "")
+
+    companion object {
+        private val notAllowedChars = "[^0-9a-zA-Zа-яА-Я .,$]*".toRegex()
     }
 }
