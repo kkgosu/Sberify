@@ -1,29 +1,19 @@
 package com.example.sberify.base
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.example.sberify.presentation.ui.SharedViewModel
-import com.example.sberify.presentation.ui.ViewModelFactory
-import dagger.android.support.AndroidSupportInjection
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 abstract class BaseFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    val sharedViewModel: SharedViewModel by activityViewModels { viewModelFactory }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidSupportInjection.inject(this)
-        super.onCreate(savedInstanceState)
-    }
+    val sharedViewModel: SharedViewModel by viewModels()
 
     protected inline fun <reified T : ViewDataBinding> binding(
         inflater: LayoutInflater,

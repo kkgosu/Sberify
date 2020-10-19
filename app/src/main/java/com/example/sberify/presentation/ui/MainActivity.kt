@@ -26,27 +26,20 @@ import com.spotify.android.appremote.api.SpotifyAppRemote
 import com.spotify.sdk.android.auth.AuthorizationClient
 import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
-import dagger.android.AndroidInjection
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class MainActivity : AppCompatActivity(), LifecycleOwner, HasAndroidInjector {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity(), LifecycleOwner {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var tokenData: TokenData
 
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-
-    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
-
-    private val sharedViewModel: SharedViewModel by viewModels { viewModelFactory }
+    private val sharedViewModel: SharedViewModel by viewModels()
     private var currentNavController: LiveData<NavController>? = null
 
     private lateinit var accessToken: String
@@ -55,7 +48,6 @@ class MainActivity : AppCompatActivity(), LifecycleOwner, HasAndroidInjector {
     private var spotifyAppRemote: SpotifyAppRemote? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         window.statusBarColor = ContextCompat.getColor(this, R.color.background1)
 
@@ -127,13 +119,13 @@ class MainActivity : AppCompatActivity(), LifecycleOwner, HasAndroidInjector {
             response.code?.let {
                 accessCode = it
                 println(accessCode)
-                TokenData.setSpotifyCode(accessCode)
+                tokenData.setSpotifyCode(accessCode)
             }
         } else if (AUTH_TOKEN_REQUEST_CODE == requestCode) {
             response.accessToken?.let {
                 accessToken = it
                 println(accessToken)
-                TokenData.setSpotifyToken(accessToken)
+                tokenData.setSpotifyToken(accessToken)
                 sharedViewModel.refresh()
             }
         }

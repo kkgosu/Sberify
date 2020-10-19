@@ -33,6 +33,7 @@ class GeniusRepository @Inject constructor(
             return MutableLiveData(Result.error(message = "Didn't find lyrics :C"))
         }
         var isExist = false
+
         return resultLiveData(
             databaseQuery = {
                 database.getTrackDao().getTrackById(track.id).map {
@@ -51,11 +52,15 @@ class GeniusRepository @Inject constructor(
             })
     }
 
-    private fun filterTrackName(name: String): String = name.takeWhile { it != '(' && it != '[' }
+    private fun filterTrackName(name: String): String {
+        if (name[0] == '(' || name[0] == '[')
+            return name
+        return name.takeWhile { it != '(' && it != '[' }
+    }
 
     private fun filterQuery(query: String): String = query.replace(notAllowedChars, "")
 
     companion object {
-        private val notAllowedChars = "[^0-9a-zA-Zа-яА-Я .,$]*".toRegex()
+        private val notAllowedChars = "[^0-9a-zA-Zа-яА-Я .,$-]*".toRegex()
     }
 }

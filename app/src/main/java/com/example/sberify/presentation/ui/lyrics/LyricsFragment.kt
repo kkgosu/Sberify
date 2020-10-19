@@ -10,12 +10,16 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentLyricsBinding
-import com.example.sberify.presentation.ui.Injectable
+import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.utils.*
+import dagger.hilt.android.AndroidEntryPoint
 
-class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>(), Injectable {
+@AndroidEntryPoint
+class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
 
-    private val lyricsViewModel: LyricsViewModel by viewModels { viewModelFactory }
+    private val lyricsViewModel: LyricsViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by viewModels()
+
     private val navArgs by navArgs<LyricsFragmentArgs>()
 
     override fun getViewBinding(

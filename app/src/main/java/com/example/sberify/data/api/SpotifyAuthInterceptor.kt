@@ -6,7 +6,9 @@ import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
 
-class SpotifyAuthInterceptor : Interceptor {
+class SpotifyAuthInterceptor(
+    private val tokenData: TokenData
+) : Interceptor {
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -15,7 +17,7 @@ class SpotifyAuthInterceptor : Interceptor {
                 .newBuilder()
                 .addHeader(
                     "Authorization",
-                    "Bearer ${TokenData.getSpotifyToken()}"
+                    "Bearer ${tokenData.getSpotifyToken()}"
                 )
                 .addHeader("Accept", "application/json")
                 .addHeader("Content-Type", "application/json")

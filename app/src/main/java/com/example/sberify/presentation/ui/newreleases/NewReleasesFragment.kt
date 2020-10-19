@@ -13,13 +13,10 @@ import com.example.sberify.adapters.AlbumsAdapter
 import com.example.sberify.base.BaseFragment
 import com.example.sberify.databinding.FragmentNewReleasesBinding
 import com.example.sberify.models.domain.Album
-import com.example.sberify.presentation.ui.Injectable
 import com.google.android.material.transition.Hold
 import kotlinx.android.synthetic.main.fragment_new_releases.*
 
-
-class NewReleasesFragment : BaseFragment(), Injectable,
-    AlbumInteraction {
+class NewReleasesFragment : BaseFragment(), AlbumInteraction {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

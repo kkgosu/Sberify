@@ -1,32 +1,43 @@
 package com.example.sberify.di
 
+import android.content.Context
+import androidx.preference.PreferenceManager
 import com.example.sberify.data.api.GeniusAuthInterceptor
 import com.example.sberify.data.api.IGeniusApi
 import com.example.sberify.data.api.ISpotifyApi
 import com.example.sberify.data.api.SpotifyAuthInterceptor
+import com.example.sberify.domain.TokenData
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
+@InstallIn(ApplicationComponent::class)
 class ApiModule {
+
     @Provides
-    fun provideSpotifyInterceptor(): SpotifyAuthInterceptor {
-        return SpotifyAuthInterceptor()
+    @Singleton
+    fun provideTokenData(@ApplicationContext context: Context) = TokenData(PreferenceManager.getDefaultSharedPreferences(context))
+
+    @Provides
+    fun provideSpotifyInterceptor(tokenData: TokenData): SpotifyAuthInterceptor {
+        return SpotifyAuthInterceptor(tokenData)
     }
 
     @Provides
-    fun provideGeniusInterceptor(): GeniusAuthInterceptor {
-        return GeniusAuthInterceptor()
+    fun provideGeniusInterceptor(tokenData: TokenData): GeniusAuthInterceptor {
+        return GeniusAuthInterceptor(tokenData)
     }
 
     @Provides
-    @Named("spotify")
+    @SpotifyNetwork
     fun provideSpotifyOkHttpClient(interceptor: SpotifyAuthInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
@@ -34,7 +45,7 @@ class ApiModule {
     }
 
     @Provides
-    @Named("genius")
+    @GeniusNetwork
     fun provideGeniusOkHttpClient(interceptor: GeniusAuthInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
@@ -42,40 +53,25 @@ class ApiModule {
     }
 
     @Provides
-    @Singleton
-    fun provideGson(): Gson = Gson()
+    fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create(Gson())
 
     @Provides
-    fun provideGsonConverterFactory(gson: Gson): GsonConverterFactory =
-        GsonConverterFactory.create(gson)
-
-    @Provides
-    @Named("spotify")
-    fun provideRetrofit(@Named("spotify") okHttpClient: OkHttpClient, gson: GsonConverterFactory): Retrofit {
+    fun provideSpotifyApiService(@SpotifyNetwork okHttpClient: OkHttpClient, gson: GsonConverterFactory): ISpotifyApi {
         return Retrofit.Builder()
             .baseUrl(ISpotifyApi.API_URL)
             .client(okHttpClient)
             .addConverterFactory(gson)
             .build()
+            .create(ISpotifyApi::class.java)
     }
 
     @Provides
-    @Named("genius")
-    fun provideGeniusRetrofit(@Named("genius") okHttpClient: OkHttpClient, gson: GsonConverterFactory): Retrofit {
+    fun provideGeniusApiService(@GeniusNetwork okHttpClient: OkHttpClient, gson: GsonConverterFactory): IGeniusApi {
         return Retrofit.Builder()
             .baseUrl(IGeniusApi.API_URL)
             .client(okHttpClient)
             .addConverterFactory(gson)
             .build()
-    }
-
-    @Provides
-    fun provideSpotifyApiService(@Named("spotify") retrofit: Retrofit): ISpotifyApi {
-        return retrofit.create(ISpotifyApi::class.java)
-    }
-
-    @Provides
-    fun provideGeniusApiService(@Named("genius") retrofit: Retrofit): IGeniusApi {
-        return retrofit.create(IGeniusApi::class.java)
+            .create(IGeniusApi::class.java)
     }
 }

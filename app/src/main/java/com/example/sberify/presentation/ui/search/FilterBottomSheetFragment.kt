@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResultListener
 import com.example.sberify.R
 import com.example.sberify.databinding.FilterBottomSheetLayoutBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

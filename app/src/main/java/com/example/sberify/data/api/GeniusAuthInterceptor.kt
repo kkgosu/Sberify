@@ -6,7 +6,9 @@ import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
 
-class GeniusAuthInterceptor : Interceptor {
+class GeniusAuthInterceptor(
+    private val tokenData: TokenData
+) : Interceptor {
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -15,7 +17,7 @@ class GeniusAuthInterceptor : Interceptor {
                 .newBuilder()
                 .addHeader(
                     "Authorization",
-                    "Bearer ${TokenData.getGeniusToken()}"
+                    "Bearer ${tokenData.getGeniusToken()}"
                 )
                 .addHeader("User-Agent", "CompuServe Classic/1.22")
                 .addHeader("Accept", "application/json")

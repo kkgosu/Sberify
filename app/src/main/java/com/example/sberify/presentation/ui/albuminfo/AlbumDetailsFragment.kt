@@ -19,8 +19,7 @@ import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.android.synthetic.main.fragment_album_details.*
 
-class AlbumDetailsFragment : BaseFragment(),
-    TrackInteraction {
+class AlbumDetailsFragment : BaseFragment(), TrackInteraction {
 
     private val navArgs by navArgs<AlbumDetailsFragmentArgs>()
 

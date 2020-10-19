@@ -1,5 +1,6 @@
 package com.example.sberify.presentation.ui
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.sberify.data.Result
 import com.example.sberify.domain.IDatabaseRepository
@@ -12,17 +13,17 @@ import com.example.sberify.models.domain.Suggestion
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.utils.SingleLiveEvent
 import kotlinx.coroutines.*
-import javax.inject.Inject
 
-class SharedViewModel @Inject constructor(
+class SharedViewModel @ViewModelInject constructor(
     private val spotifyRepository: ISpotifyRepository,
     private val geniusRepository: IGeniusRepository,
-    private val databaseRepository: IDatabaseRepository
+    private val databaseRepository: IDatabaseRepository,
+    tokenData: TokenData
 ) : ViewModel() {
 
     init {
         val token = "rBpO2QDlufzcQpxStgKY9lF1qtxUfVvJx3Hpv4rck6myBpA8TdPPDenhKJCKZF_S"
-        TokenData.setGeniusToken(token)
+        tokenData.setGeniusToken(token)
     }
 
     var isAlbumChecked = false

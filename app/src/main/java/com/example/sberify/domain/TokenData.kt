@@ -1,18 +1,10 @@
 package com.example.sberify.domain
 
 import android.content.SharedPreferences
-import androidx.preference.PreferenceManager
-import com.example.sberify.SberifyApp
 
-object TokenData {
-    private lateinit var prefs: SharedPreferences
-
-    private fun initializePrefs() {
-        if (!TokenData::prefs.isInitialized && SberifyApp.getContext() != null) {
-            prefs = PreferenceManager
-                .getDefaultSharedPreferences(SberifyApp.getContext())
-        }
-    }
+class TokenData(
+    private val prefs: SharedPreferences
+) {
 
     fun setSpotifyToken(token: String) {
         setString(SPOTIFY_OAUTHTOKEN, token)
@@ -30,30 +22,20 @@ object TokenData {
         setString(GENIUS_CODE, code)
     }
 
-    fun getSpotifyToken(): String = getString(SPOTIFY_OAUTHTOKEN)
+    fun getSpotifyToken(): String = prefs.getString(SPOTIFY_OAUTHTOKEN, "")!!
 
-    fun getGeniusToken(): String = getString(GENIUS_OAUTHTOKEN)
+    fun getGeniusToken(): String = prefs.getString(GENIUS_OAUTHTOKEN, "")!!
 
-    private fun getString(pref: String, def: String = ""): String {
-        initializePrefs()
-        return if (TokenData::prefs.isInitialized) {
-            prefs.getString(pref, def)!!
-        } else ""
+    private fun setString(pref: String, str: String) {
+        prefs.edit()
+            .putString(pref, str)
+            .apply()
     }
 
-    private fun setString(pref: String, str: String): Boolean {
-        initializePrefs()
-        if (TokenData::prefs.isInitialized) {
-            prefs.edit()
-                .putString(pref, str)
-                .apply()
-            return true
-        }
-        return false
+    companion object {
+        private const val SPOTIFY_OAUTHTOKEN = "SPOTIFY_OAUTHTOKEN"
+        private const val SPOTIFY_CODE = "SPOTIFY_CODE"
+        private const val GENIUS_OAUTHTOKEN = "GENIUS_OAUTHTOKEN"
+        private const val GENIUS_CODE = "GENIUS_CODE"
     }
-
-    private const val SPOTIFY_OAUTHTOKEN = "SPOTIFY_OAUTHTOKEN"
-    private const val SPOTIFY_CODE = "SPOTIFY_CODE"
-    private const val GENIUS_OAUTHTOKEN = "GENIUS_OAUTHTOKEN"
-    private const val GENIUS_CODE = "GENIUS_CODE"
 }

@@ -13,9 +13,12 @@ import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import javax.inject.Singleton
 
 @Module(includes = [ApiModule::class])
+@InstallIn(ApplicationComponent::class)
 class RepositoryModule {
 
     @Provides

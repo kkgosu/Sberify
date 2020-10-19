@@ -16,13 +16,17 @@ import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentFavoriteBinding
 import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Track
-import com.example.sberify.presentation.ui.Injectable
+import com.example.sberify.presentation.ui.SharedViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class FavoriteFragment : BaseViewBindingFragment<FragmentFavoriteBinding>(), Injectable,
+@AndroidEntryPoint
+class FavoriteFragment :
+    BaseViewBindingFragment<FragmentFavoriteBinding>(),
     TrackInteraction,
     AlbumInteraction {
 
-    private val favoriteViewModel: FavoriteViewModel by viewModels { viewModelFactory }
+    private val favoriteViewModel: FavoriteViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by viewModels()
 
     private val albumsHorizontalAdapter = AlbumsHorizontalAdapter(this)
     private val tracksAdapter = TrackListedAdapter(this)
