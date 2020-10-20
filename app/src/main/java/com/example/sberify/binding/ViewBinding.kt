@@ -1,6 +1,5 @@
 package com.example.sberify.binding
 
-import android.app.Activity
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
@@ -14,7 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlin.math.abs
 
 @BindingAdapter("image")
-fun ImageView.loadImage(image: String?) = ifNotDestroyed {
+fun ImageView.loadImage(image: String?) =
     image?.let {
         Glide.with(this.context)
             .load(it)
@@ -23,7 +22,7 @@ fun ImageView.loadImage(image: String?) = ifNotDestroyed {
             .centerCrop()
             .into(this)
     }
-}
+
 
 @BindingAdapter("paletteImage", "palette")
 fun ImageView.bindingPalette(path: String?, palette: View) {
@@ -55,10 +54,4 @@ fun bindAppBarLayoutWithFab(appBarLayout: AppBarLayout, fab: FloatingActionButto
             }
         }
     )
-}
-
-private fun View.ifNotDestroyed(block: () -> Unit) {
-    if (!(context as Activity).isDestroyed) {
-        block()
-    }
 }

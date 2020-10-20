@@ -6,14 +6,8 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import com.example.sberify.presentation.ui.SharedViewModel
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 abstract class BaseFragment : Fragment() {
-
-    val sharedViewModel: SharedViewModel by viewModels()
 
     protected inline fun <reified T : ViewDataBinding> binding(
         inflater: LayoutInflater,

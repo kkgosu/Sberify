@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.sberify.base.BaseViewBindingFragment
@@ -18,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
 
     private val lyricsViewModel: LyricsViewModel by viewModels()
-    private val sharedViewModel: SharedViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private val navArgs by navArgs<LyricsFragmentArgs>()
 

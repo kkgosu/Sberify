@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnNextLayout
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -14,13 +15,17 @@ import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseFragment
 import com.example.sberify.databinding.FragmentAlbumDetailsBinding
 import com.example.sberify.models.domain.Track
+import com.example.sberify.presentation.ui.SharedViewModel
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_album_details.*
 
+@AndroidEntryPoint
 class AlbumDetailsFragment : BaseFragment(), TrackInteraction {
 
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     private val navArgs by navArgs<AlbumDetailsFragmentArgs>()
 
     override fun onCreateView(
