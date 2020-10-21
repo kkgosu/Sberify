@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.bottomnavigation.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_nav_view"
     style="@style/Widget.MaterialComponents.BottomNavigationView"
     android:layout_width="match_parent"
@@ -10,8 +9,7 @@
     android:background="@color/background1"
     app:itemIconTint="@color/bnv"
     app:itemTextColor="@color/bnv"
-    app:menu="@menu/another_bottom_menu"
-    tools:viewBindingIgnore="true">
+    app:menu="@menu/another_bottom_menu">
 
     <include layout="@layout/top_bottom_content_divider" />
 

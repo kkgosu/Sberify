@@ -12,7 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSnapHelper
@@ -38,7 +38,7 @@ class SearchFragment :
     TrackInteraction,
     SuggestionInteraction {
 
-    private val sharedViewModel: SharedViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private val suggestionsAdapter = SuggestionAdapter(this)
     private val artistsAdapter = AlbumsAdapter(this)

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSnapHelper
@@ -25,8 +25,8 @@ class FavoriteFragment :
     TrackInteraction,
     AlbumInteraction {
 
-    private val favoriteViewModel: FavoriteViewModel by viewModels()
-    private val sharedViewModel: SharedViewModel by viewModels()
+    private val favoriteViewModel: FavoriteViewModel by activityViewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private val albumsHorizontalAdapter = AlbumsHorizontalAdapter(this)
     private val tracksAdapter = TrackListedAdapter(this)
