@@ -1,74 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_xsmall"
+    app:cardBackgroundColor="@color/background2"
+    app:cardCornerRadius="@dimen/corner_radius_medium"
+    app:elevation="@dimen/elevation_medium">
 
-    <data>
-
-        <variable
-            name="track"
-            type="com.example.sberify.models.domain.Track" />
-
-        <variable
-            name="palette"
-            type="android.view.View" />
-    </data>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/item_container"
+    <LinearLayout
+        android:id="@+id/item_track_palette"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_xsmall"
-        app:cardBackgroundColor="@color/background2"
-        app:cardCornerRadius="@dimen/corner_radius_medium"
-        app:elevation="@dimen/elevation_medium">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.example.sberify.presentation.ui.utils.SquareImageView
+            android:id="@+id/cover"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/ic_launcher_background" />
 
         <LinearLayout
-            android:id="@+id/item_track_palette"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_xsmall">
 
-            <com.example.sberify.presentation.ui.utils.SquareImageView
-                android:id="@+id/cover"
+            <TextView
+                android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:scaleType="centerCrop"
-                android:transitionName="@{track.image.url}"
-                app:palette="@{palette}"
-                app:paletteImage="@{track.image.url}"
-                tools:src="@drawable/ic_launcher_background" />
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textColor="@color/white"
+                tools:text="Courage (Deluxe Edition)" />
 
-            <LinearLayout
-                android:id="@+id/item_album_palette"
+            <TextView
+                android:id="@+id/artist_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/padding_xsmall">
-
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{track.name}"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    android:textColor="@color/white"
-                    android:transitionName="@{track.name}"
-                    tools:text="Courage (Deluxe Edition)" />
-
-                <TextView
-                    android:id="@+id/artist_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{track.artists.get(0).name}"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                    android:textColor="@color/white"
-                    android:transitionName="@{track.artists.get(0).name}"
-                    tools:text="Celine Dion" />
-            </LinearLayout>
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                android:textColor="@color/white"
+                tools:text="Celine Dion" />
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
-</layout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

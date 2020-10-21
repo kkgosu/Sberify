@@ -13,14 +13,10 @@ import androidx.navigation.fragment.navArgs
 import com.example.sberify.adapters.TrackInteraction
 import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseViewBindingFragment
-import com.example.sberify.binding.bindAppBarLayoutWithFab
-import com.example.sberify.binding.loadImage
 import com.example.sberify.databinding.FragmentAlbumDetailsBinding
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.SharedViewModel
-import com.example.sberify.presentation.ui.utils.applyResultObserver
-import com.example.sberify.presentation.ui.utils.setFavoriteIcon
-import com.example.sberify.presentation.ui.utils.startAnim
+import com.example.sberify.presentation.ui.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

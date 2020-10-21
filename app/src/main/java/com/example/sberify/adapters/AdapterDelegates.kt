@@ -2,9 +2,10 @@ package com.example.sberify.adapters
 
 import android.view.View
 import androidx.core.view.ViewCompat
-import com.example.sberify.binding.bindingPalette
 import com.example.sberify.databinding.*
 import com.example.sberify.models.domain.*
+import com.example.sberify.presentation.ui.utils.bindPalette
+import com.example.sberify.presentation.ui.utils.convertArtistsToString
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
 
@@ -18,9 +19,9 @@ fun trackListedAdapterDelegate(itemClickListener: (Track, View) -> Unit) =
         bind {
             binding.apply {
                 ViewCompat.setTransitionName(binding.itemContainer, item.id)
-                track = item
-                pos = adapterPosition + 1
-                executePendingBindings()
+                trackName.text = item.name
+                artistName.text = convertArtistsToString(item.artists)
+                position.text = (adapterPosition + 1).toString()
             }
         }
     }
@@ -35,9 +36,9 @@ fun trackCardViewAdapterDelegate(itemClickListener: (Track, View) -> Unit) =
         bind {
             binding.apply {
                 ViewCompat.setTransitionName(binding.itemContainer, item.id)
-                track = item
-                palette = itemTrackPalette
-                executePendingBindings()
+                name.text = item.name
+                artistName.text = item.artists[0].name
+                cover.bindPalette(item.image?.url, itemTrackPalette)
             }
         }
     }
@@ -52,9 +53,9 @@ fun albumAdapterDelegate(itemClickListener: (Album, View) -> Unit) =
         bind {
             binding.apply {
                 ViewCompat.setTransitionName(binding.cardView, item.id)
-                album = item
-                palette = itemAlbumPalette
-                executePendingBindings()
+                releaseName.text = item.name
+                artistName.text = item.artist.name
+                releaseCover.bindPalette(item.imageUrl, itemAlbumPalette)
             }
         }
     }
@@ -69,7 +70,7 @@ fun albumHorizontalAdapterDelegate(itemClickListener: (Album, View) -> Unit) =
         bind {
             binding.apply {
                 ViewCompat.setTransitionName(binding.cardView, item.id)
-                releaseCover.bindingPalette(item.imageUrl, itemAlbumPalette)
+                releaseCover.bindPalette(item.imageUrl, itemAlbumPalette)
                 releaseName.text = item.name
                 artistName.text = item.artist.name
             }
@@ -84,9 +85,7 @@ fun suggestionAdapterDelegate(itemClickListener: (Int, Suggestion) -> Unit) =
             itemClickListener.invoke(adapterPosition, item)
         }
         bind {
-            binding.apply {
-                suggestionText.text = item.text
-            }
+            binding.suggestionText.text = item.text
         }
     }
 
@@ -97,9 +96,8 @@ fun artistAdapterDelegate() =
         bind {
             binding.apply {
                 ViewCompat.setTransitionName(binding.itemContainer, item.id)
-                artist = item
-                palette = itemSearchPalette
-                executePendingBindings()
+                searchImage.bindPalette(item.image?.url, itemSearchPalette)
+                searchName.text = item.name
             }
         }
     }
