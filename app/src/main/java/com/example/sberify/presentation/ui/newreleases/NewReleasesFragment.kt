@@ -4,54 +4,44 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.doOnNextLayout
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import com.example.sberify.R
 import com.example.sberify.adapters.AlbumInteraction
 import com.example.sberify.adapters.AlbumsAdapter
-import com.example.sberify.base.BaseFragment
+import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentNewReleasesBinding
 import com.example.sberify.models.domain.Album
 import com.example.sberify.presentation.ui.SharedViewModel
-import com.google.android.material.transition.Hold
+import com.example.sberify.presentation.ui.utils.applyResultObserver
+import com.example.sberify.presentation.ui.utils.hideAnimation
+import com.example.sberify.presentation.ui.utils.showAnimation
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_new_releases.*
 
 @AndroidEntryPoint
-class NewReleasesFragment : BaseFragment(), AlbumInteraction {
+class NewReleasesFragment : BaseViewBindingFragment<FragmentNewReleasesBinding>(), AlbumInteraction {
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+    private lateinit var adapter: AlbumsAdapter
+
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return binding<FragmentNewReleasesBinding>(
-            inflater,
-            R.layout.fragment_new_releases,
-            container
-        ).apply {
-            lifecycleOwner = this@NewReleasesFragment
-            adapter = AlbumsAdapter(this@NewReleasesFragment)
-            viewModel = sharedViewModel
-            anim = animation.loadingAnimation
-            swipeRefresh = refreshLayout.apply {
-                setOnRefreshListener { sharedViewModel.refresh() }
-            }
-        }.root
+    ): View {
+        _binding = FragmentNewReleasesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        postponeEnterTransition()
-        new_releases_recycler.doOnNextLayout {
-            startPostponedEnterTransition()
-        }
-
-        exitTransition = Hold().apply {
-            duration = 450
-        }
+    override fun setupViews() {
+        subscribeToObservers()
+        startPostponedEnterTransition()
+        setupAnimationsForRecyclers(binding.newReleasesRecycler)
+        adapter = AlbumsAdapter(this)
+        binding.newReleasesRecycler.adapter = adapter
+        binding.refreshLayout.setOnRefreshListener { sharedViewModel.refresh() }
     }
 
     override fun onAlbumSelected(item: Album, view: View) {
@@ -64,5 +54,21 @@ class NewReleasesFragment : BaseFragment(), AlbumInteraction {
                 item
             ), extras
         )
+    }
+
+    private fun subscribeToObservers() {
+        sharedViewModel.newReleases.applyResultObserver(
+            viewLifecycleOwner,
+            success = { album ->
+                binding.refreshLayout.isRefreshing = false
+                adapter.items = album
+                binding.animation.loadingAnimation.hideAnimation()
+            },
+            loading = { binding.animation.loadingAnimation.showAnimation() },
+            error = {
+                binding.refreshLayout.isRefreshing = false
+                binding.animation.loadingAnimation.hideAnimation()
+                Toast.makeText(requireContext(), it ?: "Error occurred while getting new releases :C", Toast.LENGTH_SHORT).show()
+            })
     }
 }
