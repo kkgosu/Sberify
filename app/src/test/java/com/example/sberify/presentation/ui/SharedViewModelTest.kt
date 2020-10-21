@@ -9,6 +9,7 @@ import com.example.sberify.data.Result
 import com.example.sberify.domain.IDatabaseRepository
 import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
+import com.example.sberify.domain.TokenData
 import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Artist
 import com.example.sberify.models.domain.Suggestion
@@ -36,13 +37,15 @@ class SharedViewModelTest {
     private lateinit var spotifyRepository: ISpotifyRepository
     private lateinit var geniusRepository: IGeniusRepository
     private lateinit var databaseRepository: IDatabaseRepository
+    private lateinit var tokenData: TokenData
 
     @Before
     fun setUp() {
         spotifyRepository = mock()
         geniusRepository = mock()
         databaseRepository = mock()
-        sharedViewModel = SharedViewModel(spotifyRepository, geniusRepository, databaseRepository)
+        tokenData = mock()
+        sharedViewModel = SharedViewModel(spotifyRepository, geniusRepository, databaseRepository, tokenData)
     }
 
 
@@ -192,7 +195,7 @@ class SharedViewModelTest {
             .thenReturn(result1)
             .thenReturn(result2)
 
-        sharedViewModel = SharedViewModel(spotifyRepository, geniusRepository, databaseRepository)
+        sharedViewModel = SharedViewModel(spotifyRepository, geniusRepository, databaseRepository, tokenData)
 
         val initialValue = lyrics.value
         sharedViewModel.refreshLyrics()
