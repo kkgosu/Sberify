@@ -4,11 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
@@ -42,6 +39,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
     private val sharedViewModel: SharedViewModel by viewModels()
     private var currentNavController: LiveData<NavController>? = null
 
+    private lateinit var binding: ActivityMainBinding
     private lateinit var accessToken: String
     private lateinit var accessCode: String
 
@@ -49,6 +47,8 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         window.statusBarColor = ContextCompat.getColor(this, R.color.background1)
 
         var hasConnection = false
@@ -76,9 +76,6 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
                 showSnackbar()
             }
         }
-
-        val binding: ActivityMainBinding by binding(R.layout.activity_main)
-        binding.lifecycleOwner = this
 
         if (savedInstanceState == null) {
             setupBottomNavBar()
@@ -152,10 +149,6 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
                     }
                 })
         }
-
-    private inline fun <reified T : ViewDataBinding> binding(
-        @LayoutRes resId: Int
-    ): Lazy<T> = lazy { DataBindingUtil.setContentView<T>(this, resId) }
 
     private fun onRequestCodeClicked() {
         val request = getAuthenticationRequest(AuthorizationResponse.Type.CODE)
