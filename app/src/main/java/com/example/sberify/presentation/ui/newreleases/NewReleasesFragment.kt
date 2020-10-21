@@ -37,7 +37,6 @@ class NewReleasesFragment : BaseViewBindingFragment<FragmentNewReleasesBinding>(
 
     override fun setupViews() {
         subscribeToObservers()
-        startPostponedEnterTransition()
         setupAnimationsForRecyclers(binding.newReleasesRecycler)
         adapter = AlbumsAdapter(this)
         binding.newReleasesRecycler.adapter = adapter

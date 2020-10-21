@@ -41,16 +41,16 @@ fun ImageView.bindingPalette(path: String?, palette: View) {
 }
 
 @BindingAdapter("bindFab")
-fun bindAppBarLayoutWithFab(appBarLayout: AppBarLayout, fab: FloatingActionButton) {
+fun FloatingActionButton.bindAppBarLayoutWithFab(appBarLayout: AppBarLayout) {
     appBarLayout.addOnOffsetChangedListener(
         AppBarLayout.OnOffsetChangedListener { appBarLayout1, verticalOffset ->
             val verticalOffsetPercentage = abs(
                 verticalOffset
             ).toFloat() / appBarLayout1.totalScrollRange.toFloat()
-            if (verticalOffsetPercentage > 0.4 && fab.isOrWillBeShown) {
-                fab.hide()
-            } else if (verticalOffsetPercentage <= 0.4f && fab.isOrWillBeHidden && fab.tag != View.GONE) {
-                fab.show()
+            if (verticalOffsetPercentage > 0.4 && isOrWillBeShown) {
+                hide()
+            } else if (verticalOffsetPercentage <= 0.4f && isOrWillBeHidden && tag != View.GONE) {
+                show()
             }
         }
     )

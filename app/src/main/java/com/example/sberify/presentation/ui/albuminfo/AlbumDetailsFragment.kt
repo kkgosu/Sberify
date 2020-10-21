@@ -4,69 +4,61 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.doOnNextLayout
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.sberify.R
 import com.example.sberify.adapters.TrackInteraction
 import com.example.sberify.adapters.TrackListedAdapter
-import com.example.sberify.base.BaseFragment
+import com.example.sberify.base.BaseViewBindingFragment
+import com.example.sberify.binding.bindAppBarLayoutWithFab
+import com.example.sberify.binding.loadImage
 import com.example.sberify.databinding.FragmentAlbumDetailsBinding
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.SharedViewModel
-import com.google.android.material.transition.Hold
-import com.google.android.material.transition.MaterialArcMotion
-import com.google.android.material.transition.MaterialContainerTransform
+import com.example.sberify.presentation.ui.utils.applyResultObserver
+import com.example.sberify.presentation.ui.utils.setFavoriteIcon
+import com.example.sberify.presentation.ui.utils.startAnim
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_album_details.*
 
 @AndroidEntryPoint
-class AlbumDetailsFragment : BaseFragment(), TrackInteraction {
+class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding>(), TrackInteraction {
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val navArgs by navArgs<AlbumDetailsFragmentArgs>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+    private lateinit var adapter: TrackListedAdapter
+
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return binding<FragmentAlbumDetailsBinding>(
-            inflater,
-            R.layout.fragment_album_details,
-            container
-        ).apply {
-            lifecycleOwner = this@AlbumDetailsFragment
-            viewModel = sharedViewModel
-            fragment = this@AlbumDetailsFragment
-            adapter =
-                TrackListedAdapter(this@AlbumDetailsFragment)
-            fab = fabFavorite
-        }.root
+    ): View {
+        _binding = FragmentAlbumDetailsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun setupViews() {
+        setupAnimationsForRecyclers(binding.recyclerTracks)
+        subscribeToObservers()
+        (requireActivity() as AppCompatActivity).apply {
+            setSupportActionBar(binding.detailToolbar)
+            supportActionBar?.run {
+                setDisplayHomeAsUpEnabled(true)
+            }
+        }
         navArgs.item.run {
-            detail_container.transitionName = id
-            artist_name.text = artist.name
-            album_name.text = name
-            release_date.text = releaseDate
-            detail_toolbar.title = name
+            binding.detailContainer.transitionName = id
+            binding.artistName.text = artist.name
+            binding.albumName.text = name
+            binding.releaseDate.text = releaseDate
+            binding.detailToolbar.title = name
         }
-        postponeEnterTransition()
-        recycler_tracks.doOnNextLayout {
-            startPostponedEnterTransition()
-        }
-
-        sharedElementEnterTransition = MaterialContainerTransform().apply {
-            setPathMotion(MaterialArcMotion())
-            duration = 450
-        }
-
-        exitTransition = Hold().apply {
-            duration = 450
-        }
+        adapter = TrackListedAdapter(this)
+        binding.recyclerTracks.adapter = adapter
+        binding.fabFavorite.bindAppBarLayoutWithFab(binding.appBarLayout)
     }
 
     override fun onTrackSelected(item: Track, view: View) {
@@ -76,6 +68,29 @@ class AlbumDetailsFragment : BaseFragment(), TrackInteraction {
         )
         findNavController().navigate(
             AlbumDetailsFragmentDirections.navigateToLyricsFragment(item), extras
+        )
+    }
+
+    private fun subscribeToObservers() {
+        sharedViewModel.album.applyResultObserver(
+            viewLifecycleOwner,
+            success = { album ->
+                binding.albumCover.loadImage(album.imageUrl)
+                album.tracks?.let { tracks ->
+                    adapter.items = tracks
+                    binding.fabFavorite.apply {
+                        setFavoriteIcon(!album.isFavorite)
+                        setOnClickListener {
+                            album.isFavorite = !album.isFavorite
+                            sharedViewModel.updateFavoriteAlbum(album)
+                            setFavoriteIcon(album.isFavorite)
+                            startAnim()
+                        }
+                    }
+                }
+            },
+            loading = { },
+            error = { Toast.makeText(requireContext(), it ?: "Error occurred while getting album's data :C", Toast.LENGTH_SHORT).show() }
         )
     }
 }
