@@ -106,7 +106,6 @@ android {
         implementation "androidx.preference:preference:1.1.1"
         implementation "androidx.navigation:navigation-runtime:2.3.1"
 
-
         testImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
         androidTestImplementation "androidx.test.espresso:espresso-contrib:$rootProject.espressoVersion"
         androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"

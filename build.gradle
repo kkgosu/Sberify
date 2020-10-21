@@ -66,10 +66,6 @@ buildscript {
     }
 }
 
-plugins {
-    id 'com.autonomousapps.dependency-analysis' version '0.56.0'
-}
-
 allprojects {
     repositories {
         google()
