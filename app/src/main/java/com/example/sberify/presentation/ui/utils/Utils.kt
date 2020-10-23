@@ -3,7 +3,7 @@ package com.example.sberify.presentation.ui.utils
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import com.example.sberify.data.Result
-import com.example.sberify.models.domain.Artist
+import com.kvlg.model.presentation.Artist
 
 fun convertArtistsToString(artists: List<Artist>): String {
     val builder = StringBuilder()

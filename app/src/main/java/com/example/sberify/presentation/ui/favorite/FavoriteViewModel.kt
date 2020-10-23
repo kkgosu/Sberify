@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.sberify.domain.IDatabaseRepository
-import com.example.sberify.models.domain.Album
-import com.example.sberify.models.domain.Track
+import com.kvlg.model.presentation.Album
+import com.kvlg.model.presentation.Track
 
 class FavoriteViewModel @ViewModelInject constructor(
     private val databaseRepo: IDatabaseRepository

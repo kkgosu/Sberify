@@ -12,11 +12,11 @@ import com.example.sberify.adapters.AlbumInteraction
 import com.example.sberify.adapters.AlbumsAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentNewReleasesBinding
-import com.example.sberify.models.domain.Album
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.utils.applyResultObserver
 import com.example.sberify.presentation.ui.utils.hideAnimation
 import com.example.sberify.presentation.ui.utils.showAnimation
+import com.kvlg.model.presentation.Album
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

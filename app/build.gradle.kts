@@ -52,6 +52,7 @@ dependencies {
     api(platform(project(":versions")))
     kapt(platform(project(":versions")))
 
+    implementation(project(":shared"))
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(project(":spotify-app-remote"))
 

@@ -14,9 +14,9 @@ import com.example.sberify.adapters.TrackInteraction
 import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentAlbumDetailsBinding
-import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.utils.*
+import com.kvlg.model.presentation.Track
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,11 +46,12 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
             }
         }
         navArgs.item.run {
-            binding.detailContainer.transitionName = id
+            //TODO: REMOVE PARCEL
+/*            binding.detailContainer.transitionName = id
             binding.artistName.text = artist.name
             binding.albumName.text = name
             binding.releaseDate.text = releaseDate
-            binding.detailToolbar.title = name
+            binding.detailToolbar.title = name*/
         }
         adapter = TrackListedAdapter(this)
         binding.recyclerTracks.adapter = adapter

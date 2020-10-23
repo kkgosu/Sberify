@@ -8,6 +8,7 @@ object Libs {
     const val CARDVIEW = "androidx.cardview:cardview"
     const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout"
     const val CORE_KTX = "androidx.core:core-ktx"
+    const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core"
     const val ESPRESSO_CONTRIB = "androidx.test.espresso:espresso-contrib"
     const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core"
     const val EXT_JUNIT = "androidx.test.ext:junit"
@@ -23,6 +24,7 @@ object Libs {
     const val JUNIT = "junit:junit"
     const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7"
     const val LIFECYCLE_LIVE_DATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx"
+    const val LIFECYCLE_VIEW_MODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx"
     const val LOTTIE = "com.airbnb.android:lottie"
     const val MATERIAL = "com.google.android.material:material"
     const val MOCKITO_CORE = "org.mockito:mockito-core"
@@ -36,4 +38,5 @@ object Libs {
     const val ROOM_KTX = "androidx.room:room-ktx"
     const val ROOM_RUNTIME = "androidx.room:room-runtime"
     const val SPOTIFY_AUTH = "com.spotify.android:auth"
+    const val TIMBER = "com.jakewharton.timber:timber"
 }

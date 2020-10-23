@@ -7,8 +7,7 @@ import com.example.sberify.data.DataConverter
 import com.example.sberify.data.Result
 import com.example.sberify.data.api.ISpotifyApi
 import com.example.sberify.data.db.AppDatabase
-import com.example.sberify.data.db.album.AlbumDao
-import com.example.sberify.models.domain.Album
+import com.kvlg.shared.data.db.album.AlbumDao
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever

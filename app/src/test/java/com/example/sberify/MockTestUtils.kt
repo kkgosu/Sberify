@@ -1,10 +1,6 @@
 package com.example.sberify
 
 import com.example.sberify.models.data.*
-import com.example.sberify.models.domain.Album
-import com.example.sberify.models.domain.Artist
-import com.example.sberify.models.domain.Image
-import com.example.sberify.models.domain.Track
 
 class MockTestUtils {
     companion object {

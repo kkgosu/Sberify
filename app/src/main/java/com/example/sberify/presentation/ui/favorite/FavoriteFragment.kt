@@ -14,9 +14,9 @@ import com.example.sberify.adapters.TrackInteraction
 import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentFavoriteBinding
-import com.example.sberify.models.domain.Album
-import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.SharedViewModel
+import com.kvlg.model.presentation.Album
+import com.kvlg.model.presentation.Track
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

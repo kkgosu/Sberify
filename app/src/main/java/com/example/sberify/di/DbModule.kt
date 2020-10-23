@@ -2,10 +2,10 @@ package com.example.sberify.di
 
 import android.app.Application
 import androidx.room.Room
-import com.example.sberify.data.db.AppDatabase
-import com.example.sberify.data.db.album.AlbumDao
-import com.example.sberify.data.db.artists.ArtistDao
-import com.example.sberify.data.db.track.TrackDao
+import com.kvlg.shared.data.db.AppDatabase
+import com.kvlg.shared.data.db.album.AlbumDao
+import com.kvlg.shared.data.db.artists.ArtistDao
+import com.kvlg.shared.data.db.track.TrackDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

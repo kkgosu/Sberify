@@ -1,6 +1,6 @@
 package com.example.sberify.data
 
-import com.example.sberify.models.domain.Track
+import com.kvlg.model.presentation.Track
 import org.jsoup.Connection
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document

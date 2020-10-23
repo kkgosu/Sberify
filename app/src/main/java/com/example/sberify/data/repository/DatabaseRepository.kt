@@ -3,14 +3,12 @@ package com.example.sberify.data.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
-import com.example.sberify.data.db.AppDatabase
-import com.example.sberify.data.db.album.AlbumEntity
-import com.example.sberify.data.db.suggestions.SuggestionsEntity
-import com.example.sberify.data.db.track.TrackEntity
 import com.example.sberify.domain.IDatabaseRepository
-import com.example.sberify.models.domain.Album
-import com.example.sberify.models.domain.Suggestion
-import com.example.sberify.models.domain.Track
+import com.kvlg.model.presentation.Album
+import com.kvlg.model.presentation.Track
+import com.kvlg.shared.data.db.AppDatabase
+import com.kvlg.shared.data.db.album.AlbumEntity
+import com.kvlg.shared.data.db.track.TrackEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -18,24 +16,7 @@ import javax.inject.Inject
 class DatabaseRepository @Inject constructor(
     private val database: AppDatabase
 ) : IDatabaseRepository {
-    override suspend fun insertSuggestion(suggestion: Suggestion) {
-        withContext(Dispatchers.IO) {
-            database.getSuggestionsDao()
-                .insertSuggestion(SuggestionsEntity.from(suggestion))
-            database.getSuggestionsDao()
-                .checkLimitAndDelete()
-        }
-    }
 
-    override suspend fun getAllSuggestions(): List<Suggestion> {
-        return withContext(Dispatchers.IO) {
-            database.getSuggestionsDao()
-                .getAllSuggestions()
-                .map {
-                    it.toSuggestion()
-                }
-        }
-    }
 
     override suspend fun updateTrack(track: Track) = withContext(Dispatchers.IO) {
         database.getTrackDao().updateTrack(TrackEntity.from(track))

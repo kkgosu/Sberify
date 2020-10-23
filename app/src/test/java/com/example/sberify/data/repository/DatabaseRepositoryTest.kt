@@ -3,11 +3,10 @@ package com.example.sberify.data.repository
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.sberify.MockTestUtils.Companion.mockTrack
 import com.example.sberify.data.db.AppDatabase
-import com.example.sberify.data.db.suggestions.SuggestionsDao
-import com.example.sberify.data.db.suggestions.SuggestionsEntity
-import com.example.sberify.data.db.track.TrackDao
-import com.example.sberify.data.db.track.TrackEntity
-import com.example.sberify.models.domain.Suggestion
+import com.kvlg.shared.data.db.suggestions.SuggestionsDao
+import com.kvlg.shared.data.db.suggestions.SuggestionsEntity
+import com.kvlg.shared.data.db.track.TrackDao
+import com.kvlg.shared.data.db.track.TrackEntity
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.times
 import com.nhaarman.mockitokotlin2.verify

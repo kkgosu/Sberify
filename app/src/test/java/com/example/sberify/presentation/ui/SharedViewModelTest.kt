@@ -10,10 +10,6 @@ import com.example.sberify.domain.IDatabaseRepository
 import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.domain.TokenData
-import com.example.sberify.models.domain.Album
-import com.example.sberify.models.domain.Artist
-import com.example.sberify.models.domain.Suggestion
-import com.example.sberify.models.domain.Track
 import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking

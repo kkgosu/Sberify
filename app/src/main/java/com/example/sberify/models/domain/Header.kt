@@ -1,4 +1,7 @@
 package com.example.sberify.models.domain
 
-data class Header(val header: String) : BaseModel() {
-}
+import com.kvlg.model.presentation.BaseModel
+
+data class Header(
+    val header: String
+) : BaseModel()

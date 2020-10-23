@@ -7,11 +7,11 @@ import com.example.sberify.domain.IDatabaseRepository
 import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.domain.TokenData
-import com.example.sberify.models.domain.Album
-import com.example.sberify.models.domain.Artist
-import com.example.sberify.models.domain.Suggestion
-import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.utils.SingleLiveEvent
+import com.kvlg.model.presentation.Album
+import com.kvlg.model.presentation.Artist
+import com.kvlg.model.presentation.Suggestion
+import com.kvlg.model.presentation.Track
 import kotlinx.coroutines.*
 
 class SharedViewModel @ViewModelInject constructor(
@@ -120,15 +120,17 @@ class SharedViewModel @ViewModelInject constructor(
     }
 
     fun insertSuggestion(text: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        // TODO: use shared's useCase
+/*        viewModelScope.launch(Dispatchers.IO) {
             databaseRepository.insertSuggestion(Suggestion(text))
-        }
+        }*/
     }
 
     fun getAllSuggestions() {
-        viewModelScope.launch(Dispatchers.IO) {
+        // TODO: use shared's useCase
+/*        viewModelScope.launch(Dispatchers.IO) {
             _suggestions.postValue(databaseRepository.getAllSuggestions())
-        }
+        }*/
     }
 
     fun updateFavoriteAlbum(album: Album) {

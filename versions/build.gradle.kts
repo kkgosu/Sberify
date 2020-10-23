@@ -9,6 +9,7 @@ val appCompat = "1.2.0"
 val cardView = "1.0.0"
 val constraintlayout = "2.0.2"
 val core = "1.3.2"
+val coroutines = "1.4.0-M1"
 val fragment = "1.3.0-beta01"
 val glide = "4.11.0"
 val glidePalette = "2.1.2"
@@ -23,6 +24,7 @@ val preference = "1.1.1"
 val retrofit = "2.6.2"
 val room = "2.2.5"
 val spotifyAuth = "1.2.2"
+val timber = "4.7.1"
 
 // Testing dependencies
 val coreTesting = "2.1.0"
@@ -43,6 +45,7 @@ dependencies {
         api("${Libs.CARDVIEW}:$cardView")
         api("${Libs.CONSTRAINT_LAYOUT}:$constraintlayout")
         api("${Libs.CORE_KTX}:$core")
+        api("${Libs.COROUTINES}:$coroutines")
         api("${Libs.ESPRESSO_CORE}:$espresso")
         api("${Libs.ESPRESSO_CONTRIB}:$espresso")
         api("${Libs.FRAGMENT_KTX}:$fragment")
@@ -58,6 +61,7 @@ dependencies {
         api("${Libs.EXT_JUNIT}:$junit")
         api("${Libs.KOTLIN_STDLIB}:${Versions.KOTLIN}")
         api("${Libs.LIFECYCLE_LIVE_DATA_KTX}:$lifecycle")
+        api("${Libs.LIFECYCLE_VIEW_MODEL_KTX}:$lifecycle")
         api("${Libs.LOTTIE}:$lottie")
         api("${Libs.MATERIAL}:$material")
         api("${Libs.MOCKITO_CORE}:$mockito")
@@ -71,5 +75,6 @@ dependencies {
         api("${Libs.ROOM_COMPILER}:$room")
         api("${Libs.ROOM_COMMON}:$room")
         api("${Libs.SPOTIFY_AUTH}:$spotifyAuth")
+        api("${Libs.TIMBER}:$timber")
     }
 }

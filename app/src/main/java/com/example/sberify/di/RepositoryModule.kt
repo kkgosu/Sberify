@@ -4,13 +4,13 @@ import com.example.sberify.data.DataConverter
 import com.example.sberify.data.GeniusParser
 import com.example.sberify.data.api.IGeniusApi
 import com.example.sberify.data.api.ISpotifyApi
-import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.repository.DatabaseRepository
 import com.example.sberify.data.repository.GeniusRepository
 import com.example.sberify.data.repository.SpotifyRepository
 import com.example.sberify.domain.IDatabaseRepository
 import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
+import com.kvlg.shared.data.db.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
