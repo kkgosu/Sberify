@@ -119,20 +119,6 @@ class SharedViewModel @ViewModelInject constructor(
         }
     }
 
-    fun insertSuggestion(text: String) {
-        // TODO: use shared's useCase
-/*        viewModelScope.launch(Dispatchers.IO) {
-            databaseRepository.insertSuggestion(Suggestion(text))
-        }*/
-    }
-
-    fun getAllSuggestions() {
-        // TODO: use shared's useCase
-/*        viewModelScope.launch(Dispatchers.IO) {
-            _suggestions.postValue(databaseRepository.getAllSuggestions())
-        }*/
-    }
-
     fun updateFavoriteAlbum(album: Album) {
         viewModelScope.launch(Dispatchers.IO) {
             delay(800)

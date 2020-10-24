@@ -154,7 +154,7 @@ class SearchFragment :
 
             setOnQueryTextFocusChangeListener { _, hasFocus ->
                 binding.suggestionRecycler.visibility = if (hasFocus) {
-                    sharedViewModel.getAllSuggestions()
+                    suggestionsViewModel.loadSuggestions()
                     binding.suggestionRecycler.scheduleLayoutAnimation()
                     showKeyboard()
                     View.VISIBLE
@@ -166,7 +166,7 @@ class SearchFragment :
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     query?.let {
-                        sharedViewModel.insertSuggestion(it)
+                        suggestionsViewModel.saveSuggestion(it)
                         keyword = it
                         clearFocus()
                         binding.suggestionRecycler.visibility = View.GONE

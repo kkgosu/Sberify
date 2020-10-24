@@ -34,35 +34,26 @@ android {
 }
 
 dependencies {
-    api(platform(project(":versions")))
+    api(project(":versions"))
     api(project(":model"))
+    api(Libs.COROUTINES)
+    api(Libs.TIMBER)
 
     kapt(platform(project(":versions")))
+    kapt(Libs.ROOM_COMPILER)
+    kapt(Libs.HILT_COMPILER)
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-
     implementation(Libs.CORE_KTX)
-
-    //AppCompat
     implementation(Libs.APPCOMPAT)
-
-    //AAC
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
     implementation(Libs.LIFECYCLE_VIEW_MODEL_KTX)
     implementation(Libs.ROOM_KTX)
     implementation(Libs.ROOM_RUNTIME)
-    kapt(Libs.ROOM_COMPILER)
-
-    // Kotlin
     implementation(Libs.KOTLIN_STDLIB)
-
-    // Coroutines
-    api(Libs.COROUTINES)
-
-    // Dagger Hilt
     implementation(Libs.HILT_ANDROID)
-    kapt(Libs.HILT_COMPILER)
 
-    //Utils
-    api(Libs.TIMBER)
+    testImplementation(Libs.ARCH_TESTING)
+    testImplementation(Libs.JUNIT)
+    testImplementation(Libs.COROUTINES_TEST)
 }

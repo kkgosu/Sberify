@@ -46,6 +46,7 @@ dependencies {
         api("${Libs.CONSTRAINT_LAYOUT}:$constraintlayout")
         api("${Libs.CORE_KTX}:$core")
         api("${Libs.COROUTINES}:$coroutines")
+        api("${Libs.COROUTINES_TEST}:$coroutines")
         api("${Libs.ESPRESSO_CORE}:$espresso")
         api("${Libs.ESPRESSO_CONTRIB}:$espresso")
         api("${Libs.FRAGMENT_KTX}:$fragment")

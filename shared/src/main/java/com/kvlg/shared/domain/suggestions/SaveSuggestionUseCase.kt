@@ -8,17 +8,17 @@ import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
 /**
- * Loads all suggestions in search
+ * Save suggestion into DB
  *
  * @author Konstantin Koval
- * @since 23.10.2020
+ * @since 25.10.2020
  */
-class LoadSuggestionUseCase @Inject constructor(
-    private val repository: SuggestionsRepository,
+class SaveSuggestionUseCase @Inject constructor(
+    private val suggestionsRepository: SuggestionsRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
-) : UseCase<Unit, List<Suggestion>>(dispatcher) {
+) : UseCase<String, Unit>(dispatcher) {
 
-    override suspend fun execute(parameters: Unit): List<Suggestion> {
-        return repository.getAllSuggestions()
+    override suspend fun execute(parameters: String) {
+        suggestionsRepository.insertSuggestion(Suggestion(parameters))
     }
 }

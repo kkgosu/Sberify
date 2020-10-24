@@ -37,6 +37,7 @@ abstract class UseCase<in P, R>(private val coroutineDispatcher: CoroutineDispat
             // In production code, this is usually the Default dispatcher (background thread)
             // In tests, this becomes a TestCoroutineDispatcher
             withContext(coroutineDispatcher) {
+                Result.loading<R>()
                 execute(parameters).let {
                     Result.success(it)
                 }
