@@ -4,14 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.example.sberify.data.GeniusParser
-import com.example.sberify.data.Result
 import com.example.sberify.data.api.IGeniusApi
-import com.example.sberify.data.resultLiveData
 import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.presentation.ui.utils.ResponseHandler.getResult
 import com.kvlg.model.presentation.Track
+import com.kvlg.shared.Result
 import com.kvlg.shared.data.db.AppDatabase
 import com.kvlg.shared.data.db.track.TrackEntity
+import com.kvlg.shared.resultLiveData
 import javax.inject.Inject
 
 class GeniusRepository @Inject constructor(

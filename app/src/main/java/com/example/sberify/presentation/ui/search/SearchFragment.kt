@@ -13,6 +13,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSnapHelper
@@ -39,6 +40,7 @@ class SearchFragment :
     SuggestionInteraction {
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
+    private val suggestionsViewModel: SuggestionsViewModel by viewModels()
 
     private val suggestionsAdapter = SuggestionAdapter(this)
     private val artistsAdapter = AlbumsAdapter(this)
@@ -97,7 +99,7 @@ class SearchFragment :
             error = { Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show() }
         )
 
-        sharedViewModel.suggestions.observe(viewLifecycleOwner) { suggestionsAdapter.items = it }
+        suggestionsViewModel.suggestions.observe(viewLifecycleOwner) { suggestionsAdapter.items = it as List<Suggestion> }
         sharedViewModel.showFiltersFragment.observe(viewLifecycleOwner) { showFilterBottomSheet() }
         sharedViewModel.refreshContentVisibility.observe(viewLifecycleOwner) { setContentVisibility() }
 

@@ -1,6 +1,6 @@
 package com.example.sberify.presentation.ui.utils
 
-import com.example.sberify.data.Result
+import com.kvlg.shared.Result
 import retrofit2.Response
 import java.io.IOException
 

@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.sberify.MockTestUtils.Companion.mockAlbumsData
 import com.example.sberify.data.DataConverter
-import com.example.sberify.data.Result
 import com.example.sberify.data.api.ISpotifyApi
 import com.example.sberify.data.db.AppDatabase
 import com.kvlg.shared.data.db.album.AlbumDao

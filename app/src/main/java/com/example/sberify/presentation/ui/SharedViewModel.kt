@@ -2,7 +2,6 @@ package com.example.sberify.presentation.ui
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.example.sberify.data.Result
 import com.example.sberify.domain.IDatabaseRepository
 import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
@@ -12,6 +11,7 @@ import com.kvlg.model.presentation.Album
 import com.kvlg.model.presentation.Artist
 import com.kvlg.model.presentation.Suggestion
 import com.kvlg.model.presentation.Track
+import com.kvlg.shared.Result
 import kotlinx.coroutines.*
 
 class SharedViewModel @ViewModelInject constructor(

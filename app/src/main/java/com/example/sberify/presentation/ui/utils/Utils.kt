@@ -2,8 +2,8 @@ package com.example.sberify.presentation.ui.utils
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import com.example.sberify.data.Result
 import com.kvlg.model.presentation.Artist
+import com.kvlg.shared.Result
 
 fun convertArtistsToString(artists: List<Artist>): String {
     val builder = StringBuilder()
