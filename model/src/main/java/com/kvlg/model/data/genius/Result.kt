@@ -1,4 +1,4 @@
-package com.example.sberify.models.data.genius
+package com.kvlg.model.data.genius
 
 data class Result(
     val url: String,

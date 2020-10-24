@@ -1,7 +1,7 @@
 package com.example.sberify.data
 
 import com.example.sberify.domain.IConverter
-import com.example.sberify.models.data.*
+import com.kvlg.model.data.spotify.*
 import com.kvlg.model.presentation.*
 
 class DataConverter : IConverter<BaseDataModel, BaseModel> {

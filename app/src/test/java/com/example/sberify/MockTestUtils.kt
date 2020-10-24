@@ -1,6 +1,6 @@
 package com.example.sberify
 
-import com.example.sberify.models.data.*
+import com.kvlg.model.data.spotify.*
 
 class MockTestUtils {
     companion object {

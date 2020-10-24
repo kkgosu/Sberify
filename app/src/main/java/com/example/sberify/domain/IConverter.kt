@@ -1,6 +1,6 @@
 package com.example.sberify.domain
 
-import com.example.sberify.models.data.*
+import com.kvlg.model.data.spotify.*
 import com.kvlg.model.presentation.*
 
 interface IConverter<From : BaseDataModel, To : BaseModel> {

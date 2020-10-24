@@ -1,9 +1,9 @@
 package com.example.sberify.data.api
 
-import com.example.sberify.models.data.AlbumData
-import com.example.sberify.models.data.AlbumsData
-import com.example.sberify.models.data.ArtistsData
-import com.example.sberify.models.data.TracksData
+import com.kvlg.model.data.spotify.AlbumData
+import com.kvlg.model.data.spotify.AlbumsData
+import com.kvlg.model.data.spotify.ArtistsData
+import com.kvlg.model.data.spotify.TracksData
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

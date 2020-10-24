@@ -1,4 +1,4 @@
-package com.example.sberify.models
+package com.kvlg.model.data
 
 /**
  * @author Konstantin Koval
