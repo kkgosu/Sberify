@@ -1,8 +1,8 @@
 package com.kvlg.shared.domain.suggestions
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.kvlg.model.common.Result
 import com.kvlg.model.presentation.Suggestion
-import com.kvlg.shared.Result
 import com.kvlg.shared.data.suggestions.SuggestionsRepository
 import org.junit.Assert.assertEquals
 import org.junit.Rule

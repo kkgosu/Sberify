@@ -51,6 +51,7 @@ android {
 dependencies {
     api(platform(project(":versions")))
     kapt(platform(project(":versions")))
+    api(project(":network"))
 
     implementation(project(":shared"))
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))

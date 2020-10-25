@@ -15,6 +15,7 @@ import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentAlbumDetailsBinding
 import com.example.sberify.presentation.ui.SharedViewModel
+import com.example.sberify.presentation.ui.lyrics.LyricsViewModel
 import com.example.sberify.presentation.ui.utils.*
 import com.kvlg.model.presentation.Track
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding>(), TrackInteraction {
 
+    private val lyricsViewModel: LyricsViewModel by activityViewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val navArgs by navArgs<AlbumDetailsFragmentArgs>()
 
@@ -61,7 +63,7 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
     }
 
     override fun onTrackSelected(item: Track, view: View) {
-        sharedViewModel.getLyrics(item)
+        lyricsViewModel.getLyrics(item)
         val extras = FragmentNavigatorExtras(
             view to view.transitionName,
         )

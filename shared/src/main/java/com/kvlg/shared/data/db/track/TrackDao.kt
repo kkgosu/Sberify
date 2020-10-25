@@ -6,7 +6,7 @@ import androidx.room.*
 @Dao
 interface TrackDao {
     @Query("SELECT * FROM tracks WHERE spotify_id = :id")
-    fun getTrackById(id: String): LiveData<TrackEntity>
+    fun getTrackById(id: String): TrackEntity?
 
     @Query("SELECT * FROM tracks WHERE album_id = :id")
     fun getTracksByAlbumId(id: String): LiveData<List<TrackEntity>>

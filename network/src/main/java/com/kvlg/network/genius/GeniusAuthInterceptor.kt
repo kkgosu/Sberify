@@ -1,6 +1,6 @@
-package com.example.sberify.data.api
+package com.kvlg.network.genius
 
-import com.example.sberify.domain.TokenData
+import com.kvlg.network.TokenData
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response

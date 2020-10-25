@@ -2,8 +2,8 @@ package com.example.sberify.presentation.ui.search
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.kvlg.model.common.Result
 import com.kvlg.model.presentation.Suggestion
-import com.kvlg.shared.Result
 import com.kvlg.shared.domain.suggestions.LoadSuggestionUseCase
 import com.kvlg.shared.domain.suggestions.SaveSuggestionUseCase
 import kotlinx.coroutines.launch

@@ -1,6 +1,5 @@
-package com.example.sberify.data
+package com.kvlg.network.genius
 
-import com.kvlg.model.common.Result
 import com.kvlg.model.presentation.Track
 import org.jsoup.Connection
 import org.jsoup.Jsoup
@@ -11,18 +10,16 @@ import java.io.IOException
 
 class GeniusParser {
 
-    fun parseLyrics(track: Track, path: String): Result<Track> {
-        val request: Result<Document> = makeRequest(path)
-        if (request.status == Result.Status.SUCCESS) {
-            request.data?.let {
-                track.lyrics = filterLyrics(it)
-            }
-            return Result.success(track)
+    fun parseLyrics(track: Track, path: String): Track {
+        val request: Document? = makeRequest(path)
+        request?.let {
+            track.lyrics = filterLyrics(it)
+            return track
         }
-        return Result.error(request.message ?: "error")
+        throw error(request ?: "error")
     }
 
-    private fun makeRequest(trackUrl: String): Result<Document> {
+    private fun makeRequest(trackUrl: String): Document {
         return try {
             val response = Jsoup
                 .connect(trackUrl)
@@ -31,7 +28,7 @@ class GeniusParser {
             getResult { response }
         } catch (e: IOException) {
             println("mkRequest ${e.message}")
-            return Result.error(e.message.toString(), null)
+            throw error(e.message.toString())
         }
     }
 
@@ -56,22 +53,17 @@ class GeniusParser {
         return prettyPrintedBodyFragment
     }
 
-    private fun getResult(call: () -> Connection.Response): Result<Document> {
+    private fun getResult(call: () -> Connection.Response): Document {
         try {
             val response = call()
             if (response.statusCode() == 200) {
                 val doc = response.parse()
                 val body = response.body()
-                if (body != null) return Result.success(doc)
+                if (body != null) return doc
             }
-            return error(" ${response.statusCode()} ${response.statusMessage()}")
+            throw error(" ${response.statusCode()} ${response.statusMessage()}")
         } catch (e: IOException) {
-            return error(e.message ?: e.toString())
+            throw error(e.message ?: e.toString())
         }
-    }
-
-    private fun <T> error(message: String): Result<T> {
-        println(message)
-        return Result.error("Network call has failed for a following reason: $message")
     }
 }

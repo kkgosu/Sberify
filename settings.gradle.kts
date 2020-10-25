@@ -1,7 +1,8 @@
-include(":model")
-include(":shared")
 include(
     ":app",
+    ":model",
+    ":network",
+    ":shared",
     ":spotify-app-remote",
     "versions"
 )

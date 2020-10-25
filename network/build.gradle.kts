@@ -34,28 +34,19 @@ android {
 }
 
 dependencies {
-    api(project(":versions"))
+    api(platform(project(":versions")))
     api(project(":model"))
-    api(project(":network"))
-    api(Libs.COROUTINES)
-    api(Libs.TIMBER)
-    api(Libs.RETROFIT)
 
-    kapt(project(":versions"))
-    kapt(Libs.ROOM_COMPILER)
+    kapt(platform(project(":versions")))
     kapt(Libs.HILT_COMPILER)
+    kapt(Libs.ANDROIDX_HILT_COMPILER)
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(Libs.CORE_KTX)
-    implementation(Libs.APPCOMPAT)
-    implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
-    implementation(Libs.LIFECYCLE_VIEW_MODEL_KTX)
-    implementation(Libs.ROOM_KTX)
-    implementation(Libs.ROOM_RUNTIME)
-    implementation(Libs.KOTLIN_STDLIB)
-    implementation(Libs.HILT_ANDROID)
 
-    testImplementation(Libs.ARCH_TESTING)
-    testImplementation(Libs.JUNIT)
-    testImplementation(Libs.COROUTINES_TEST)
+    implementation(Libs.RETROFIT)
+    implementation(Libs.RETROFIT_GSON)
+    implementation(Libs.JSOUP)
+    implementation(Libs.HILT_ANDROID)
+    implementation(Libs.HILT_VIEWMODEL)
+    implementation(Libs.PREFERENCES)
 }

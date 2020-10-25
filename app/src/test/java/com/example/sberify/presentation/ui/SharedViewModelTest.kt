@@ -6,9 +6,7 @@ import androidx.lifecycle.Observer
 import com.example.sberify.MockTestUtils.Companion.mockAlbum
 import com.example.sberify.MockTestUtils.Companion.mockTrack
 import com.example.sberify.domain.IDatabaseRepository
-import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
-import com.example.sberify.domain.TokenData
 import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking

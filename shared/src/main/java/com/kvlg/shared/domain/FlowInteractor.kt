@@ -16,7 +16,7 @@
 
 package com.kvlg.shared.domain
 
-import com.kvlg.shared.Result
+import com.kvlg.model.common.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

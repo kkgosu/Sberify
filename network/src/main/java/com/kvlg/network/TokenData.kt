@@ -1,7 +1,8 @@
-package com.example.sberify.domain
+package com.kvlg.network
 
 import android.content.SharedPreferences
 
+//TODO: make abstractions and split into api/impl libs
 class TokenData(
     private val prefs: SharedPreferences
 ) {

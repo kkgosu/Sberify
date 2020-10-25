@@ -3,20 +3,20 @@ package com.example.sberify.presentation.ui
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.sberify.domain.IDatabaseRepository
-import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
-import com.example.sberify.domain.TokenData
 import com.example.sberify.presentation.ui.utils.SingleLiveEvent
+import com.kvlg.model.common.Result
 import com.kvlg.model.presentation.Album
 import com.kvlg.model.presentation.Artist
 import com.kvlg.model.presentation.Suggestion
 import com.kvlg.model.presentation.Track
-import com.kvlg.shared.Result
-import kotlinx.coroutines.*
+import com.kvlg.network.TokenData
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SharedViewModel @ViewModelInject constructor(
     private val spotifyRepository: ISpotifyRepository,
-    private val geniusRepository: IGeniusRepository,
     private val databaseRepository: IDatabaseRepository,
     tokenData: TokenData
 ) : ViewModel() {
@@ -80,16 +80,6 @@ class SharedViewModel @ViewModelInject constructor(
         spotifyRepository.getAlbumInfo(it.id)
     }
 
-    val lyrics: LiveData<Result<Track>> = Transformations.switchMap(lyricsTrigger) {
-        runBlocking(Dispatchers.IO) {
-            try {
-                withContext(Dispatchers.Default) { geniusRepository.getLyrics(it) }
-            } catch (e: Exception) {
-                MutableLiveData()
-            }
-        }
-    }
-
     private val _suggestions = MutableLiveData<List<Suggestion>>()
     val suggestions: LiveData<List<Suggestion>> = _suggestions
 
@@ -110,13 +100,6 @@ class SharedViewModel @ViewModelInject constructor(
 
     fun getLyrics(track: Track) {
         lyricsTrigger.value = track
-    }
-
-    fun refreshLyrics() {
-        val track = lyrics.value
-        track?.data.let {
-            lyricsTrigger.value = it
-        }
     }
 
     fun updateFavoriteAlbum(album: Album) {
