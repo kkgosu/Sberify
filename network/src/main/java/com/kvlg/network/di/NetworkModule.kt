@@ -7,6 +7,8 @@ import com.kvlg.network.TokenData
 import com.kvlg.network.genius.GeniusApi
 import com.kvlg.network.genius.GeniusAuthInterceptor
 import com.kvlg.network.genius.GeniusParser
+import com.kvlg.network.spotify.SpotifyApi
+import com.kvlg.network.spotify.SpotifyAuthInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,6 +39,11 @@ class NetworkModule {
     }
 
     @Provides
+    fun provideSpotifyAuthInterceptor(tokenData: TokenData): SpotifyAuthInterceptor {
+        return SpotifyAuthInterceptor(tokenData)
+    }
+
+    @Provides
     fun provideGeniusApiService(interceptor: GeniusAuthInterceptor, gson: GsonConverterFactory): GeniusApi {
         return Retrofit.Builder()
             .baseUrl(GeniusApi.API_URL)
@@ -51,9 +58,22 @@ class NetworkModule {
     }
 
     @Provides
+    fun provideSpotifyApiService(interceptor: SpotifyAuthInterceptor, gson: GsonConverterFactory): SpotifyApi {
+        return Retrofit.Builder()
+            .baseUrl(SpotifyApi.API_URL)
+            .client(
+                OkHttpClient.Builder()
+                    .addInterceptor(interceptor)
+                    .build()
+            )
+            .addConverterFactory(gson)
+            .build()
+            .create(SpotifyApi::class.java)
+    }
+
+    @Provides
     @Singleton
     fun provideGeniusParser(): GeniusParser {
         return GeniusParser()
     }
-
 }

@@ -1,4 +1,4 @@
-package com.example.sberify.data.api
+package com.kvlg.network.spotify
 
 import com.kvlg.model.data.spotify.AlbumData
 import com.kvlg.model.data.spotify.AlbumsData
@@ -9,7 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface ISpotifyApi {
+interface SpotifyApi {
 
     companion object {
         const val API_URL = "https://api.spotify.com/v1/"

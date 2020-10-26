@@ -1,8 +1,8 @@
 package com.example.sberify.di
 
-import com.example.sberify.data.api.ISpotifyApi
-import com.example.sberify.data.api.SpotifyAuthInterceptor
 import com.kvlg.network.TokenData
+import com.kvlg.network.spotify.SpotifyApi
+import com.kvlg.network.spotify.SpotifyAuthInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,12 +29,12 @@ class ApiModule {
     }
 
     @Provides
-    fun provideSpotifyApiService(@SpotifyNetwork okHttpClient: OkHttpClient, gson: GsonConverterFactory): ISpotifyApi {
+    fun provideSpotifyApiService(@SpotifyNetwork okHttpClient: OkHttpClient, gson: GsonConverterFactory): SpotifyApi {
         return Retrofit.Builder()
-            .baseUrl(ISpotifyApi.API_URL)
+            .baseUrl(SpotifyApi.API_URL)
             .client(okHttpClient)
             .addConverterFactory(gson)
             .build()
-            .create(ISpotifyApi::class.java)
+            .create(SpotifyApi::class.java)
     }
 }

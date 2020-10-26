@@ -1,4 +1,4 @@
-package com.example.sberify.data.api
+package com.kvlg.network.spotify
 
 import com.kvlg.network.TokenData
 import okhttp3.Interceptor
