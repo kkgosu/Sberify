@@ -2,11 +2,11 @@ package com.kvlg.shared.data.genius
 
 import com.kvlg.model.presentation.Image
 import com.kvlg.model.presentation.Track
-import com.kvlg.network.ResponseHandler.getResult
 import com.kvlg.network.genius.GeniusApi
 import com.kvlg.network.genius.GeniusParser
 import com.kvlg.shared.data.db.AppDatabase
 import com.kvlg.shared.data.db.track.TrackEntity
+import com.kvlg.shared.data.getResult
 import javax.inject.Inject
 import javax.inject.Singleton
 

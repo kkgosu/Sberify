@@ -10,7 +10,7 @@ import com.kvlg.model.presentation.Track
 import com.kvlg.shared.domain.lyrics.GetLyricsUseCase
 import com.kvlg.shared.domain.lyrics.ParseLyricsFromGeniusUseCase
 import com.kvlg.shared.domain.lyrics.SaveTrackIntoDbUseCase
-import com.kvlg.shared.resultData
+import com.kvlg.shared.domain.resultData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

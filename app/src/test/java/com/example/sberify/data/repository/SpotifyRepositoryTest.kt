@@ -3,8 +3,8 @@ package com.example.sberify.data.repository
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.sberify.MockTestUtils.Companion.mockAlbumsData
-import com.example.sberify.data.DataConverter
 import com.example.sberify.data.db.AppDatabase
+import com.kvlg.network.spotify.DataConverter
 import com.kvlg.network.spotify.SpotifyApi
 import com.kvlg.shared.data.db.album.AlbumDao
 import com.nhaarman.mockitokotlin2.mock

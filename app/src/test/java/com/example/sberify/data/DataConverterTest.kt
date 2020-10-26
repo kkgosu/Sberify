@@ -8,6 +8,7 @@ import com.example.sberify.MockTestUtils.Companion.mockImage
 import com.example.sberify.MockTestUtils.Companion.mockImageData
 import com.example.sberify.MockTestUtils.Companion.mockTrack
 import com.example.sberify.MockTestUtils.Companion.mockTrackData
+import com.kvlg.network.spotify.DataConverter
 import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith

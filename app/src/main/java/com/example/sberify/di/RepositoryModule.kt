@@ -1,11 +1,11 @@
 package com.example.sberify.di
 
-import com.example.sberify.data.DataConverter
 import com.example.sberify.data.GeniusParser
 import com.example.sberify.data.repository.DatabaseRepository
 import com.example.sberify.data.repository.SpotifyRepository
 import com.example.sberify.domain.IDatabaseRepository
 import com.example.sberify.domain.ISpotifyRepository
+import com.kvlg.network.spotify.DataConverter
 import com.kvlg.network.spotify.SpotifyApi
 import com.kvlg.shared.data.db.AppDatabase
 import dagger.Module

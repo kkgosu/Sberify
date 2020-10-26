@@ -2,20 +2,20 @@ package com.example.sberify.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.example.sberify.data.DataConverter
-import com.example.sberify.data.api.SearchTypes
 import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.presentation.ui.utils.ResponseHandler.getResult
 import com.kvlg.model.common.Result
 import com.kvlg.model.presentation.Album
 import com.kvlg.model.presentation.Artist
 import com.kvlg.model.presentation.Track
+import com.kvlg.network.spotify.DataConverter
+import com.kvlg.network.spotify.SearchTypes
 import com.kvlg.network.spotify.SpotifyApi
 import com.kvlg.shared.data.db.AppDatabase
 import com.kvlg.shared.data.db.album.AlbumEntity
 import com.kvlg.shared.data.db.artists.ArtistEntity
 import com.kvlg.shared.data.db.track.TrackEntity
-import com.kvlg.shared.resultLiveData
+import com.kvlg.shared.domain.resultLiveData
 import javax.inject.Inject
 
 class SpotifyRepository @Inject constructor(

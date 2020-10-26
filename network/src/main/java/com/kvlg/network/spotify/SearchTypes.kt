@@ -1,4 +1,4 @@
-package com.example.sberify.data.api
+package com.kvlg.network.spotify
 
 object SearchTypes {
     const val ALBUM = "album"

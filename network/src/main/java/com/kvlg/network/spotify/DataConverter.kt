@@ -1,6 +1,5 @@
-package com.example.sberify.data
+package com.kvlg.network.spotify
 
-import com.example.sberify.domain.IConverter
 import com.kvlg.model.data.spotify.*
 import com.kvlg.model.presentation.*
 

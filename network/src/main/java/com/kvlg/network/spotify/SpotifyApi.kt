@@ -17,25 +17,30 @@ interface SpotifyApi {
 
     @GET("browse/new-releases")
     suspend fun getNewReleases(
-            @Query("limit") limit: Int = 50): Response<AlbumsData>
+        @Query("limit") limit: Int = 50
+    ): Response<AlbumsData>
 
     @GET("albums/{id}")
     suspend fun getAlbumInfo(
-            @Path("id") id: String): Response<AlbumData>
+        @Path("id") id: String
+    ): Response<AlbumData>
 
     @GET("search")
     suspend fun searchArtist(
-            @Query("q") keyword: String,
-            @Query("type") type: String): Response<ArtistsData>
+        @Query("q") keyword: String,
+        @Query("type") type: String
+    ): Response<ArtistsData>
 
     @GET("search")
     suspend fun searchAlbum(
-            @Query("q") keyword: String,
-            @Query("type") type: String): Response<AlbumsData>
+        @Query("q") keyword: String,
+        @Query("type") type: String
+    ): Response<AlbumsData>
 
 
     @GET("search")
     suspend fun searchTrack(
-            @Query("q") keyword: String,
-            @Query("type") type: String): Response<TracksData>
+        @Query("q") keyword: String,
+        @Query("type") type: String = SearchTypes.TRACK
+    ): Response<TracksData>
 }

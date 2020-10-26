@@ -1,4 +1,4 @@
-package com.kvlg.shared
+package com.kvlg.shared.domain
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData

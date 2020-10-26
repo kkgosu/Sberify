@@ -12,7 +12,7 @@ interface TrackDao {
     fun getTracksByAlbumId(id: String): LiveData<List<TrackEntity>>
 
     @Query("SELECT * FROM tracks WHERE name LIKE '%' || :key || '%' OR artists LIKE '%' || :key || '%'")
-    fun getTracksByKeyword(key: String): LiveData<List<TrackEntity>>
+    fun getTracksByKeyword(key: String): List<TrackEntity?>
 
     @Query("UPDATE tracks SET lyrics = :lyrics WHERE spotify_id=:id")
     fun updateTrackLyrics(id: String, lyrics: String)

@@ -1,4 +1,4 @@
-package com.example.sberify.domain
+package com.kvlg.network.spotify
 
 import com.kvlg.model.data.spotify.*
 import com.kvlg.model.presentation.*
