@@ -9,7 +9,7 @@ import com.kvlg.model.presentation.Track
 import com.kvlg.network.spotify.SpotifyApi
 import com.kvlg.shared.data.db.AppDatabase
 import com.kvlg.shared.data.db.track.TrackEntity
-import com.kvlg.shared.data.getResult
+import com.kvlg.shared.data.getResponse
 import javax.inject.Singleton
 
 /**
@@ -20,7 +20,7 @@ import javax.inject.Singleton
  */
 interface SpotifyRepository {
     //region Track
-    suspend fun getTracksFromSpotify(keyword: String): Result<TracksData>
+    suspend fun getTracksFromSpotify(keyword: String): TracksData
     fun getTracksFromDb(keyword: String): List<Track?>
     fun saveTrackIntoDb(track: Track)
 
@@ -46,8 +46,8 @@ class SpotifyRepositoryImpl(
     private val spotifyApi: SpotifyApi,
 ) : SpotifyRepository {
 
-    override suspend fun getTracksFromSpotify(keyword: String): Result<TracksData> {
-        return getResult { spotifyApi.searchTrack(keyword) }
+    override suspend fun getTracksFromSpotify(keyword: String): TracksData {
+        return getResponse { spotifyApi.searchTrack(keyword) }
     }
 
     override fun getTracksFromDb(keyword: String): List<Track?> {

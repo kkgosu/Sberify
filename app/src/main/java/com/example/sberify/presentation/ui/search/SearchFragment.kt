@@ -90,7 +90,7 @@ class SearchFragment :
             error = { Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show() }
         )
 
-        sharedViewModel.tracksSearchResult.applyResultObserver(viewLifecycleOwner,
+        sharedViewModel.tracksSearch.applyResultObserver(viewLifecycleOwner,
             success = {
                 sharedViewModel.refreshContentVisibility()
                 tracksListedAdapter.items = it

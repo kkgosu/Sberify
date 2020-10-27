@@ -11,6 +11,10 @@ import com.kvlg.model.presentation.Artist
 import com.kvlg.model.presentation.Suggestion
 import com.kvlg.model.presentation.Track
 import com.kvlg.network.TokenData
+import com.kvlg.shared.domain.lyrics.SaveTrackIntoDbUseCase
+import com.kvlg.shared.domain.resultData
+import com.kvlg.shared.domain.track.GetTrackFromDbUseCase
+import com.kvlg.shared.domain.track.GetTracksFromSpotifyUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -18,7 +22,10 @@ import kotlinx.coroutines.launch
 class SharedViewModel @ViewModelInject constructor(
     private val spotifyRepository: ISpotifyRepository,
     private val databaseRepository: IDatabaseRepository,
-    tokenData: TokenData
+    tokenData: TokenData,
+    getTrackFromDbUseCase: GetTrackFromDbUseCase,
+    getTracksFromSpotifyUseCase: GetTracksFromSpotifyUseCase,
+    saveTrackIntoDbUseCase: SaveTrackIntoDbUseCase
 ) : ViewModel() {
 
     init {
@@ -72,8 +79,15 @@ class SharedViewModel @ViewModelInject constructor(
     val albumsSearchResult: LiveData<Result<List<Album>>> = Transformations.switchMap(searchAlbumTrigger) {
         spotifyRepository.searchAlbum(it)
     }
-    val tracksSearchResult: LiveData<Result<List<Track>>> = Transformations.switchMap(searchTrackTrigger) {
-        spotifyRepository.searchTrack(it)
+
+    val tracksSearch = searchTrackTrigger.switchMap {
+        resultData(
+            databaseQuery = { getTrackFromDbUseCase(it) },
+            networkCall = { getTracksFromSpotifyUseCase(it) },
+            saveCallResult = { tracks ->
+                tracks?.forEach { saveTrackIntoDbUseCase(it) }
+            }
+        )
     }
 
     val album: LiveData<Result<Album>> = Transformations.switchMap(albumInfoTrigger) {

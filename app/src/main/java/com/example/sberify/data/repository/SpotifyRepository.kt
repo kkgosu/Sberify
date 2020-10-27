@@ -7,14 +7,12 @@ import com.example.sberify.presentation.ui.utils.ResponseHandler.getResult
 import com.kvlg.model.common.Result
 import com.kvlg.model.presentation.Album
 import com.kvlg.model.presentation.Artist
-import com.kvlg.model.presentation.Track
 import com.kvlg.network.spotify.DataConverter
 import com.kvlg.network.spotify.SearchTypes
 import com.kvlg.network.spotify.SpotifyApi
 import com.kvlg.shared.data.db.AppDatabase
 import com.kvlg.shared.data.db.album.AlbumEntity
 import com.kvlg.shared.data.db.artists.ArtistEntity
-import com.kvlg.shared.data.db.track.TrackEntity
 import com.kvlg.shared.domain.resultLiveData
 import javax.inject.Inject
 
@@ -96,21 +94,5 @@ class SpotifyRepository @Inject constructor(
                 }
             })
 
-    }
-
-    override fun searchTrack(keyword: String): LiveData<Result<List<Track>>> {
-        return resultLiveData(
-            databaseQuery = {
-                database.getTrackDao().getTracksByKeyword(keyword).map {
-                    it.map { entity -> entity.toTrack() }
-                }
-            },
-            networkCall = { getResult { mSpotifyApi.searchTrack(keyword, SearchTypes.TRACK) } },
-            saveCallResult = {
-                val tracks = dataConverter.convertTracks(it.tracks.items, "")
-                tracks?.forEach { track ->
-                    database.getTrackDao().insertTrack(TrackEntity.from(track))
-                }
-            })
     }
 }

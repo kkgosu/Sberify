@@ -14,7 +14,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import javax.inject.Singleton
 
-@Module(includes = [ApiModule::class])
+@Module()
 @InstallIn(ApplicationComponent::class)
 class RepositoryModule {
 

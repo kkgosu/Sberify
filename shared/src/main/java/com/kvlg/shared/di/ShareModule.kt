@@ -2,9 +2,12 @@ package com.kvlg.shared.di
 
 import com.kvlg.network.genius.GeniusApi
 import com.kvlg.network.genius.GeniusParser
+import com.kvlg.network.spotify.SpotifyApi
 import com.kvlg.shared.data.db.AppDatabase
 import com.kvlg.shared.data.genius.GeniusRepository
 import com.kvlg.shared.data.genius.GeniusRepositoryImpl
+import com.kvlg.shared.data.spotify.SpotifyRepository
+import com.kvlg.shared.data.spotify.SpotifyRepositoryImpl
 import com.kvlg.shared.data.suggestions.SuggestionRepositoryImpl
 import com.kvlg.shared.data.suggestions.SuggestionsRepository
 import dagger.Module
@@ -37,5 +40,14 @@ object ShareModule {
         geniusApi: GeniusApi
     ): GeniusRepository {
         return GeniusRepositoryImpl(appDatabase, geniusParser, geniusApi)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSpotifyRepository(
+        appDatabase: AppDatabase,
+        spotifyApi: SpotifyApi
+    ) : SpotifyRepository {
+        return SpotifyRepositoryImpl(appDatabase, spotifyApi)
     }
 }
