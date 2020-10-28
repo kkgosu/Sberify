@@ -14,13 +14,13 @@ fun <T, A> resultLiveData(
 ): LiveData<Result<T>> =
     liveData(Dispatchers.IO) {
         emit(Result.loading())
-        val source = databaseQuery.invoke().map { Result.success(it) }
+        val source = databaseQuery().map { Result.success(it) }
         emitSource(source)
 
-        val responseStatus = networkCall.invoke()
+        val responseStatus = networkCall()
         if (responseStatus.status == Result.Status.SUCCESS) {
             saveCallResult(responseStatus.data!!)
-            val newSource = databaseQuery.invoke().map { Result.success(it) }
+            val newSource = databaseQuery().map { Result.success(it) }
             emitSource(newSource)
         } else if (responseStatus.status == Result.Status.ERROR) {
             emit(Result.error(responseStatus.message!!))
@@ -35,13 +35,12 @@ fun <T, A> resultData(
     saveCallResult: suspend (A) -> Unit
 ): LiveData<T> =
     liveData(Dispatchers.IO) {
-        val source = databaseQuery.invoke()
+        val source = databaseQuery()
         emit(source)
-
-        val responseStatus = networkCall.invoke()
+        val responseStatus = networkCall()
         if (responseStatus.status == Result.Status.SUCCESS) {
-            saveCallResult(responseStatus.data!!)
-            val newSource = databaseQuery.invoke()
+            saveCallResult.invoke(responseStatus.data!!)
+            val newSource = databaseQuery()
             emit(newSource)
         } else if (responseStatus.status == Result.Status.ERROR) {
             delay(100)

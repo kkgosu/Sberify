@@ -19,7 +19,7 @@ import javax.inject.Singleton
 interface GeniusRepository {
     fun getLyricsFromDb(track: Track): Track?
     suspend fun parseLyrics(track: Track): Track
-    fun saveLyricsIntoDb(track: Track)
+    fun saveTrackIntoDb(track: Track)
 }
 
 @Singleton
@@ -58,7 +58,7 @@ class GeniusRepositoryImpl @Inject constructor(
         return geniusParser.parseLyrics(track, url)
     }
 
-    override fun saveLyricsIntoDb(track: Track) {
+    override fun saveTrackIntoDb(track: Track) {
         database.getTrackDao().insertTrack(
             TrackEntity(
                 spotifyId = track.id,
