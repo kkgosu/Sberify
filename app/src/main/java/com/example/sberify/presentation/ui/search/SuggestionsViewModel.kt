@@ -4,8 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.kvlg.model.common.Result
 import com.kvlg.model.presentation.Suggestion
-import com.kvlg.shared.domain.suggestions.LoadSuggestionUseCase
-import com.kvlg.shared.domain.suggestions.SaveSuggestionUseCase
+import com.kvlg.shared.domain.suggestions.SuggestionUseCasesProvider
 import kotlinx.coroutines.launch
 
 /**
@@ -13,8 +12,7 @@ import kotlinx.coroutines.launch
  * @since 24.10.2020
  */
 class SuggestionsViewModel @ViewModelInject constructor(
-    loadSuggestionUseCase: LoadSuggestionUseCase,
-    private val saveSuggestionUseCase: SaveSuggestionUseCase
+    private val loadSuggestionProvider: SuggestionUseCasesProvider,
 ) : ViewModel() {
 
     private val trigger = MutableLiveData<Unit>()
@@ -25,7 +23,7 @@ class SuggestionsViewModel @ViewModelInject constructor(
 
     val suggestions: LiveData<List<Any>> = trigger.switchMap {
         liveData {
-            val loadSuggestionsResult = loadSuggestionUseCase(Unit)
+            val loadSuggestionsResult = loadSuggestionProvider.loadSuggestion(Unit)
             when (loadSuggestionsResult.status) {
                 Result.Status.LOADING -> emit(listOf(Result.loading<Suggestion>()))
                 Result.Status.SUCCESS -> emit(loadSuggestionsResult.data ?: emptyList<Suggestion>())
@@ -36,7 +34,7 @@ class SuggestionsViewModel @ViewModelInject constructor(
 
     fun saveSuggestion(text: String) {
         viewModelScope.launch {
-            saveSuggestionUseCase(text)
+            loadSuggestionProvider.saveSuggestion(text)
         }
     }
 }

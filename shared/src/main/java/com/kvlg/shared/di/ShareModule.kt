@@ -13,6 +13,8 @@ import com.kvlg.shared.data.spotify.SpotifyRepository
 import com.kvlg.shared.data.spotify.SpotifyRepositoryImpl
 import com.kvlg.shared.data.suggestions.SuggestionRepositoryImpl
 import com.kvlg.shared.data.suggestions.SuggestionsRepository
+import com.kvlg.shared.domain.suggestions.SuggestionUseCasesProvider
+import com.kvlg.shared.domain.suggestions.SuggestionUseCasesProviderImpl
 import com.kvlg.shared.domain.track.TrackUseCasesProvider
 import com.kvlg.shared.domain.track.TrackUseCasesProviderImpl
 import dagger.Module
@@ -64,6 +66,15 @@ object ShareModule {
         spotifyApi: SpotifyApi
     ): TrackRepository {
         return TrackRepositoryImpl(appDatabase, spotifyApi)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSuggestionUseCasesProvider(
+        repository: SuggestionsRepository,
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): SuggestionUseCasesProvider {
+        return SuggestionUseCasesProviderImpl(repository, dispatcher)
     }
 
     @Provides

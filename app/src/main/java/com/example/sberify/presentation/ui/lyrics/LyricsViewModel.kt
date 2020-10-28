@@ -10,16 +10,16 @@ import com.kvlg.model.presentation.Track
 import com.kvlg.shared.domain.lyrics.GetLyricsUseCase
 import com.kvlg.shared.domain.lyrics.ParseLyricsFromGeniusUseCase
 import com.kvlg.shared.domain.resultData
-import com.kvlg.shared.domain.track.SaveTrackIntoDbUseCase
+import com.kvlg.shared.domain.track.TrackUseCasesProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class LyricsViewModel @ViewModelInject constructor(
     private val databaseRepository: IDatabaseRepository,
+    trackProvider: TrackUseCasesProvider,
     getLyricsUseCase: GetLyricsUseCase,
     parseLyricsFromGeniusUseCase: ParseLyricsFromGeniusUseCase,
-    saveTrackIntoDbUseCase: SaveTrackIntoDbUseCase
 ) : ViewModel() {
 
     private val trigger = MutableLiveData<Track>()
@@ -28,7 +28,7 @@ class LyricsViewModel @ViewModelInject constructor(
         resultData(
             databaseQuery = { getLyricsUseCase(track) },
             networkCall = { parseLyricsFromGeniusUseCase(track) },
-            saveCallResult = { saveTrackIntoDbUseCase(track) }
+            saveCallResult = { trackProvider.saveTrackIntoDb(track) }
         )
     }
 

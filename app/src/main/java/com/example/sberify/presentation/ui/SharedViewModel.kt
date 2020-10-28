@@ -8,7 +8,6 @@ import com.example.sberify.presentation.ui.utils.SingleLiveEvent
 import com.kvlg.model.common.Result
 import com.kvlg.model.presentation.Album
 import com.kvlg.model.presentation.Artist
-import com.kvlg.model.presentation.Suggestion
 import com.kvlg.model.presentation.Track
 import com.kvlg.network.TokenData
 import com.kvlg.shared.domain.resultData
@@ -89,9 +88,6 @@ class SharedViewModel @ViewModelInject constructor(
     val album: LiveData<Result<Album>> = Transformations.switchMap(albumInfoTrigger) {
         spotifyRepository.getAlbumInfo(it.id)
     }
-
-    private val _suggestions = MutableLiveData<List<Suggestion>>()
-    val suggestions: LiveData<List<Suggestion>> = _suggestions
 
     fun search(keyword: String) {
         searchArtistTrigger.applySearch(isArtistChecked, keyword)
