@@ -7,16 +7,16 @@ import com.kvlg.model.presentation.Track
 @Dao
 interface AlbumDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertAlbum(albumEntity: AlbumEntity)
+    fun insertAlbum(albumEntity: AlbumEntity)
 
     @Query("SELECT * FROM albums ORDER BY release_date DESC LIMIT 50")
-    fun getAlbums(): LiveData<List<AlbumEntity>>
+    fun getAlbums(): List<AlbumEntity>
 
     @Query("SELECT * FROM albums WHERE name LIKE '%' || :key || '%' OR mname LIKE '%' || :key || '%'")
-    fun getAlbumsByKeyword(key: String): LiveData<List<AlbumEntity>>
+    fun getAlbumsByKeyword(key: String): List<AlbumEntity>
 
     @Query("SELECT * FROM albums WHERE spotify_id = :id")
-    fun getAlbumById(id: String): LiveData<AlbumEntity>
+    fun getAlbumById(id: String): AlbumEntity
 
     @Query("SELECT * FROM albums WHERE artist_id = :id")
     fun getAlbumsByArtistId(id: String): LiveData<List<AlbumEntity>>
@@ -28,7 +28,7 @@ interface AlbumDao {
     suspend fun updateAlbumTracks(albumEntity: AlbumEntity)
 
     @Update(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun updateAlbum(albumEntity: AlbumEntity)
+    fun updateAlbum(albumEntity: AlbumEntity)
 
     @Query("SELECT * FROM albums WHERE isFavorite = 1 ORDER BY name ASC")
     fun loadFavoriteTracks(): LiveData<List<AlbumEntity>>

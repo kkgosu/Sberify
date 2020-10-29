@@ -67,6 +67,16 @@ object ShareModule {
 
     @Provides
     @Singleton
+    fun provideAlbumRepository(
+        database: AppDatabase,
+        spotifyApi: SpotifyApi,
+        converter: DataConverter
+    ): AlbumRepository {
+        return AlbumsRepositoryImpl(database, spotifyApi, converter)
+    }
+
+    @Provides
+    @Singleton
     fun provideSuggestionUseCasesProvider(
         repository: SuggestionsRepository,
         @IoDispatcher dispatcher: CoroutineDispatcher

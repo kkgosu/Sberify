@@ -34,7 +34,7 @@ interface SpotifyApi {
     @GET("search")
     suspend fun searchAlbum(
         @Query("q") keyword: String,
-        @Query("type") type: String
+        @Query("type") type: String = SearchTypes.ALBUM
     ): Response<AlbumsData>
 
 
