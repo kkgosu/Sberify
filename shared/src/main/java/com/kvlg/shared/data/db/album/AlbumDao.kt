@@ -22,7 +22,7 @@ interface AlbumDao {
     fun getAlbumsByArtistId(id: String): LiveData<List<AlbumEntity>>
 
     @Query("UPDATE albums SET track_ids =:tracks WHERE spotify_id =:id")
-    suspend fun updateAlbumTracks(id: String, tracks: List<Track>)
+    fun updateAlbumTracks(id: String, tracks: List<Track>)
 
     @Update(entity = AlbumEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateAlbumTracks(albumEntity: AlbumEntity)
@@ -31,5 +31,5 @@ interface AlbumDao {
     fun updateAlbum(albumEntity: AlbumEntity)
 
     @Query("SELECT * FROM albums WHERE isFavorite = 1 ORDER BY name ASC")
-    fun loadFavoriteTracks(): LiveData<List<AlbumEntity>>
+    fun loadFavoriteAlbums(): List<AlbumEntity>
 }

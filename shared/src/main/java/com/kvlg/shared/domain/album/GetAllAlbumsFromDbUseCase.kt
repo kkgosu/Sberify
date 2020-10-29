@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineDispatcher
  * @author Konstantin Koval
  * @since 29.10.2020
  */
-class GetAllAlbumsFromDb(
+class GetAllAlbumsFromDbUseCase(
     private val repository: AlbumRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
 ) : UseCase<Unit, List<Album>>(dispatcher) {

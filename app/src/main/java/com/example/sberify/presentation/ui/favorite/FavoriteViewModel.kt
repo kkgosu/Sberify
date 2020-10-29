@@ -2,14 +2,14 @@ package com.example.sberify.presentation.ui.favorite
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.example.sberify.domain.IDatabaseRepository
 import com.kvlg.model.presentation.Album
 import com.kvlg.model.presentation.Track
+import com.kvlg.shared.domain.album.AlbumUseCasesProvider
 import com.kvlg.shared.domain.track.TrackUseCasesProvider
 
 class FavoriteViewModel @ViewModelInject constructor(
-    private val databaseRepo: IDatabaseRepository,
-    private val trackUseCases: TrackUseCasesProvider
+    private val trackUseCases: TrackUseCasesProvider,
+    private val albumUseCases: AlbumUseCasesProvider
 ) : ViewModel() {
 
     private val favoriteTracksTrigger = MutableLiveData<Unit>()
@@ -17,12 +17,14 @@ class FavoriteViewModel @ViewModelInject constructor(
 
     val favoriteTracks: LiveData<List<Track>> = favoriteTracksTrigger.switchMap {
         liveData {
-            trackUseCases.getFavoriteTracks(Unit)
+            emit(trackUseCases.getFavoriteTracks(Unit).data!!)
         }
     }
 
     val favoriteAlbums: LiveData<List<Album>> = favoriteAlbumsTrigger.switchMap {
-        databaseRepo.loadFavoriteAlbums()
+        liveData {
+            emit(albumUseCases.getFavoriteTracks(Unit).data!!)
+        }
     }
 
     fun loadFavorite() {

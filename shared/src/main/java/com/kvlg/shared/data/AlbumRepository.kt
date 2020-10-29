@@ -12,14 +12,17 @@ import com.kvlg.shared.data.db.artists.ArtistEntity
  * @since 29.10.2020
  */
 interface AlbumRepository {
-    suspend fun getAlbumsFromSpotify(keyword: String): List<Album>?
+    suspend fun getAlbumsFromSpotify(keyword: String): List<Album>
     suspend fun getAlbumInfoFromSpotify(id: String): List<Album>
     suspend fun getNewReleases(): List<Album>
     fun getAlbumsFromDb(keyword: String): List<Album>
     fun saveAlbumIntoDb(album: Album)
     fun getAlbumInfoFromDb(id: String): Album
     fun updateAlbumInfoInDb(album: Album)
+    fun updateAlbumTracks(album: Album)
     fun getAllAlbumsFromDb(): List<Album>
+    fun insertAlbum(album: Album)
+    fun getFavoriteAlbums(): List<Album>
 }
 
 class AlbumsRepositoryImpl(
@@ -28,8 +31,8 @@ class AlbumsRepositoryImpl(
     private val converter: DataConverter
 ) : AlbumRepository {
 
-    override suspend fun getAlbumsFromSpotify(keyword: String): List<Album>? {
-        return getResponse { spotifyApi.searchAlbum(keyword) }.albums.items?.let {
+    override suspend fun getAlbumsFromSpotify(keyword: String): List<Album> {
+        return getResponse { spotifyApi.searchAlbum(keyword) }.albums.items.let {
             converter.convertAlbums(it)
         }
     }
@@ -60,8 +63,22 @@ class AlbumsRepositoryImpl(
         database.getAlbumDao().updateAlbum(album.toEntity())
     }
 
+    override fun updateAlbumTracks(album: Album) {
+        database.getAlbumDao().updateAlbumTracks(album.id, album.tracks!!)
+    }
+
     override fun getAllAlbumsFromDb(): List<Album> {
         return database.getAlbumDao().getAlbums().map {
+            it.toAlbum()
+        }
+    }
+
+    override fun insertAlbum(album: Album) {
+        database.getAlbumDao().insertAlbum(album.toEntity())
+    }
+
+    override fun getFavoriteAlbums(): List<Album> {
+        return database.getAlbumDao().loadFavoriteAlbums().map {
             it.toAlbum()
         }
     }

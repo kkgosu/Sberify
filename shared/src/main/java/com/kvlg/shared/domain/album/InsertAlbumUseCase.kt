@@ -10,12 +10,12 @@ import kotlinx.coroutines.CoroutineDispatcher
  * @author Konstantin Koval
  * @since 29.10.2020
  */
-class GetAlbumsFromSpotifyUseCase(
+class InsertAlbumUseCase(
     private val repository: AlbumRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
-) : UseCase<String, List<Album>>(dispatcher) {
+) : UseCase<Album, Unit>(dispatcher) {
 
-    override suspend fun execute(parameters: String): List<Album> {
-        return repository.getAlbumsFromSpotify(parameters)
+    override suspend fun execute(parameters: Album) {
+        repository.insertAlbum(parameters)
     }
 }

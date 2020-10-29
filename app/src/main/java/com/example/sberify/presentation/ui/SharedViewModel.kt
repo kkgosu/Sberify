@@ -2,13 +2,12 @@ package com.example.sberify.presentation.ui
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.example.sberify.domain.IDatabaseRepository
-import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.presentation.ui.utils.SingleLiveEvent
 import com.kvlg.model.common.Result
 import com.kvlg.model.presentation.Album
 import com.kvlg.model.presentation.Track
 import com.kvlg.network.TokenData
+import com.kvlg.shared.domain.album.AlbumUseCasesProvider
 import com.kvlg.shared.domain.artist.ArtistUseCasesProvider
 import com.kvlg.shared.domain.resultData
 import com.kvlg.shared.domain.track.TrackUseCasesProvider
@@ -17,9 +16,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SharedViewModel @ViewModelInject constructor(
-    private val spotifyRepository: ISpotifyRepository,
-    private val databaseRepository: IDatabaseRepository,
     tokenData: TokenData,
+    private val albumUseCases: AlbumUseCasesProvider,
     trackUseCases: TrackUseCasesProvider,
     artistUseCases: ArtistUseCasesProvider
 ) : ViewModel() {
@@ -65,8 +63,17 @@ class SharedViewModel @ViewModelInject constructor(
         albumInfoTrigger.value = album
     }
 
-    val newReleases: LiveData<Result<List<Album>>> = Transformations.switchMap(reloadTrigger) {
-        spotifyRepository.getNewReleases()
+    val newReleases: LiveData<Result<List<Album>>> = reloadTrigger.switchMap {
+        resultData(
+            databaseQuery = { albumUseCases.getAllAlbums(Unit) },
+            networkCall = { albumUseCases.getNewReleases(Unit) },
+            saveCallResult = {
+                it.forEach { album ->
+                    artistUseCases.saveArtistIntoDb(album.artist)
+                    albumUseCases.saveAlbumIntoDb(album)
+                }
+            }
+        )
     }
 
     val artistsSearchResult = searchArtistTrigger.switchMap {
@@ -77,12 +84,18 @@ class SharedViewModel @ViewModelInject constructor(
         )
     }
     val albumsSearchResult: LiveData<Result<List<Album>>> = Transformations.switchMap(searchAlbumTrigger) {
-        spotifyRepository.searchAlbum(it)
+        resultData(
+            databaseQuery = { albumUseCases.getAlbumsFromDb(it) },
+            networkCall = { albumUseCases.getAlbumsFromSpotify(it) },
+            saveCallResult = { list ->
+                list.forEach { albumUseCases.insertAlbum(it) }
+            }
+        )
     }
 
     val tracksSearch = searchTrackTrigger.switchMap {
         resultData(
-            databaseQuery = { trackUseCases.getTrackFromDb(it) },
+            databaseQuery = { trackUseCases.getTracksFromDb(it) },
             networkCall = { trackUseCases.getTrackFromSpotify(it) },
             saveCallResult = { tracks ->
                 tracks?.forEach { trackUseCases.saveTrackIntoDb(it) }
@@ -90,8 +103,16 @@ class SharedViewModel @ViewModelInject constructor(
         )
     }
 
-    val album: LiveData<Result<Album>> = Transformations.switchMap(albumInfoTrigger) {
-        spotifyRepository.getAlbumInfo(it.id)
+    val album: LiveData<Result<Album>> = albumInfoTrigger.switchMap {
+        resultData(
+            databaseQuery = { albumUseCases.getAlbumByIdDb(it.id) },
+            networkCall = { albumUseCases.getAlbumByIdSpotify(it.id) },
+            saveCallResult = { list ->
+                list.forEach { album ->
+                    albumUseCases.updateAlbumTracks(album)
+                }
+            }
+        )
     }
 
     fun search(keyword: String) {
@@ -116,7 +137,7 @@ class SharedViewModel @ViewModelInject constructor(
     fun updateFavoriteAlbum(album: Album) {
         viewModelScope.launch(Dispatchers.IO) {
             delay(800)
-            databaseRepository.updateAlbum(album)
+            albumUseCases.updateAlbumInDb(album)
         }
     }
 

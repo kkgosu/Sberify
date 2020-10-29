@@ -12,7 +12,7 @@ import kotlinx.coroutines.CoroutineDispatcher
  * @author Konstantin Koval
  * @since 27.10.2020
  */
-class GetTrackFromDbUseCase(
+class GetTracksFromDbUseCase(
     private val repository: TrackRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
 ) : UseCase<String, List<Track?>>(dispatcher) {

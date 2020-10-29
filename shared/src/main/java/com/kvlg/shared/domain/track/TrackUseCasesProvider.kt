@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineDispatcher
  * @since 28.10.2020
  */
 interface TrackUseCasesProvider {
-    val getTrackFromDb: GetTrackFromDbUseCase
+    val getTracksFromDb: GetTracksFromDbUseCase
     val getTrackFromSpotify: GetTracksFromSpotifyUseCase
     val saveTrackIntoDb: SaveTrackIntoDbUseCase
     val updateTrackInDb: UpdateTrackInDbUseCase
@@ -23,8 +23,8 @@ class TrackUseCasesProviderImpl(
     @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) : TrackUseCasesProvider {
 
-    override val getTrackFromDb: GetTrackFromDbUseCase
-        get() = GetTrackFromDbUseCase(trackRepo, dispatcher)
+    override val getTracksFromDb: GetTracksFromDbUseCase
+        get() = GetTracksFromDbUseCase(trackRepo, dispatcher)
 
     override val getTrackFromSpotify: GetTracksFromSpotifyUseCase
         get() = GetTracksFromSpotifyUseCase(trackRepo, dispatcher)

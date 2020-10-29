@@ -6,6 +6,8 @@ import com.kvlg.network.spotify.DataConverter
 import com.kvlg.network.spotify.SpotifyApi
 import com.kvlg.shared.data.*
 import com.kvlg.shared.data.db.AppDatabase
+import com.kvlg.shared.domain.album.AlbumUseCasesProvider
+import com.kvlg.shared.domain.album.AlbumUseCasesProviderImpl
 import com.kvlg.shared.domain.artist.ArtistUseCasesProvider
 import com.kvlg.shared.domain.artist.ArtistUseCasesProviderImpl
 import com.kvlg.shared.domain.suggestions.SuggestionUseCasesProvider
@@ -100,5 +102,14 @@ object ShareModule {
         @IoDispatcher dispatcher: CoroutineDispatcher
     ): ArtistUseCasesProvider {
         return ArtistUseCasesProviderImpl(artistRepository, dispatcher)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAlbumUseCasesProvider(
+        repository: AlbumRepository,
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): AlbumUseCasesProvider {
+        return AlbumUseCasesProviderImpl(repository, dispatcher)
     }
 }
