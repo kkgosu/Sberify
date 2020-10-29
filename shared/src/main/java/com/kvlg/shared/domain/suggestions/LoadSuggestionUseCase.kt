@@ -1,11 +1,10 @@
 package com.kvlg.shared.domain.suggestions
 
 import com.kvlg.model.presentation.Suggestion
-import com.kvlg.shared.data.suggestions.SuggestionsRepository
+import com.kvlg.shared.data.SuggestionsRepository
 import com.kvlg.shared.di.IoDispatcher
 import com.kvlg.shared.domain.UseCase
 import kotlinx.coroutines.CoroutineDispatcher
-import javax.inject.Inject
 
 /**
  * Loads all suggestions in search
@@ -13,7 +12,7 @@ import javax.inject.Inject
  * @author Konstantin Koval
  * @since 23.10.2020
  */
-class LoadSuggestionUseCase @Inject constructor(
+class LoadSuggestionUseCase(
     private val repository: SuggestionsRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
 ) : UseCase<Unit, List<Suggestion>>(dispatcher) {

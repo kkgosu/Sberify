@@ -1,6 +1,6 @@
 package com.kvlg.shared.domain.suggestions
 
-import com.kvlg.shared.data.suggestions.SuggestionsRepository
+import com.kvlg.shared.data.SuggestionsRepository
 import com.kvlg.shared.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 

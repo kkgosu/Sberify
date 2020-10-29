@@ -3,7 +3,7 @@ package com.kvlg.shared.domain.suggestions
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.kvlg.model.common.Result
 import com.kvlg.model.presentation.Suggestion
-import com.kvlg.shared.data.suggestions.SuggestionsRepository
+import com.kvlg.shared.data.SuggestionsRepository
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test

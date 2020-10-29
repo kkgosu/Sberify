@@ -5,7 +5,6 @@ import com.kvlg.shared.data.TrackRepository
 import com.kvlg.shared.di.IoDispatcher
 import com.kvlg.shared.domain.UseCase
 import kotlinx.coroutines.CoroutineDispatcher
-import javax.inject.Inject
 
 /**
  * Getting track from DB by keyword
@@ -13,7 +12,7 @@ import javax.inject.Inject
  * @author Konstantin Koval
  * @since 27.10.2020
  */
-class GetTrackFromDbUseCase @Inject constructor(
+class GetTrackFromDbUseCase(
     private val repository: TrackRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
 ) : UseCase<String, List<Track?>>(dispatcher) {

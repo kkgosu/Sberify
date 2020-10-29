@@ -5,7 +5,6 @@ import com.kvlg.shared.data.TrackRepository
 import com.kvlg.shared.di.IoDispatcher
 import com.kvlg.shared.domain.UseCase
 import kotlinx.coroutines.CoroutineDispatcher
-import javax.inject.Inject
 
 /**
  * Save track in Db
@@ -13,7 +12,7 @@ import javax.inject.Inject
  * @author Konstantin Koval
  * @since 25.10.2020
  */
-class SaveTrackIntoDbUseCase @Inject constructor(
+class SaveTrackIntoDbUseCase(
     private val geniusRepository: TrackRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
 ) : UseCase<Track, Unit>(dispatcher) {

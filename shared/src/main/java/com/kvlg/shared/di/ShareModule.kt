@@ -6,8 +6,6 @@ import com.kvlg.network.spotify.DataConverter
 import com.kvlg.network.spotify.SpotifyApi
 import com.kvlg.shared.data.*
 import com.kvlg.shared.data.db.AppDatabase
-import com.kvlg.shared.data.suggestions.SuggestionRepositoryImpl
-import com.kvlg.shared.data.suggestions.SuggestionsRepository
 import com.kvlg.shared.domain.artist.ArtistUseCasesProvider
 import com.kvlg.shared.domain.artist.ArtistUseCasesProviderImpl
 import com.kvlg.shared.domain.suggestions.SuggestionUseCasesProvider

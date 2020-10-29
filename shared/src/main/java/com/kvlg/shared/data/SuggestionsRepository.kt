@@ -1,9 +1,8 @@
-package com.kvlg.shared.data.suggestions
+package com.kvlg.shared.data
 
 import com.kvlg.model.presentation.Suggestion
 import com.kvlg.shared.data.db.AppDatabase
 import com.kvlg.shared.data.db.suggestions.SuggestionsEntity
-import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
@@ -18,7 +17,7 @@ interface SuggestionsRepository {
 }
 
 @Singleton
-class SuggestionRepositoryImpl @Inject constructor(
+class SuggestionRepositoryImpl(
     private val database: AppDatabase
 ) : SuggestionsRepository {
 
