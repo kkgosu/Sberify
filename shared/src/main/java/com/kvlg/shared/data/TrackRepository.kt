@@ -1,8 +1,8 @@
 package com.kvlg.shared.data
 
-import com.kvlg.model.data.spotify.TracksData
 import com.kvlg.model.presentation.Image
 import com.kvlg.model.presentation.Track
+import com.kvlg.network.spotify.DataConverter
 import com.kvlg.network.spotify.SpotifyApi
 import com.kvlg.shared.data.db.AppDatabase
 import com.kvlg.shared.data.db.track.TrackEntity
@@ -12,7 +12,7 @@ import com.kvlg.shared.data.db.track.TrackEntity
  * @since 28.10.2020
  */
 interface TrackRepository {
-    suspend fun getTracksFromSpotify(keyword: String): TracksData
+    suspend fun getTracksFromSpotify(keyword: String): List<Track>?
     fun getTracksFromDb(keyword: String): List<Track?>
     fun saveTrackIntoDb(track: Track)
     fun updateTrackInDb(track: Track)
@@ -20,11 +20,14 @@ interface TrackRepository {
 
 class TrackRepositoryImpl(
     private val database: AppDatabase,
-    private val spotifyApi: SpotifyApi
+    private val spotifyApi: SpotifyApi,
+    private val converter: DataConverter
 ) : TrackRepository {
 
-    override suspend fun getTracksFromSpotify(keyword: String): TracksData {
-        return getResponse { spotifyApi.searchTrack(keyword) }
+    override suspend fun getTracksFromSpotify(keyword: String): List<Track>? {
+        return getResponse { spotifyApi.searchTrack(keyword) }.tracks.items.let {
+            converter.convertTracks(it, "")
+        }
     }
 
     override fun getTracksFromDb(keyword: String): List<Track?> {

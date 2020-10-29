@@ -1,10 +1,8 @@
 package com.kvlg.shared.domain.track
 
-import com.kvlg.network.spotify.DataConverter
 import com.kvlg.shared.data.TrackRepository
 import com.kvlg.shared.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
-import javax.inject.Inject
 
 /**
  * Provide track's use cases
@@ -19,9 +17,8 @@ interface TrackUseCasesProvider {
     val updateTrackInDb: UpdateTrackInDbUseCase
 }
 
-class TrackUseCasesProviderImpl @Inject constructor(
+class TrackUseCasesProviderImpl(
     private val trackRepo: TrackRepository,
-    private val converter: DataConverter,
     @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) : TrackUseCasesProvider {
 
@@ -29,7 +26,7 @@ class TrackUseCasesProviderImpl @Inject constructor(
         get() = GetTrackFromDbUseCase(trackRepo, dispatcher)
 
     override val getTrackFromSpotify: GetTracksFromSpotifyUseCase
-        get() = GetTracksFromSpotifyUseCase(trackRepo, converter, dispatcher)
+        get() = GetTracksFromSpotifyUseCase(trackRepo, dispatcher)
 
     override val saveTrackIntoDb: SaveTrackIntoDbUseCase
         get() = SaveTrackIntoDbUseCase(trackRepo, dispatcher)

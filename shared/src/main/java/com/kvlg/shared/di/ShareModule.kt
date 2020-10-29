@@ -6,8 +6,6 @@ import com.kvlg.network.spotify.DataConverter
 import com.kvlg.network.spotify.SpotifyApi
 import com.kvlg.shared.data.*
 import com.kvlg.shared.data.db.AppDatabase
-import com.kvlg.shared.data.spotify.SpotifyRepository
-import com.kvlg.shared.data.spotify.SpotifyRepositoryImpl
 import com.kvlg.shared.data.suggestions.SuggestionRepositoryImpl
 import com.kvlg.shared.data.suggestions.SuggestionsRepository
 import com.kvlg.shared.domain.artist.ArtistUseCasesProvider
@@ -41,20 +39,12 @@ object ShareModule {
 
     @Provides
     @Singleton
-    fun provideSpotifyRepository(
-        appDatabase: AppDatabase,
-        spotifyApi: SpotifyApi
-    ): SpotifyRepository {
-        return SpotifyRepositoryImpl(appDatabase, spotifyApi)
-    }
-
-    @Provides
-    @Singleton
     fun provideTrackRepository(
         appDatabase: AppDatabase,
-        spotifyApi: SpotifyApi
+        spotifyApi: SpotifyApi,
+        converter: DataConverter
     ): TrackRepository {
-        return TrackRepositoryImpl(appDatabase, spotifyApi)
+        return TrackRepositoryImpl(appDatabase, spotifyApi, converter)
     }
 
     @Provides
@@ -90,10 +80,9 @@ object ShareModule {
     @Singleton
     fun provideTrackUseCasesRepository(
         trackRepo: TrackRepository,
-        converter: DataConverter,
         @IoDispatcher dispatcher: CoroutineDispatcher
     ): TrackUseCasesProvider {
-        return TrackUseCasesProviderImpl(trackRepo, converter, dispatcher)
+        return TrackUseCasesProviderImpl(trackRepo, dispatcher)
     }
 
     @Provides
