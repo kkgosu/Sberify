@@ -16,6 +16,7 @@ interface TrackRepository {
     fun getTracksFromDb(keyword: String): List<Track?>
     fun saveTrackIntoDb(track: Track)
     fun updateTrackInDb(track: Track)
+    fun getFavoriteTracks(): List<Track>
 }
 
 class TrackRepositoryImpl(
@@ -23,6 +24,12 @@ class TrackRepositoryImpl(
     private val spotifyApi: SpotifyApi,
     private val converter: DataConverter
 ) : TrackRepository {
+
+    override fun getFavoriteTracks(): List<Track> {
+        return database.getTrackDao().loadFavoriteTracks().map {
+            it.toTrack()
+        }
+    }
 
     override suspend fun getTracksFromSpotify(keyword: String): List<Track>? {
         return getResponse { spotifyApi.searchTrack(keyword) }.tracks.items.let {
@@ -52,6 +59,16 @@ class TrackRepositoryImpl(
     override fun updateTrackInDb(track: Track) {
         database.getTrackDao().updateTrack(track.toEntity())
     }
+
+    private fun TrackEntity.toTrack() =
+        Track(
+            id = spotifyId,
+            name = name,
+            image = Image(image_url ?: "", 0, 0),
+            artists = artists,
+            lyrics = lyrics,
+            isFavorite = isFavorite
+        )
 
     private fun Track.toEntity() =
         TrackEntity(

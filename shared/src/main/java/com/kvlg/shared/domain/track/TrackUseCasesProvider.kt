@@ -15,6 +15,7 @@ interface TrackUseCasesProvider {
     val getTrackFromSpotify: GetTracksFromSpotifyUseCase
     val saveTrackIntoDb: SaveTrackIntoDbUseCase
     val updateTrackInDb: UpdateTrackInDbUseCase
+    val getFavoriteTracks: GetFavoriteTracksUseCase
 }
 
 class TrackUseCasesProviderImpl(
@@ -33,4 +34,7 @@ class TrackUseCasesProviderImpl(
 
     override val updateTrackInDb: UpdateTrackInDbUseCase
         get() = UpdateTrackInDbUseCase(trackRepo, dispatcher)
+
+    override val getFavoriteTracks: GetFavoriteTracksUseCase
+        get() = GetFavoriteTracksUseCase(trackRepo, dispatcher)
 }

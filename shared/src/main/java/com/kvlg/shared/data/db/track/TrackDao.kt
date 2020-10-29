@@ -18,7 +18,7 @@ interface TrackDao {
     fun updateTrackLyrics(id: String, lyrics: String)
 
     @Query("SELECT * FROM tracks WHERE isFavorite = 1 ORDER BY name ASC")
-    fun loadFavoriteTracks(): LiveData<List<TrackEntity>>
+    fun loadFavoriteTracks(): List<TrackEntity>
 
     @Update(onConflict = OnConflictStrategy.IGNORE)
     fun updateTrack(trackEntity: TrackEntity)

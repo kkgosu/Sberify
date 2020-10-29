@@ -4,8 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.kvlg.model.presentation.Artist
-import com.kvlg.model.presentation.Image
-import com.kvlg.model.presentation.Track
 
 @Entity(tableName = "tracks")
 data class TrackEntity(
@@ -30,28 +28,4 @@ data class TrackEntity(
 
         @ColumnInfo(name = "image_url")
         val image_url: String?
-) {
-
-    fun toTrack(): Track =
-        Track(
-                id = spotifyId,
-                name = name,
-                image = Image(image_url ?: "", 0, 0),
-                artists = artists,
-                lyrics = lyrics,
-                isFavorite = isFavorite
-        )
-
-    companion object {
-        fun from(track: Track): TrackEntity =
-            TrackEntity(
-                    spotifyId = track.id,
-                    name = track.name,
-                    albumId = "",
-                    lyrics = track.lyrics,
-                    artists = track.artists,
-                    isFavorite = track.isFavorite,
-                    image_url = track.image?.url
-            )
-    }
-}
+)

@@ -1,31 +1,32 @@
 package com.example.sberify.presentation.ui.favorite
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.example.sberify.domain.IDatabaseRepository
 import com.kvlg.model.presentation.Album
 import com.kvlg.model.presentation.Track
+import com.kvlg.shared.domain.track.TrackUseCasesProvider
 
 class FavoriteViewModel @ViewModelInject constructor(
-    private val databaseRepo: IDatabaseRepository
+    private val databaseRepo: IDatabaseRepository,
+    private val trackUseCases: TrackUseCasesProvider
 ) : ViewModel() {
 
-    private val favoriteTracksTrigger = MutableLiveData<Boolean>()
-    private val favoriteAlbumsTrigger = MutableLiveData<Boolean>()
+    private val favoriteTracksTrigger = MutableLiveData<Unit>()
+    private val favoriteAlbumsTrigger = MutableLiveData<Unit>()
 
-    val favoriteTracks: LiveData<List<Track>> = Transformations.switchMap(favoriteTracksTrigger) {
-        databaseRepo.loadFavoriteTracks()
+    val favoriteTracks: LiveData<List<Track>> = favoriteTracksTrigger.switchMap {
+        liveData {
+            trackUseCases.getFavoriteTracks(Unit)
+        }
     }
 
-    val favoriteAlbums: LiveData<List<Album>> = Transformations.switchMap(favoriteAlbumsTrigger) {
+    val favoriteAlbums: LiveData<List<Album>> = favoriteAlbumsTrigger.switchMap {
         databaseRepo.loadFavoriteAlbums()
     }
 
     fun loadFavorite() {
-        favoriteTracksTrigger.value = true
-        favoriteAlbumsTrigger.value = true
+        favoriteTracksTrigger.value = Unit
+        favoriteAlbumsTrigger.value = Unit
     }
 }
