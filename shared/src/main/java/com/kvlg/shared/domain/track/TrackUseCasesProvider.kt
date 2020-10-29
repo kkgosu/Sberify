@@ -16,6 +16,7 @@ interface TrackUseCasesProvider {
     val getTrackFromDb: GetTrackFromDbUseCase
     val getTrackFromSpotify: GetTracksFromSpotifyUseCase
     val saveTrackIntoDb: SaveTrackIntoDbUseCase
+    val updateTrackInDb: UpdateTrackInDbUseCase
 }
 
 class TrackUseCasesProviderImpl @Inject constructor(
@@ -32,4 +33,7 @@ class TrackUseCasesProviderImpl @Inject constructor(
 
     override val saveTrackIntoDb: SaveTrackIntoDbUseCase
         get() = SaveTrackIntoDbUseCase(trackRepo, dispatcher)
+
+    override val updateTrackInDb: UpdateTrackInDbUseCase
+        get() = UpdateTrackInDbUseCase(trackRepo, dispatcher)
 }

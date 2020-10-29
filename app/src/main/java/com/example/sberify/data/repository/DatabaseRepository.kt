@@ -8,19 +8,12 @@ import com.kvlg.model.presentation.Album
 import com.kvlg.model.presentation.Track
 import com.kvlg.shared.data.db.AppDatabase
 import com.kvlg.shared.data.db.album.AlbumEntity
-import com.kvlg.shared.data.db.track.TrackEntity
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class DatabaseRepository @Inject constructor(
     private val database: AppDatabase
 ) : IDatabaseRepository {
-
-
-    override suspend fun updateTrack(track: Track) = withContext(Dispatchers.IO) {
-        database.getTrackDao().updateTrack(TrackEntity.from(track))
-    }
 
     override fun loadFavoriteTracks(): LiveData<List<Track>> =
         liveData(Dispatchers.IO) {

@@ -6,7 +6,6 @@ import com.kvlg.model.presentation.Track
 
 interface IDatabaseRepository {
     suspend fun updateAlbum(album: Album)
-    suspend fun updateTrack(track: Track)
     fun loadFavoriteTracks(): LiveData<List<Track>>
     fun loadFavoriteAlbums(): LiveData<List<Album>>
 }

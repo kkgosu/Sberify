@@ -7,9 +7,9 @@ import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.presentation.ui.utils.SingleLiveEvent
 import com.kvlg.model.common.Result
 import com.kvlg.model.presentation.Album
-import com.kvlg.model.presentation.Artist
 import com.kvlg.model.presentation.Track
 import com.kvlg.network.TokenData
+import com.kvlg.shared.domain.artist.ArtistUseCasesProvider
 import com.kvlg.shared.domain.resultData
 import com.kvlg.shared.domain.track.TrackUseCasesProvider
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +21,7 @@ class SharedViewModel @ViewModelInject constructor(
     private val databaseRepository: IDatabaseRepository,
     tokenData: TokenData,
     trackUseCases: TrackUseCasesProvider,
+    artistUseCases: ArtistUseCasesProvider
 ) : ViewModel() {
 
     init {
@@ -68,8 +69,12 @@ class SharedViewModel @ViewModelInject constructor(
         spotifyRepository.getNewReleases()
     }
 
-    val artistsSearchResult: LiveData<Result<List<Artist>>> = Transformations.switchMap(searchArtistTrigger) {
-        spotifyRepository.searchArtist(it)
+    val artistsSearchResult = searchArtistTrigger.switchMap {
+        resultData(
+            databaseQuery = { artistUseCases.getArtistFromDb(it) },
+            networkCall = { artistUseCases.getArtistFromSpotify(it) },
+            saveCallResult = { artist -> artist.forEach { artistUseCases.saveArtistIntoDb(it) } }
+        )
     }
     val albumsSearchResult: LiveData<Result<List<Album>>> = Transformations.switchMap(searchAlbumTrigger) {
         spotifyRepository.searchAlbum(it)

@@ -6,7 +6,6 @@ import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.presentation.ui.utils.ResponseHandler.getResult
 import com.kvlg.model.common.Result
 import com.kvlg.model.presentation.Album
-import com.kvlg.model.presentation.Artist
 import com.kvlg.network.spotify.DataConverter
 import com.kvlg.network.spotify.SearchTypes
 import com.kvlg.network.spotify.SpotifyApi
@@ -56,27 +55,6 @@ class SpotifyRepository @Inject constructor(
                 }
             })
 
-    }
-
-    override fun searchArtist(keyword: String): LiveData<Result<List<Artist>>> {
-        return resultLiveData(
-            databaseQuery = {
-                database.getArtistDao().getArtistByKeyword(keyword).map {
-                    it.map { entity -> entity.toArtist() }
-                }
-            },
-            networkCall = {
-                getResult {
-                    mSpotifyApi.searchArtist(keyword, SearchTypes.ARTIST)
-                }
-            },
-            saveCallResult = {
-                val artists = dataConverter.convertArtists(it.artists.items)
-                artists.forEach { artist ->
-                    database.getArtistDao()
-                        .insertArtist(ArtistEntity.from(artist))
-                }
-            })
     }
 
     override fun searchAlbum(keyword: String): LiveData<Result<List<Album>>> {

@@ -1,7 +1,7 @@
 package com.kvlg.shared.domain.lyrics
 
 import com.kvlg.model.presentation.Track
-import com.kvlg.shared.data.genius.GeniusRepository
+import com.kvlg.shared.data.LyricsRepository
 import com.kvlg.shared.di.IoDispatcher
 import com.kvlg.shared.domain.UseCase
 import kotlinx.coroutines.CoroutineDispatcher
@@ -14,11 +14,11 @@ import javax.inject.Inject
  * @since 25.10.2020
  */
 class GetLyricsUseCase @Inject constructor(
-    private val repository: GeniusRepository,
+    private val lyricsRepository: LyricsRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
 ) : UseCase<Track, Track?>(dispatcher) {
 
     override suspend fun execute(parameters: Track): Track? {
-        return repository.getLyricsFromDb(parameters)
+        return lyricsRepository.getLyricsFromDb(parameters)
     }
 }

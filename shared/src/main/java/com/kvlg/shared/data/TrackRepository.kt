@@ -6,7 +6,6 @@ import com.kvlg.model.presentation.Track
 import com.kvlg.network.spotify.SpotifyApi
 import com.kvlg.shared.data.db.AppDatabase
 import com.kvlg.shared.data.db.track.TrackEntity
-import javax.inject.Inject
 
 /**
  * @author Konstantin Koval
@@ -16,9 +15,10 @@ interface TrackRepository {
     suspend fun getTracksFromSpotify(keyword: String): TracksData
     fun getTracksFromDb(keyword: String): List<Track?>
     fun saveTrackIntoDb(track: Track)
+    fun updateTrackInDb(track: Track)
 }
 
-class TrackRepositoryImpl @Inject constructor(
+class TrackRepositoryImpl(
     private val database: AppDatabase,
     private val spotifyApi: SpotifyApi
 ) : TrackRepository {
@@ -43,16 +43,21 @@ class TrackRepositoryImpl @Inject constructor(
     }
 
     override fun saveTrackIntoDb(track: Track) {
-        database.getTrackDao().insertTrack(
-            TrackEntity(
-                spotifyId = track.id,
-                name = track.name,
-                albumId = "",
-                lyrics = track.lyrics,
-                artists = track.artists,
-                isFavorite = track.isFavorite,
-                image_url = track.image?.url
-            )
-        )
+        database.getTrackDao().insertTrack(track.toEntity())
     }
+
+    override fun updateTrackInDb(track: Track) {
+        database.getTrackDao().updateTrack(track.toEntity())
+    }
+
+    private fun Track.toEntity() =
+        TrackEntity(
+            spotifyId = id,
+            name = name,
+            albumId = "",
+            lyrics = lyrics,
+            artists = artists,
+            isFavorite = isFavorite,
+            image_url = image?.url
+        )
 }

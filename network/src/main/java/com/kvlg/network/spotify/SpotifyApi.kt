@@ -28,7 +28,7 @@ interface SpotifyApi {
     @GET("search")
     suspend fun searchArtist(
         @Query("q") keyword: String,
-        @Query("type") type: String
+        @Query("type") type: String = SearchTypes.ARTIST
     ): Response<ArtistsData>
 
     @GET("search")

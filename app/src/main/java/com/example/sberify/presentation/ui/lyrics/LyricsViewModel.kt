@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
-import com.example.sberify.domain.IDatabaseRepository
 import com.kvlg.model.presentation.Track
 import com.kvlg.shared.domain.lyrics.GetLyricsUseCase
 import com.kvlg.shared.domain.lyrics.ParseLyricsFromGeniusUseCase
@@ -16,8 +15,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class LyricsViewModel @ViewModelInject constructor(
-    private val databaseRepository: IDatabaseRepository,
-    trackProvider: TrackUseCasesProvider,
+    private val trackProvider: TrackUseCasesProvider,
     getLyricsUseCase: GetLyricsUseCase,
     parseLyricsFromGeniusUseCase: ParseLyricsFromGeniusUseCase,
 ) : ViewModel() {
@@ -39,7 +37,7 @@ class LyricsViewModel @ViewModelInject constructor(
     fun updateTrack(track: Track) {
         viewModelScope.launch(Dispatchers.IO) {
             delay(800)
-            databaseRepository.updateTrack(track)
+            trackProvider.updateTrackInDb(track)
         }
     }
 }

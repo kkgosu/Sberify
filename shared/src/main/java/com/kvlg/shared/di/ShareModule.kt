@@ -4,15 +4,14 @@ import com.kvlg.network.genius.GeniusApi
 import com.kvlg.network.genius.GeniusParser
 import com.kvlg.network.spotify.DataConverter
 import com.kvlg.network.spotify.SpotifyApi
-import com.kvlg.shared.data.TrackRepository
-import com.kvlg.shared.data.TrackRepositoryImpl
+import com.kvlg.shared.data.*
 import com.kvlg.shared.data.db.AppDatabase
-import com.kvlg.shared.data.genius.GeniusRepository
-import com.kvlg.shared.data.genius.GeniusRepositoryImpl
 import com.kvlg.shared.data.spotify.SpotifyRepository
 import com.kvlg.shared.data.spotify.SpotifyRepositoryImpl
 import com.kvlg.shared.data.suggestions.SuggestionRepositoryImpl
 import com.kvlg.shared.data.suggestions.SuggestionsRepository
+import com.kvlg.shared.domain.artist.ArtistUseCasesProvider
+import com.kvlg.shared.domain.artist.ArtistUseCasesProviderImpl
 import com.kvlg.shared.domain.suggestions.SuggestionUseCasesProvider
 import com.kvlg.shared.domain.suggestions.SuggestionUseCasesProviderImpl
 import com.kvlg.shared.domain.track.TrackUseCasesProvider
@@ -42,16 +41,6 @@ object ShareModule {
 
     @Provides
     @Singleton
-    fun provideGeniusRepository(
-        appDatabase: AppDatabase,
-        geniusParser: GeniusParser,
-        geniusApi: GeniusApi
-    ): GeniusRepository {
-        return GeniusRepositoryImpl(appDatabase, geniusParser, geniusApi)
-    }
-
-    @Provides
-    @Singleton
     fun provideSpotifyRepository(
         appDatabase: AppDatabase,
         spotifyApi: SpotifyApi
@@ -66,6 +55,26 @@ object ShareModule {
         spotifyApi: SpotifyApi
     ): TrackRepository {
         return TrackRepositoryImpl(appDatabase, spotifyApi)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLyricsRepository(
+        database: AppDatabase,
+        geniusApi: GeniusApi,
+        geniusParser: GeniusParser
+    ): LyricsRepository {
+        return LyricsRepositoryImpl(database, geniusApi, geniusParser)
+    }
+
+    @Provides
+    @Singleton
+    fun provideArtistRepository(
+        database: AppDatabase,
+        spotifyApi: SpotifyApi,
+        dataConverter: DataConverter
+    ): ArtistRepository {
+        return ArtistRepositoryImpl(database, spotifyApi, dataConverter)
     }
 
     @Provides
@@ -85,5 +94,14 @@ object ShareModule {
         @IoDispatcher dispatcher: CoroutineDispatcher
     ): TrackUseCasesProvider {
         return TrackUseCasesProviderImpl(trackRepo, converter, dispatcher)
+    }
+
+    @Provides
+    @Singleton
+    fun provideArtistUseCasesProvider(
+        artistRepository: ArtistRepository,
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): ArtistUseCasesProvider {
+        return ArtistUseCasesProviderImpl(artistRepository, dispatcher)
     }
 }

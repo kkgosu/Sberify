@@ -1,33 +1,25 @@
-package com.kvlg.shared.data.genius
+package com.kvlg.shared.data
 
 import com.kvlg.model.presentation.Image
 import com.kvlg.model.presentation.Track
 import com.kvlg.network.genius.GeniusApi
 import com.kvlg.network.genius.GeniusParser
 import com.kvlg.shared.data.db.AppDatabase
-import com.kvlg.shared.data.db.track.TrackEntity
-import com.kvlg.shared.data.getResult
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
- * Repository for working with genius' data
- *
  * @author Konstantin Koval
- * @since 25.10.2020
+ * @since 29.10.2020
  */
-interface GeniusRepository {
+interface LyricsRepository {
     fun getLyricsFromDb(track: Track): Track?
-    suspend fun parseLyrics(track: Track): Track
-    fun saveTrackIntoDb(track: Track)
+    suspend fun parseLyricsFromGenius(track: Track): Track
 }
 
-@Singleton
-class GeniusRepositoryImpl @Inject constructor(
+class LyricsRepositoryImpl(
     private val database: AppDatabase,
-    private val geniusParser: GeniusParser,
-    private val geniusApi: GeniusApi
-) : GeniusRepository {
+    private val geniusApi: GeniusApi,
+    private val geniusParser: GeniusParser
+) : LyricsRepository {
 
     override fun getLyricsFromDb(track: Track): Track? {
         val trackEntity = database.getTrackDao().getTrackById(track.id)
@@ -43,7 +35,7 @@ class GeniusRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun parseLyrics(track: Track): Track {
+    override suspend fun parseLyricsFromGenius(track: Track): Track {
         val filterTrackName = filterTrackName(track.name)
         val query = filterQuery("${track.artists.firstOrNull()?.name.orEmpty()} $filterTrackName")
         val responseResult = getResult { geniusApi.getPath(query) }
@@ -56,20 +48,6 @@ class GeniusRepositoryImpl @Inject constructor(
             throw LyricsNotFoundException()
         }
         return geniusParser.parseLyrics(track, url)
-    }
-
-    override fun saveTrackIntoDb(track: Track) {
-        database.getTrackDao().insertTrack(
-            TrackEntity(
-                spotifyId = track.id,
-                name = track.name,
-                albumId = "",
-                lyrics = track.lyrics,
-                artists = track.artists,
-                isFavorite = track.isFavorite,
-                image_url = track.image?.url
-            )
-        )
     }
 
     private fun filterTrackName(name: String): String {

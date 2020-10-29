@@ -21,7 +21,7 @@ interface TrackDao {
     fun loadFavoriteTracks(): LiveData<List<TrackEntity>>
 
     @Update(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun updateTrack(trackEntity: TrackEntity)
+    fun updateTrack(trackEntity: TrackEntity)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertTrack(trackEntity: TrackEntity)
