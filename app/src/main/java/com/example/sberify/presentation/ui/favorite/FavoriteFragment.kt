@@ -15,6 +15,7 @@ import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentFavoriteBinding
 import com.example.sberify.presentation.ui.SharedViewModel
+import com.example.sberify.presentation.ui.lyrics.LyricsViewModel
 import com.kvlg.model.presentation.Album
 import com.kvlg.model.presentation.Track
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +28,7 @@ class FavoriteFragment :
 
     private val favoriteViewModel: FavoriteViewModel by activityViewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
+    private val lyricsViewModel: LyricsViewModel by activityViewModels()
 
     private val albumsHorizontalAdapter = AlbumsHorizontalAdapter(this)
     private val tracksAdapter = TrackListedAdapter(this)
@@ -60,7 +62,7 @@ class FavoriteFragment :
     }
 
     override fun onTrackSelected(item: Track, view: View) {
-        sharedViewModel.getLyrics(item)
+        lyricsViewModel.getLyrics(item)
         val extras = FragmentNavigatorExtras(
             view to view.transitionName
         )

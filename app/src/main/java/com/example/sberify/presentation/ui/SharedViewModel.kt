@@ -50,7 +50,6 @@ class SharedViewModel @ViewModelInject constructor(
     private val searchArtistTrigger = MutableLiveData<String>()
     private val searchAlbumTrigger = MutableLiveData<String>()
     private val searchTrackTrigger = MutableLiveData<String>()
-    private val lyricsTrigger = MutableLiveData<Track>()
 
     private val playTrigger = MutableLiveData<Track>()
     val play: LiveData<Track> = playTrigger
@@ -128,10 +127,6 @@ class SharedViewModel @ViewModelInject constructor(
 
     fun refresh() {
         reloadTrigger.value = true
-    }
-
-    fun getLyrics(track: Track) {
-        lyricsTrigger.value = track
     }
 
     fun updateFavoriteAlbum(album: Album) {

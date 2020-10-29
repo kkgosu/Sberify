@@ -22,6 +22,7 @@ import com.example.sberify.adapters.*
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentSearchBinding
 import com.example.sberify.presentation.ui.SharedViewModel
+import com.example.sberify.presentation.ui.lyrics.LyricsViewModel
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.ALBUM_SWITCH_CHECKED_KEY
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.ARTIST_SWITCH_CHECKED_KEY
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.TRACK_SWITCH_CHECKED_KEY
@@ -40,6 +41,7 @@ class SearchFragment :
     SuggestionInteraction {
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
+    private val lyricsViewModel: LyricsViewModel by activityViewModels()
     private val suggestionsViewModel: SuggestionsViewModel by viewModels()
 
     private val suggestionsAdapter = SuggestionAdapter(this)
@@ -128,7 +130,7 @@ class SearchFragment :
     }
 
     override fun onTrackSelected(item: Track, view: View) {
-        sharedViewModel.getLyrics(item)
+        lyricsViewModel.getLyrics(item)
         val extras = FragmentNavigatorExtras(
             view to view.transitionName
         )
