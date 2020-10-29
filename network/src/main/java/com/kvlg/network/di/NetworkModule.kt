@@ -7,6 +7,7 @@ import com.kvlg.network.TokenData
 import com.kvlg.network.genius.GeniusApi
 import com.kvlg.network.genius.GeniusAuthInterceptor
 import com.kvlg.network.genius.GeniusParser
+import com.kvlg.network.spotify.DataConverter
 import com.kvlg.network.spotify.SpotifyApi
 import com.kvlg.network.spotify.SpotifyAuthInterceptor
 import dagger.Module
@@ -75,5 +76,11 @@ class NetworkModule {
     @Singleton
     fun provideGeniusParser(): GeniusParser {
         return GeniusParser()
+    }
+
+    @Provides
+    @Singleton
+    fun provideDataConverter(): DataConverter {
+        return DataConverter()
     }
 }

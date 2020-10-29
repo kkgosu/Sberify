@@ -1,6 +1,5 @@
 package com.example.sberify.di
 
-import com.example.sberify.data.GeniusParser
 import com.example.sberify.data.repository.DatabaseRepository
 import com.example.sberify.data.repository.SpotifyRepository
 import com.example.sberify.domain.IDatabaseRepository
@@ -14,21 +13,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import javax.inject.Singleton
 
-@Module()
+@Module
 @InstallIn(ApplicationComponent::class)
 class RepositoryModule {
-
-    @Provides
-    @Singleton
-    fun provideDataConverter(): DataConverter {
-        return DataConverter()
-    }
-
-    @Provides
-    @Singleton
-    fun provideGeniusParser(): GeniusParser {
-        return GeniusParser()
-    }
 
     @Provides
     @Singleton
