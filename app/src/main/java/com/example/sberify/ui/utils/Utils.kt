@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui.utils
+package com.example.sberify.ui.utils
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData

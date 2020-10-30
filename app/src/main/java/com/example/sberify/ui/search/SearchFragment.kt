@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui.search
+package com.example.sberify.ui.search
 
 import android.content.Context
 import android.os.Bundle
@@ -21,13 +21,13 @@ import com.example.sberify.R
 import com.example.sberify.adapters.*
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentSearchBinding
-import com.example.sberify.presentation.ui.SharedViewModel
-import com.example.sberify.presentation.ui.lyrics.LyricsViewModel
-import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.ALBUM_SWITCH_CHECKED_KEY
-import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.ARTIST_SWITCH_CHECKED_KEY
-import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.TRACK_SWITCH_CHECKED_KEY
-import com.example.sberify.presentation.ui.utils.applyResultObserver
-import com.example.sberify.presentation.ui.utils.visible
+import com.example.sberify.ui.SharedViewModel
+import com.example.sberify.ui.lyrics.LyricsViewModel
+import com.example.sberify.ui.search.FilterBottomSheetFragment.Companion.ALBUM_SWITCH_CHECKED_KEY
+import com.example.sberify.ui.search.FilterBottomSheetFragment.Companion.ARTIST_SWITCH_CHECKED_KEY
+import com.example.sberify.ui.search.FilterBottomSheetFragment.Companion.TRACK_SWITCH_CHECKED_KEY
+import com.example.sberify.ui.utils.applyResultObserver
+import com.example.sberify.ui.utils.visible
 import com.kvlg.model.presentation.Album
 import com.kvlg.model.presentation.Suggestion
 import com.kvlg.model.presentation.Track

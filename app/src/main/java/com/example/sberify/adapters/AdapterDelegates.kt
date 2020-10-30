@@ -3,8 +3,8 @@ package com.example.sberify.adapters
 import android.view.View
 import androidx.core.view.ViewCompat
 import com.example.sberify.databinding.*
-import com.example.sberify.presentation.ui.utils.bindPalette
-import com.example.sberify.presentation.ui.utils.convertArtistsToString
+import com.example.sberify.ui.utils.bindPalette
+import com.example.sberify.ui.utils.convertArtistsToString
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import com.kvlg.model.presentation.*
 

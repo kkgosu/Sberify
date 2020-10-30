@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui.favorite
+package com.example.sberify.ui.favorite
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*

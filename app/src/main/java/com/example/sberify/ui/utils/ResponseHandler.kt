@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui.utils
+package com.example.sberify.ui.utils
 
 import com.kvlg.model.common.Result
 import retrofit2.Response

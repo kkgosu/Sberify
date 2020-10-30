@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui.lyrics
+package com.example.sberify.ui.lyrics
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentLyricsBinding
-import com.example.sberify.presentation.ui.SharedViewModel
-import com.example.sberify.presentation.ui.utils.*
+import com.example.sberify.ui.SharedViewModel
+import com.example.sberify.ui.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

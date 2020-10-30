@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui.search
+package com.example.sberify.ui.search
 
 import android.content.DialogInterface
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui.utils
+package com.example.sberify.ui.utils
 
 import android.util.Log
 import androidx.annotation.MainThread

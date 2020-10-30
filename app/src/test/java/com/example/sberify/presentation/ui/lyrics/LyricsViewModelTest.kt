@@ -2,6 +2,7 @@ package com.example.sberify.presentation.ui.lyrics
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.sberify.MockTestUtils.Companion.mockTrack
+import com.example.sberify.ui.lyrics.LyricsViewModel
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.delay

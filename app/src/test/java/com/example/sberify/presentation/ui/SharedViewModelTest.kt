@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.sberify.MockTestUtils.Companion.mockAlbum
 import com.example.sberify.MockTestUtils.Companion.mockTrack
+import com.example.sberify.ui.SharedViewModel
 import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking

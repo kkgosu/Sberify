@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui.search
+package com.example.sberify.ui.search
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*

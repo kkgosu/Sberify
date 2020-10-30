@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui.favorite
+package com.example.sberify.ui.favorite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,8 +14,8 @@ import com.example.sberify.adapters.TrackInteraction
 import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentFavoriteBinding
-import com.example.sberify.presentation.ui.SharedViewModel
-import com.example.sberify.presentation.ui.lyrics.LyricsViewModel
+import com.example.sberify.ui.SharedViewModel
+import com.example.sberify.ui.lyrics.LyricsViewModel
 import com.kvlg.model.presentation.Album
 import com.kvlg.model.presentation.Track
 import dagger.hilt.android.AndroidEntryPoint

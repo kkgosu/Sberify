@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui
+package com.example.sberify.ui
 
 import android.content.Intent
 import android.net.Uri
@@ -12,8 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import com.example.sberify.R
 import com.example.sberify.databinding.ActivityMainBinding
-import com.example.sberify.presentation.ui.utils.NetworkObserver
-import com.example.sberify.presentation.ui.utils.setupWithNavController
+import com.example.sberify.ui.utils.NetworkObserver
+import com.example.sberify.ui.utils.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
 import com.kvlg.network.TokenData
 import com.spotify.android.appremote.api.ConnectionParams

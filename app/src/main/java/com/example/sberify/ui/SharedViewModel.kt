@@ -1,8 +1,8 @@
-package com.example.sberify.presentation.ui
+package com.example.sberify.ui
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.example.sberify.presentation.ui.utils.SingleLiveEvent
+import com.example.sberify.ui.utils.SingleLiveEvent
 import com.kvlg.model.common.Result
 import com.kvlg.model.presentation.Album
 import com.kvlg.model.presentation.Track

@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.sberify.presentation.ui.search.SearchFragment"
+        android:name="com.example.sberify.ui.search.SearchFragment"
         android:label="SearchFragment">
         <action
             android:id="@+id/action_searchFragment_to_albumInfoFragment"
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/albumInfoFragment"
-        android:name="com.example.sberify.presentation.ui.albuminfo.AlbumDetailsFragment"
+        android:name="com.example.sberify.ui.albuminfo.AlbumDetailsFragment"
         android:label="AlbumInfoFragment">
         <action
             android:id="@+id/navigate_to_lyricsFragment"
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/lyricsFragment"
-        android:name="com.example.sberify.presentation.ui.lyrics.LyricsFragment"
+        android:name="com.example.sberify.ui.lyrics.LyricsFragment"
         android:label="LyricsFragment">
         <argument
             android:name="item"
