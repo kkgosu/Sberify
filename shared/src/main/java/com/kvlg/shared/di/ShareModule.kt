@@ -10,6 +10,8 @@ import com.kvlg.shared.domain.album.AlbumUseCasesProvider
 import com.kvlg.shared.domain.album.AlbumUseCasesProviderImpl
 import com.kvlg.shared.domain.artist.ArtistUseCasesProvider
 import com.kvlg.shared.domain.artist.ArtistUseCasesProviderImpl
+import com.kvlg.shared.domain.lyrics.LyricsUseCasesProvider
+import com.kvlg.shared.domain.lyrics.LyricsUseCasesProviderImpl
 import com.kvlg.shared.domain.suggestions.SuggestionUseCasesProvider
 import com.kvlg.shared.domain.suggestions.SuggestionUseCasesProviderImpl
 import com.kvlg.shared.domain.track.TrackUseCasesProvider
@@ -111,5 +113,14 @@ object ShareModule {
         @IoDispatcher dispatcher: CoroutineDispatcher
     ): AlbumUseCasesProvider {
         return AlbumUseCasesProviderImpl(repository, dispatcher)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLyricsUseCasesProvider(
+        lyricsRepository: LyricsRepository,
+        @IoDispatcher dispatcher: CoroutineDispatcher
+    ): LyricsUseCasesProvider {
+        return LyricsUseCasesProviderImpl(lyricsRepository, dispatcher)
     }
 }

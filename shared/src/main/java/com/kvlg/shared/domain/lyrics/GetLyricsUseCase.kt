@@ -5,7 +5,6 @@ import com.kvlg.shared.data.LyricsRepository
 import com.kvlg.shared.di.IoDispatcher
 import com.kvlg.shared.domain.UseCase
 import kotlinx.coroutines.CoroutineDispatcher
-import javax.inject.Inject
 
 /**
  * Get lyrics from Db
@@ -13,7 +12,7 @@ import javax.inject.Inject
  * @author Konstantin Koval
  * @since 25.10.2020
  */
-class GetLyricsUseCase @Inject constructor(
+class GetLyricsUseCase(
     private val lyricsRepository: LyricsRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
 ) : UseCase<Track, Track?>(dispatcher) {
