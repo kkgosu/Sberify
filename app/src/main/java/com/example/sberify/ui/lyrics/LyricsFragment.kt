@@ -47,6 +47,7 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
             success = {
                 it?.let {track ->
                     binding.lyrics.apply {
+                        binding.animation.loadingAnimation.hideAnimation()
                         text = track.lyrics
                         visibility = View.VISIBLE
                     }
