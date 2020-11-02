@@ -50,12 +50,11 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
             }
         }
         navArgs.item.run {
-            //TODO: REMOVE PARCEL
-/*            binding.detailContainer.transitionName = id
+            binding.detailContainer.transitionName = id
             binding.artistName.text = artist.name
             binding.albumName.text = name
             binding.releaseDate.text = releaseDate
-            binding.detailToolbar.title = name*/
+            binding.detailToolbar.title = name
         }
         adapter = TrackListedAdapter(this)
         binding.recyclerTracks.adapter = adapter

@@ -14,6 +14,8 @@ import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentNewReleasesBinding
 import com.example.sberify.ui.SharedViewModel
 import com.example.sberify.ui.utils.applyResultObserver
+import com.example.sberify.ui.utils.hideAnimation
+import com.example.sberify.ui.utils.showAnimation
 import com.kvlg.model.presentation.Album
 import dagger.hilt.android.AndroidEntryPoint
 
