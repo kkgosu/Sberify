@@ -32,7 +32,7 @@ object Libs {
     const val MOCKITO_KOTLIN = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     const val NAVIGATION_FRAGMENT_KTX = "androidx.navigation:navigation-fragment-ktx:2.3.1"
     const val PREFERENCES = "androidx.preference:preference-ktx:1.1.1"
-    const val RETROFIT = "com.squareup.retrofit2:retrofit:2.6.2"
+    const val RETROFIT = "com.squareup.retrofit2:retrofit:2.9.0"
     const val RETROFIT_GSON = "com.squareup.retrofit2:converter-gson:2.9.0"
     const val ROOM_COMPILER = "androidx.room:room-compiler:2.2.5"
     const val ROOM_COMMON = "androidx.room:room-common:2.2.5"
