@@ -39,9 +39,9 @@ subprojects {
 releasesHub {
     dependenciesBasePath = "buildSrc/src/main/java/"
     dependenciesClassNames = listOf("Libs.kt", "BuildLibs.kt")
+    excludes = listOf("gradle")
 
     pullRequestEnabled = true
-    pullRequestLabels = listOf("dependencies upgrade")
 
     gitHubRepositoryOwner = "kkgosu"
     gitHubRepositoryName = "Sberify"
