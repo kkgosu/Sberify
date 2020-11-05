@@ -9,8 +9,6 @@ java {
 }
 
 dependencies {
-    api(platform(project(":versions")))
-
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(Libs.CORE_KTX)

@@ -3,7 +3,6 @@ include(
     ":model",
     ":network",
     ":shared",
-    ":spotify-app-remote",
-    "versions"
+    ":spotify-app-remote"
 )
 rootProject.name= "Sberius"

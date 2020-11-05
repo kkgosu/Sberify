@@ -1,15 +1,19 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+plugins {
+    id("com.releaseshub.gradle.plugin") version "1.6.1"
+}
+
 buildscript {
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:${Versions.ANDROID_GRADLE_PLUGIN}")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.KOTLIN}")
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.NAVIGATION}")
-        classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.HILT}")
+        classpath(BuildLibs.ANDROID_GRADLE_PLUGIN)
+        classpath(BuildLibs.KOTLIN_PLUGIN)
+        classpath(BuildLibs.NAVIGATION_SAVE_ARGS_PLUGIN)
+        classpath(BuildLibs.HILT_PLUGIN)
     }
 }
 
@@ -29,4 +33,10 @@ subprojects {
                     "kotlinx.coroutines.InternalCoroutinesApi," +
                     "kotlinx.coroutines.FlowPreview"
     }
+}
+
+releasesHub {
+    dependenciesBasePath = "buildSrc/src/main/java/"
+    dependenciesClassNames = listOf("Libs.kt", "BuildLibs.kt")
+
 }

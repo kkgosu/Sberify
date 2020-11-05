@@ -6,12 +6,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Versions.COMPILE_SDK)
+    compileSdkVersion(BuildLibs.COMPILE_SDK)
     defaultConfig {
-        minSdkVersion(Versions.MIN_SDK)
-        targetSdkVersion(Versions.TARGET_SDK)
-        versionCode = Versions.versionCodeMobile
-        versionName = Versions.versionName
+        minSdkVersion(BuildLibs.MIN_SDK)
+        targetSdkVersion(BuildLibs.TARGET_SDK)
+        versionCode = BuildLibs.versionCodeMobile
+        versionName = BuildLibs.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -34,10 +34,8 @@ android {
 }
 
 dependencies {
-    api(platform(project(":versions")))
     api(project(":model"))
 
-    kapt(platform(project(":versions")))
     kapt(Libs.HILT_COMPILER)
     kapt(Libs.ANDROIDX_HILT_COMPILER)
 

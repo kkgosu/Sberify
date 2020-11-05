@@ -7,13 +7,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Versions.COMPILE_SDK)
+    compileSdkVersion(BuildLibs.COMPILE_SDK)
     defaultConfig {
         applicationId = "com.example.sberify"
-        minSdkVersion(Versions.MIN_SDK)
-        targetSdkVersion(Versions.TARGET_SDK)
-        versionCode = Versions.versionCodeMobile
-        versionName = Versions.versionName
+        minSdkVersion(BuildLibs.MIN_SDK)
+        targetSdkVersion(BuildLibs.TARGET_SDK)
+        versionCode = BuildLibs.versionCodeMobile
+        versionName = BuildLibs.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
@@ -49,7 +49,6 @@ android {
 }
 
 dependencies {
-    api(platform(project(":versions")))
     api(project(":network"))
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
@@ -94,7 +93,6 @@ dependencies {
     //Spotify
     implementation(Libs.SPOTIFY_AUTH)
 
-    kapt(platform(project(":versions")))
     kapt(Libs.ROOM_COMPILER)
     kapt(Libs.HILT_COMPILER)
     kapt(Libs.ANDROIDX_HILT_COMPILER)
