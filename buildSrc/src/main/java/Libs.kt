@@ -6,7 +6,7 @@ object Libs {
     const val APPCOMPAT = "androidx.appcompat:appcompat:1.2.0"
     const val ARCH_TESTING = "androidx.arch.core:core-testing:2.1.0"
     const val CARDVIEW = "androidx.cardview:cardview:1.0.0"
-    const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.2"
+    const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.4"
     const val CORE_KTX = "androidx.core:core-ktx:1.3.2"
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.0-M1"
     const val COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.0-M1"
