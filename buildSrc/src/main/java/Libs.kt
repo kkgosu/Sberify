@@ -23,7 +23,7 @@ object Libs {
     const val HILT_VIEWMODEL = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02"
     const val JSOUP = "org.jsoup:jsoup:1.10.1"
     const val JUNIT = "junit:junit:4.13"
-    const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.10"
+    const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.20"
     const val LIFECYCLE_LIVE_DATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-beta01"
     const val LIFECYCLE_VIEW_MODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-beta01"
     const val LOTTIE = "com.airbnb.android:lottie:3.3.0"
