@@ -42,7 +42,7 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(Libs.RETROFIT)
-    implementation(Libs.RETROFIT_GSON)
+    api(Libs.RETROFIT_GSON)
     implementation(Libs.JSOUP)
     implementation(Libs.HILT_ANDROID)
     implementation(Libs.HILT_VIEWMODEL)

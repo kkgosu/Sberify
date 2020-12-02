@@ -20,7 +20,6 @@ import com.example.sberify.ui.utils.*
 import com.kvlg.model.presentation.Track
 import dagger.hilt.android.AndroidEntryPoint
 
-
 //TODO: check why name and animation disappeared
 @AndroidEntryPoint
 class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding>(), TrackInteraction {

@@ -45,7 +45,7 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
         }
         lyricsViewModel.lyrics.applyResultObserver(viewLifecycleOwner,
             success = {
-                it?.let {track ->
+                it?.let { track ->
                     binding.lyrics.apply {
                         binding.animation.loadingAnimation.hideAnimation()
                         text = track.lyrics
@@ -62,8 +62,12 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
                     }
                 }
             },
-            loading = { binding.lyrics.visibility = View.GONE },
+            loading = {
+                binding.animation.loadingAnimation.showAnimation()
+                binding.lyrics.visibility = View.GONE
+            },
             error = {
+                binding.animation.loadingAnimation.hideAnimation()
                 Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
                 binding.lyrics.visibility = View.GONE
             }
