@@ -2,6 +2,7 @@ package com.example.sberify.presentation.ui.utils
 
 import com.example.sberify.data.Result
 import retrofit2.Response
+import timber.log.Timber
 import java.io.IOException
 
 object ResponseHandler {
@@ -9,6 +10,7 @@ object ResponseHandler {
         try {
             val response = call()
             if (response.isSuccessful) {
+                Timber.d(response.raw().toString())
                 val body = response.body()
                 if (body != null) return Result.success(body)
             }
