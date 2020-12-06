@@ -11,10 +11,6 @@ import retrofit2.http.Query
 
 interface ISpotifyApi {
 
-    companion object {
-        const val API_URL = "https://api.spotify.com/v1/"
-    }
-
     @GET("browse/new-releases")
     suspend fun getNewReleases(
         @Query("limit") limit: Int = 50
@@ -37,10 +33,13 @@ interface ISpotifyApi {
         @Query("type") type: String
     ): Response<AlbumsData>
 
-
     @GET("search")
     suspend fun searchTrack(
         @Query("q") keyword: String,
         @Query("type") type: String
     ): Response<TracksData>
+
+    companion object {
+        const val API_URL = "https://api.spotify.com/v1/"
+    }
 }

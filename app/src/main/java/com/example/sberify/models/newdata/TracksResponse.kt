@@ -6,7 +6,7 @@ data class TracksResponse(
     @SerializedName("href")
     val href: String?,
     @SerializedName("items")
-    val items: List<TrackItemPreviewResponse>?,
+    val items: List<TrackItemResponse>?,
     @SerializedName("limit")
     val limit: Int?,
     @SerializedName("next")

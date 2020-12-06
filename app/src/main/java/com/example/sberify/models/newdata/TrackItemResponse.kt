@@ -2,7 +2,7 @@ package com.example.sberify.models.newdata
 
 import com.google.gson.annotations.SerializedName
 
-data class TrackItemPreviewResponse(
+data class TrackItemResponse(
     @SerializedName("artists")
     val artists: List<ArtistResponse>?,
     @SerializedName("available_markets")
