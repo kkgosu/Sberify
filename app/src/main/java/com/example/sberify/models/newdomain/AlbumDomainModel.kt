@@ -1,7 +1,5 @@
 package com.example.sberify.models.newdomain
 
-import java.util.*
-
 /**
  * @author Konstantin Koval
  * @since 06.12.2020
@@ -11,7 +9,7 @@ data class AlbumDomainModel(
     val name: String,
     val tracks: List<TrackDomainModel>,
     val genres: List<String>,
-    val releaseDate: Date,
+    val releaseDate: PrecisionDate,
     val totalTracks: Int,
     val externalUrl: ExternalUrlDomainModel,
     val images: List<ImageDomainModel>,

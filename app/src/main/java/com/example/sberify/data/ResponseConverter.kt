@@ -1,10 +1,18 @@
 package com.example.sberify.data
 
-import com.example.sberify.models.newdata.*
-import com.example.sberify.models.newdomain.*
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.*
+import com.example.sberify.domain.getDateFromString
+import com.example.sberify.models.newdata.AlbumInfoResponse
+import com.example.sberify.models.newdata.ArtistResponse
+import com.example.sberify.models.newdata.CopyrightResponse
+import com.example.sberify.models.newdata.ExternalUrlResponse
+import com.example.sberify.models.newdata.ImageResponse
+import com.example.sberify.models.newdata.TrackItemResponse
+import com.example.sberify.models.newdomain.AlbumDomainModel
+import com.example.sberify.models.newdomain.ArtistDomainModel
+import com.example.sberify.models.newdomain.CopyrightDomainModel
+import com.example.sberify.models.newdomain.ExternalUrlDomainModel
+import com.example.sberify.models.newdomain.ImageDomainModel
+import com.example.sberify.models.newdomain.TrackDomainModel
 
 /**
  * @author Konstantin Koval
@@ -14,8 +22,7 @@ class ResponseConverter {
 
     fun convertImageResponseToDomain(response: ImageResponse): ImageDomainModel {
         return ImageDomainModel(
-            response.height,
-            response.width
+            response.url
         )
     }
 
@@ -48,8 +55,8 @@ class ResponseConverter {
         return ArtistDomainModel(
             id = response.id,
             name = response.name,
-            uri = response.uri,
-            externalUrlDomainModel = convertExternalUrlToDomain(response.externalUrls)
+            externalUrlDomainModel = convertExternalUrlToDomain(response.externalUrls),
+            imageUrl = null
         )
     }
 
@@ -68,25 +75,5 @@ class ResponseConverter {
             albumType = response.albumType.orEmpty(),
             label = response.label.orEmpty()
         )
-    }
-
-    private fun getDateFromString(stringDate: String, precision: String): Date {
-        if (stringDate.isNotEmpty() && precision.isNotEmpty()) {
-            val sdfDay = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val sdfMonth = SimpleDateFormat("yyyy-MM", Locale.getDefault())
-            val sdfYear = SimpleDateFormat("yyyy", Locale.getDefault())
-            return try {
-                when (precision) {
-                    "day" -> sdfDay.parse(stringDate)
-                    "month" -> sdfMonth.parse(stringDate)
-                    "year" -> sdfYear.parse(stringDate)
-                    else -> Date()
-                }
-            } catch (e: ParseException) {
-                Date()
-            }
-        } else {
-            return Date()
-        }
     }
 }

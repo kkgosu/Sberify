@@ -8,26 +8,35 @@ import com.example.sberify.models.domain.Image
 
 @Entity(tableName = "artists")
 data class ArtistEntity(
-        @PrimaryKey
-        @ColumnInfo(name = "spotify_id")
-        val spotifyId: String,
+    @PrimaryKey
+    @ColumnInfo(name = "spotify_id")
+    val spotifyId: String,
 
-        @ColumnInfo(name = "name")
-        val name: String,
+    @ColumnInfo(name = "name")
+    val name: String,
 
-        @ColumnInfo(name = "image_url")
-        val imageUrl: String?) {
+    @ColumnInfo(name = "image_url")
+    val imageUrl: String?,
+
+    @ColumnInfo(name = "externalUrl")
+    val externalUrl: String
+) {
 
     fun toArtist(): Artist =
-            Artist(id = spotifyId,
-                    name = name,
-                    image = Image(imageUrl, 0, 0),
-                    genres = null)
+        Artist(
+            id = spotifyId,
+            name = name,
+            image = Image(imageUrl, 0, 0),
+            genres = null
+        )
 
     companion object {
         fun from(artist: Artist): ArtistEntity =
-                ArtistEntity(spotifyId = artist.id,
-                        name = artist.name,
-                        imageUrl = artist.image?.url)
+            ArtistEntity(
+                spotifyId = artist.id,
+                name = artist.name,
+                imageUrl = artist.image?.url,
+                externalUrl = ""
+            )
     }
 }

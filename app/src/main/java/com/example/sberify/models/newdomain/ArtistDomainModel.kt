@@ -7,6 +7,6 @@ package com.example.sberify.models.newdomain
 data class ArtistDomainModel(
     val id: String,
     val name: String,
-    val uri: String,
-    val externalUrlDomainModel: ExternalUrlDomainModel
+    val externalUrlDomainModel: ExternalUrlDomainModel,
+    val imageUrl: String?
 )
