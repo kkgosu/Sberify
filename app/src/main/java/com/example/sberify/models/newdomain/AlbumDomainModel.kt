@@ -15,7 +15,7 @@ data class AlbumDomainModel(
     val totalTracks: Int,
     val externalUrl: ExternalUrlDomainModel,
     val images: List<ImageDomainModel>,
-    val copyright: CopyrightDomainModel,
+    val copyright: List<CopyrightDomainModel>,
     val markets: List<String>,
     val albumType: String,
     val label: String

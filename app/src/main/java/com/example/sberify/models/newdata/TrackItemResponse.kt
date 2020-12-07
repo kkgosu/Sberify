@@ -14,11 +14,11 @@ data class TrackItemResponse(
     @SerializedName("explicit")
     val explicit: Boolean?,
     @SerializedName("external_urls")
-    val externalUrls: ExternalUrlResponse?,
+    val externalUrls: ExternalUrlResponse,
     @SerializedName("href")
     val href: String?,
     @SerializedName("id")
-    val id: String?,
+    val id: String,
     @SerializedName("is_local")
     val isLocal: Boolean?,
     @SerializedName("name")

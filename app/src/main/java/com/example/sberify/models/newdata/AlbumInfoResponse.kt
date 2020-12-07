@@ -12,19 +12,19 @@ data class AlbumInfoResponse(
     @SerializedName("copyrights")
     val copyrights: List<CopyrightResponse>?,
     @SerializedName("external_urls")
-    val externalUrls: ExternalUrlResponse?,
+    val externalUrls: ExternalUrlResponse,
     @SerializedName("genres")
     val genres: List<Any>?,
     @SerializedName("href")
     val href: String?,
     @SerializedName("id")
-    val id: String?,
+    val id: String,
     @SerializedName("images")
     val images: List<ImageResponse>?,
     @SerializedName("label")
     val label: String?,
     @SerializedName("name")
-    val name: String?,
+    val name: String,
     @SerializedName("popularity")
     val popularity: Int?,
     @SerializedName("release_date")
