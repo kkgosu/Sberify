@@ -3,71 +3,42 @@ package com.example.sberify.data.db.track
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.sberify.models.domain.Artist
-import com.example.sberify.models.domain.Image
-import com.example.sberify.models.domain.Track
 
 @Entity(
-    tableName = "tracks"/*,
-        foreignKeys = [ForeignKey(entity = AlbumEntity::class, parentColumns = ["spotify_id"],
-                childColumns = ["album_id"])]*/
+    tableName = "tracks"
 )
 data class TrackEntity(
     @PrimaryKey
-    @ColumnInfo(name = "spotify_id")
+    @ColumnInfo(name = "track_id")
     val spotifyId: String,
 
     @ColumnInfo(name = "name")
     val name: String,
 
-    @ColumnInfo(name = "album_id")
+    @ColumnInfo(name = "parent_album_id")
     val albumId: String,
 
     @ColumnInfo(name = "lyrics")
     val lyrics: String?,
 
-    @ColumnInfo(name = "artists")
-    val artists: List<Artist>,
+    @ColumnInfo(name = "artists_id")
+    val artistsId: List<String>,
 
-    @ColumnInfo(name = "isFavorite")
+    @ColumnInfo(name = "is_favorite")
     var isFavorite: Boolean,
 
     @ColumnInfo(name = "image_url")
     val image_url: String?,
 
-    @ColumnInfo(name = "externalUrl")
+    @ColumnInfo(name = "external_url")
     val externalUrl: String,
 
-    @ColumnInfo(name = "isExplicit")
+    @ColumnInfo(name = "is_explicit")
     val isExplicit: Boolean,
 
-    @ColumnInfo(name = "isLocal")
+    @ColumnInfo(name = "is_local")
     val isLocal: Boolean,
 
     @ColumnInfo(name = "markets")
     val markets: List<String>,
-) {
-
-    fun toTrack(): Track =
-        Track(
-            id = spotifyId,
-            name = name,
-            image = Image(image_url ?: "", 0, 0),
-            artists = artists,
-            lyrics = lyrics,
-            isFavorite = isFavorite
-        )
-
-    companion object {
-        fun from(track: Track): TrackEntity =
-            TrackEntity(
-                spotifyId = track.id,
-                name = track.name,
-                albumId = "",
-                lyrics = track.lyrics,
-                artists = track.artists,
-                isFavorite = track.isFavorite,
-                image_url = track.image?.url
-            )
-    }
-}
+)

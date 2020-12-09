@@ -7,7 +7,7 @@ package com.example.sberify.models.newdomain
 data class AlbumDomainModel(
     val id: String,
     val name: String,
-    val tracks: List<TrackDomainModel>,
+    val tracks: List<TrackDomainModel>?,
     val genres: List<String>,
     val releaseDate: PrecisionDate,
     val totalTracks: Int,

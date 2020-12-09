@@ -55,7 +55,7 @@ class DatabaseRepository @Inject constructor(
 
     override fun loadFavoriteAlbums(): LiveData<List<Album>> =
         liveData(Dispatchers.IO) {
-            val data = database.getAlbumDao().loadFavoriteTracks().map {
+            val data = database.getAlbumDao().loadFavoriteAlbums().map {
                 it.map { albumEntity -> albumEntity.toAlbum() }
             }
             emitSource(data)

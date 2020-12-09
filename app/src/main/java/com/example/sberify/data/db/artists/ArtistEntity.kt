@@ -9,7 +9,7 @@ import com.example.sberify.models.domain.Image
 @Entity(tableName = "artists")
 data class ArtistEntity(
     @PrimaryKey
-    @ColumnInfo(name = "spotify_id")
+    @ColumnInfo(name = "artist_id")
     val spotifyId: String,
 
     @ColumnInfo(name = "name")
@@ -18,7 +18,7 @@ data class ArtistEntity(
     @ColumnInfo(name = "image_url")
     val imageUrl: String?,
 
-    @ColumnInfo(name = "externalUrl")
+    @ColumnInfo(name = "external_url")
     val externalUrl: String
 ) {
 
