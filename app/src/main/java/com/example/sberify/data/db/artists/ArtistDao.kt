@@ -25,4 +25,8 @@ interface ArtistDao {
     @Query("SELECT * FROM artists WHERE name LIKE '%' || :query || '%'")
     fun getArtistByQuery(query: String): LiveData<List<ArtistEntity>>
 
+    @Transaction
+    @Query("SELECT * FROM artists WHERE artist_id = :id")
+    fun getArtistWithSongs(id: String): ArtistWithSongs
+
 }
