@@ -13,8 +13,8 @@ interface TrackDao {
     @Query("SELECT * FROM tracks WHERE track_id = :id")
     fun getTrackById(id: String): LiveData<TrackEntity>
 
-    @Query("SELECT * FROM tracks WHERE name LIKE '%' || :key || '%' OR artists LIKE '%' || :key || '%'")
-    fun getTracksByKeyword(key: String): LiveData<List<TrackEntity>>
+    @Query("SELECT * FROM tracks WHERE name LIKE '%' || :query || '%'")
+    fun getTracksByQuery(query: String): LiveData<List<TrackEntity>>
 
     @Query("UPDATE tracks SET lyrics = :lyrics WHERE track_id=:id")
     fun updateTrackLyrics(id: String, lyrics: String)

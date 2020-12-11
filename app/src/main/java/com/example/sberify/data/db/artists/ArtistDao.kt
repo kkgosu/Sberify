@@ -26,7 +26,6 @@ interface ArtistDao {
     fun getArtistByQuery(query: String): LiveData<List<ArtistEntity>>
 
     @Transaction
-    @Query("SELECT * FROM artists WHERE artist_id = :id")
-    fun getArtistWithSongs(id: String): ArtistWithSongs
-
+    @Query("SELECT * FROM artists WHERE artist_id = :artistId")
+    fun getArtistWithSongs(artistId: String): ArtistWithSongs
 }

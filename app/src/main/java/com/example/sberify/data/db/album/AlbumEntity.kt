@@ -12,8 +12,8 @@ data class AlbumEntity(
     @ColumnInfo(name = "album_id", index = true)
     val spotifyId: String,
 
-    @ColumnInfo(name = "parent_artist_id", index = true)
-    val artistId: String,
+    @ColumnInfo(name = "artist_ids", index = true)
+    val artistIds: List<String>,
 
     @ColumnInfo(name = "name")
     val name: String,
@@ -37,7 +37,7 @@ data class AlbumEntity(
     val totalTracks: Int,
 
     @ColumnInfo(name = "external_url")
-    val externalUrlTracks: String,
+    val externalUrl: String,
 
     @ColumnInfo(name = "copyrights")
     val copyrights: List<String>,

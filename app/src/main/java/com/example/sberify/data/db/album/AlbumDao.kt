@@ -41,4 +41,7 @@ interface AlbumDao {
     @Query("SELECT * FROM albums WHERE name LIKE '%' || :query || '%'")
     fun getAlbumsByQuery(query: String): LiveData<List<AlbumEntity>>
 
+    @Transaction
+    @Query("SELECT * FROM albums WHERE album_id = :albumId")
+    fun getArtistsByAlbumId(albumId: String): AlbumWithArtists
 }

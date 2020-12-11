@@ -1,5 +1,7 @@
 package com.example.sberify.data
 
+import com.example.sberify.data.db.album.AlbumEntity
+import com.example.sberify.data.db.artists.ArtistEntity
 import com.example.sberify.domain.getDateFromString
 import com.example.sberify.models.newdata.AlbumInfoResponse
 import com.example.sberify.models.newdata.ArtistResponse
@@ -75,5 +77,34 @@ class ResponseConverter {
             albumType = response.albumType.orEmpty(),
             label = response.label.orEmpty()
         )
+    }
+
+    fun convertAlbumToEntity(response: AlbumInfoResponse): Pair<AlbumEntity, List<ArtistEntity>> {
+        val dateFromString = getDateFromString(response.releaseDate.orEmpty(), response.releaseDatePrecision.orEmpty())
+        val album = AlbumEntity(
+            spotifyId = response.id,
+            artistIds = response.artists?.map { it.id } ?: emptyList(),
+            name = response.name,
+            imageUrl = response.images?.firstOrNull()?.url.orEmpty(),
+            releaseDate = dateFromString.date.toString(),
+            releaseDatePrecision = dateFromString.precision.name,
+            isFavorite = false,
+            genres = response.genres?.map(Any::toString) ?: emptyList(),
+            totalTracks = response.totalTracks ?: response.tracks?.total ?: 0,
+            externalUrl = response.externalUrls.spotify,
+            copyrights = response.copyrights?.map { it.text.orEmpty() } ?: emptyList(),
+            markets = response.availableMarkets?.map { it } ?: emptyList(),
+            type = response.type.orEmpty(),
+            label = response.label.orEmpty()
+        )
+        val artists = response.artists?.map {
+            ArtistEntity(
+                spotifyId = it.id,
+                name = it.name,
+                imageUrl = it.images.firstOrNull()?.url.orEmpty(),
+                externalUrl = it.externalUrls.spotify
+            )
+        } ?: emptyList()
+        return Pair(album, artists)
     }
 }
