@@ -9,7 +9,7 @@ import com.example.sberify.models.newdomain.AlbumDomainModel
 
 interface ISpotifyRepository {
     fun getNewReleases(): LiveData<Result<List<AlbumDomainModel>>>
-    fun getAlbumInfo(id: String): LiveData<Result<Album>>
+    fun getAlbumInfo(id: String): LiveData<Result<AlbumDomainModel>>
     fun searchArtist(keyword: String): LiveData<Result<List<Artist>>>
     fun searchAlbum(keyword: String): LiveData<Result<List<Album>>>
     fun searchTrack(keyword: String): LiveData<Result<List<Track>>>

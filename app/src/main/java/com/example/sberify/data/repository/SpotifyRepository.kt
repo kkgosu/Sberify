@@ -48,19 +48,22 @@ class SpotifyRepository @Inject constructor(
             })
     }
 
-    override fun getAlbumInfo(id: String): LiveData<Result<Album>> {
+    override fun getAlbumInfo(id: String): LiveData<Result<AlbumDomainModel>> {
         return resultLiveData(
             databaseQuery = {
                 database.getAlbumDao().getAlbumById(id).map {
-                    it.toAlbum()
+                    dbConverter.convertAlbumEntityToDomain(it)
                 }
             },
             networkCall = { getResult { mSpotifyApi.getAlbumInfo(id) } },
             saveCallResult = {
-                val albumInfo = dataConverter.convertAlbums(listOf(it))
-                albumInfo.forEach { album ->
-                    database.getAlbumDao()
-                        .updateAlbumTracks(album.id, album.tracks!!)
+                val albumWithTracksAndArtists = responseConverter.convertAlbumToEntity(it)
+                database.getAlbumDao().insertAlbum(albumWithTracksAndArtists.albumInfo)
+                albumWithTracksAndArtists.artists.forEach { artistEntity ->
+                    database.getArtistDao().insertArtist(artistEntity)
+                }
+                albumWithTracksAndArtists.tracks.forEach {tracksEntity ->
+                    database.getTrackDao().insertTrack(tracksEntity)
                 }
             })
 

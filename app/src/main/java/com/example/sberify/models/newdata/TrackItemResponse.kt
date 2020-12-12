@@ -22,7 +22,7 @@ data class TrackItemResponse(
     @SerializedName("is_local")
     val isLocal: Boolean?,
     @SerializedName("name")
-    val name: String?,
+    val name: String,
     @SerializedName("preview_url")
     val previewUrl: String?,
     @SerializedName("track_number")

@@ -28,7 +28,7 @@ data class TrackEntity(
     var isFavorite: Boolean,
 
     @ColumnInfo(name = "image_url")
-    val image_url: String?,
+    val imageUrl: String?,
 
     @ColumnInfo(name = "external_url")
     val externalUrl: String,

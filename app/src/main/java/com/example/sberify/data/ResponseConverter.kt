@@ -2,8 +2,10 @@ package com.example.sberify.data
 
 import com.example.sberify.data.db.album.AlbumEntity
 import com.example.sberify.data.db.artists.ArtistEntity
+import com.example.sberify.data.db.track.TrackEntity
 import com.example.sberify.domain.getDateFromString
 import com.example.sberify.models.newdata.AlbumInfoResponse
+import com.example.sberify.models.newdata.AlbumTrackArtistResponse
 import com.example.sberify.models.newdata.ArtistResponse
 import com.example.sberify.models.newdata.CopyrightResponse
 import com.example.sberify.models.newdata.ExternalUrlResponse
@@ -79,7 +81,7 @@ class ResponseConverter {
         )
     }
 
-    fun convertAlbumToEntity(response: AlbumInfoResponse): Pair<AlbumEntity, List<ArtistEntity>> {
+    fun convertAlbumToEntity(response: AlbumInfoResponse): AlbumTrackArtistResponse {
         val dateFromString = getDateFromString(response.releaseDate.orEmpty(), response.releaseDatePrecision.orEmpty())
         val album = AlbumEntity(
             spotifyId = response.id,
@@ -105,6 +107,26 @@ class ResponseConverter {
                 externalUrl = it.externalUrls.spotify
             )
         } ?: emptyList()
-        return Pair(album, artists)
+        val tracks = response.tracks?.items?.map {
+            TrackEntity(
+                spotifyId = it.id,
+                name = it.name,
+                albumId = response.id,
+                lyrics = null,
+                artistsId = artists.map { artist -> artist.spotifyId },
+                isFavorite = false,
+                imageUrl = response.images?.firstOrNull()?.url.orEmpty(),
+                externalUrl = it.externalUrls.spotify,
+                isExplicit = it.explicit ?: false,
+                isLocal = it.isLocal ?: false,
+                markets = it.availableMarkets ?: emptyList()
+
+            )
+        } ?: emptyList()
+        return AlbumTrackArtistResponse(
+            album,
+            artists,
+            tracks
+        )
     }
 }

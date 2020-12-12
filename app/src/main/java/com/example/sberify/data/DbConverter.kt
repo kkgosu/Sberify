@@ -34,7 +34,7 @@ class DbConverter {
             externalUri = ExternalUrlDomainModel(trackEntity.externalUrl),
             explicit = trackEntity.isExplicit,
             isLocal = trackEntity.isLocal,
-            previewUri = trackEntity.image_url.orEmpty(),
+            previewUri = trackEntity.imageUrl.orEmpty(),
             markets = trackEntity.markets
         )
     }
