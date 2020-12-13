@@ -123,6 +123,23 @@ class ResponseConverter {
         )
     }
 
+    fun convertTrackToEntity(response: TrackItemResponse): TrackEntity {
+        return TrackEntity(
+            spotifyId = response.id,
+            name = response.name,
+            albumId = null,
+            lyrics = null,
+            artistsId = response.artists.map { artist -> artist.id },
+            isFavorite = false,
+            imageUrl = "",
+            externalUrl = response.externalUrls.spotify,
+            isExplicit = response.explicit ?: false,
+            isLocal = response.isLocal ?: false,
+            markets = response.availableMarkets ?: emptyList()
+
+        )
+    }
+
     fun convertArtistToEntity(response: ArtistResponse) = ArtistEntity(
         spotifyId = response.id,
         name = response.name,

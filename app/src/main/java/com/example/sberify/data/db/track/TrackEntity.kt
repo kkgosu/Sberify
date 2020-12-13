@@ -16,7 +16,7 @@ data class TrackEntity(
     val name: String,
 
     @ColumnInfo(name = "parent_album_id")
-    val albumId: String,
+    val albumId: String?,
 
     @ColumnInfo(name = "lyrics")
     val lyrics: String?,

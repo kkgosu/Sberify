@@ -9,14 +9,11 @@ import com.example.sberify.data.Result
 import com.example.sberify.data.api.ISpotifyApi
 import com.example.sberify.data.api.SearchTypes
 import com.example.sberify.data.db.AppDatabase
-import com.example.sberify.data.db.album.AlbumEntity
-import com.example.sberify.data.db.track.TrackEntity
 import com.example.sberify.data.resultLiveData
 import com.example.sberify.domain.ISpotifyRepository
-import com.example.sberify.models.domain.Album
-import com.example.sberify.models.domain.Track
 import com.example.sberify.models.newdomain.AlbumDomainModel
 import com.example.sberify.models.newdomain.ArtistDomainModel
+import com.example.sberify.models.newdomain.TrackDomainModel
 import com.example.sberify.presentation.ui.utils.ResponseHandler.getResult
 import javax.inject.Inject
 
@@ -61,7 +58,7 @@ class SpotifyRepository @Inject constructor(
                 albumWithTracksAndArtists.artists.forEach { artistEntity ->
                     database.getArtistDao().insertArtist(artistEntity)
                 }
-                albumWithTracksAndArtists.tracks.forEach {tracksEntity ->
+                albumWithTracksAndArtists.tracks.forEach { tracksEntity ->
                     database.getTrackDao().insertTrack(tracksEntity)
                 }
             })
@@ -86,36 +83,38 @@ class SpotifyRepository @Inject constructor(
             })
     }
 
-    override fun searchAlbum(keyword: String): LiveData<Result<List<Album>>> {
+    override fun searchAlbum(keyword: String): LiveData<Result<List<AlbumDomainModel>>> {
         return resultLiveData(
             databaseQuery = {
-                database.getAlbumDao().getAlbumsByKeyword(keyword).map {
-                    it.map { entity -> entity.toAlbum() }
+                database.getAlbumDao().getAlbumsByQuery(keyword).map {
+                    it.map(dbConverter::convertAlbumEntityToDomain)
                 }
             },
             networkCall = { getResult { mSpotifyApi.searchAlbum(keyword, SearchTypes.ALBUM) } },
             saveCallResult = {
-                val albums = dataConverter.convertAlbums(it.albums.items)
-                albums.forEach { album ->
-                    database.getAlbumDao().insertAlbum(AlbumEntity.from(album))
+                val albumWithTracksAndArtists = responseConverter.convertAlbumToEntity(it)
+                database.getAlbumDao().insertAlbum(albumWithTracksAndArtists.albumInfo)
+                albumWithTracksAndArtists.artists.forEach { artistEntity ->
+                    database.getArtistDao().insertArtist(artistEntity)
+                }
+                albumWithTracksAndArtists.tracks.forEach { tracksEntity ->
+                    database.getTrackDao().insertTrack(tracksEntity)
                 }
             })
 
     }
 
-    override fun searchTrack(keyword: String): LiveData<Result<List<Track>>> {
+    override fun searchTrack(keyword: String): LiveData<Result<List<TrackDomainModel>>> {
         return resultLiveData(
             databaseQuery = {
                 database.getTrackDao().getTracksByQuery(keyword).map {
-                    it.map { entity -> entity.toTrack() }
+                    it.map(dbConverter::convertTrackEntityToDomain)
                 }
             },
             networkCall = { getResult { mSpotifyApi.searchTrack(keyword, SearchTypes.TRACK) } },
             saveCallResult = {
-                val tracks = dataConverter.convertTracks(it.tracks.items, "")
-                tracks?.forEach { track ->
-                    database.getTrackDao().insertTrack(TrackEntity.from(track))
-                }
+                val tracks = it.items.map(responseConverter::convertTrackToEntity)
+                tracks.forEach(database.getTrackDao()::insertTrack)
             })
     }
 }

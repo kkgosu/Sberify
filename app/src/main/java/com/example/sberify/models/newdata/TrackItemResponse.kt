@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class TrackItemResponse(
     @SerializedName("artists")
-    val artists: List<ArtistResponse>?,
+    val artists: List<ArtistResponse>,
     @SerializedName("available_markets")
     val availableMarkets: List<String>?,
     @SerializedName("disc_number")
