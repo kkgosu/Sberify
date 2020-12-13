@@ -99,14 +99,7 @@ class ResponseConverter {
             type = response.type.orEmpty(),
             label = response.label.orEmpty()
         )
-        val artists = response.artists?.map {
-            ArtistEntity(
-                spotifyId = it.id,
-                name = it.name,
-                imageUrl = it.images.firstOrNull()?.url.orEmpty(),
-                externalUrl = it.externalUrls.spotify
-            )
-        } ?: emptyList()
+        val artists = response.artists?.map(this::convertArtistToEntity) ?: emptyList()
         val tracks = response.tracks?.items?.map {
             TrackEntity(
                 spotifyId = it.id,
@@ -129,4 +122,11 @@ class ResponseConverter {
             tracks
         )
     }
+
+    fun convertArtistToEntity(response: ArtistResponse) = ArtistEntity(
+        spotifyId = response.id,
+        name = response.name,
+        imageUrl = response.images.firstOrNull()?.url.orEmpty(),
+        externalUrl = response.externalUrls.spotify
+    )
 }
