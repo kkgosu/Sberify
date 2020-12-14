@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import androidx.room.Update
 
 @Dao
 interface TrackDao {
@@ -22,8 +21,8 @@ interface TrackDao {
     @Query("SELECT * FROM tracks WHERE is_favorite = 1 ORDER BY name ASC")
     fun loadFavoriteTracks(): LiveData<List<TrackEntity>>
 
-    @Update(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun updateTrack(trackEntity: TrackEntity)
+    @Query("UPDATE tracks SET is_favorite = :isFavorite WHERE track_id = :id")
+    suspend fun setTrackIsFavorite(id: String, isFavorite: Boolean)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertTrack(trackEntity: TrackEntity)

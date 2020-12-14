@@ -5,21 +5,19 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 import com.example.sberify.data.DbConverter
 import com.example.sberify.data.db.AppDatabase
-import com.example.sberify.data.db.album.AlbumEntity
 import com.example.sberify.data.db.suggestions.SuggestionsEntity
-import com.example.sberify.data.db.track.TrackEntity
-import com.example.sberify.domain.IDatabaseRepository
-import com.example.sberify.models.domain.Album
+import com.example.sberify.domain.DatabaseRepository
 import com.example.sberify.models.domain.Suggestion
-import com.example.sberify.models.domain.Track
+import com.example.sberify.models.newdomain.AlbumDomainModel
+import com.example.sberify.models.newdomain.TrackDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class DatabaseRepository @Inject constructor(
+class DatabaseRepositoryImpl @Inject constructor(
     private val database: AppDatabase,
     private val dbConverter: DbConverter
-) : IDatabaseRepository {
+) : DatabaseRepository {
     override suspend fun insertSuggestion(suggestion: Suggestion) {
         withContext(Dispatchers.IO) {
             database.getSuggestionsDao()
@@ -39,26 +37,26 @@ class DatabaseRepository @Inject constructor(
         }
     }
 
-    override suspend fun updateTrack(track: Track) = withContext(Dispatchers.IO) {
-        database.getTrackDao().updateTrack(TrackEntity.from(track))
+    override suspend fun setTrackIsFavorite(id: String, isFavorite: Boolean) = withContext(Dispatchers.IO) {
+        database.getTrackDao().setTrackIsFavorite(id, isFavorite)
     }
 
-    override fun loadFavoriteTracks(): LiveData<List<Track>> =
+    override fun loadFavoriteTracks(): LiveData<List<TrackDomainModel>> =
         liveData(Dispatchers.IO) {
             val data = database.getTrackDao().loadFavoriteTracks().map {
-                it.map { trackEntity -> trackEntity.toTrack() }
+                it.map(dbConverter::convertTrackEntityToDomain)
             }
             emitSource(data)
         }
 
-    override suspend fun updateAlbum(album: Album) {
-        database.getAlbumDao().updateAlbum(AlbumEntity.from(album))
+    override suspend fun setAlbumIsFavorite(id: String, isFavorite: Boolean) {
+        database.getAlbumDao().updateAlbum(id, isFavorite)
     }
 
-    override fun loadFavoriteAlbums(): LiveData<List<Album>> =
+    override fun loadFavoriteAlbums(): LiveData<List<AlbumDomainModel>> =
         liveData(Dispatchers.IO) {
             val data = database.getAlbumDao().loadFavoriteAlbums().map {
-                it.map { albumEntity -> albumEntity.toAlbum() }
+                it.map(dbConverter::convertAlbumEntityToDomain)
             }
             emitSource(data)
         }

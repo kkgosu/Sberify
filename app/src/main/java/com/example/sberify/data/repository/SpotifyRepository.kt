@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class SpotifyRepository @Inject constructor(
     private val database: AppDatabase,
-    private val mSpotifyApi: ISpotifyApi,
+    private val spotifyApi: ISpotifyApi,
     private val dbConverter: DbConverter,
     private val responseConverter: ResponseConverter
 ) : ISpotifyRepository {
@@ -30,7 +30,7 @@ class SpotifyRepository @Inject constructor(
                     it.map(dbConverter::convertAlbumEntityToDomain)
                 }
             },
-            networkCall = { getResult { mSpotifyApi.getNewReleases() } },
+            networkCall = { getResult { spotifyApi.getNewReleases() } },
             saveCallResult = { response ->
                 val albumAndArtists = response.items.map(responseConverter::convertAlbumToEntity)
                 albumAndArtists.forEach {
@@ -48,7 +48,7 @@ class SpotifyRepository @Inject constructor(
                     dbConverter.convertAlbumEntityToDomain(it)
                 }
             },
-            networkCall = { getResult { mSpotifyApi.getAlbumInfo(id) } },
+            networkCall = { getResult { spotifyApi.getAlbumInfo(id) } },
             saveCallResult = {
                 val albumWithTracksAndArtists = responseConverter.convertAlbumToEntity(it)
                 database.getAlbumDao().insertAlbum(albumWithTracksAndArtists.albumInfo)
@@ -71,7 +71,7 @@ class SpotifyRepository @Inject constructor(
             },
             networkCall = {
                 getResult {
-                    mSpotifyApi.searchArtist(keyword, SearchTypes.ARTIST)
+                    spotifyApi.searchArtist(keyword, SearchTypes.ARTIST)
                 }
             },
             saveCallResult = {
@@ -87,7 +87,7 @@ class SpotifyRepository @Inject constructor(
                     it.map(dbConverter::convertAlbumEntityToDomain)
                 }
             },
-            networkCall = { getResult { mSpotifyApi.searchAlbum(keyword, SearchTypes.ALBUM) } },
+            networkCall = { getResult { spotifyApi.searchAlbum(keyword, SearchTypes.ALBUM) } },
             saveCallResult = { response ->
                 val albumAndArtists = response.items.map(responseConverter::convertAlbumToEntity)
                 albumAndArtists.forEach {
@@ -106,7 +106,7 @@ class SpotifyRepository @Inject constructor(
                     it.map(dbConverter::convertTrackEntityToDomain)
                 }
             },
-            networkCall = { getResult { mSpotifyApi.searchTrack(keyword, SearchTypes.TRACK) } },
+            networkCall = { getResult { spotifyApi.searchTrack(keyword, SearchTypes.TRACK) } },
             saveCallResult = {
                 val tracks = it.items.map(responseConverter::convertTrackToEntity)
                 tracks.forEach(database.getTrackDao()::insertTrack)

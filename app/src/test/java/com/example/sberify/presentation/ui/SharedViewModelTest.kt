@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer
 import com.example.sberify.MockTestUtils.Companion.mockAlbum
 import com.example.sberify.MockTestUtils.Companion.mockTrack
 import com.example.sberify.data.Result
-import com.example.sberify.domain.IDatabaseRepository
+import com.example.sberify.domain.DatabaseRepository
 import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.domain.TokenData
@@ -36,7 +36,7 @@ class SharedViewModelTest {
 
     private lateinit var spotifyRepository: ISpotifyRepository
     private lateinit var geniusRepository: IGeniusRepository
-    private lateinit var databaseRepository: IDatabaseRepository
+    private lateinit var databaseRepository: DatabaseRepository
     private lateinit var tokenData: TokenData
 
     @Before

@@ -3,7 +3,7 @@ package com.example.sberify.presentation.ui.favorite
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.example.sberify.domain.IDatabaseRepository
+import com.example.sberify.domain.DatabaseRepository
 import com.example.sberify.models.domain.Track
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
@@ -20,7 +20,7 @@ import org.junit.runners.JUnit4
 @RunWith(JUnit4::class)
 class FavoriteViewModelTest {
 
-    private lateinit var databaseRepo: IDatabaseRepository
+    private lateinit var databaseRepo: DatabaseRepository
     private lateinit var favoriteViewModel: FavoriteViewModel
 
     @Rule

@@ -25,8 +25,8 @@ interface AlbumDao {
     @Update(entity = AlbumEntity::class, onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateAlbumTracks(albumEntity: AlbumEntity)
 
-    @Update(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun updateAlbum(albumEntity: AlbumEntity)
+    @Query("UPDATE albums SET is_favorite = :isFavorite WHERE album_id = :id")
+    suspend fun updateAlbum(id: String, isFavorite: Boolean)
 
     @Query("SELECT * FROM albums WHERE is_favorite = 1 ORDER BY name ASC")
     fun loadFavoriteAlbums(): LiveData<List<AlbumEntity>>

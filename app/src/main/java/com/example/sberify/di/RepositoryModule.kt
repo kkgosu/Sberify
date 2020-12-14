@@ -1,14 +1,16 @@
 package com.example.sberify.di
 
 import com.example.sberify.data.DataConverter
+import com.example.sberify.data.DbConverter
 import com.example.sberify.data.GeniusParser
+import com.example.sberify.data.ResponseConverter
 import com.example.sberify.data.api.IGeniusApi
 import com.example.sberify.data.api.ISpotifyApi
 import com.example.sberify.data.db.AppDatabase
-import com.example.sberify.data.repository.DatabaseRepository
+import com.example.sberify.data.repository.DatabaseRepositoryImpl
 import com.example.sberify.data.repository.GeniusRepository
 import com.example.sberify.data.repository.SpotifyRepository
-import com.example.sberify.domain.IDatabaseRepository
+import com.example.sberify.domain.DatabaseRepository
 import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
 import dagger.Module
@@ -34,13 +36,25 @@ class RepositoryModule {
     }
 
     @Provides
+    fun provideDbConverter(): DbConverter {
+        return DbConverter()
+    }
+
+    @Provides
+    @Singleton
+    fun provideResponseConverter(): ResponseConverter {
+        return ResponseConverter()
+    }
+
+    @Provides
     @Singleton
     fun provideSpotifyRepository(
-        dataConverter: DataConverter,
         database: AppDatabase,
-        spotifyApi: ISpotifyApi
+        spotifyApi: ISpotifyApi,
+        dbConverter: DbConverter,
+        responseConverter: ResponseConverter
     ): ISpotifyRepository {
-        return SpotifyRepository(dataConverter, database, spotifyApi)
+        return SpotifyRepository(database, spotifyApi, dbConverter, responseConverter)
     }
 
 
@@ -56,7 +70,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideDatabaseRepository(appDatabase: AppDatabase): IDatabaseRepository {
-        return DatabaseRepository(appDatabase)
+    fun provideDatabaseRepository(appDatabase: AppDatabase, dbConverter: DbConverter): DatabaseRepository {
+        return DatabaseRepositoryImpl(appDatabase, dbConverter)
     }
 }

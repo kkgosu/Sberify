@@ -5,12 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.example.sberify.domain.IDatabaseRepository
+import com.example.sberify.domain.DatabaseRepository
 import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Track
 
 class FavoriteViewModel @ViewModelInject constructor(
-    private val databaseRepo: IDatabaseRepository
+    private val databaseRepo: DatabaseRepository
 ) : ViewModel() {
 
     private val favoriteTracksTrigger = MutableLiveData<Boolean>()

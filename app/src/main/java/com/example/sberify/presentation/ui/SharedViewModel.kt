@@ -7,7 +7,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sberify.data.Result
-import com.example.sberify.domain.IDatabaseRepository
+import com.example.sberify.domain.DatabaseRepository
 import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.domain.TokenData
@@ -24,7 +24,7 @@ import kotlinx.coroutines.withContext
 class SharedViewModel @ViewModelInject constructor(
     private val spotifyRepository: ISpotifyRepository,
     private val geniusRepository: IGeniusRepository,
-    private val databaseRepository: IDatabaseRepository,
+    private val databaseRepository: DatabaseRepository,
     tokenData: TokenData
 ) : ViewModel() {
 
@@ -141,7 +141,7 @@ class SharedViewModel @ViewModelInject constructor(
     fun updateFavoriteAlbum(album: Album) {
         viewModelScope.launch(Dispatchers.IO) {
             delay(800)
-            databaseRepository.updateAlbum(album)
+            databaseRepository.setAlbumIsFavorite(album.id, !album.isFavorite)
         }
     }
 

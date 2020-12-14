@@ -24,11 +24,11 @@ class DatabaseRepositoryTest {
 
     private val database: AppDatabase = mock()
 
-    private lateinit var repo: DatabaseRepository
+    private lateinit var repo: DatabaseRepositoryImpl
 
     @Before
     fun setUp() {
-        repo = DatabaseRepository(database)
+        repo = DatabaseRepositoryImpl(database)
     }
 
     @Rule
@@ -64,9 +64,9 @@ class DatabaseRepositoryTest {
         val tDao = mock<TrackDao>()
         whenever(database.getTrackDao()).thenReturn(tDao)
 
-        repo.updateTrack(mockTrack())
+        repo.setTrackIsFavorite(mockTrack())
         verify(database).getTrackDao()
-        verify(tDao).updateTrack(TrackEntity.from(mockTrack()))
+        verify(tDao).setTrackIsFavorite(TrackEntity.from(mockTrack()))
         return@runBlocking
     }
 
