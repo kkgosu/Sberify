@@ -12,7 +12,7 @@ data class AlbumWithTracks(
     @Embedded val albumEntity: AlbumEntity,
     @Relation(
         parentColumn = "album_id",
-        entityColumn = "parent_album_id"
+        entityColumn = "track_id"
     )
     val tracksEntities: List<TrackEntity>
 )

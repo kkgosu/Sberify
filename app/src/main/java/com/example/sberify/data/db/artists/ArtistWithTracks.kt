@@ -10,7 +10,7 @@ import com.example.sberify.data.db.track.TrackEntity
  * @author Konstantin Koval
  * @since 10.12.2020
  */
-data class ArtistWithSongs(
+data class ArtistWithTracks(
     @Embedded val artist: ArtistEntity,
     @Relation(
         parentColumn = "artist_id",

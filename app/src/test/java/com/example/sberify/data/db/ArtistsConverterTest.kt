@@ -10,16 +10,16 @@ class ArtistsConverterTest {
     @Test
     fun fromList() {
         val from = listOf(mockArtistDB())
-        val result = ArtistsConverter.fromList(from)
+        val result = ListToStringConverter.fromList(from)
 
-        assertEquals(from, ArtistsConverter.fromString(result))
+        assertEquals(from, ListToStringConverter.fromString(result))
     }
 
     @Test
     fun fromString() {
-        val from = ArtistsConverter.fromList(listOf(mockArtistDB()))
-        val result = ArtistsConverter.fromString(from)
+        val from = ListToStringConverter.fromList(listOf(mockArtistDB()))
+        val result = ListToStringConverter.fromString(from)
 
-        assertEquals(from, ArtistsConverter.fromList(result))
+        assertEquals(from, ListToStringConverter.fromList(result))
     }
 }

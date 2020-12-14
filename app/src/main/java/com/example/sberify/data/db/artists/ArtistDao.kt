@@ -27,5 +27,5 @@ interface ArtistDao {
 
     @Transaction
     @Query("SELECT * FROM artists WHERE artist_id = :artistId")
-    fun getArtistWithSongs(artistId: String): ArtistWithSongs
+    fun getArtistWithSongs(artistId: String): ArtistWithTracks
 }

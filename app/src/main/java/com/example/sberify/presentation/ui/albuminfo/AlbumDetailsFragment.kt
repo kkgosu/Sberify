@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -16,7 +15,7 @@ import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentAlbumDetailsBinding
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.SharedViewModel
-import com.example.sberify.presentation.ui.utils.*
+import com.example.sberify.presentation.ui.utils.bindAppBarLayoutWithFab
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -68,7 +67,7 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
     }
 
     private fun subscribeToObservers() {
-        sharedViewModel.album.applyResultObserver(
+/*        sharedViewModel.album.applyResultObserver(
             viewLifecycleOwner,
             success = { album ->
                 binding.albumCover.loadImage(album.imageUrl)
@@ -87,6 +86,6 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
             },
             loading = { },
             error = { Toast.makeText(requireContext(), it ?: "Error occurred while getting album's data :C", Toast.LENGTH_SHORT).show() }
-        )
+        )*/
     }
 }

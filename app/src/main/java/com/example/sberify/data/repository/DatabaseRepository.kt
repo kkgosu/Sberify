@@ -3,6 +3,7 @@ package com.example.sberify.data.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
+import com.example.sberify.data.DbConverter
 import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.db.album.AlbumEntity
 import com.example.sberify.data.db.suggestions.SuggestionsEntity
@@ -16,7 +17,8 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class DatabaseRepository @Inject constructor(
-    private val database: AppDatabase
+    private val database: AppDatabase,
+    private val dbConverter: DbConverter
 ) : IDatabaseRepository {
     override suspend fun insertSuggestion(suggestion: Suggestion) {
         withContext(Dispatchers.IO) {

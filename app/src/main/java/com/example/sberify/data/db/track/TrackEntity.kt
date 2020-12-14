@@ -9,19 +9,19 @@ import androidx.room.PrimaryKey
 )
 data class TrackEntity(
     @PrimaryKey
-    @ColumnInfo(name = "track_id")
+    @ColumnInfo(name = "track_id", index = true)
     val spotifyId: String,
 
     @ColumnInfo(name = "name")
     val name: String,
 
-    @ColumnInfo(name = "parent_album_id")
+    @ColumnInfo(name = "album_id")
     val albumId: String?,
 
     @ColumnInfo(name = "lyrics")
     val lyrics: String?,
 
-    @ColumnInfo(name = "artists_id")
+    @ColumnInfo(name = "artists_id", index = true)
     val artistsId: List<String>,
 
     @ColumnInfo(name = "is_favorite")

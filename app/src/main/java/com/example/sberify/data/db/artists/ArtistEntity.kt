@@ -9,7 +9,7 @@ import com.example.sberify.models.domain.Image
 @Entity(tableName = "artists")
 data class ArtistEntity(
     @PrimaryKey
-    @ColumnInfo(name = "artist_id")
+    @ColumnInfo(name = "artist_id", index = true)
     val spotifyId: String,
 
     @ColumnInfo(name = "name")

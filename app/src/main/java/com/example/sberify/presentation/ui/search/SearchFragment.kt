@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -27,7 +26,6 @@ import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.ALBUM_SWITCH_CHECKED_KEY
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.ARTIST_SWITCH_CHECKED_KEY
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.TRACK_SWITCH_CHECKED_KEY
-import com.example.sberify.presentation.ui.utils.applyResultObserver
 import com.example.sberify.presentation.ui.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -70,7 +68,7 @@ class SearchFragment :
             hideKeyboard()
         }
 
-        sharedViewModel.artistsSearchResult.applyResultObserver(viewLifecycleOwner,
+/*        sharedViewModel.artistsSearchResult.applyResultObserver(viewLifecycleOwner,
             success = {
                 sharedViewModel.refreshContentVisibility()
                 artistsAdapter.items = it
@@ -95,7 +93,7 @@ class SearchFragment :
             },
             loading = { binding.tracksTitleTextView.visibility = View.GONE },
             error = { Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show() }
-        )
+        )*/
 
         sharedViewModel.suggestions.observe(viewLifecycleOwner) { suggestionsAdapter.items = it }
         sharedViewModel.showFiltersFragment.observe(viewLifecycleOwner) { showFilterBottomSheet() }

@@ -1,18 +1,25 @@
 package com.example.sberify.presentation.ui
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.sberify.data.Result
 import com.example.sberify.domain.IDatabaseRepository
 import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.domain.TokenData
 import com.example.sberify.models.domain.Album
-import com.example.sberify.models.domain.Artist
 import com.example.sberify.models.domain.Suggestion
 import com.example.sberify.models.domain.Track
 import com.example.sberify.presentation.ui.utils.SingleLiveEvent
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 class SharedViewModel @ViewModelInject constructor(
     private val spotifyRepository: ISpotifyRepository,
@@ -62,7 +69,7 @@ class SharedViewModel @ViewModelInject constructor(
         albumInfoTrigger.value = album
     }
 
-    val newReleases: LiveData<Result<List<Album>>> = Transformations.switchMap(reloadTrigger) {
+/*    val newReleases: LiveData<Result<List<Album>>> = Transformations.switchMap(reloadTrigger) {
         spotifyRepository.getNewReleases()
     }
 
@@ -78,7 +85,7 @@ class SharedViewModel @ViewModelInject constructor(
 
     val album: LiveData<Result<Album>> = Transformations.switchMap(albumInfoTrigger) {
         spotifyRepository.getAlbumInfo(it.id)
-    }
+    }*/
 
     val lyrics: LiveData<Result<Track>> = Transformations.switchMap(lyricsTrigger) {
         runBlocking(Dispatchers.IO) {
