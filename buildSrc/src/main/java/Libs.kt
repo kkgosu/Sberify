@@ -28,7 +28,7 @@ object Libs {
     const val LIFECYCLE_VIEW_MODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-beta01"
     const val LOTTIE = "com.airbnb.android:lottie:3.5.0"
     const val MATERIAL = "com.google.android.material:material:1.3.0-alpha03"
-    const val MOCKITO_CORE = "org.mockito:mockito-core:2.25.0"
+    const val MOCKITO_CORE = "org.mockito:mockito-core:3.6.28"
     const val MOCKITO_KOTLIN = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
     const val NAVIGATION_FRAGMENT_KTX = "androidx.navigation:navigation-fragment-ktx:2.3.1"
     const val PREFERENCES = "androidx.preference:preference-ktx:1.1.1"
