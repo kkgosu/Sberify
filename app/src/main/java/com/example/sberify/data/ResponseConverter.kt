@@ -45,13 +45,14 @@ class ResponseConverter {
     fun convertTrackToDomain(response: TrackItemResponse): TrackDomainModel {
         return TrackDomainModel(
             id = response.id,
-            name = response.name.orEmpty(),
-            artists = response.artists?.map(this::convertArtistToDomain) ?: emptyList(),
+            name = response.name,
+            artists = response.artists.map(this::convertArtistToDomain),
             externalUri = convertExternalUrlToDomain(response.externalUrls),
             explicit = response.explicit ?: false,
             isLocal = response.isLocal ?: false,
             previewUri = response.previewUrl.orEmpty(),
-            markets = emptyList()
+            markets = emptyList(),
+            isFavorite = false
         )
     }
 

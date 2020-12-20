@@ -14,8 +14,8 @@ import com.example.sberify.adapters.TrackInteraction
 import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentFavoriteBinding
-import com.example.sberify.models.domain.Album
-import com.example.sberify.models.domain.Track
+import com.example.sberify.models.newdomain.AlbumDomainModel
+import com.example.sberify.models.newdomain.TrackDomainModel
 import com.example.sberify.presentation.ui.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -59,7 +59,7 @@ class FavoriteFragment :
         favoriteViewModel.loadFavorite()
     }
 
-    override fun onTrackSelected(item: Track, view: View) {
+    override fun onTrackSelected(item: TrackDomainModel, view: View) {
         sharedViewModel.getLyrics(item)
         val extras = FragmentNavigatorExtras(
             view to view.transitionName
@@ -69,7 +69,7 @@ class FavoriteFragment :
         )
     }
 
-    override fun onAlbumSelected(item: Album, view: View) {
+    override fun onAlbumSelected(item: AlbumDomainModel, view: View) {
         sharedViewModel.getAlbumInfo(item)
         val extras = FragmentNavigatorExtras(
             view to view.transitionName

@@ -1,5 +1,7 @@
 package com.example.sberify.models.newdomain
 
+import com.example.sberify.models.domain.BaseModel
+
 /**
  * @author Konstantin Koval
  * @since 06.12.2020
@@ -17,4 +19,4 @@ data class AlbumDomainModel(
     val markets: List<String>,
     val albumType: String,
     val label: String
-)
+) : BaseModel(id)

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -11,8 +12,11 @@ import com.example.sberify.adapters.AlbumInteraction
 import com.example.sberify.adapters.AlbumsAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentNewReleasesBinding
-import com.example.sberify.models.domain.Album
+import com.example.sberify.models.newdomain.AlbumDomainModel
 import com.example.sberify.presentation.ui.SharedViewModel
+import com.example.sberify.presentation.ui.utils.applyResultObserver
+import com.example.sberify.presentation.ui.utils.hideAnimation
+import com.example.sberify.presentation.ui.utils.showAnimation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,7 +43,7 @@ class NewReleasesFragment : BaseViewBindingFragment<FragmentNewReleasesBinding>(
         binding.refreshLayout.setOnRefreshListener { sharedViewModel.refresh() }
     }
 
-    override fun onAlbumSelected(item: Album, view: View) {
+    override fun onAlbumSelected(item: AlbumDomainModel, view: View) {
         sharedViewModel.getAlbumInfo(item)
         val extras = FragmentNavigatorExtras(
             view to view.transitionName
@@ -52,7 +56,7 @@ class NewReleasesFragment : BaseViewBindingFragment<FragmentNewReleasesBinding>(
     }
 
     private fun subscribeToObservers() {
-/*        sharedViewModel.newReleases.applyResultObserver(
+        sharedViewModel.newReleases.applyResultObserver(
             viewLifecycleOwner,
             success = { album ->
                 binding.refreshLayout.isRefreshing = false
@@ -64,6 +68,6 @@ class NewReleasesFragment : BaseViewBindingFragment<FragmentNewReleasesBinding>(
                 binding.refreshLayout.isRefreshing = false
                 binding.animation.loadingAnimation.hideAnimation()
                 Toast.makeText(requireContext(), it ?: "Error occurred while getting new releases :C", Toast.LENGTH_SHORT).show()
-            })*/
+            })
     }
 }
