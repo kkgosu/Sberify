@@ -1,0 +1,1 @@
+C:\Users\driim\AndroidStudioProjects\Sberius\buildSrc\build\classes\kotlin\main\BuildLibs.class;C:\Users\driim\AndroidStudioProjects\Sberius\buildSrc\build\classes\kotlin\main\Libs.class

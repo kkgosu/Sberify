@@ -1,0 +1,232 @@
+com/example/sberify/data/db/AppDatabase_Impl.java
+ com.example.sberify.data.db.AppDatabase_Impl
+ com.example.sberify.data.db.AppDatabase_Impl$1
+com/example/sberify/presentation/ui/SharedViewModel_HiltModule.java
+ com.example.sberify.presentation.ui.SharedViewModel_HiltModule
+hilt_aggregated_deps/com_example_sberify_di_RepositoryModuleModuleDeps.java
+ hilt_aggregated_deps.com_example_sberify_di_RepositoryModuleModuleDeps
+com/example/sberify/di/DbModule_ProvideDatabaseFactory.java
+ com.example.sberify.di.DbModule_ProvideDatabaseFactory
+com/example/sberify/presentation/ui/favorite/FavoriteViewModel_AssistedFactory_Factory.java
+ com.example.sberify.presentation.ui.favorite.FavoriteViewModel_AssistedFactory_Factory
+com/example/sberify/di/ApiModule_ProvideGeniusOkHttpClientFactory.java
+ com.example.sberify.di.ApiModule_ProvideGeniusOkHttpClientFactory
+com/example/sberify/Hilt_SberifyApp.java
+ com.example.sberify.Hilt_SberifyApp
+ com.example.sberify.Hilt_SberifyApp$1
+com/example/sberify/di/RepositoryModule_ProvideGeniusRepositoryFactory.java
+ com.example.sberify.di.RepositoryModule_ProvideGeniusRepositoryFactory
+hilt_aggregated_deps/com_example_sberify_presentation_ui_newreleases_NewReleasesFragment_GeneratedInjectorModuleDeps.java
+ hilt_aggregated_deps.com_example_sberify_presentation_ui_newreleases_NewReleasesFragment_GeneratedInjectorModuleDeps
+com/example/sberify/di/RepositoryModule_ProvideResponseConverterFactory.java
+ com.example.sberify.di.RepositoryModule_ProvideResponseConverterFactory
+com/example/sberify/databinding/FragmentFavoriteBinding.java
+ com.example.sberify.databinding.FragmentFavoriteBinding
+com/example/sberify/di/RepositoryModule_ProvideSpotifyRepositoryFactory.java
+ com.example.sberify.di.RepositoryModule_ProvideSpotifyRepositoryFactory
+com/example/sberify/di/RepositoryModule_ProvideDataConverterFactory.java
+ com.example.sberify.di.RepositoryModule_ProvideDataConverterFactory
+com/example/sberify/databinding/ItemSuggestionBinding.java
+ com.example.sberify.databinding.ItemSuggestionBinding
+com/example/sberify/databinding/ItemSearchBinding.java
+ com.example.sberify.databinding.ItemSearchBinding
+com/example/sberify/databinding/FragmentAlbumDetailsBinding.java
+ com.example.sberify.databinding.FragmentAlbumDetailsBinding
+com/example/sberify/di/RepositoryModule_ProvideDatabaseRepositoryFactory.java
+ com.example.sberify.di.RepositoryModule_ProvideDatabaseRepositoryFactory
+com/example/sberify/di/RepositoryModule_ProvideDbConverterFactory.java
+ com.example.sberify.di.RepositoryModule_ProvideDbConverterFactory
+com/example/sberify/databinding/ItemAlbumBinding.java
+ com.example.sberify.databinding.ItemAlbumBinding
+com/example/sberify/presentation/ui/MainActivity_GeneratedInjector.java
+ com.example.sberify.presentation.ui.MainActivity_GeneratedInjector
+com/example/sberify/di/DbModule_ProvideArtistDaoFactory.java
+ com.example.sberify.di.DbModule_ProvideArtistDaoFactory
+com/example/sberify/databinding/LoadingAnimBinding.java
+ com.example.sberify.databinding.LoadingAnimBinding
+hilt_aggregated_deps/com_example_sberify_presentation_ui_SharedViewModel_HiltModuleModuleDeps.java
+ hilt_aggregated_deps.com_example_sberify_presentation_ui_SharedViewModel_HiltModuleModuleDeps
+com/example/sberify/presentation/ui/SharedViewModel_AssistedFactory.java
+ com.example.sberify.presentation.ui.SharedViewModel_AssistedFactory
+com/example/sberify/data/db/suggestions/SuggestionsDao_Impl.java
+ com.example.sberify.data.db.suggestions.SuggestionsDao_Impl
+ com.example.sberify.data.db.suggestions.SuggestionsDao_Impl$1
+ com.example.sberify.data.db.suggestions.SuggestionsDao_Impl$2
+com/example/sberify/presentation/ui/lyrics/Hilt_LyricsFragment.java
+ com.example.sberify.presentation.ui.lyrics.Hilt_LyricsFragment
+com/example/sberify/databinding/ActivityMainBinding.java
+ com.example.sberify.databinding.ActivityMainBinding
+hilt_aggregated_deps/com_example_sberify_presentation_ui_search_SearchFragment_GeneratedInjectorModuleDeps.java
+ hilt_aggregated_deps.com_example_sberify_presentation_ui_search_SearchFragment_GeneratedInjectorModuleDeps
+hilt_aggregated_deps/com_example_sberify_presentation_ui_favorite_FavoriteViewModel_HiltModuleModuleDeps.java
+ hilt_aggregated_deps.com_example_sberify_presentation_ui_favorite_FavoriteViewModel_HiltModuleModuleDeps
+com/example/sberify/presentation/ui/newreleases/Hilt_NewReleasesFragment.java
+ com.example.sberify.presentation.ui.newreleases.Hilt_NewReleasesFragment
+com/example/sberify/databinding/FragmentNewReleasesBinding.java
+ com.example.sberify.databinding.FragmentNewReleasesBinding
+com/example/sberify/databinding/ItemAlbumHorizontalBinding.java
+ com.example.sberify.databinding.ItemAlbumHorizontalBinding
+com/example/sberify/presentation/ui/lyrics/LyricsViewModel_AssistedFactory_Factory.java
+ com.example.sberify.presentation.ui.lyrics.LyricsViewModel_AssistedFactory_Factory
+com/example/sberify/di/ApiModule_ProvideGsonConverterFactoryFactory.java
+ com.example.sberify.di.ApiModule_ProvideGsonConverterFactoryFactory
+com/example/sberify/presentation/ui/albuminfo/AlbumDetailsFragment_GeneratedInjector.java
+ com.example.sberify.presentation.ui.albuminfo.AlbumDetailsFragment_GeneratedInjector
+hilt_aggregated_deps/com_example_sberify_di_DbModuleModuleDeps.java
+ hilt_aggregated_deps.com_example_sberify_di_DbModuleModuleDeps
+com/example/sberify/databinding/HeaderBinding.java
+ com.example.sberify.databinding.HeaderBinding
+hilt_aggregated_deps/com_example_sberify_SberifyApp_GeneratedInjectorModuleDeps.java
+ hilt_aggregated_deps.com_example_sberify_SberifyApp_GeneratedInjectorModuleDeps
+com/example/sberify/databinding/FilterBottomSheetLayoutBinding.java
+ com.example.sberify.databinding.FilterBottomSheetLayoutBinding
+com/example/sberify/databinding/ItemTrackListedBinding.java
+ com.example.sberify.databinding.ItemTrackListedBinding
+com/example/sberify/di/DbModule_ProvideAlbumDaoFactory.java
+ com.example.sberify.di.DbModule_ProvideAlbumDaoFactory
+com/example/sberify/presentation/ui/favorite/Hilt_FavoriteFragment.java
+ com.example.sberify.presentation.ui.favorite.Hilt_FavoriteFragment
+com/example/sberify/data/db/artists/ArtistDao_Impl.java
+ com.example.sberify.data.db.artists.ArtistDao_Impl
+ com.example.sberify.data.db.artists.ArtistDao_Impl$1
+ com.example.sberify.data.db.artists.ArtistDao_Impl$2
+ com.example.sberify.data.db.artists.ArtistDao_Impl$3
+ com.example.sberify.data.db.artists.ArtistDao_Impl$4
+ com.example.sberify.data.db.artists.ArtistDao_Impl$5
+com/example/sberify/presentation/ui/MainActivity_MembersInjector.java
+ com.example.sberify.presentation.ui.MainActivity_MembersInjector
+com/example/sberify/BuildConfig.java
+ com.example.sberify.BuildConfig
+com/example/sberify/di/ApiModule_ProvideSpotifyInterceptorFactory.java
+ com.example.sberify.di.ApiModule_ProvideSpotifyInterceptorFactory
+com/example/sberify/di/RepositoryModule_ProvideGeniusParserFactory.java
+ com.example.sberify.di.RepositoryModule_ProvideGeniusParserFactory
+com/example/sberify/presentation/ui/albuminfo/Hilt_AlbumDetailsFragment.java
+ com.example.sberify.presentation.ui.albuminfo.Hilt_AlbumDetailsFragment
+com/example/sberify/databinding/FragmentLyricsBinding.java
+ com.example.sberify.databinding.FragmentLyricsBinding
+hilt_aggregated_deps/com_example_sberify_presentation_ui_favorite_FavoriteFragment_GeneratedInjectorModuleDeps.java
+ hilt_aggregated_deps.com_example_sberify_presentation_ui_favorite_FavoriteFragment_GeneratedInjectorModuleDeps
+com/example/sberify/di/ApiModule_ProvideSpotifyApiServiceFactory.java
+ com.example.sberify.di.ApiModule_ProvideSpotifyApiServiceFactory
+hilt_aggregated_deps/com_example_sberify_presentation_ui_lyrics_LyricsViewModel_HiltModuleModuleDeps.java
+ hilt_aggregated_deps.com_example_sberify_presentation_ui_lyrics_LyricsViewModel_HiltModuleModuleDeps
+com/example/sberify/presentation/ui/newreleases/NewReleasesFragment_GeneratedInjector.java
+ com.example.sberify.presentation.ui.newreleases.NewReleasesFragment_GeneratedInjector
+com/example/sberify/di/ApiModule_ProvideTokenDataFactory.java
+ com.example.sberify.di.ApiModule_ProvideTokenDataFactory
+com/example/sberify/di/ApiModule_ProvideGeniusApiServiceFactory.java
+ com.example.sberify.di.ApiModule_ProvideGeniusApiServiceFactory
+com/example/sberify/presentation/ui/Hilt_MainActivity.java
+ com.example.sberify.presentation.ui.Hilt_MainActivity
+com/example/sberify/presentation/ui/favorite/FavoriteViewModel_HiltModule.java
+ com.example.sberify.presentation.ui.favorite.FavoriteViewModel_HiltModule
+com/example/sberify/presentation/ui/lyrics/LyricsViewModel_HiltModule.java
+ com.example.sberify.presentation.ui.lyrics.LyricsViewModel_HiltModule
+com/example/sberify/data/db/album/AlbumDao_Impl.java
+ com.example.sberify.data.db.album.AlbumDao_Impl
+ com.example.sberify.data.db.album.AlbumDao_Impl$1
+ com.example.sberify.data.db.album.AlbumDao_Impl$10
+ com.example.sberify.data.db.album.AlbumDao_Impl$11
+ com.example.sberify.data.db.album.AlbumDao_Impl$12
+ com.example.sberify.data.db.album.AlbumDao_Impl$13
+ com.example.sberify.data.db.album.AlbumDao_Impl$2
+ com.example.sberify.data.db.album.AlbumDao_Impl$3
+ com.example.sberify.data.db.album.AlbumDao_Impl$4
+ com.example.sberify.data.db.album.AlbumDao_Impl$5
+ com.example.sberify.data.db.album.AlbumDao_Impl$6
+ com.example.sberify.data.db.album.AlbumDao_Impl$7
+ com.example.sberify.data.db.album.AlbumDao_Impl$8
+ com.example.sberify.data.db.album.AlbumDao_Impl$9
+com/example/sberify/di/ApiModule_ProvideSpotifyOkHttpClientFactory.java
+ com.example.sberify.di.ApiModule_ProvideSpotifyOkHttpClientFactory
+hilt_aggregated_deps/com_example_sberify_presentation_ui_lyrics_LyricsFragment_GeneratedInjectorModuleDeps.java
+ hilt_aggregated_deps.com_example_sberify_presentation_ui_lyrics_LyricsFragment_GeneratedInjectorModuleDeps
+com/example/sberify/data/repository/GeniusRepository_Factory.java
+ com.example.sberify.data.repository.GeniusRepository_Factory
+com/example/sberify/databinding/FragmentSearchBinding.java
+ com.example.sberify.databinding.FragmentSearchBinding
+com/example/sberify/presentation/ui/SharedViewModel_AssistedFactory_Factory.java
+ com.example.sberify.presentation.ui.SharedViewModel_AssistedFactory_Factory
+com/example/sberify/data/db/track/TrackDao_Impl.java
+ com.example.sberify.data.db.track.TrackDao_Impl
+ com.example.sberify.data.db.track.TrackDao_Impl$1
+ com.example.sberify.data.db.track.TrackDao_Impl$2
+ com.example.sberify.data.db.track.TrackDao_Impl$3
+ com.example.sberify.data.db.track.TrackDao_Impl$4
+ com.example.sberify.data.db.track.TrackDao_Impl$5
+ com.example.sberify.data.db.track.TrackDao_Impl$6
+ com.example.sberify.data.db.track.TrackDao_Impl$7
+com/example/sberify/presentation/ui/search/SearchFragment_GeneratedInjector.java
+ com.example.sberify.presentation.ui.search.SearchFragment_GeneratedInjector
+com/example/sberify/presentation/ui/lyrics/LyricsFragment_GeneratedInjector.java
+ com.example.sberify.presentation.ui.lyrics.LyricsFragment_GeneratedInjector
+com/example/sberify/SberifyApp_HiltComponents.java
+ com.example.sberify.SberifyApp_HiltComponents
+ com.example.sberify.SberifyApp_HiltComponents$ActivityC
+ com.example.sberify.SberifyApp_HiltComponents$ActivityC$Builder
+ com.example.sberify.SberifyApp_HiltComponents$ActivityCBuilderModule
+ com.example.sberify.SberifyApp_HiltComponents$ActivityRetainedC
+ com.example.sberify.SberifyApp_HiltComponents$ActivityRetainedC$Builder
+ com.example.sberify.SberifyApp_HiltComponents$ActivityRetainedCBuilderModule
+ com.example.sberify.SberifyApp_HiltComponents$ApplicationC
+ com.example.sberify.SberifyApp_HiltComponents$FragmentC
+ com.example.sberify.SberifyApp_HiltComponents$FragmentC$Builder
+ com.example.sberify.SberifyApp_HiltComponents$FragmentCBuilderModule
+ com.example.sberify.SberifyApp_HiltComponents$ServiceC
+ com.example.sberify.SberifyApp_HiltComponents$ServiceC$Builder
+ com.example.sberify.SberifyApp_HiltComponents$ServiceCBuilderModule
+ com.example.sberify.SberifyApp_HiltComponents$ViewC
+ com.example.sberify.SberifyApp_HiltComponents$ViewC$Builder
+ com.example.sberify.SberifyApp_HiltComponents$ViewCBuilderModule
+ com.example.sberify.SberifyApp_HiltComponents$ViewWithFragmentC
+ com.example.sberify.SberifyApp_HiltComponents$ViewWithFragmentC$Builder
+ com.example.sberify.SberifyApp_HiltComponents$ViewWithFragmentCBuilderModule
+com/example/sberify/databinding/TopBottomContentDividerBinding.java
+ com.example.sberify.databinding.TopBottomContentDividerBinding
+com/example/sberify/presentation/ui/favorite/FavoriteFragment_GeneratedInjector.java
+ com.example.sberify.presentation.ui.favorite.FavoriteFragment_GeneratedInjector
+com/example/sberify/presentation/ui/search/Hilt_SearchFragment.java
+ com.example.sberify.presentation.ui.search.Hilt_SearchFragment
+hilt_aggregated_deps/com_example_sberify_di_ApiModuleModuleDeps.java
+ hilt_aggregated_deps.com_example_sberify_di_ApiModuleModuleDeps
+com/example/sberify/data/repository/SpotifyRepository_Factory.java
+ com.example.sberify.data.repository.SpotifyRepository_Factory
+com/example/sberify/databinding/BottomNavViewBinding.java
+ com.example.sberify.databinding.BottomNavViewBinding
+com/example/sberify/DaggerSberifyApp_HiltComponents_ApplicationC.java
+ com.example.sberify.DaggerSberifyApp_HiltComponents_ApplicationC
+ com.example.sberify.DaggerSberifyApp_HiltComponents_ApplicationC$1
+ com.example.sberify.DaggerSberifyApp_HiltComponents_ApplicationC$ActivityRetainedCBuilder
+ com.example.sberify.DaggerSberifyApp_HiltComponents_ApplicationC$ActivityRetainedCImpl
+ com.example.sberify.DaggerSberifyApp_HiltComponents_ApplicationC$ActivityRetainedCImpl$ActivityCBuilder
+ com.example.sberify.DaggerSberifyApp_HiltComponents_ApplicationC$ActivityRetainedCImpl$ActivityCImpl
+ com.example.sberify.DaggerSberifyApp_HiltComponents_ApplicationC$ActivityRetainedCImpl$ActivityCImpl$FragmentCBuilder
+ com.example.sberify.DaggerSberifyApp_HiltComponents_ApplicationC$ActivityRetainedCImpl$ActivityCImpl$FragmentCImpl
+ com.example.sberify.DaggerSberifyApp_HiltComponents_ApplicationC$ActivityRetainedCImpl$ActivityCImpl$FragmentCImpl$ViewWithFragmentCBuilder
+ com.example.sberify.DaggerSberifyApp_HiltComponents_ApplicationC$ActivityRetainedCImpl$ActivityCImpl$FragmentCImpl$ViewWithFragmentCImpl
+ com.example.sberify.DaggerSberifyApp_HiltComponents_ApplicationC$ActivityRetainedCImpl$ActivityCImpl$SwitchingProvider
+ com.example.sberify.DaggerSberifyApp_HiltComponents_ApplicationC$ActivityRetainedCImpl$ActivityCImpl$ViewCBuilder
+ com.example.sberify.DaggerSberifyApp_HiltComponents_ApplicationC$ActivityRetainedCImpl$ActivityCImpl$ViewCImpl
+ com.example.sberify.DaggerSberifyApp_HiltComponents_ApplicationC$Builder
+ com.example.sberify.DaggerSberifyApp_HiltComponents_ApplicationC$ServiceCBuilder
+ com.example.sberify.DaggerSberifyApp_HiltComponents_ApplicationC$ServiceCImpl
+ com.example.sberify.DaggerSberifyApp_HiltComponents_ApplicationC$SwitchingProvider
+com/example/sberify/presentation/ui/lyrics/LyricsViewModel_AssistedFactory.java
+ com.example.sberify.presentation.ui.lyrics.LyricsViewModel_AssistedFactory
+com/example/sberify/SberifyApp_GeneratedInjector.java
+ com.example.sberify.SberifyApp_GeneratedInjector
+com/example/sberify/presentation/ui/favorite/FavoriteViewModel_AssistedFactory.java
+ com.example.sberify.presentation.ui.favorite.FavoriteViewModel_AssistedFactory
+com/example/sberify/databinding/ItemTrackBinding.java
+ com.example.sberify.databinding.ItemTrackBinding
+com/example/sberify/di/DbModule_ProvideTrackDaoFactory.java
+ com.example.sberify.di.DbModule_ProvideTrackDaoFactory
+hilt_aggregated_deps/com_example_sberify_presentation_ui_MainActivity_GeneratedInjectorModuleDeps.java
+ hilt_aggregated_deps.com_example_sberify_presentation_ui_MainActivity_GeneratedInjectorModuleDeps
+hilt_aggregated_deps/com_example_sberify_presentation_ui_albuminfo_AlbumDetailsFragment_GeneratedInjectorModuleDeps.java
+ hilt_aggregated_deps.com_example_sberify_presentation_ui_albuminfo_AlbumDetailsFragment_GeneratedInjectorModuleDeps
+com/example/sberify/data/repository/DatabaseRepositoryImpl_Factory.java
+ com.example.sberify.data.repository.DatabaseRepositoryImpl_Factory
+com/example/sberify/di/ApiModule_ProvideGeniusInterceptorFactory.java
+ com.example.sberify.di.ApiModule_ProvideGeniusInterceptorFactory

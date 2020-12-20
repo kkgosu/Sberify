@@ -1,0 +1,20 @@
+com/kvlg/network/di/NetworkModule_ProvideSpotifyAuthInterceptorFactory.java
+ com.kvlg.network.di.NetworkModule_ProvideSpotifyAuthInterceptorFactory
+hilt_aggregated_deps/com_kvlg_network_di_NetworkModuleModuleDeps.java
+ hilt_aggregated_deps.com_kvlg_network_di_NetworkModuleModuleDeps
+com/kvlg/network/di/NetworkModule_ProvideDataConverterFactory.java
+ com.kvlg.network.di.NetworkModule_ProvideDataConverterFactory
+com/kvlg/network/di/NetworkModule_ProvideGeniusApiServiceFactory.java
+ com.kvlg.network.di.NetworkModule_ProvideGeniusApiServiceFactory
+com/kvlg/network/di/NetworkModule_ProvideGeniusParserFactory.java
+ com.kvlg.network.di.NetworkModule_ProvideGeniusParserFactory
+com/kvlg/network/di/NetworkModule_ProvideGsonConverterFactoryFactory.java
+ com.kvlg.network.di.NetworkModule_ProvideGsonConverterFactoryFactory
+com/kvlg/network/di/NetworkModule_ProvideSpotifyApiServiceFactory.java
+ com.kvlg.network.di.NetworkModule_ProvideSpotifyApiServiceFactory
+com/kvlg/network/di/NetworkModule_ProvideTokenDataFactory.java
+ com.kvlg.network.di.NetworkModule_ProvideTokenDataFactory
+com/kvlg/network/BuildConfig.java
+ com.kvlg.network.BuildConfig
+com/kvlg/network/di/NetworkModule_ProvideGeniusInterceptorFactory.java
+ com.kvlg.network.di.NetworkModule_ProvideGeniusInterceptorFactory
