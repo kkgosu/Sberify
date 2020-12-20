@@ -2,15 +2,12 @@ package com.example.sberify.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.map
 import com.example.sberify.data.GeniusParser
 import com.example.sberify.data.Result
 import com.example.sberify.data.api.IGeniusApi
 import com.example.sberify.data.db.AppDatabase
-import com.example.sberify.data.db.track.TrackEntity
-import com.example.sberify.data.resultLiveData
 import com.example.sberify.domain.IGeniusRepository
-import com.example.sberify.models.domain.Track
+import com.example.sberify.models.newdomain.TrackDomainModel
 import com.example.sberify.presentation.ui.utils.ResponseHandler.getResult
 import javax.inject.Inject
 
@@ -20,7 +17,7 @@ class GeniusRepository @Inject constructor(
     private val geniusApi: IGeniusApi,
 ) : IGeniusRepository {
 
-    override suspend fun getLyrics(track: Track): LiveData<Result<Track>> {
+    override suspend fun getLyrics(track: TrackDomainModel): LiveData<Result<TrackDomainModel>> {
         val filterTrackName = filterTrackName(track.name)
         val query = filterQuery("${track.artists.firstOrNull()?.name.orEmpty()} $filterTrackName")
         val responseResult = getResult { geniusApi.getPath(query) }
@@ -34,7 +31,9 @@ class GeniusRepository @Inject constructor(
         }
         var isExist = false
 
-        return resultLiveData(
+        return MutableLiveData(Result.error(message = "Didn't find lyrics :C"))
+
+/*        return resultLiveData(
             databaseQuery = {
                 database.getTrackDao().getTrackById(track.id).map {
                     it?.let {
@@ -49,7 +48,7 @@ class GeniusRepository @Inject constructor(
                     database.getTrackDao().insertTrack(TrackEntity.from(it))
                 }
                 database.getTrackDao().updateTrackLyrics(it.id, it.lyrics!!)
-            })
+            })*/
     }
 
     private fun filterTrackName(name: String): String {

@@ -2,15 +2,23 @@ package com.example.sberify.adapters
 
 import android.view.View
 import androidx.core.view.ViewCompat
-import com.example.sberify.databinding.*
-import com.example.sberify.models.domain.*
+import com.example.sberify.databinding.ItemAlbumBinding
+import com.example.sberify.databinding.ItemAlbumHorizontalBinding
+import com.example.sberify.databinding.ItemSearchBinding
+import com.example.sberify.databinding.ItemSuggestionBinding
+import com.example.sberify.databinding.ItemTrackBinding
+import com.example.sberify.databinding.ItemTrackListedBinding
+import com.example.sberify.models.domain.Artist
+import com.example.sberify.models.domain.BaseModel
+import com.example.sberify.models.domain.Suggestion
+import com.example.sberify.models.newdomain.AlbumDomainModel
+import com.example.sberify.models.newdomain.TrackDomainModel
 import com.example.sberify.presentation.ui.utils.bindPalette
-import com.example.sberify.presentation.ui.utils.convertArtistsToString
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
 
-fun trackListedAdapterDelegate(itemClickListener: (Track, View) -> Unit) =
-    adapterDelegateViewBinding<Track, BaseModel, ItemTrackListedBinding>({ layoutInflater, parent ->
+fun trackListedAdapterDelegate(itemClickListener: (TrackDomainModel, View) -> Unit) =
+    adapterDelegateViewBinding<TrackDomainModel, BaseModel, ItemTrackListedBinding>({ layoutInflater, parent ->
         ItemTrackListedBinding.inflate(layoutInflater, parent, false)
     }) {
         binding.root.setOnClickListener {
@@ -20,14 +28,14 @@ fun trackListedAdapterDelegate(itemClickListener: (Track, View) -> Unit) =
             binding.apply {
                 ViewCompat.setTransitionName(binding.itemContainer, item.id)
                 trackName.text = item.name
-                artistName.text = convertArtistsToString(item.artists)
+                artistName.text = item.artists.joinToString { it.name }
                 position.text = (adapterPosition + 1).toString()
             }
         }
     }
 
-fun trackCardViewAdapterDelegate(itemClickListener: (Track, View) -> Unit) =
-    adapterDelegateViewBinding<Track, BaseModel, ItemTrackBinding>({ layoutInflater, parent ->
+fun trackCardViewAdapterDelegate(itemClickListener: (TrackDomainModel, View) -> Unit) =
+    adapterDelegateViewBinding<TrackDomainModel, BaseModel, ItemTrackBinding>({ layoutInflater, parent ->
         ItemTrackBinding.inflate(layoutInflater, parent, false)
     }) {
         binding.root.setOnClickListener {
@@ -38,13 +46,13 @@ fun trackCardViewAdapterDelegate(itemClickListener: (Track, View) -> Unit) =
                 ViewCompat.setTransitionName(binding.itemContainer, item.id)
                 name.text = item.name
                 artistName.text = item.artists[0].name
-                cover.bindPalette(item.image?.url, itemTrackPalette)
+                cover.bindPalette(null, itemTrackPalette)
             }
         }
     }
 
-fun albumAdapterDelegate(itemClickListener: (Album, View) -> Unit) =
-    adapterDelegateViewBinding<Album, BaseModel, ItemAlbumBinding>({ layoutInflater, parent ->
+fun albumAdapterDelegate(itemClickListener: (AlbumDomainModel, View) -> Unit) =
+    adapterDelegateViewBinding<AlbumDomainModel, BaseModel, ItemAlbumBinding>({ layoutInflater, parent ->
         ItemAlbumBinding.inflate(layoutInflater, parent, false)
     }) {
         binding.root.setOnClickListener {
@@ -54,14 +62,14 @@ fun albumAdapterDelegate(itemClickListener: (Album, View) -> Unit) =
             binding.apply {
                 ViewCompat.setTransitionName(binding.cardView, item.id)
                 releaseName.text = item.name
-                artistName.text = item.artist.name
-                releaseCover.bindPalette(item.imageUrl, itemAlbumPalette)
+                artistName.text = item.name
+                releaseCover.bindPalette(item.images[0].url, itemAlbumPalette)
             }
         }
     }
 
-fun albumHorizontalAdapterDelegate(itemClickListener: (Album, View) -> Unit) =
-    adapterDelegateViewBinding<Album, BaseModel, ItemAlbumHorizontalBinding>({ layoutInflater, parent ->
+fun albumHorizontalAdapterDelegate(itemClickListener: (AlbumDomainModel, View) -> Unit) =
+    adapterDelegateViewBinding<AlbumDomainModel, BaseModel, ItemAlbumHorizontalBinding>({ layoutInflater, parent ->
         ItemAlbumHorizontalBinding.inflate(layoutInflater, parent, false)
     }) {
         binding.root.setOnClickListener {
@@ -70,9 +78,9 @@ fun albumHorizontalAdapterDelegate(itemClickListener: (Album, View) -> Unit) =
         bind {
             binding.apply {
                 ViewCompat.setTransitionName(binding.cardView, item.id)
-                releaseCover.bindPalette(item.imageUrl, itemAlbumPalette)
+                releaseCover.bindPalette(item.images[0].url, itemAlbumPalette)
                 releaseName.text = item.name
-                artistName.text = item.artist.name
+                artistName.text = "item."
             }
         }
     }

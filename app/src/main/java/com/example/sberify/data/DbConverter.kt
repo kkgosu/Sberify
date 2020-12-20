@@ -35,7 +35,9 @@ class DbConverter {
             explicit = trackEntity.isExplicit,
             isLocal = trackEntity.isLocal,
             previewUri = trackEntity.imageUrl.orEmpty(),
-            markets = trackEntity.markets
+            markets = trackEntity.markets,
+            isFavorite = trackEntity.isFavorite,
+            lyrics = trackEntity.lyrics
         )
     }
 

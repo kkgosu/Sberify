@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.sberify.domain.DatabaseRepository
-import com.example.sberify.models.domain.Album
-import com.example.sberify.models.domain.Track
+import com.example.sberify.models.newdomain.AlbumDomainModel
+import com.example.sberify.models.newdomain.TrackDomainModel
 
 class FavoriteViewModel @ViewModelInject constructor(
     private val databaseRepo: DatabaseRepository
@@ -16,11 +16,11 @@ class FavoriteViewModel @ViewModelInject constructor(
     private val favoriteTracksTrigger = MutableLiveData<Boolean>()
     private val favoriteAlbumsTrigger = MutableLiveData<Boolean>()
 
-    val favoriteTracks: LiveData<List<Track>> = Transformations.switchMap(favoriteTracksTrigger) {
+    val favoriteTracks: LiveData<List<TrackDomainModel>> = Transformations.switchMap(favoriteTracksTrigger) {
         databaseRepo.loadFavoriteTracks()
     }
 
-    val favoriteAlbums: LiveData<List<Album>> = Transformations.switchMap(favoriteAlbumsTrigger) {
+    val favoriteAlbums: LiveData<List<AlbumDomainModel>> = Transformations.switchMap(favoriteAlbumsTrigger) {
         databaseRepo.loadFavoriteAlbums()
     }
 

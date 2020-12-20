@@ -13,10 +13,12 @@ import com.example.sberify.adapters.TrackInteraction
 import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentAlbumDetailsBinding
-import com.example.sberify.models.domain.Track
+import com.example.sberify.models.newdomain.TrackDomainModel
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.utils.bindAppBarLayoutWithFab
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.*
 
 @AndroidEntryPoint
 class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding>(), TrackInteraction {
@@ -46,9 +48,9 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
         }
         navArgs.item.run {
             binding.detailContainer.transitionName = id
-            binding.artistName.text = artist.name
+            binding.artistName.text = ""
             binding.albumName.text = name
-            binding.releaseDate.text = releaseDate
+            binding.releaseDate.text = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(releaseDate.date)
             binding.detailToolbar.title = name
         }
         adapter = TrackListedAdapter(this)
@@ -56,7 +58,7 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
         binding.fabFavorite.bindAppBarLayoutWithFab(binding.appBarLayout)
     }
 
-    override fun onTrackSelected(item: Track, view: View) {
+    override fun onTrackSelected(item: TrackDomainModel, view: View) {
         sharedViewModel.getLyrics(item)
         val extras = FragmentNavigatorExtras(
             view to view.transitionName,
