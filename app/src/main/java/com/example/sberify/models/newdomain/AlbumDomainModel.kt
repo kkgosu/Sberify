@@ -2,7 +2,7 @@ package com.example.sberify.models.newdomain
 
 import android.os.Parcelable
 import com.example.sberify.models.domain.BaseModel
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * @author Konstantin Koval
