@@ -74,6 +74,7 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
         sharedViewModel.album.applyResultObserver(
             viewLifecycleOwner,
             success = { album ->
+                binding.releaseDate.text = album.releaseDate.uiValue
                 binding.albumCover.loadImage(album.images.firstOrNull()?.url)
                 album.tracks?.let { tracks ->
                     adapter.items = tracks

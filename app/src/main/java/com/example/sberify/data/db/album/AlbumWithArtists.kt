@@ -11,7 +11,7 @@ import com.example.sberify.data.db.artists.ArtistEntity
 data class AlbumWithArtists(
     @Embedded val albumEntity: AlbumEntity,
     @Relation(
-        parentColumn = "album_id",
+        parentColumn = "artist_ids",
         entityColumn = "artist_id"
     )
     val artistEntities: List<ArtistEntity>

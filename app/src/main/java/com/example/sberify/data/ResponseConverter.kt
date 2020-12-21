@@ -108,7 +108,7 @@ class ResponseConverter {
                 name = it.name,
                 albumId = response.id,
                 lyrics = null,
-                artistsId = artists.map { artist -> artist.spotifyId },
+                artistsId = it.artists.map { artist -> artist.id },
                 isFavorite = false,
                 imageUrl = response.images?.firstOrNull()?.url.orEmpty(),
                 externalUrl = it.externalUrls.spotify,
