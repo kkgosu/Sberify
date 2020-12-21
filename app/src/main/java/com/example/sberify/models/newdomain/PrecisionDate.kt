@@ -2,7 +2,6 @@ package com.example.sberify.models.newdomain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import java.util.*
 
 /**
  * @author Konstantin Koval
@@ -10,7 +9,7 @@ import java.util.*
  */
 @Parcelize
 data class PrecisionDate(
-    val date: Date,
+    val uiValue: String,
     val precision: Precision
 ) : Parcelable
 

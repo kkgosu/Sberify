@@ -41,11 +41,15 @@ class DbConverter {
         )
     }
 
-    fun convertAlbumEntityToDomain(albumEntity: AlbumEntity, tracksEntities: List<TrackEntity>? = null): AlbumDomainModel {
+    fun convertAlbumEntityToDomain(
+        albumEntity: AlbumEntity,
+        tracksEntities: List<TrackEntity>? = null,
+        artistEntity: List<ArtistEntity>? = null
+    ): AlbumDomainModel {
         return AlbumDomainModel(
             id = albumEntity.spotifyId,
             name = albumEntity.name,
-            tracks = tracksEntities?.map(this::convertTrackEntityToDomain),
+            tracks = tracksEntities?.map { convertTrackEntityToDomain(it, artistEntity) },
             genres = albumEntity.genres,
             releaseDate = getDateFromString(albumEntity.releaseDate, albumEntity.releaseDatePrecision),
             totalTracks = albumEntity.totalTracks,
@@ -54,7 +58,8 @@ class DbConverter {
             copyright = albumEntity.copyrights.map { CopyrightDomainModel(it) },
             markets = albumEntity.markets,
             albumType = albumEntity.type,
-            label = albumEntity.label
+            label = albumEntity.label,
+            isFavorite = albumEntity.isFavorite
         )
     }
 

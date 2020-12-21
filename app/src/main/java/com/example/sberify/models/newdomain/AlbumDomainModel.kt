@@ -21,5 +21,6 @@ data class AlbumDomainModel(
     val copyright: List<CopyrightDomainModel>,
     val markets: List<String>,
     val albumType: String,
-    val label: String
+    val label: String,
+    val isFavorite: Boolean
 ) : BaseModel(id), Parcelable

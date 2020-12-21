@@ -78,7 +78,8 @@ class ResponseConverter {
             copyright = response.copyrights?.map(this::convertCopyrightToDomain) ?: emptyList(),
             markets = response.availableMarkets ?: emptyList(),
             albumType = response.albumType.orEmpty(),
-            label = response.label.orEmpty()
+            label = response.label.orEmpty(),
+            isFavorite = false
         )
     }
 
@@ -89,7 +90,7 @@ class ResponseConverter {
             artistIds = response.artists?.map { it.id } ?: emptyList(),
             name = response.name,
             imageUrl = response.images?.firstOrNull()?.url.orEmpty(),
-            releaseDate = dateFromString.date.toString(),
+            releaseDate = dateFromString.uiValue,
             releaseDatePrecision = dateFromString.precision.name,
             isFavorite = false,
             genres = response.genres?.map(Any::toString) ?: emptyList(),

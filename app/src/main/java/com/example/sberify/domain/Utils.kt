@@ -17,14 +17,17 @@ fun getDateFromString(stringDate: String, precision: String): PrecisionDate {
             val prec = precisionMap[precision] ?: Precision.DAY
             val sdf = SimpleDateFormat(prec.format, Locale.getDefault())
             val date = sdf.parse(stringDate)!!
-            PrecisionDate(date, prec)
+            val uiValue = formatDate(date)
+            PrecisionDate(uiValue, prec)
         } catch (e: ParseException) {
-            PrecisionDate(Date(0), Precision.DAY)
+            PrecisionDate(formatDate(Date(0)), Precision.DAY)
         }
     } else {
-        PrecisionDate(Date(0), Precision.DAY)
+        PrecisionDate(formatDate(Date(0)), Precision.DAY)
     }
 }
+
+private fun formatDate(date: Date): String = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(date.time)
 
 private val precisionMap = mapOf(
     "day" to Precision.DAY,

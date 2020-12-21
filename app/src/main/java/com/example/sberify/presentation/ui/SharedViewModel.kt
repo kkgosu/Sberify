@@ -11,7 +11,6 @@ import com.example.sberify.domain.DatabaseRepository
 import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.domain.TokenData
-import com.example.sberify.models.domain.Album
 import com.example.sberify.models.domain.Suggestion
 import com.example.sberify.models.newdomain.AlbumDomainModel
 import com.example.sberify.models.newdomain.ArtistDomainModel
@@ -140,7 +139,7 @@ class SharedViewModel @ViewModelInject constructor(
         }
     }
 
-    fun updateFavoriteAlbum(album: Album) {
+    fun updateFavoriteAlbum(album: AlbumDomainModel) {
         viewModelScope.launch(Dispatchers.IO) {
             delay(800)
             databaseRepository.setAlbumIsFavorite(album.id, !album.isFavorite)
