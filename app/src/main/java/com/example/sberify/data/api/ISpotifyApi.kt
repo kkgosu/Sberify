@@ -3,6 +3,7 @@ package com.example.sberify.data.api
 import com.example.sberify.models.newdata.AlbumInfoResponse
 import com.example.sberify.models.newdata.AlbumsResponse
 import com.example.sberify.models.newdata.ArtistsResponse
+import com.example.sberify.models.newdata.NewReleasesResponse
 import com.example.sberify.models.newdata.TracksResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -14,7 +15,7 @@ interface ISpotifyApi {
     @GET("browse/new-releases")
     suspend fun getNewReleases(
         @Query("limit") limit: Int = 50
-    ): Response<AlbumsResponse>
+    ): Response<NewReleasesResponse>
 
     @GET("albums/{id}")
     suspend fun getAlbumInfo(

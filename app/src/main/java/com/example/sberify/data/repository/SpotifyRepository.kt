@@ -32,7 +32,7 @@ class SpotifyRepository @Inject constructor(
             },
             networkCall = { getResult { spotifyApi.getNewReleases() } },
             saveCallResult = { response ->
-                val albumAndArtists = response.items.map(responseConverter::convertAlbumToEntity)
+                val albumAndArtists = response.albums.items.map(responseConverter::convertAlbumToEntity)
                 albumAndArtists.forEach {
                     database.getAlbumDao().insertAlbum(it.albumInfo)
                     it.artists.forEach(database.getArtistDao()::insertArtist)

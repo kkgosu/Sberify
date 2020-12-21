@@ -6,6 +6,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.safety.Whitelist
 import org.jsoup.select.Elements
+import timber.log.Timber
 import java.io.IOException
 
 class GeniusParser {
@@ -29,7 +30,7 @@ class GeniusParser {
                 .execute()
             getResult { response }
         } catch (e: IOException) {
-            println("mkRequest ${e.message}")
+            Timber.d("mkRequest ${e.message}")
             return Result.error(e.message.toString(), null)
         }
     }
@@ -70,7 +71,7 @@ class GeniusParser {
     }
 
     private fun <T> error(message: String): Result<T> {
-        println(message)
+        Timber.d(message)
         return Result.error("Network call has failed for a following reason: $message")
     }
 }

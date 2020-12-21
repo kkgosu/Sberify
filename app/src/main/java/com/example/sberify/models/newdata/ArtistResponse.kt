@@ -14,5 +14,5 @@ data class ArtistResponse(
     @SerializedName("uri")
     val uri: String,
     @SerializedName("images")
-    val images: List<ImageResponse>
+    val images: List<ImageResponse>?
 )

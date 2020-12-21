@@ -144,7 +144,7 @@ class ResponseConverter {
     fun convertArtistToEntity(response: ArtistResponse) = ArtistEntity(
         spotifyId = response.id,
         name = response.name,
-        imageUrl = response.images.firstOrNull()?.url.orEmpty(),
+        imageUrl = response.images?.firstOrNull()?.url.orEmpty(),
         externalUrl = response.externalUrls.spotify
     )
 }
