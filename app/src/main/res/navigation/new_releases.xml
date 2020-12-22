@@ -20,7 +20,7 @@
             app:destination="@id/lyricsFragment" />
         <argument
             android:name="item"
-            app:argType="com.example.sberify.models.newdomain.AlbumDomainModel" />
+            app:argType="com.example.sberify.models.newdomain.AlbumArtistsDomainModel" />
     </fragment>
     <fragment
         android:id="@+id/lyricsFragment"

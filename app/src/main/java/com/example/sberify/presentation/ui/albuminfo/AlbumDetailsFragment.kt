@@ -50,10 +50,11 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
             }
         }
         navArgs.item.run {
-            binding.detailContainer.transitionName = id
-            binding.albumName.text = name
-            binding.releaseDate.text = releaseDate.uiValue
-            binding.detailToolbar.title = name
+            binding.detailContainer.transitionName = album.id
+            binding.albumName.text = album.name
+            binding.releaseDate.text = album.releaseDate.uiValue
+            binding.detailToolbar.title = album.name
+            binding.artistName.text = artists.joinToString { it.name }
         }
         adapter = TrackListedAdapter(this)
         binding.recyclerTracks.adapter = adapter

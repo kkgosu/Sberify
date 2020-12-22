@@ -36,10 +36,10 @@ interface AlbumDao {
     fun getAlbumTracks(id: String): LiveData<AlbumWithTracks>
 
     @Query("SELECT * FROM albums ORDER BY release_date DESC LIMIT 50")
-    fun getAllAlbums(): LiveData<List<AlbumEntity>>
+    fun getAllAlbums(): LiveData<List<AlbumWithArtists>>
 
     @Query("SELECT * FROM albums WHERE name LIKE '%' || :query || '%'")
-    fun getAlbumsByQuery(query: String): LiveData<List<AlbumEntity>>
+    fun getAlbumsByQuery(query: String): LiveData<List<AlbumWithArtists>>
 
     @Transaction
     @Query("SELECT * FROM albums WHERE album_id = :albumId")

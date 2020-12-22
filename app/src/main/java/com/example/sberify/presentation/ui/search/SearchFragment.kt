@@ -20,7 +20,7 @@ import com.example.sberify.adapters.*
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentSearchBinding
 import com.example.sberify.models.domain.Suggestion
-import com.example.sberify.models.newdomain.AlbumDomainModel
+import com.example.sberify.models.newdomain.AlbumArtistsDomainModel
 import com.example.sberify.models.newdomain.TrackDomainModel
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.ALBUM_SWITCH_CHECKED_KEY
@@ -112,7 +112,7 @@ class SearchFragment :
         hideKeyboard()
     }
 
-    override fun onAlbumSelected(item: AlbumDomainModel, view: View) {
+    override fun onAlbumSelected(item: AlbumArtistsDomainModel, view: View) {
         sharedViewModel.getAlbumInfo(item)
         val extras = FragmentNavigatorExtras(
             view to view.transitionName

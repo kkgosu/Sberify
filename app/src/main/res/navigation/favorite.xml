@@ -29,7 +29,7 @@
         android:label="AlbumInfoFragment" >
         <argument
             android:name="item"
-            app:argType="com.example.sberify.models.newdomain.AlbumDomainModel" />
+            app:argType="com.example.sberify.models.newdomain.AlbumArtistsDomainModel" />
         <action
             android:id="@+id/navigate_to_lyricsFragment"
             app:destination="@id/lyricsFragment" />
