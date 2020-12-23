@@ -7,7 +7,7 @@ object ListToStringConverter {
     @TypeConverter
     @JvmStatic
     fun fromList(list: List<String>): String =
-        list.joinToString { it }
+        list.joinToString()
 
     @TypeConverter
     @JvmStatic

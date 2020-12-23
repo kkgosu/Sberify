@@ -10,7 +10,6 @@ import com.example.sberify.data.api.SearchTypes
 import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.resultLiveData
 import com.example.sberify.domain.ISpotifyRepository
-import com.example.sberify.models.newdomain.AlbumArtistsDomainModel
 import com.example.sberify.models.newdomain.AlbumDomainModel
 import com.example.sberify.models.newdomain.ArtistDomainModel
 import com.example.sberify.models.newdomain.TrackDomainModel
@@ -24,16 +23,11 @@ class SpotifyRepository @Inject constructor(
     private val responseConverter: ResponseConverter
 ) : ISpotifyRepository {
 
-    override fun getNewReleases(): LiveData<Result<List<AlbumArtistsDomainModel>>> {
+    override fun getNewReleases(): LiveData<Result<List<AlbumDomainModel>>> {
         return resultLiveData(
             databaseQuery = {
-                database.getAlbumDao().getAllAlbums().map {
-                    it.map { albumArtist ->
-                        AlbumArtistsDomainModel(
-                            dbConverter.convertAlbumEntityToDomain(albumArtist.albumEntity),
-                            albumArtist.artistEntities.map(dbConverter::convertArtistEntityToDomain)
-                        )
-                    }
+                database.getAlbumDao().getAlbums().map {
+                    it.map(dbConverter::convertAlbumEntityToDomain)
                 }
             },
             networkCall = { getResult { spotifyApi.getNewReleases() } },
@@ -50,9 +44,8 @@ class SpotifyRepository @Inject constructor(
     override fun getAlbumInfo(id: String): LiveData<Result<AlbumDomainModel>> {
         return resultLiveData(
             databaseQuery = {
-                val artists = database.getAlbumDao().getArtistsByAlbumId(id)
                 database.getAlbumDao().getAlbumTracks(id).map {
-                    dbConverter.convertAlbumEntityToDomain(it.albumEntity, it.tracksEntities, artists.artistEntities)
+                    dbConverter.convertAlbumEntityToDomain(it.albumEntity, it.tracksEntities)
                 }
             },
             networkCall = { getResult { spotifyApi.getAlbumInfo(id) } },
@@ -87,17 +80,12 @@ class SpotifyRepository @Inject constructor(
             })
     }
 
-    override fun searchAlbum(keyword: String): LiveData<Result<List<AlbumArtistsDomainModel>>> {
+    override fun searchAlbum(keyword: String): LiveData<Result<List<AlbumDomainModel>>> {
         return resultLiveData(
             databaseQuery = {
                 database.getAlbumDao().getAlbumsByQuery(keyword).map {
-                    it.map { albumArtist ->
-                        AlbumArtistsDomainModel(
-                            dbConverter.convertAlbumEntityToDomain(albumArtist.albumEntity),
-                            albumArtist.artistEntities.map(dbConverter::convertArtistEntityToDomain)
-                        )
+                    it.map(dbConverter::convertAlbumEntityToDomain)
                     }
-                }
             },
             networkCall = { getResult { spotifyApi.searchAlbum(keyword, SearchTypes.ALBUM) } },
             saveCallResult = { response ->

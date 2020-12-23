@@ -12,6 +12,7 @@ import kotlinx.parcelize.Parcelize
 data class AlbumDomainModel(
     val id: String,
     val name: String,
+    val artistNames: String,
     val tracks: List<TrackDomainModel>?,
     val genres: List<String>,
     val releaseDate: PrecisionDate,

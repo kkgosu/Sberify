@@ -23,7 +23,7 @@ import com.example.sberify.data.db.track.TrackEntity
         AlbumArtistCrossRef::class,
         TrackArtistCrossRef::class
     ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 @TypeConverters(ListToStringConverter::class)

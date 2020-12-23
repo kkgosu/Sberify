@@ -10,6 +10,7 @@ import com.example.sberify.models.newdomain.CopyrightDomainModel
 import com.example.sberify.models.newdomain.ExternalUrlDomainModel
 import com.example.sberify.models.newdomain.ImageDomainModel
 import com.example.sberify.models.newdomain.TrackDomainModel
+import timber.log.Timber
 
 /**
  * @author Konstantin Koval
@@ -18,6 +19,7 @@ import com.example.sberify.models.newdomain.TrackDomainModel
 class DbConverter {
 
     fun convertArtistEntityToDomain(artistEntity: ArtistEntity): ArtistDomainModel {
+        Timber.d("convertArtistEntityToDomain() ${artistEntity.name}")
         return ArtistDomainModel(
             id = artistEntity.spotifyId,
             name = artistEntity.name,
@@ -49,6 +51,7 @@ class DbConverter {
         return AlbumDomainModel(
             id = albumEntity.spotifyId,
             name = albumEntity.name,
+            artistNames = albumEntity.artistNames.joinToString(),
             tracks = tracksEntities?.map { convertTrackEntityToDomain(it, artistEntity) },
             genres = albumEntity.genres,
             releaseDate = getDateFromString(albumEntity.releaseDate, albumEntity.releaseDatePrecision),

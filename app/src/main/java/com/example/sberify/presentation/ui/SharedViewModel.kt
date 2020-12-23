@@ -12,7 +12,6 @@ import com.example.sberify.domain.IGeniusRepository
 import com.example.sberify.domain.ISpotifyRepository
 import com.example.sberify.domain.TokenData
 import com.example.sberify.models.domain.Suggestion
-import com.example.sberify.models.newdomain.AlbumArtistsDomainModel
 import com.example.sberify.models.newdomain.AlbumDomainModel
 import com.example.sberify.models.newdomain.ArtistDomainModel
 import com.example.sberify.models.newdomain.TrackDomainModel
@@ -53,7 +52,7 @@ class SharedViewModel @ViewModelInject constructor(
         }
     }
 
-    private val albumInfoTrigger = MutableLiveData<AlbumArtistsDomainModel>()
+    private val albumInfoTrigger = MutableLiveData<AlbumDomainModel>()
     private val reloadTrigger = MutableLiveData<Boolean>()
     private val searchArtistTrigger = MutableLiveData<String>()
     private val searchAlbumTrigger = MutableLiveData<String>()
@@ -67,18 +66,18 @@ class SharedViewModel @ViewModelInject constructor(
         playTrigger.value = track
     }
 
-    fun getAlbumInfo(album: AlbumArtistsDomainModel) {
+    fun getAlbumInfo(album: AlbumDomainModel) {
         albumInfoTrigger.value = album
     }
 
-    val newReleases: LiveData<Result<List<AlbumArtistsDomainModel>>> = Transformations.switchMap(reloadTrigger) {
+    val newReleases: LiveData<Result<List<AlbumDomainModel>>> = Transformations.switchMap(reloadTrigger) {
         spotifyRepository.getNewReleases()
     }
 
     val artistsSearchResult: LiveData<Result<List<ArtistDomainModel>>> = Transformations.switchMap(searchArtistTrigger) {
         spotifyRepository.searchArtist(it)
     }
-    val albumsSearchResult: LiveData<Result<List<AlbumArtistsDomainModel>>> = Transformations.switchMap(searchAlbumTrigger) {
+    val albumsSearchResult: LiveData<Result<List<AlbumDomainModel>>> = Transformations.switchMap(searchAlbumTrigger) {
         spotifyRepository.searchAlbum(it)
     }
     val tracksSearchResult: LiveData<Result<List<TrackDomainModel>>> = Transformations.switchMap(searchTrackTrigger) {
@@ -86,7 +85,7 @@ class SharedViewModel @ViewModelInject constructor(
     }
 
     val album: LiveData<Result<AlbumDomainModel>> = Transformations.switchMap(albumInfoTrigger) {
-        spotifyRepository.getAlbumInfo(it.album.id)
+        spotifyRepository.getAlbumInfo(it.id)
     }
 
     val lyrics: LiveData<Result<TrackDomainModel>> = Transformations.switchMap(lyricsTrigger) {

@@ -69,6 +69,7 @@ class ResponseConverter {
         return AlbumDomainModel(
             id = response.id,
             name = response.name,
+            artistNames = response.artists?.joinToString { it.name }.orEmpty(),
             tracks = response.tracks?.items?.map(this::convertTrackToDomain) ?: emptyList(),
             genres = response.genres?.map(Any::toString) ?: emptyList(),
             releaseDate = getDateFromString(response.releaseDate.orEmpty(), response.releaseDatePrecision.orEmpty()),
@@ -87,7 +88,7 @@ class ResponseConverter {
         val dateFromString = getDateFromString(response.releaseDate.orEmpty(), response.releaseDatePrecision.orEmpty())
         val album = AlbumEntity(
             spotifyId = response.id,
-            artistIds = response.artists?.map { it.id } ?: emptyList(),
+            artistNames = response.artists?.map { it.name } ?: emptyList(),
             name = response.name,
             imageUrl = response.images?.firstOrNull()?.url.orEmpty(),
             releaseDate = dateFromString.uiValue,
