@@ -46,7 +46,7 @@ class ResponseConverter {
         return TrackDomainModel(
             id = response.id,
             name = response.name,
-            artists = response.artists.map(this::convertArtistToDomain),
+            artistNames = response.artists.joinToString { it.name },
             externalUri = convertExternalUrlToDomain(response.externalUrls),
             explicit = response.explicit ?: false,
             isLocal = response.isLocal ?: false,
@@ -107,6 +107,7 @@ class ResponseConverter {
             TrackEntity(
                 spotifyId = it.id,
                 name = it.name,
+                artistNames = it.artists.joinToString { ar -> ar.name },
                 albumId = response.id,
                 lyrics = null,
                 artistsId = it.artists.map { artist -> artist.id },
@@ -130,6 +131,7 @@ class ResponseConverter {
         return TrackEntity(
             spotifyId = response.id,
             name = response.name,
+            artistNames = response.artists.joinToString { it.name },
             albumId = null,
             lyrics = null,
             artistsId = response.artists.map { artist -> artist.id },
@@ -139,7 +141,6 @@ class ResponseConverter {
             isExplicit = response.explicit ?: false,
             isLocal = response.isLocal ?: false,
             markets = response.availableMarkets ?: emptyList()
-
         )
     }
 

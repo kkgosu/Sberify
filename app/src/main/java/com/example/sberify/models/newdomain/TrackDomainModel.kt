@@ -12,7 +12,7 @@ import kotlinx.parcelize.Parcelize
 data class TrackDomainModel(
     val id: String,
     val name: String,
-    val artists: List<ArtistDomainModel>,
+    val artistNames: String,
     var lyrics: String? = null,
     val externalUri: ExternalUrlDomainModel,
     val explicit: Boolean,

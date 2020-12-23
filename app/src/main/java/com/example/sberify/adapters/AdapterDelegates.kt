@@ -28,7 +28,7 @@ fun trackListedAdapterDelegate(itemClickListener: (TrackDomainModel, View) -> Un
             binding.apply {
                 ViewCompat.setTransitionName(binding.itemContainer, item.id)
                 trackName.text = item.name
-                artistName.text = item.artists.joinToString { it.name }
+                artistName.text = item.artistNames
                 position.text = (adapterPosition + 1).toString()
             }
         }
@@ -45,7 +45,7 @@ fun trackCardViewAdapterDelegate(itemClickListener: (TrackDomainModel, View) -> 
             binding.apply {
                 ViewCompat.setTransitionName(binding.itemContainer, item.id)
                 name.text = item.name
-                artistName.text = item.artists[0].name
+                artistName.text = item.artistNames
                 cover.bindPalette(null, itemTrackPalette)
             }
         }

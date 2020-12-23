@@ -19,7 +19,7 @@ class GeniusRepository @Inject constructor(
 
     override suspend fun getLyrics(track: TrackDomainModel): LiveData<Result<TrackDomainModel>> {
         val filterTrackName = filterTrackName(track.name)
-        val query = filterQuery("${track.artists.firstOrNull()?.name.orEmpty()} $filterTrackName")
+        val query = filterQuery("${track.artistNames} $filterTrackName")
         val responseResult = getResult { geniusApi.getPath(query) }
         val url = responseResult.data?.response?.hits?.find {
             it.type == "song" && !it.result.url.contains("annotated", ignoreCase = true) && !it.result.url.contains("spotify", ignoreCase = true)
