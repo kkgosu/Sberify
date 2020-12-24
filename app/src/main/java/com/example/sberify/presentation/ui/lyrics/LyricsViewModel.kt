@@ -4,7 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sberify.domain.DatabaseRepository
-import com.example.sberify.models.newdomain.TrackDomainModel
+import com.example.sberify.models.domain.TrackDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

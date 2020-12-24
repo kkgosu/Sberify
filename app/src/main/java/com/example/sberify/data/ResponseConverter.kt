@@ -4,19 +4,19 @@ import com.example.sberify.data.db.album.AlbumEntity
 import com.example.sberify.data.db.artists.ArtistEntity
 import com.example.sberify.data.db.track.TrackEntity
 import com.example.sberify.domain.getDateFromString
-import com.example.sberify.models.newdata.AlbumInfoResponse
-import com.example.sberify.models.newdata.AlbumTrackArtistResponse
-import com.example.sberify.models.newdata.ArtistResponse
-import com.example.sberify.models.newdata.CopyrightResponse
-import com.example.sberify.models.newdata.ExternalUrlResponse
-import com.example.sberify.models.newdata.ImageResponse
-import com.example.sberify.models.newdata.TrackItemResponse
-import com.example.sberify.models.newdomain.AlbumDomainModel
-import com.example.sberify.models.newdomain.ArtistDomainModel
-import com.example.sberify.models.newdomain.CopyrightDomainModel
-import com.example.sberify.models.newdomain.ExternalUrlDomainModel
-import com.example.sberify.models.newdomain.ImageDomainModel
-import com.example.sberify.models.newdomain.TrackDomainModel
+import com.example.sberify.models.data.spotify.AlbumInfoResponse
+import com.example.sberify.models.data.spotify.AlbumTrackArtistResponse
+import com.example.sberify.models.data.spotify.ArtistResponse
+import com.example.sberify.models.data.spotify.CopyrightResponse
+import com.example.sberify.models.data.spotify.ExternalUrlResponse
+import com.example.sberify.models.data.spotify.ImageResponse
+import com.example.sberify.models.data.spotify.TrackItemResponse
+import com.example.sberify.models.domain.AlbumDomainModel
+import com.example.sberify.models.domain.ArtistDomainModel
+import com.example.sberify.models.domain.CopyrightDomainModel
+import com.example.sberify.models.domain.ExternalUrlDomainModel
+import com.example.sberify.models.domain.ImageDomainModel
+import com.example.sberify.models.domain.TrackDomainModel
 
 /**
  * @author Konstantin Koval

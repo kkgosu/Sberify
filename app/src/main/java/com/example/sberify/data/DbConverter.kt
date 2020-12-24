@@ -4,13 +4,12 @@ import com.example.sberify.data.db.album.AlbumEntity
 import com.example.sberify.data.db.artists.ArtistEntity
 import com.example.sberify.data.db.track.TrackEntity
 import com.example.sberify.domain.getDateFromString
-import com.example.sberify.models.newdomain.AlbumDomainModel
-import com.example.sberify.models.newdomain.ArtistDomainModel
-import com.example.sberify.models.newdomain.CopyrightDomainModel
-import com.example.sberify.models.newdomain.ExternalUrlDomainModel
-import com.example.sberify.models.newdomain.ImageDomainModel
-import com.example.sberify.models.newdomain.TrackDomainModel
-import timber.log.Timber
+import com.example.sberify.models.domain.AlbumDomainModel
+import com.example.sberify.models.domain.ArtistDomainModel
+import com.example.sberify.models.domain.CopyrightDomainModel
+import com.example.sberify.models.domain.ExternalUrlDomainModel
+import com.example.sberify.models.domain.ImageDomainModel
+import com.example.sberify.models.domain.TrackDomainModel
 
 /**
  * @author Konstantin Koval
@@ -19,7 +18,6 @@ import timber.log.Timber
 class DbConverter {
 
     fun convertArtistEntityToDomain(artistEntity: ArtistEntity): ArtistDomainModel {
-        Timber.d("convertArtistEntityToDomain() ${artistEntity.name}")
         return ArtistDomainModel(
             id = artistEntity.spotifyId,
             name = artistEntity.name,

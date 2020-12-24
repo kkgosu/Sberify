@@ -8,13 +8,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sberify.data.Result
 import com.example.sberify.domain.DatabaseRepository
-import com.example.sberify.domain.IGeniusRepository
-import com.example.sberify.domain.ISpotifyRepository
+import com.example.sberify.domain.GeniusRepository
+import com.example.sberify.domain.SpotifyRepository
 import com.example.sberify.domain.TokenData
+import com.example.sberify.models.domain.AlbumDomainModel
+import com.example.sberify.models.domain.ArtistDomainModel
 import com.example.sberify.models.domain.Suggestion
-import com.example.sberify.models.newdomain.AlbumDomainModel
-import com.example.sberify.models.newdomain.ArtistDomainModel
-import com.example.sberify.models.newdomain.TrackDomainModel
+import com.example.sberify.models.domain.TrackDomainModel
 import com.example.sberify.presentation.ui.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -23,8 +23,8 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
 class SharedViewModel @ViewModelInject constructor(
-    private val spotifyRepository: ISpotifyRepository,
-    private val geniusRepository: IGeniusRepository,
+    private val spotifyRepository: SpotifyRepository,
+    private val geniusRepository: GeniusRepository,
     private val databaseRepository: DatabaseRepository,
     tokenData: TokenData
 ) : ViewModel() {

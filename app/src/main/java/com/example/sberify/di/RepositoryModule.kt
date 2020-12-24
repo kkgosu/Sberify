@@ -1,18 +1,17 @@
 package com.example.sberify.di
 
-import com.example.sberify.data.DataConverter
 import com.example.sberify.data.DbConverter
 import com.example.sberify.data.GeniusParser
 import com.example.sberify.data.ResponseConverter
-import com.example.sberify.data.api.IGeniusApi
-import com.example.sberify.data.api.ISpotifyApi
+import com.example.sberify.data.api.GeniusApi
+import com.example.sberify.data.api.SpotifyApi
 import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.repository.DatabaseRepositoryImpl
-import com.example.sberify.data.repository.GeniusRepository
-import com.example.sberify.data.repository.SpotifyRepository
+import com.example.sberify.data.repository.GeniusRepositoryImpl
+import com.example.sberify.data.repository.SpotifyRepositoryImpl
 import com.example.sberify.domain.DatabaseRepository
-import com.example.sberify.domain.IGeniusRepository
-import com.example.sberify.domain.ISpotifyRepository
+import com.example.sberify.domain.GeniusRepository
+import com.example.sberify.domain.SpotifyRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,12 +21,6 @@ import javax.inject.Singleton
 @Module(includes = [ApiModule::class])
 @InstallIn(ApplicationComponent::class)
 class RepositoryModule {
-
-    @Provides
-    @Singleton
-    fun provideDataConverter(): DataConverter {
-        return DataConverter()
-    }
 
     @Provides
     @Singleton
@@ -50,11 +43,11 @@ class RepositoryModule {
     @Singleton
     fun provideSpotifyRepository(
         database: AppDatabase,
-        spotifyApi: ISpotifyApi,
+        spotifyApi: SpotifyApi,
         dbConverter: DbConverter,
         responseConverter: ResponseConverter
-    ): ISpotifyRepository {
-        return SpotifyRepository(database, spotifyApi, dbConverter, responseConverter)
+    ): SpotifyRepository {
+        return SpotifyRepositoryImpl(database, spotifyApi, dbConverter, responseConverter)
     }
 
 
@@ -63,9 +56,9 @@ class RepositoryModule {
     fun provideGeniusRepository(
         geniusParser: GeniusParser,
         appDatabase: AppDatabase,
-        geniusApi: IGeniusApi
-    ): IGeniusRepository {
-        return GeniusRepository(geniusParser, appDatabase, geniusApi)
+        geniusApi: GeniusApi
+    ): GeniusRepository {
+        return GeniusRepositoryImpl(geniusParser, appDatabase, geniusApi)
     }
 
     @Provides

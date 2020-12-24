@@ -8,11 +8,11 @@ import com.example.sberify.databinding.ItemSearchBinding
 import com.example.sberify.databinding.ItemSuggestionBinding
 import com.example.sberify.databinding.ItemTrackBinding
 import com.example.sberify.databinding.ItemTrackListedBinding
-import com.example.sberify.models.domain.Artist
+import com.example.sberify.models.domain.AlbumDomainModel
+import com.example.sberify.models.domain.ArtistDomainModel
 import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.models.domain.Suggestion
-import com.example.sberify.models.newdomain.AlbumDomainModel
-import com.example.sberify.models.newdomain.TrackDomainModel
+import com.example.sberify.models.domain.TrackDomainModel
 import com.example.sberify.presentation.ui.utils.bindPalette
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
@@ -98,13 +98,13 @@ fun suggestionAdapterDelegate(itemClickListener: (Int, Suggestion) -> Unit) =
     }
 
 fun artistAdapterDelegate() =
-    adapterDelegateViewBinding<Artist, BaseModel, ItemSearchBinding>({ layoutInflater, parent ->
+    adapterDelegateViewBinding<ArtistDomainModel, BaseModel, ItemSearchBinding>({ layoutInflater, parent ->
         ItemSearchBinding.inflate(layoutInflater, parent, false)
     }) {
         bind {
             binding.apply {
                 ViewCompat.setTransitionName(binding.itemContainer, item.id)
-                searchImage.bindPalette(item.image?.url, itemSearchPalette)
+                searchImage.bindPalette(item.imageUrl, itemSearchPalette)
                 searchName.text = item.name
             }
         }

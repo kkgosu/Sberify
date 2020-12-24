@@ -1,7 +1,7 @@
 package com.example.sberify.domain
 
-import com.example.sberify.models.newdomain.Precision
-import com.example.sberify.models.newdomain.PrecisionDate
+import com.example.sberify.models.domain.Precision
+import com.example.sberify.models.domain.PrecisionDate
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
