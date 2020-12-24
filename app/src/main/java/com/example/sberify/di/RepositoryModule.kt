@@ -56,9 +56,11 @@ class RepositoryModule {
     fun provideGeniusRepository(
         geniusParser: GeniusParser,
         appDatabase: AppDatabase,
-        geniusApi: GeniusApi
+        geniusApi: GeniusApi,
+        dbConverter: DbConverter,
+        responseConverter: ResponseConverter
     ): GeniusRepository {
-        return GeniusRepositoryImpl(geniusParser, appDatabase, geniusApi)
+        return GeniusRepositoryImpl(geniusParser, appDatabase, dbConverter, geniusApi, responseConverter)
     }
 
     @Provides
