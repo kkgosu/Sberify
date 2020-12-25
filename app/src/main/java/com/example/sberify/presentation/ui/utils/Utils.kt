@@ -3,16 +3,6 @@ package com.example.sberify.presentation.ui.utils
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import com.example.sberify.data.Result
-import com.example.sberify.models.domain.Artist
-
-fun convertArtistsToString(artists: List<Artist>): String {
-    val builder = StringBuilder()
-    artists.forEach {
-        builder.append(it.name)
-            .append(", ")
-    }
-    return builder.dropLast(2).toString()
-}
 
 inline fun <T> LiveData<Result<T>>.applyResultObserver(
     owner: LifecycleOwner,

@@ -19,9 +19,9 @@ import com.example.sberify.R
 import com.example.sberify.adapters.*
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentSearchBinding
+import com.example.sberify.models.domain.AlbumDomainModel
 import com.example.sberify.models.domain.Suggestion
-import com.example.sberify.models.newdomain.AlbumDomainModel
-import com.example.sberify.models.newdomain.TrackDomainModel
+import com.example.sberify.models.domain.TrackDomainModel
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.ALBUM_SWITCH_CHECKED_KEY
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.ARTIST_SWITCH_CHECKED_KEY

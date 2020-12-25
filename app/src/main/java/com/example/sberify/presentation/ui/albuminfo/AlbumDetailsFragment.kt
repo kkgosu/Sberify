@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -13,12 +14,14 @@ import com.example.sberify.adapters.TrackInteraction
 import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentAlbumDetailsBinding
-import com.example.sberify.models.newdomain.TrackDomainModel
+import com.example.sberify.models.domain.TrackDomainModel
 import com.example.sberify.presentation.ui.SharedViewModel
+import com.example.sberify.presentation.ui.utils.applyResultObserver
 import com.example.sberify.presentation.ui.utils.bindAppBarLayoutWithFab
+import com.example.sberify.presentation.ui.utils.loadImage
+import com.example.sberify.presentation.ui.utils.setFavoriteIcon
+import com.example.sberify.presentation.ui.utils.startAnim
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
-import java.util.*
 
 @AndroidEntryPoint
 class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding>(), TrackInteraction {
@@ -48,10 +51,10 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
         }
         navArgs.item.run {
             binding.detailContainer.transitionName = id
-            binding.artistName.text = ""
             binding.albumName.text = name
-            binding.releaseDate.text = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(releaseDate.date)
+            binding.releaseDate.text = releaseDate.uiValue
             binding.detailToolbar.title = name
+            binding.artistName.text = artistNames
         }
         adapter = TrackListedAdapter(this)
         binding.recyclerTracks.adapter = adapter
@@ -69,16 +72,16 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
     }
 
     private fun subscribeToObservers() {
-/*        sharedViewModel.album.applyResultObserver(
+        sharedViewModel.album.applyResultObserver(
             viewLifecycleOwner,
             success = { album ->
-                binding.albumCover.loadImage(album.imageUrl)
+                binding.releaseDate.text = album.releaseDate.uiValue
+                binding.albumCover.loadImage(album.images.firstOrNull()?.url)
                 album.tracks?.let { tracks ->
                     adapter.items = tracks
                     binding.fabFavorite.apply {
                         setFavoriteIcon(!album.isFavorite)
                         setOnClickListener {
-                            album.isFavorite = !album.isFavorite
                             sharedViewModel.updateFavoriteAlbum(album)
                             setFavoriteIcon(album.isFavorite)
                             startAnim()
@@ -88,6 +91,6 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
             },
             loading = { },
             error = { Toast.makeText(requireContext(), it ?: "Error occurred while getting album's data :C", Toast.LENGTH_SHORT).show() }
-        )*/
+        )
     }
 }

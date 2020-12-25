@@ -18,6 +18,9 @@ data class TrackEntity(
     @ColumnInfo(name = "album_id")
     val albumId: String?,
 
+    @ColumnInfo(name = "artist_names")
+    val artistNames: String,
+
     @ColumnInfo(name = "lyrics")
     val lyrics: String?,
 

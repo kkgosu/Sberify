@@ -12,8 +12,8 @@ data class AlbumEntity(
     @ColumnInfo(name = "album_id", index = true)
     val spotifyId: String,
 
-    @ColumnInfo(name = "artist_ids", index = true)
-    val artistIds: List<String>,
+    @ColumnInfo(name = "artist_names", index = true)
+    val artistNames: List<String>,
 
     @ColumnInfo(name = "name")
     val name: String,

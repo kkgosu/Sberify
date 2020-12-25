@@ -4,19 +4,19 @@ import com.example.sberify.data.db.album.AlbumEntity
 import com.example.sberify.data.db.artists.ArtistEntity
 import com.example.sberify.data.db.track.TrackEntity
 import com.example.sberify.domain.getDateFromString
-import com.example.sberify.models.newdata.AlbumInfoResponse
-import com.example.sberify.models.newdata.AlbumTrackArtistResponse
-import com.example.sberify.models.newdata.ArtistResponse
-import com.example.sberify.models.newdata.CopyrightResponse
-import com.example.sberify.models.newdata.ExternalUrlResponse
-import com.example.sberify.models.newdata.ImageResponse
-import com.example.sberify.models.newdata.TrackItemResponse
-import com.example.sberify.models.newdomain.AlbumDomainModel
-import com.example.sberify.models.newdomain.ArtistDomainModel
-import com.example.sberify.models.newdomain.CopyrightDomainModel
-import com.example.sberify.models.newdomain.ExternalUrlDomainModel
-import com.example.sberify.models.newdomain.ImageDomainModel
-import com.example.sberify.models.newdomain.TrackDomainModel
+import com.example.sberify.models.data.spotify.AlbumInfoResponse
+import com.example.sberify.models.data.spotify.AlbumTrackArtistResponse
+import com.example.sberify.models.data.spotify.ArtistResponse
+import com.example.sberify.models.data.spotify.CopyrightResponse
+import com.example.sberify.models.data.spotify.ExternalUrlResponse
+import com.example.sberify.models.data.spotify.ImageResponse
+import com.example.sberify.models.data.spotify.TrackItemResponse
+import com.example.sberify.models.domain.AlbumDomainModel
+import com.example.sberify.models.domain.ArtistDomainModel
+import com.example.sberify.models.domain.CopyrightDomainModel
+import com.example.sberify.models.domain.ExternalUrlDomainModel
+import com.example.sberify.models.domain.ImageDomainModel
+import com.example.sberify.models.domain.TrackDomainModel
 
 /**
  * @author Konstantin Koval
@@ -46,7 +46,7 @@ class ResponseConverter {
         return TrackDomainModel(
             id = response.id,
             name = response.name,
-            artists = response.artists.map(this::convertArtistToDomain),
+            artistNames = response.artists.joinToString { it.name },
             externalUri = convertExternalUrlToDomain(response.externalUrls),
             explicit = response.explicit ?: false,
             isLocal = response.isLocal ?: false,
@@ -69,6 +69,7 @@ class ResponseConverter {
         return AlbumDomainModel(
             id = response.id,
             name = response.name,
+            artistNames = response.artists?.joinToString { it.name }.orEmpty(),
             tracks = response.tracks?.items?.map(this::convertTrackToDomain) ?: emptyList(),
             genres = response.genres?.map(Any::toString) ?: emptyList(),
             releaseDate = getDateFromString(response.releaseDate.orEmpty(), response.releaseDatePrecision.orEmpty()),
@@ -78,7 +79,8 @@ class ResponseConverter {
             copyright = response.copyrights?.map(this::convertCopyrightToDomain) ?: emptyList(),
             markets = response.availableMarkets ?: emptyList(),
             albumType = response.albumType.orEmpty(),
-            label = response.label.orEmpty()
+            label = response.label.orEmpty(),
+            isFavorite = false
         )
     }
 
@@ -86,10 +88,10 @@ class ResponseConverter {
         val dateFromString = getDateFromString(response.releaseDate.orEmpty(), response.releaseDatePrecision.orEmpty())
         val album = AlbumEntity(
             spotifyId = response.id,
-            artistIds = response.artists?.map { it.id } ?: emptyList(),
+            artistNames = response.artists?.map { it.name } ?: emptyList(),
             name = response.name,
             imageUrl = response.images?.firstOrNull()?.url.orEmpty(),
-            releaseDate = dateFromString.date.toString(),
+            releaseDate = dateFromString.uiValue,
             releaseDatePrecision = dateFromString.precision.name,
             isFavorite = false,
             genres = response.genres?.map(Any::toString) ?: emptyList(),
@@ -105,9 +107,10 @@ class ResponseConverter {
             TrackEntity(
                 spotifyId = it.id,
                 name = it.name,
+                artistNames = it.artists.joinToString { ar -> ar.name },
                 albumId = response.id,
                 lyrics = null,
-                artistsId = artists.map { artist -> artist.spotifyId },
+                artistsId = it.artists.map { artist -> artist.id },
                 isFavorite = false,
                 imageUrl = response.images?.firstOrNull()?.url.orEmpty(),
                 externalUrl = it.externalUrls.spotify,
@@ -128,6 +131,7 @@ class ResponseConverter {
         return TrackEntity(
             spotifyId = response.id,
             name = response.name,
+            artistNames = response.artists.joinToString { it.name },
             albumId = null,
             lyrics = null,
             artistsId = response.artists.map { artist -> artist.id },
@@ -137,14 +141,13 @@ class ResponseConverter {
             isExplicit = response.explicit ?: false,
             isLocal = response.isLocal ?: false,
             markets = response.availableMarkets ?: emptyList()
-
         )
     }
 
     fun convertArtistToEntity(response: ArtistResponse) = ArtistEntity(
         spotifyId = response.id,
         name = response.name,
-        imageUrl = response.images.firstOrNull()?.url.orEmpty(),
+        imageUrl = response.images?.firstOrNull()?.url.orEmpty(),
         externalUrl = response.externalUrls.spotify
     )
 }

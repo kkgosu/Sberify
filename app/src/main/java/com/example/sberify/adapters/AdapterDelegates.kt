@@ -8,11 +8,11 @@ import com.example.sberify.databinding.ItemSearchBinding
 import com.example.sberify.databinding.ItemSuggestionBinding
 import com.example.sberify.databinding.ItemTrackBinding
 import com.example.sberify.databinding.ItemTrackListedBinding
-import com.example.sberify.models.domain.Artist
+import com.example.sberify.models.domain.AlbumDomainModel
+import com.example.sberify.models.domain.ArtistDomainModel
 import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.models.domain.Suggestion
-import com.example.sberify.models.newdomain.AlbumDomainModel
-import com.example.sberify.models.newdomain.TrackDomainModel
+import com.example.sberify.models.domain.TrackDomainModel
 import com.example.sberify.presentation.ui.utils.bindPalette
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
@@ -28,7 +28,7 @@ fun trackListedAdapterDelegate(itemClickListener: (TrackDomainModel, View) -> Un
             binding.apply {
                 ViewCompat.setTransitionName(binding.itemContainer, item.id)
                 trackName.text = item.name
-                artistName.text = item.artists.joinToString { it.name }
+                artistName.text = item.artistNames
                 position.text = (adapterPosition + 1).toString()
             }
         }
@@ -45,7 +45,7 @@ fun trackCardViewAdapterDelegate(itemClickListener: (TrackDomainModel, View) -> 
             binding.apply {
                 ViewCompat.setTransitionName(binding.itemContainer, item.id)
                 name.text = item.name
-                artistName.text = item.artists[0].name
+                artistName.text = item.artistNames
                 cover.bindPalette(null, itemTrackPalette)
             }
         }
@@ -62,7 +62,7 @@ fun albumAdapterDelegate(itemClickListener: (AlbumDomainModel, View) -> Unit) =
             binding.apply {
                 ViewCompat.setTransitionName(binding.cardView, item.id)
                 releaseName.text = item.name
-                artistName.text = item.name
+                artistName.text = item.artistNames
                 releaseCover.bindPalette(item.images[0].url, itemAlbumPalette)
             }
         }
@@ -80,7 +80,7 @@ fun albumHorizontalAdapterDelegate(itemClickListener: (AlbumDomainModel, View) -
                 ViewCompat.setTransitionName(binding.cardView, item.id)
                 releaseCover.bindPalette(item.images[0].url, itemAlbumPalette)
                 releaseName.text = item.name
-                artistName.text = "item."
+                artistName.text = item.artistNames
             }
         }
     }
@@ -98,13 +98,13 @@ fun suggestionAdapterDelegate(itemClickListener: (Int, Suggestion) -> Unit) =
     }
 
 fun artistAdapterDelegate() =
-    adapterDelegateViewBinding<Artist, BaseModel, ItemSearchBinding>({ layoutInflater, parent ->
+    adapterDelegateViewBinding<ArtistDomainModel, BaseModel, ItemSearchBinding>({ layoutInflater, parent ->
         ItemSearchBinding.inflate(layoutInflater, parent, false)
     }) {
         bind {
             binding.apply {
                 ViewCompat.setTransitionName(binding.itemContainer, item.id)
-                searchImage.bindPalette(item.image?.url, itemSearchPalette)
+                searchImage.bindPalette(item.imageUrl, itemSearchPalette)
                 searchName.text = item.name
             }
         }

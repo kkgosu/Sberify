@@ -1,9 +1,9 @@
 package com.example.sberify.domain
 
 import androidx.lifecycle.LiveData
+import com.example.sberify.models.domain.AlbumDomainModel
 import com.example.sberify.models.domain.Suggestion
-import com.example.sberify.models.newdomain.AlbumDomainModel
-import com.example.sberify.models.newdomain.TrackDomainModel
+import com.example.sberify.models.domain.TrackDomainModel
 
 interface DatabaseRepository {
     suspend fun getAllSuggestions(): List<Suggestion>

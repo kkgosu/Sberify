@@ -43,5 +43,5 @@ interface AlbumDao {
 
     @Transaction
     @Query("SELECT * FROM albums WHERE album_id = :albumId")
-    fun getArtistsByAlbumId(albumId: String): AlbumWithArtists
+    fun getArtistsByAlbumId(albumId: String): AlbumEntity
 }

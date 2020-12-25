@@ -3,9 +3,8 @@ package com.example.sberify.data.repository
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.sberify.MockTestUtils.Companion.mockAlbumsData
-import com.example.sberify.data.DataConverter
 import com.example.sberify.data.Result
-import com.example.sberify.data.api.ISpotifyApi
+import com.example.sberify.data.api.SpotifyApi
 import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.db.album.AlbumDao
 import com.example.sberify.models.domain.Album
@@ -24,9 +23,9 @@ class SpotifyRepositoryTest {
 
     private val dataConverter: DataConverter = mock()
     private val database: AppDatabase = mock()
-    private val spotifyApi: ISpotifyApi = mock()
+    private val spotifyApi: SpotifyApi = mock()
 
-    private val repo: SpotifyRepository = SpotifyRepository(dataConverter, database, spotifyApi)
+    private val repo: SpotifyRepositoryImpl = SpotifyRepositoryImpl(dataConverter, database, spotifyApi)
 
     @Rule
     @JvmField

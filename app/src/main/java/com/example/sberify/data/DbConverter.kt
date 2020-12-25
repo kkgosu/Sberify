@@ -4,12 +4,12 @@ import com.example.sberify.data.db.album.AlbumEntity
 import com.example.sberify.data.db.artists.ArtistEntity
 import com.example.sberify.data.db.track.TrackEntity
 import com.example.sberify.domain.getDateFromString
-import com.example.sberify.models.newdomain.AlbumDomainModel
-import com.example.sberify.models.newdomain.ArtistDomainModel
-import com.example.sberify.models.newdomain.CopyrightDomainModel
-import com.example.sberify.models.newdomain.ExternalUrlDomainModel
-import com.example.sberify.models.newdomain.ImageDomainModel
-import com.example.sberify.models.newdomain.TrackDomainModel
+import com.example.sberify.models.domain.AlbumDomainModel
+import com.example.sberify.models.domain.ArtistDomainModel
+import com.example.sberify.models.domain.CopyrightDomainModel
+import com.example.sberify.models.domain.ExternalUrlDomainModel
+import com.example.sberify.models.domain.ImageDomainModel
+import com.example.sberify.models.domain.TrackDomainModel
 
 /**
  * @author Konstantin Koval
@@ -26,11 +26,11 @@ class DbConverter {
         )
     }
 
-    fun convertTrackEntityToDomain(trackEntity: TrackEntity, artistEntities: List<ArtistEntity>? = null): TrackDomainModel {
+    fun convertTrackEntityToDomain(trackEntity: TrackEntity): TrackDomainModel {
         return TrackDomainModel(
             id = trackEntity.spotifyId,
             name = trackEntity.name,
-            artists = artistEntities?.map(this::convertArtistEntityToDomain) ?: emptyList(),
+            artistNames = trackEntity.artistNames,
             externalUri = ExternalUrlDomainModel(trackEntity.externalUrl),
             explicit = trackEntity.isExplicit,
             isLocal = trackEntity.isLocal,
@@ -41,10 +41,14 @@ class DbConverter {
         )
     }
 
-    fun convertAlbumEntityToDomain(albumEntity: AlbumEntity, tracksEntities: List<TrackEntity>? = null): AlbumDomainModel {
+    fun convertAlbumEntityToDomain(
+        albumEntity: AlbumEntity,
+        tracksEntities: List<TrackEntity>? = null
+    ): AlbumDomainModel {
         return AlbumDomainModel(
             id = albumEntity.spotifyId,
             name = albumEntity.name,
+            artistNames = albumEntity.artistNames.joinToString(),
             tracks = tracksEntities?.map(this::convertTrackEntityToDomain),
             genres = albumEntity.genres,
             releaseDate = getDateFromString(albumEntity.releaseDate, albumEntity.releaseDatePrecision),
@@ -54,7 +58,8 @@ class DbConverter {
             copyright = albumEntity.copyrights.map { CopyrightDomainModel(it) },
             markets = albumEntity.markets,
             albumType = albumEntity.type,
-            label = albumEntity.label
+            label = albumEntity.label,
+            isFavorite = albumEntity.isFavorite
         )
     }
 

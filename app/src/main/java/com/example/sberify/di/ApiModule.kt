@@ -2,9 +2,9 @@ package com.example.sberify.di
 
 import android.content.Context
 import androidx.preference.PreferenceManager
+import com.example.sberify.data.api.GeniusApi
 import com.example.sberify.data.api.GeniusAuthInterceptor
-import com.example.sberify.data.api.IGeniusApi
-import com.example.sberify.data.api.ISpotifyApi
+import com.example.sberify.data.api.SpotifyApi
 import com.example.sberify.data.api.SpotifyAuthInterceptor
 import com.example.sberify.domain.TokenData
 import com.google.gson.Gson
@@ -54,22 +54,22 @@ class ApiModule {
     fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create(Gson())
 
     @Provides
-    fun provideSpotifyApiService(@SpotifyNetwork okHttpClient: OkHttpClient, gson: GsonConverterFactory): ISpotifyApi {
+    fun provideSpotifyApiService(@SpotifyNetwork okHttpClient: OkHttpClient, gson: GsonConverterFactory): SpotifyApi {
         return Retrofit.Builder()
-            .baseUrl(ISpotifyApi.API_URL)
+            .baseUrl(SpotifyApi.API_URL)
             .client(okHttpClient)
             .addConverterFactory(gson)
             .build()
-            .create(ISpotifyApi::class.java)
+            .create(SpotifyApi::class.java)
     }
 
     @Provides
-    fun provideGeniusApiService(@GeniusNetwork okHttpClient: OkHttpClient, gson: GsonConverterFactory): IGeniusApi {
+    fun provideGeniusApiService(@GeniusNetwork okHttpClient: OkHttpClient, gson: GsonConverterFactory): GeniusApi {
         return Retrofit.Builder()
-            .baseUrl(IGeniusApi.API_URL)
+            .baseUrl(GeniusApi.API_URL)
             .client(okHttpClient)
             .addConverterFactory(gson)
             .build()
-            .create(IGeniusApi::class.java)
+            .create(GeniusApi::class.java)
     }
 }

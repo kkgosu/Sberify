@@ -24,6 +24,7 @@ import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
@@ -114,13 +115,14 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         if (AUTH_CODE_REQUEST_CODE == requestCode) {
             response.code?.let {
                 accessCode = it
-                println(accessCode)
+                Timber.d("onActivityResult: requestCode: $it")
                 tokenData.setSpotifyCode(accessCode)
             }
         } else if (AUTH_TOKEN_REQUEST_CODE == requestCode) {
             response.accessToken?.let {
                 accessToken = it
                 println(accessToken)
+                Timber.d("onActivityResult: accessToken: $it")
                 tokenData.setSpotifyToken(accessToken)
                 sharedViewModel.refresh()
             }
@@ -131,7 +133,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         return currentNavController?.value?.navigateUp() ?: false
     }
 
-    private suspend fun connectToAppRemote(): SpotifyAppRemote? =
+    private suspend fun connectToAppRemote(): SpotifyAppRemote =
         suspendCoroutine { continuation: Continuation<SpotifyAppRemote> ->
             SpotifyAppRemote.connect(applicationContext,
                 ConnectionParams.Builder(CLIENT_ID)

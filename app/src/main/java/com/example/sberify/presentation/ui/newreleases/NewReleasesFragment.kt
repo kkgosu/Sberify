@@ -12,7 +12,7 @@ import com.example.sberify.adapters.AlbumInteraction
 import com.example.sberify.adapters.AlbumsAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentNewReleasesBinding
-import com.example.sberify.models.newdomain.AlbumDomainModel
+import com.example.sberify.models.domain.AlbumDomainModel
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.utils.applyResultObserver
 import com.example.sberify.presentation.ui.utils.hideAnimation

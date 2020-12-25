@@ -4,6 +4,7 @@ import com.example.sberify.domain.TokenData
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
+import timber.log.Timber
 import java.io.IOException
 
 class SpotifyAuthInterceptor(
@@ -22,6 +23,7 @@ class SpotifyAuthInterceptor(
                 .addHeader("Accept", "application/json")
                 .addHeader("Content-Type", "application/json")
                 .build()
+        Timber.d(request.url().toString())
         return chain.proceed(request)
     }
 }
