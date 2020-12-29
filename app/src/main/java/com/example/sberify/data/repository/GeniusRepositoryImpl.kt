@@ -2,6 +2,7 @@ package com.example.sberify.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import com.example.sberify.data.DbConverter
 import com.example.sberify.data.GeniusParser
 import com.example.sberify.data.ResponseConverter
@@ -23,7 +24,7 @@ class GeniusRepositoryImpl @Inject constructor(
     private val responseConverter: ResponseConverter
 ) : GeniusRepository {
 
-    override suspend fun getLyrics(track: TrackDomainModel): LiveData<Result<TrackDomainModel>> {
+    override suspend fun getLyrics(track: TrackDomainModel): LiveData<Result<TrackDomainModel?>> {
         val filterTrackName = filterTrackName(track.name)
         val query = filterQuery("${track.artistNames} $filterTrackName")
         val responseResult = getResult { geniusApi.getPath(query) }
@@ -36,8 +37,6 @@ class GeniusRepositoryImpl @Inject constructor(
             return MutableLiveData(Result.error(message = "Didn't find lyrics :C"))
         }
         var isExist = false
-
-        return MutableLiveData(Result.error(message = "Didn't find lyrics :C"))
 
         return resultLiveData(
             databaseQuery = {

@@ -10,7 +10,7 @@ import androidx.room.Transaction
 @Dao
 interface TrackDao {
     @Query("SELECT * FROM tracks WHERE track_id = :id")
-    fun getTrackById(id: String): LiveData<TrackEntity>
+    fun getTrackById(id: String): LiveData<TrackEntity?>
 
     @Query("SELECT * FROM tracks WHERE name LIKE '%' || :query || '%'")
     fun getTracksByQuery(query: String): LiveData<List<TrackEntity>>

@@ -88,7 +88,7 @@ class SharedViewModel @ViewModelInject constructor(
         spotifyRepository.getAlbumInfo(it.id)
     }
 
-    val lyrics: LiveData<Result<TrackDomainModel>> = Transformations.switchMap(lyricsTrigger) {
+    val lyrics: LiveData<Result<TrackDomainModel?>> = Transformations.switchMap(lyricsTrigger) {
         runBlocking(Dispatchers.IO) {
             try {
                 withContext(Dispatchers.Default) { geniusRepository.getLyrics(it) }

@@ -44,18 +44,20 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
             sharedViewModel.onPlayClick(navArgs.item)
         }
         sharedViewModel.lyrics.applyResultObserver(viewLifecycleOwner,
-            success = { track ->
-                binding.lyrics.apply {
-                    text = track.lyrics
-                    visibility = View.VISIBLE
-                }
-                binding.favoriteButton.apply {
-                    setFavoriteIcon(!track.isFavorite)
-                    setOnClickListener {
-                        track.isFavorite = !track.isFavorite
-                        lyricsViewModel.updateTrack(track)
-                        setFavoriteIcon(track.isFavorite)
-                        startAnim()
+            success = {
+                it?.let { track ->
+                    binding.lyrics.apply {
+                        text = track.lyrics
+                        visibility = View.VISIBLE
+                    }
+                    binding.favoriteButton.apply {
+                        setFavoriteIcon(!track.isFavorite)
+                        setOnClickListener {
+                            track.isFavorite = !track.isFavorite
+                            lyricsViewModel.updateTrack(track)
+                            setFavoriteIcon(track.isFavorite)
+                            startAnim()
+                        }
                     }
                 }
             },
