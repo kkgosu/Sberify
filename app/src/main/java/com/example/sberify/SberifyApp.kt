@@ -13,4 +13,5 @@ class SberifyApp : Application() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         Timber.plant(Timber.DebugTree())
     }
+
 }
