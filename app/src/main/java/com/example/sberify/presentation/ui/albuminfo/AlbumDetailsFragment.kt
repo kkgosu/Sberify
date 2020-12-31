@@ -15,6 +15,7 @@ import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentAlbumDetailsBinding
 import com.example.sberify.models.domain.TrackDomainModel
+import com.example.sberify.models.presentation.TrackModel
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.utils.applyResultObserver
 import com.example.sberify.presentation.ui.utils.bindAppBarLayoutWithFab
@@ -52,7 +53,7 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
         navArgs.item.run {
             binding.detailContainer.transitionName = id
             binding.albumName.text = name
-            binding.releaseDate.text = releaseDate.uiValue
+            binding.releaseDate.text = releaseDate
             binding.detailToolbar.title = name
             binding.artistName.text = artistNames
         }
@@ -61,7 +62,7 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
         binding.fabFavorite.bindAppBarLayoutWithFab(binding.appBarLayout)
     }
 
-    override fun onTrackSelected(item: TrackDomainModel, view: View) {
+    override fun onTrackSelected(item: TrackModel, view: View) {
         sharedViewModel.getLyrics(item)
         val extras = FragmentNavigatorExtras(
             view to view.transitionName,
@@ -75,22 +76,26 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
         sharedViewModel.album.applyResultObserver(
             viewLifecycleOwner,
             success = { album ->
-                binding.releaseDate.text = album.releaseDate.uiValue
-                binding.albumCover.loadImage(album.images.firstOrNull()?.url)
-                album.tracks?.let { tracks ->
-                    adapter.items = tracks
-                    binding.fabFavorite.apply {
-                        setFavoriteIcon(!album.isFavorite)
-                        setOnClickListener {
-                            sharedViewModel.updateFavoriteAlbum(album)
-                            setFavoriteIcon(album.isFavorite)
-                            startAnim()
-                        }
+                binding.releaseDate.text = album.releaseDate
+                binding.albumCover.loadImage(album.imageUrl)
+                adapter.items = album.tracks
+                binding.fabFavorite.apply {
+                    setFavoriteIcon(!album.isFavorite)
+                    setOnClickListener {
+                        sharedViewModel.updateFavoriteAlbum(album)
+                        setFavoriteIcon(album.isFavorite)
+                        startAnim()
                     }
                 }
             },
             loading = { },
-            error = { Toast.makeText(requireContext(), it ?: "Error occurred while getting album's data :C", Toast.LENGTH_SHORT).show() }
+            error = {
+                Toast.makeText(
+                    requireContext(),
+                    it ?: "Error occurred while getting album's data :C",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         )
     }
 }

@@ -47,7 +47,7 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
             success = {
                 it?.let { track ->
                     binding.lyrics.apply {
-                        text = track.lyrics
+                        text = it
                         visibility = View.VISIBLE
                     }
                     binding.favoriteButton.apply {

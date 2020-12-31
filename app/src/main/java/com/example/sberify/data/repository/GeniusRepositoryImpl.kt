@@ -11,6 +11,7 @@ import com.example.sberify.data.api.GeniusApi
 import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.resultLiveData
 import com.example.sberify.domain.GeniusRepository
+import com.example.sberify.models.domain.RawTrackDomainModel
 import com.example.sberify.models.domain.TrackDomainModel
 import com.example.sberify.presentation.ui.utils.ResponseHandler.getResult
 import timber.log.Timber
@@ -24,7 +25,7 @@ class GeniusRepositoryImpl @Inject constructor(
     private val responseConverter: ResponseConverter
 ) : GeniusRepository {
 
-    override suspend fun getLyrics(track: TrackDomainModel): LiveData<Result<TrackDomainModel?>> {
+    override suspend fun getLyrics(track: RawTrackDomainModel): LiveData<Result<TrackDomainModel?>> {
         val filterTrackName = filterTrackName(track.name)
         val query = filterQuery("${track.artistNames} $filterTrackName")
         val responseResult = getResult { geniusApi.getPath(query) }
@@ -39,20 +40,17 @@ class GeniusRepositoryImpl @Inject constructor(
         if (url == null || url.isEmpty()) {
             return MutableLiveData(Result.error(message = "Didn't find lyrics :C"))
         }
-        var isExist = false
-
         return resultLiveData(
             databaseQuery = {
                 database.getTrackDao().getTrackById(track.id).map {
                     it?.let {
-                        isExist = true
                         dbConverter.convertTrackEntityToDomain(it)
                     }
                 }
             },
-            networkCall = { geniusParser.parseLyrics(track, url) },
+            networkCall = { geniusParser.parseLyrics(url) },
             saveCallResult = {
-                database.getTrackDao().updateTrackLyrics(it.id, it.lyrics)
+                database.getTrackDao().updateTrackLyrics(track.id, it)
             })
     }
 

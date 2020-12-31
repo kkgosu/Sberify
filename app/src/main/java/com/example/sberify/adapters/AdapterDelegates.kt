@@ -13,12 +13,13 @@ import com.example.sberify.models.domain.ArtistDomainModel
 import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.models.domain.Suggestion
 import com.example.sberify.models.domain.TrackDomainModel
+import com.example.sberify.models.presentation.TrackModel
 import com.example.sberify.presentation.ui.utils.bindPalette
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
 
-fun trackListedAdapterDelegate(itemClickListener: (TrackDomainModel, View) -> Unit) =
-    adapterDelegateViewBinding<TrackDomainModel, BaseModel, ItemTrackListedBinding>({ layoutInflater, parent ->
+fun trackListedAdapterDelegate(itemClickListener: (TrackModel, View) -> Unit) =
+    adapterDelegateViewBinding<TrackModel, BaseModel, ItemTrackListedBinding>({ layoutInflater, parent ->
         ItemTrackListedBinding.inflate(layoutInflater, parent, false)
     }) {
         binding.root.setOnClickListener {

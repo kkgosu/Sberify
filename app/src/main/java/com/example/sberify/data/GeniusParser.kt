@@ -1,6 +1,5 @@
 package com.example.sberify.data
 
-import com.example.sberify.models.domain.TrackDomainModel
 import org.jsoup.Connection
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -11,13 +10,12 @@ import java.io.IOException
 
 class GeniusParser {
 
-    fun parseLyrics(track: TrackDomainModel, path: String): Result<TrackDomainModel> {
+    fun parseLyrics(path: String): Result<String?> {
         val request: Result<Document> = makeRequest(path)
         if (request.status == Result.Status.SUCCESS) {
             request.data?.let {
-                track.lyrics = filterLyrics(it)
+                return Result.success(filterLyrics(it))
             }
-            return Result.success(track)
         }
         return Result.error(request.message ?: "error")
     }
