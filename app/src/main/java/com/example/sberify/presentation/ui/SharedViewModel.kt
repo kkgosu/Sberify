@@ -15,6 +15,7 @@ import com.example.sberify.models.domain.AlbumDomainModel
 import com.example.sberify.models.domain.ArtistDomainModel
 import com.example.sberify.models.domain.Suggestion
 import com.example.sberify.models.domain.TrackDomainModel
+import com.example.sberify.presentation.ui.converter.ViewModelConverter
 import com.example.sberify.presentation.ui.utils.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -26,6 +27,7 @@ class SharedViewModel @ViewModelInject constructor(
     private val spotifyRepository: SpotifyRepository,
     private val geniusRepository: GeniusRepository,
     private val databaseRepository: DatabaseRepository,
+    private val modelConverter: ViewModelConverter,
     tokenData: TokenData
 ) : ViewModel() {
 
@@ -71,7 +73,7 @@ class SharedViewModel @ViewModelInject constructor(
     }
 
     val newReleases: LiveData<Result<List<AlbumDomainModel>>> = Transformations.switchMap(reloadTrigger) {
-        spotifyRepository.getNewReleases()
+        spotifyRepository.getNewReleases().map
     }
 
     val artistsSearchResult: LiveData<Result<List<ArtistDomainModel>>> = Transformations.switchMap(searchArtistTrigger) {

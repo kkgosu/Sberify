@@ -8,7 +8,7 @@ data class AlbumModel(
     val id: String,
     val name: String,
     val artistNames: String,
-    val tracks: List<TrackModel>,
+    val tracks: List<TrackModel?>,
     val releaseDate: String,
     val totalTracks: Int,
     val externalUrl: String,

@@ -12,6 +12,7 @@ import com.example.sberify.data.repository.SpotifyRepositoryImpl
 import com.example.sberify.domain.DatabaseRepository
 import com.example.sberify.domain.GeniusRepository
 import com.example.sberify.domain.SpotifyRepository
+import com.example.sberify.presentation.ui.converter.ViewModelConverter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,6 +22,11 @@ import javax.inject.Singleton
 @Module(includes = [ApiModule::class])
 @InstallIn(ApplicationComponent::class)
 class RepositoryModule {
+
+    @Provides
+    fun provideViewModelConverter(): ViewModelConverter {
+        return ViewModelConverter()
+    }
 
     @Provides
     @Singleton
@@ -49,7 +55,6 @@ class RepositoryModule {
     ): SpotifyRepository {
         return SpotifyRepositoryImpl(database, spotifyApi, dbConverter, responseConverter)
     }
-
 
     @Provides
     @Singleton
