@@ -29,7 +29,10 @@ class GeniusRepositoryImpl @Inject constructor(
         val query = filterQuery("${track.artistNames} $filterTrackName")
         val responseResult = getResult { geniusApi.getPath(query) }
         val url = responseResult.data?.response?.hits?.find {
-            it.type == "song" && !it.result.url.contains("annotated", ignoreCase = true) && !it.result.url.contains("spotify", ignoreCase = true)
+            it.type == "song" && !it.result.url.contains(
+                "annotated",
+                ignoreCase = true
+            ) && !it.result.url.contains("spotify", ignoreCase = true)
         }?.result?.url
         Timber.d(query)
         Timber.d(url)
@@ -49,10 +52,7 @@ class GeniusRepositoryImpl @Inject constructor(
             },
             networkCall = { geniusParser.parseLyrics(track, url) },
             saveCallResult = {
-                if (!isExist) {
-                    database.getTrackDao().insertTrack(responseConverter.convertTrackToEntity(it))
-                }
-                database.getTrackDao().updateTrackLyrics(it.id, it.lyrics!!)
+                database.getTrackDao().updateTrackLyrics(it.id, it.lyrics)
             })
     }
 

@@ -16,7 +16,7 @@ interface TrackDao {
     fun getTracksByQuery(query: String): LiveData<List<TrackEntity>>
 
     @Query("UPDATE tracks SET lyrics = :lyrics WHERE track_id=:id")
-    fun updateTrackLyrics(id: String, lyrics: String)
+    fun updateTrackLyrics(id: String, lyrics: String?)
 
     @Query("SELECT * FROM tracks WHERE is_favorite = 1 ORDER BY name ASC")
     fun loadFavoriteTracks(): LiveData<List<TrackEntity>>
