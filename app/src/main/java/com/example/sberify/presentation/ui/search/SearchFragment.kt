@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -16,7 +17,13 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.sberify.R
-import com.example.sberify.adapters.*
+import com.example.sberify.adapters.AlbumInteraction
+import com.example.sberify.adapters.AlbumsAdapter
+import com.example.sberify.adapters.AlbumsHorizontalAdapter
+import com.example.sberify.adapters.SuggestionAdapter
+import com.example.sberify.adapters.SuggestionInteraction
+import com.example.sberify.adapters.TrackInteraction
+import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentSearchBinding
 import com.example.sberify.models.domain.AlbumDomainModel
@@ -26,6 +33,7 @@ import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.ALBUM_SWITCH_CHECKED_KEY
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.ARTIST_SWITCH_CHECKED_KEY
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.TRACK_SWITCH_CHECKED_KEY
+import com.example.sberify.presentation.ui.utils.applyResultObserver
 import com.example.sberify.presentation.ui.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -68,7 +76,7 @@ class SearchFragment :
             hideKeyboard()
         }
 
-/*        sharedViewModel.artistsSearchResult.applyResultObserver(viewLifecycleOwner,
+        sharedViewModel.artistsSearchResult.applyResultObserver(viewLifecycleOwner,
             success = {
                 sharedViewModel.refreshContentVisibility()
                 artistsAdapter.items = it
@@ -93,7 +101,7 @@ class SearchFragment :
             },
             loading = { binding.tracksTitleTextView.visibility = View.GONE },
             error = { Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show() }
-        )*/
+        )
 
         sharedViewModel.suggestions.observe(viewLifecycleOwner) { suggestionsAdapter.items = it }
         sharedViewModel.showFiltersFragment.observe(viewLifecycleOwner) { showFilterBottomSheet() }
@@ -174,8 +182,8 @@ class SearchFragment :
                 override fun onQueryTextChange(newText: String?): Boolean {
                     newText?.let { query ->
                         this@SearchFragment.suggestionsAdapter.items = (
-                                this@SearchFragment.suggestionsAdapter.items.filter { it.text.contains(query, true) }
-                                )
+                            this@SearchFragment.suggestionsAdapter.items.filter { it.text.contains(query, true) }
+                            )
                     }
                     return true
                 }
@@ -211,12 +219,14 @@ class SearchFragment :
     }
 
     private fun showKeyboard() {
-        val imm: InputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm: InputMethodManager =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
     }
 
     private fun hideKeyboard() {
-        val imm: InputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm: InputMethodManager =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
     }
 }

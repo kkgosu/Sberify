@@ -12,7 +12,7 @@ data class AlbumModel(
     val releaseDate: String,
     val totalTracks: Int,
     val externalUrl: String,
-    val imageUrl: String,
+    val imageUrl: String?,
     val copyright: String,
     val isFavorite: Boolean
 )
