@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.example.sberify.data.DbConverter
 import com.example.sberify.data.GeniusParser
-import com.example.sberify.data.ResponseConverter
 import com.example.sberify.data.Result
 import com.example.sberify.data.api.GeniusApi
 import com.example.sberify.data.db.AppDatabase
@@ -22,7 +21,6 @@ class GeniusRepositoryImpl @Inject constructor(
     private val database: AppDatabase,
     private val dbConverter: DbConverter,
     private val geniusApi: GeniusApi,
-    private val responseConverter: ResponseConverter
 ) : GeniusRepository {
 
     override suspend fun getLyrics(track: RawTrackDomainModel): LiveData<Result<TrackDomainModel?>> {

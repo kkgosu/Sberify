@@ -29,8 +29,21 @@ class ViewModelConverter {
         return Result(domain.status, data, domain.message)
     }
 
-    fun convertToTrackViewModel(domain: Result<TrackDomainModel>): Result<TrackModel> {
+    fun convertToTrackViewModel(domain: Result<TrackDomainModel?>): Result<TrackModel> {
         val data: TrackModel? = domain.data?.let(this::makeTrackModel)
+        return Result(domain.status, data, domain.message)
+    }
+
+    fun convertToAlbumViewModel(domain: Result<AlbumDomainModel>): Result<AlbumModel> {
+        val data: AlbumModel? =
+            domain.data?.let {
+                makeAlbumModel(it, domain.status, domain.message)
+            }
+        return Result(domain.status, data, domain.message)
+    }
+
+    fun convertToArtistViewModel(domain: Result<ArtistDomainModel>): Result<ArtistModel> {
+        val data: ArtistModel? = domain.data?.let(this::makeArtistModel)
         return Result(domain.status, data, domain.message)
     }
 
@@ -45,14 +58,6 @@ class ViewModelConverter {
             isFavorite = it.isFavorite,
             previewUri = it.previewUri
         )
-    }
-
-    fun convertToAlbumViewModel(domain: Result<AlbumDomainModel>): Result<AlbumModel> {
-        val data: AlbumModel? =
-            domain.data?.let {
-                makeAlbumModel(it, domain.status, domain.message)
-            }
-        return Result(domain.status, data, domain.message)
     }
 
     private fun makeAlbumModel(
@@ -73,11 +78,6 @@ class ViewModelConverter {
             copyright = it.copyright.joinToString(),
             isFavorite = it.isFavorite
         )
-    }
-
-    fun convertToArtistViewModel(domain: Result<ArtistDomainModel>): Result<ArtistModel> {
-        val data: ArtistModel? = domain.data?.let(this::makeArtistModel)
-        return Result(domain.status, data, domain.message)
     }
 
     private fun makeArtistModel(it: ArtistDomainModel): ArtistModel {
