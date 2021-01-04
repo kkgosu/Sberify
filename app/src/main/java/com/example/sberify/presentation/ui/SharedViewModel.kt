@@ -95,7 +95,7 @@ class SharedViewModel @ViewModelInject constructor(
         spotifyRepository.getAlbumInfo(it.id).map(modelConverter::convertToAlbumViewModel)
     }
 
-    val lyrics: LiveData<Result<String?>> = Transformations.switchMap(lyricsTrigger) {
+    val lyrics: LiveData<Result<TrackDomainModel?>> = Transformations.switchMap(lyricsTrigger) {
         runBlocking(Dispatchers.IO) {
             try {
                 withContext(Dispatchers.Default) { geniusRepository.getLyrics(it) }
@@ -126,13 +126,6 @@ class SharedViewModel @ViewModelInject constructor(
     fun getLyrics(track: RawTrackDomainModel) {
         lyricsTrigger.value = track
     }
-
-/*    fun refreshLyrics() {
-        val track = lyrics.value
-        track?.data.let {
-            lyricsTrigger.value = it
-        }
-    }*/
 
     fun insertSuggestion(text: String) {
         viewModelScope.launch(Dispatchers.IO) {

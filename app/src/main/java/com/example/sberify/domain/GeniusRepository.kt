@@ -7,5 +7,5 @@ import com.example.sberify.models.domain.TrackDomainModel
 import com.example.sberify.models.presentation.TrackModel
 
 interface GeniusRepository {
-    suspend fun getLyrics(track: RawTrackDomainModel): LiveData<Result<String?>>
+    suspend fun getLyrics(track: RawTrackDomainModel): LiveData<Result<TrackDomainModel?>>
 }
