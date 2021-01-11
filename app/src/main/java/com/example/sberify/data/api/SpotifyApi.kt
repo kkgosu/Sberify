@@ -1,10 +1,10 @@
 package com.example.sberify.data.api
 
 import com.example.sberify.models.data.spotify.AlbumInfoResponse
-import com.example.sberify.models.data.spotify.AlbumsResponse
-import com.example.sberify.models.data.spotify.ArtistsResponse
+import com.example.sberify.models.data.spotify.AlbumSearchResponse
+import com.example.sberify.models.data.spotify.ArtistSearchResponse
 import com.example.sberify.models.data.spotify.NewReleasesResponse
-import com.example.sberify.models.data.spotify.TracksResponse
+import com.example.sberify.models.data.spotify.TrackSearchResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -25,20 +25,20 @@ interface SpotifyApi {
     @GET("search")
     suspend fun searchArtist(
         @Query("q") keyword: String,
-        @Query("type") type: String
-    ): Response<ArtistsResponse>
+        @Query("type") type: String = "artist"
+    ): Response<ArtistSearchResponse>
 
     @GET("search")
     suspend fun searchAlbum(
         @Query("q") keyword: String,
-        @Query("type") type: String
-    ): Response<AlbumsResponse>
+        @Query("type") type: String = "album"
+    ): Response<AlbumSearchResponse>
 
     @GET("search")
     suspend fun searchTrack(
         @Query("q") keyword: String,
-        @Query("type") type: String
-    ): Response<TracksResponse>
+        @Query("type") type: String = "track"
+    ): Response<TrackSearchResponse>
 
     companion object {
         const val API_URL = "https://api.spotify.com/v1/"

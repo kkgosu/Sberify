@@ -18,8 +18,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.sberify.R
 import com.example.sberify.adapters.AlbumInteraction
-import com.example.sberify.adapters.AlbumsAdapter
 import com.example.sberify.adapters.AlbumsHorizontalAdapter
+import com.example.sberify.adapters.ArtistInteraction
+import com.example.sberify.adapters.ArtistsAdapter
 import com.example.sberify.adapters.SuggestionAdapter
 import com.example.sberify.adapters.SuggestionInteraction
 import com.example.sberify.adapters.TrackInteraction
@@ -28,6 +29,7 @@ import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentSearchBinding
 import com.example.sberify.models.domain.Suggestion
 import com.example.sberify.models.presentation.AlbumModel
+import com.example.sberify.models.presentation.ArtistModel
 import com.example.sberify.models.presentation.TrackModel
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.ALBUM_SWITCH_CHECKED_KEY
@@ -41,13 +43,14 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchFragment :
     BaseViewBindingFragment<FragmentSearchBinding>(),
     AlbumInteraction,
+    ArtistInteraction,
     TrackInteraction,
     SuggestionInteraction {
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private val suggestionsAdapter = SuggestionAdapter(this)
-    private val artistsAdapter = AlbumsAdapter(this)
+    private val artistsAdapter = ArtistsAdapter(this)
     private val albumsAdapter = AlbumsHorizontalAdapter(this)
     private val tracksListedAdapter = TrackListedAdapter(this)
 
@@ -66,6 +69,10 @@ class SearchFragment :
         setupSearchView()
         setupAnimationsForRecyclers(binding.artistsResults, binding.albumsResults, binding.tracksResults)
         binding.suggestionRecycler.adapter = suggestionsAdapter
+        binding.artistsResults.apply {
+            adapter = artistsAdapter
+            LinearSnapHelper().attachToRecyclerView(this)
+        }
         binding.albumsResults.apply {
             adapter = albumsAdapter
             LinearSnapHelper().attachToRecyclerView(this)
@@ -131,6 +138,10 @@ class SearchFragment :
         )
     }
 
+    override fun onArtistSelected(item: ArtistModel, view: View) {
+
+    }
+
     override fun onTrackSelected(item: TrackModel, view: View) {
         sharedViewModel.getLyrics(item)
         val extras = FragmentNavigatorExtras(
@@ -182,8 +193,8 @@ class SearchFragment :
                 override fun onQueryTextChange(newText: String?): Boolean {
                     newText?.let { query ->
                         this@SearchFragment.suggestionsAdapter.items = (
-                            this@SearchFragment.suggestionsAdapter.items.filter { it.text.contains(query, true) }
-                            )
+                                this@SearchFragment.suggestionsAdapter.items.filter { it.text.contains(query, true) }
+                                )
                     }
                     return true
                 }

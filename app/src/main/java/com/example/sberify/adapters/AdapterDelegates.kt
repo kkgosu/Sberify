@@ -12,10 +12,26 @@ import com.example.sberify.models.domain.ArtistDomainModel
 import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.models.domain.Suggestion
 import com.example.sberify.models.presentation.AlbumModel
+import com.example.sberify.models.presentation.ArtistModel
 import com.example.sberify.models.presentation.TrackModel
 import com.example.sberify.presentation.ui.utils.bindPalette
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 
+fun artistAdapterDelegate(itemClickListener: (ArtistModel, View) -> Unit) =
+    adapterDelegateViewBinding<ArtistModel, BaseModel, ItemAlbumHorizontalBinding>({ layoutInflater, parent ->
+        ItemAlbumHorizontalBinding.inflate(layoutInflater, parent, false)
+    }) {
+        binding.root.setOnClickListener {
+            itemClickListener.invoke(item, it)
+        }
+        bind {
+            binding.apply {
+                ViewCompat.setTransitionName(binding.cardView, item.id)
+                releaseName.text = item.name
+                releaseCover.bindPalette(item.imageUrl, itemAlbumPalette)
+            }
+        }
+    }
 
 fun trackListedAdapterDelegate(itemClickListener: (TrackModel, View) -> Unit) =
     adapterDelegateViewBinding<TrackModel, BaseModel, ItemTrackListedBinding>({ layoutInflater, parent ->

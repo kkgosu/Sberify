@@ -78,8 +78,7 @@ class SharedViewModel @ViewModelInject constructor(
     val newReleases: LiveData<Result<List<AlbumModel>>> = Transformations.switchMap(reloadTrigger) {
         spotifyRepository.getNewReleases().map(modelConverter::convertToAlbumViewModelList)
     }
-    val artistsSearchResult: LiveData<Result<List<ArtistModel>>> =
-        Transformations.switchMap(searchArtistTrigger) {
+    val artistsSearchResult: LiveData<Result<List<ArtistModel>>> = Transformations.switchMap(searchArtistTrigger) {
             spotifyRepository.searchArtist(it).map(modelConverter::convertToArtistViewModelList)
         }
     val albumsSearchResult: LiveData<Result<List<AlbumModel>>> = Transformations.switchMap(searchAlbumTrigger) {
