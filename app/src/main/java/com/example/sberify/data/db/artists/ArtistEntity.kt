@@ -17,5 +17,8 @@ data class ArtistEntity(
     val imageUrl: String?,
 
     @ColumnInfo(name = "external_url")
-    val externalUrl: String
+    val externalUrl: String,
+
+    @ColumnInfo(name = "popularity")
+    val popularity: Int
 )

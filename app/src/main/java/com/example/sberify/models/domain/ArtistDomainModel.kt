@@ -12,5 +12,6 @@ data class ArtistDomainModel(
     val id: String,
     val name: String,
     val externalUrlDomainModel: ExternalUrlDomainModel,
-    val imageUrl: String?
+    val imageUrl: String?,
+    val popularity: Int
 ) : BaseModel(id), Parcelable

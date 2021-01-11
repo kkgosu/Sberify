@@ -23,6 +23,7 @@ class DbConverter {
             name = artistEntity.name,
             imageUrl = artistEntity.imageUrl,
             externalUrlDomainModel = ExternalUrlDomainModel(artistEntity.externalUrl),
+            popularity = artistEntity.popularity
         )
     }
 

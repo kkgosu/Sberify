@@ -61,7 +61,8 @@ class ResponseConverter {
             id = response.id,
             name = response.name,
             externalUrlDomainModel = convertExternalUrlToDomain(response.externalUrls),
-            imageUrl = null
+            imageUrl = response.images?.firstOrNull()?.url,
+            popularity = response.popularity
         )
     }
 
@@ -148,6 +149,7 @@ class ResponseConverter {
         spotifyId = response.id,
         name = response.name,
         imageUrl = response.images?.firstOrNull()?.url.orEmpty(),
-        externalUrl = response.externalUrls.spotify
+        externalUrl = response.externalUrls.spotify,
+        popularity = response.popularity
     )
 }
