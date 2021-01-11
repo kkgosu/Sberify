@@ -1,11 +1,14 @@
 package com.example.sberify.models.presentation
 
+import android.os.Parcelable
 import com.example.sberify.models.domain.BaseModel
+import kotlinx.parcelize.Parcelize
 
 /**
  * @author Konstantin Koval
  * @since 24.12.2020
  */
+@Parcelize
 data class AlbumModel(
     val id: String,
     val name: String,
@@ -17,4 +20,4 @@ data class AlbumModel(
     val imageUrl: String?,
     val copyright: String,
     val isFavorite: Boolean
-) : BaseModel(id)
+) : BaseModel(id), Parcelable
