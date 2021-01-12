@@ -19,6 +19,10 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+      - name: Decode ReleaseHub token
+        env: 
+          RELEASEHUB_TOKEN: ${{ secrets.RELEASEHUB_TOKEN }}
+          run: echo github_token=\"$RELEASEHUB_TOKEN\" > ./local.properties
       - name: Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
       - name: Upload APK
