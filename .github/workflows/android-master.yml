@@ -22,7 +22,7 @@ jobs:
       - name: Decode ReleaseHub token
         env: 
           RELEASEHUB_TOKEN: ${{ secrets.RELEASEHUB_TOKEN }}
-          run: echo github_token=\"$RELEASEHUB_TOKEN\" > ./local.properties
+        run: echo github_token=\"$RELEASEHUB_TOKEN\" > ./local.properties
       - name: Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
       - name: Upload APK
