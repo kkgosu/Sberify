@@ -43,7 +43,7 @@ class SpotifyRepositoryImpl @Inject constructor(
     override fun getAlbumInfo(id: String): LiveData<Result<AlbumDomainModel>> {
         return resultLiveData(
             databaseQuery = {
-                database.getAlbumDao().getAlbumTracks(id).map {
+                database.getAlbumDao().getAlbumInfo(id).map {
                     dbConverter.convertAlbumEntityToDomain(it.albumEntity, it.tracksEntities)
                 }
             },

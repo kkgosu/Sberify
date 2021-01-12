@@ -50,7 +50,7 @@ class DatabaseRepositoryImpl @Inject constructor(
         }
 
     override suspend fun setAlbumIsFavorite(id: String, isFavorite: Boolean) {
-        database.getAlbumDao().updateAlbum(id, isFavorite)
+        database.getAlbumDao().setAlbumIsFavorite(id, isFavorite)
     }
 
     override fun loadFavoriteAlbums(): LiveData<List<AlbumDomainModel>> =

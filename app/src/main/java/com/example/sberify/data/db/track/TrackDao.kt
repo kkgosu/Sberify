@@ -5,7 +5,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Transaction
 
 @Dao
 interface TrackDao {
@@ -26,8 +25,4 @@ interface TrackDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertTrack(trackEntity: TrackEntity)
-
-    @Transaction
-    @Query("SELECT * FROM tracks WHERE track_id = :id")
-    fun getTrackWithArtists(id: String): TrackWithArtists
 }

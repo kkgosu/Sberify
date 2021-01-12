@@ -5,7 +5,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Transaction
 
 @Dao
 interface ArtistDao {
@@ -18,14 +17,6 @@ interface ArtistDao {
     @Query("SELECT * FROM artists WHERE name LIKE '%' || :key || '%'")
     fun getArtistByKeyword(key: String): LiveData<List<ArtistEntity>>
 
-    @Transaction
-    @Query("SELECT * FROM artists WHERE artist_id = :artistId")
-    fun getAlbums(artistId: String): LiveData<ArtistWithAlbums>
-
     @Query("SELECT * FROM artists WHERE name LIKE '%' || :query || '%'")
     fun getArtistByQuery(query: String): LiveData<List<ArtistEntity>>
-
-    @Transaction
-    @Query("SELECT * FROM artists WHERE artist_id = :artistId")
-    fun getArtistWithSongs(artistId: String): ArtistWithTracks
 }
