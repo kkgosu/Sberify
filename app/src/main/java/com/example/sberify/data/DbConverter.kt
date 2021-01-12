@@ -3,7 +3,6 @@ package com.example.sberify.data
 import com.example.sberify.data.db.album.AlbumEntity
 import com.example.sberify.data.db.artists.ArtistEntity
 import com.example.sberify.data.db.track.TrackEntity
-import com.example.sberify.domain.getDateFromString
 import com.example.sberify.models.domain.AlbumDomainModel
 import com.example.sberify.models.domain.ArtistDomainModel
 import com.example.sberify.models.domain.CopyrightDomainModel
@@ -52,7 +51,7 @@ class DbConverter {
             artistNames = albumEntity.artistNames.joinToString(),
             tracks = tracksEntities?.map(this::convertTrackEntityToDomain),
             genres = albumEntity.genres,
-            releaseDate = getDateFromString(albumEntity.releaseDate, albumEntity.releaseDatePrecision),
+            releaseDate = albumEntity.releaseDate,
             totalTracks = albumEntity.totalTracks,
             externalUrl = ExternalUrlDomainModel(albumEntity.externalUrl),
             images = listOf(ImageDomainModel(albumEntity.imageUrl)),

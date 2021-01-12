@@ -24,9 +24,6 @@ data class AlbumEntity(
     @ColumnInfo(name = "release_date")
     val releaseDate: String,
 
-    @ColumnInfo(name = "release_date_precision")
-    val releaseDatePrecision: String,
-
     @ColumnInfo(name = "is_favorite")
     val isFavorite: Boolean,
 

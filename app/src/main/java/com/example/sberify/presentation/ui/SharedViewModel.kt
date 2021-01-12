@@ -33,29 +33,9 @@ class SharedViewModel @ViewModelInject constructor(
     private val tokenData: TokenData
 ) : ViewModel() {
 
-    init {
-        val token = "rBpO2QDlufzcQpxStgKY9lF1qtxUfVvJx3Hpv4rck6myBpA8TdPPDenhKJCKZF_S"
-        tokenData.setGeniusToken(token)
-    }
-
-    var isAlbumChecked = false
-    var isArtistChecked = false
-    var isTrackChecked = false
+    private val _refreshContentVisibility = SingleLiveEvent<Unit>()
 
     private val _showFiltersFragment = SingleLiveEvent<Unit>()
-    val showFiltersFragment = _showFiltersFragment
-
-    private val _refreshContentVisibility = SingleLiveEvent<Unit>()
-    val refreshContentVisibility = _refreshContentVisibility
-
-    fun checkFiltersAndSearch(keyword: String) {
-        if (!isAlbumChecked && !isArtistChecked && !isTrackChecked) {
-            _showFiltersFragment.call()
-        } else {
-            search(keyword)
-        }
-    }
-
     private val albumInfoTrigger = MutableLiveData<AlbumModel>()
     private val reloadTrigger = MutableLiveData<Boolean>()
     private val searchArtistTrigger = MutableLiveData<String>()
@@ -65,15 +45,20 @@ class SharedViewModel @ViewModelInject constructor(
     private val _suggestions = MutableLiveData<List<Suggestion>>()
     private val playTrigger = MutableLiveData<TrackModel>()
 
+    init {
+        val token = "rBpO2QDlufzcQpxStgKY9lF1qtxUfVvJx3Hpv4rck6myBpA8TdPPDenhKJCKZF_S"
+        tokenData.setGeniusToken(token)
+    }
+
+    var isAlbumChecked = false
+    var isArtistChecked = false
+    var isTrackChecked = false
+
+    val showFiltersFragment: LiveData<Unit> = _showFiltersFragment
+
+    val refreshContentVisibility: LiveData<Unit> = _refreshContentVisibility
+
     val play: LiveData<TrackModel> = playTrigger
-
-    fun onPlayClick(track: TrackModel) {
-        playTrigger.value = track
-    }
-
-    fun getAlbumInfo(album: AlbumModel) {
-        albumInfoTrigger.value = album
-    }
 
     val newReleases: LiveData<Result<List<AlbumModel>>> = Transformations.switchMap(reloadTrigger) {
         spotifyRepository.getNewReleases().map(modelConverter::convertToAlbumViewModelList)
@@ -104,7 +89,24 @@ class SharedViewModel @ViewModelInject constructor(
             }
         }
     }
+
     val suggestions: LiveData<List<Suggestion>> = _suggestions
+
+    fun checkFiltersAndSearch(keyword: String) {
+        if (!isAlbumChecked && !isArtistChecked && !isTrackChecked) {
+            _showFiltersFragment.call()
+        } else {
+            search(keyword)
+        }
+    }
+
+    fun onPlayClick(track: TrackModel) {
+        playTrigger.value = track
+    }
+
+    fun getAlbumInfo(album: AlbumModel) {
+        albumInfoTrigger.value = album
+    }
 
     fun saveSpotifyToken(token: String) {
         tokenData.setSpotifyToken(token)
@@ -118,7 +120,7 @@ class SharedViewModel @ViewModelInject constructor(
     }
 
     fun refreshContentVisibility() {
-        refreshContentVisibility.call()
+        _refreshContentVisibility.call()
     }
 
     fun refresh() {

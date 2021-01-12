@@ -14,7 +14,7 @@ data class AlbumDomainModel(
     val artistNames: String,
     val tracks: List<TrackDomainModel>?,
     val genres: List<String>,
-    val releaseDate: PrecisionDate,
+    val releaseDate: String,
     val totalTracks: Int,
     val externalUrl: ExternalUrlDomainModel,
     val images: List<ImageDomainModel>,

@@ -71,7 +71,7 @@ class ViewModelConverter {
             artistNames = it.artistNames,
             tracks = it.tracks?.map { t -> convertToTrackViewModel(Result(status, t, message)).data }
                 ?: emptyList(),
-            releaseDate = it.releaseDate.uiValue,
+            releaseDate = it.releaseDate,
             totalTracks = it.totalTracks,
             externalUrl = it.externalUrl.spotifyUrl,
             imageUrl = it.images.firstOrNull()?.url,

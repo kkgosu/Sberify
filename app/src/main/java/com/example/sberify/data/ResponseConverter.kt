@@ -3,7 +3,6 @@ package com.example.sberify.data
 import com.example.sberify.data.db.album.AlbumEntity
 import com.example.sberify.data.db.artists.ArtistEntity
 import com.example.sberify.data.db.track.TrackEntity
-import com.example.sberify.domain.getDateFromString
 import com.example.sberify.models.data.spotify.AlbumInfoResponse
 import com.example.sberify.models.data.spotify.AlbumTrackArtistResponse
 import com.example.sberify.models.data.spotify.ArtistResponse
@@ -73,7 +72,7 @@ class ResponseConverter {
             artistNames = response.artists?.joinToString { it.name }.orEmpty(),
             tracks = response.tracks?.items?.map(this::convertTrackToDomain) ?: emptyList(),
             genres = response.genres?.map(Any::toString) ?: emptyList(),
-            releaseDate = getDateFromString(response.releaseDate.orEmpty(), response.releaseDatePrecision.orEmpty()),
+            releaseDate = response.releaseDate.orEmpty(),
             totalTracks = response.totalTracks ?: 0,
             externalUrl = convertExternalUrlToDomain(response.externalUrls),
             images = response.images?.map(this::convertImageResponseToDomain) ?: emptyList(),
@@ -86,14 +85,12 @@ class ResponseConverter {
     }
 
     fun convertAlbumToEntity(response: AlbumInfoResponse): AlbumTrackArtistResponse {
-        val dateFromString = getDateFromString(response.releaseDate.orEmpty(), response.releaseDatePrecision.orEmpty())
         val album = AlbumEntity(
             spotifyId = response.id,
             artistNames = response.artists?.map { it.name } ?: emptyList(),
             name = response.name,
             imageUrl = response.images?.firstOrNull()?.url.orEmpty(),
-            releaseDate = dateFromString.uiValue,
-            releaseDatePrecision = dateFromString.precision.name,
+            releaseDate = response.releaseDate.orEmpty(),
             isFavorite = false,
             genres = response.genres?.map(Any::toString) ?: emptyList(),
             totalTracks = response.totalTracks ?: response.tracks?.total ?: 0,
