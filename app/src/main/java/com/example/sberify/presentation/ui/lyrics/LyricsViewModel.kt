@@ -16,7 +16,7 @@ class LyricsViewModel @ViewModelInject constructor(
     fun updateTrack(track: TrackModel) {
         viewModelScope.launch(Dispatchers.IO) {
             delay(800)
-            databaseRepository.setAlbumIsFavorite(track.id, track.isFavorite)
+            databaseRepository.setTrackIsFavorite(track.id, track.isFavorite)
         }
     }
 }

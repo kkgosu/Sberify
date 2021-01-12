@@ -30,7 +30,7 @@ class SharedViewModel @ViewModelInject constructor(
     private val geniusRepository: GeniusRepository,
     private val databaseRepository: DatabaseRepository,
     private val modelConverter: ViewModelConverter,
-    tokenData: TokenData
+    private val tokenData: TokenData
 ) : ViewModel() {
 
     init {
@@ -79,8 +79,8 @@ class SharedViewModel @ViewModelInject constructor(
         spotifyRepository.getNewReleases().map(modelConverter::convertToAlbumViewModelList)
     }
     val artistsSearchResult: LiveData<Result<List<ArtistModel>>> = Transformations.switchMap(searchArtistTrigger) {
-            spotifyRepository.searchArtist(it).map(modelConverter::convertToArtistViewModelList)
-        }
+        spotifyRepository.searchArtist(it).map(modelConverter::convertToArtistViewModelList)
+    }
     val albumsSearchResult: LiveData<Result<List<AlbumModel>>> = Transformations.switchMap(searchAlbumTrigger) {
         spotifyRepository.searchAlbum(it).map(modelConverter::convertToAlbumViewModelList)
     }
@@ -105,6 +105,10 @@ class SharedViewModel @ViewModelInject constructor(
         }
     }
     val suggestions: LiveData<List<Suggestion>> = _suggestions
+
+    fun saveSpotifyToken(token: String) {
+        tokenData.setSpotifyToken(token)
+    }
 
     fun search(keyword: String) {
         searchArtistTrigger.applySearch(isArtistChecked, keyword)

@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import com.example.sberify.R
 import com.example.sberify.databinding.ActivityMainBinding
-import com.example.sberify.domain.TokenData
 import com.example.sberify.presentation.ui.utils.NetworkObserver
 import com.example.sberify.presentation.ui.utils.setupWithNavController
 import com.google.android.material.snackbar.Snackbar
@@ -25,16 +24,12 @@ import com.spotify.sdk.android.auth.AuthorizationResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), LifecycleOwner {
-
-    @Inject
-    lateinit var tokenData: TokenData
 
     private val sharedViewModel: SharedViewModel by viewModels()
     private var currentNavController: LiveData<NavController>? = null
@@ -80,8 +75,6 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         if (savedInstanceState == null) {
             setupBottomNavBar()
         }
-
-        sharedViewModel.refresh()
     }
 
     override fun onStart() {
@@ -116,14 +109,13 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
             response.code?.let {
                 accessCode = it
                 Timber.d("onActivityResult: requestCode: $it")
-                tokenData.setSpotifyCode(accessCode)
             }
         } else if (AUTH_TOKEN_REQUEST_CODE == requestCode) {
             response.accessToken?.let {
                 accessToken = it
                 println(accessToken)
                 Timber.d("onActivityResult: accessToken: $it")
-                tokenData.setSpotifyToken(accessToken)
+                sharedViewModel.saveSpotifyToken(accessToken)
                 sharedViewModel.refresh()
             }
         }

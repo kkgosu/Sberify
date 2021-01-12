@@ -47,7 +47,7 @@ class ViewModelConverter {
         return Result(domain.status, data, domain.message)
     }
 
-    private fun makeTrackModel(it: TrackDomainModel): TrackModel {
+    fun makeTrackModel(it: TrackDomainModel): TrackModel {
         return TrackModel(
             id = it.id,
             name = it.name,
@@ -60,7 +60,7 @@ class ViewModelConverter {
         )
     }
 
-    private fun makeAlbumModel(
+    fun makeAlbumModel(
         it: AlbumDomainModel,
         status: Result.Status,
         message: String?,
@@ -80,7 +80,7 @@ class ViewModelConverter {
         )
     }
 
-    private fun makeArtistModel(it: ArtistDomainModel): ArtistModel {
+    fun makeArtistModel(it: ArtistDomainModel): ArtistModel {
         return ArtistModel(
             id = it.id,
             name = it.name,
