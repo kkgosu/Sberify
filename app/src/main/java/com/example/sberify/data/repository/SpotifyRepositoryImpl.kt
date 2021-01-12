@@ -2,10 +2,10 @@ package com.example.sberify.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.example.sberify.data.DbConverter
-import com.example.sberify.data.ResponseConverter
 import com.example.sberify.data.Result
 import com.example.sberify.data.api.SpotifyApi
+import com.example.sberify.data.converters.DbConverter
+import com.example.sberify.data.converters.ResponseConverter
 import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.resultLiveData
 import com.example.sberify.domain.SpotifyRepository
@@ -13,9 +13,8 @@ import com.example.sberify.models.domain.AlbumDomainModel
 import com.example.sberify.models.domain.ArtistDomainModel
 import com.example.sberify.models.domain.TrackDomainModel
 import com.example.sberify.presentation.ui.utils.ResponseHandler.getResult
-import javax.inject.Inject
 
-class SpotifyRepositoryImpl @Inject constructor(
+class SpotifyRepositoryImpl(
     private val database: AppDatabase,
     private val spotifyApi: SpotifyApi,
     private val dbConverter: DbConverter,

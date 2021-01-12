@@ -84,9 +84,9 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         lifecycleScope.launch {
             try {
                 spotifyAppRemote = connectToAppRemote()
-                println("Connected")
+                Timber.d("Connected")
             } catch (error: Throwable) {
-                println(error.message)
+                Timber.d(error)
             }
         }
     }
@@ -113,7 +113,6 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         } else if (AUTH_TOKEN_REQUEST_CODE == requestCode) {
             response.accessToken?.let {
                 accessToken = it
-                println(accessToken)
                 Timber.d("onActivityResult: accessToken: $it")
                 sharedViewModel.saveSpotifyToken(accessToken)
                 sharedViewModel.refresh()
@@ -186,9 +185,9 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
     }
 
     private fun showSnackbar() {
-        Snackbar.make(findViewById(R.id.bottom_nav_view), getString(R.string.internet_connection_message), Snackbar.LENGTH_SHORT)
+        Snackbar.make(binding.bnv.bottomNavView, getString(R.string.internet_connection_message), Snackbar.LENGTH_SHORT)
             .setBackgroundTint(ContextCompat.getColor(this, R.color.colorAccent))
-            .setAnchorView(R.id.bottom_nav_view)
+            .setAnchorView(binding.bnv.bottomNavView)
             .show()
     }
 

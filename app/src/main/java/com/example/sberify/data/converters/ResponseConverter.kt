@@ -1,4 +1,4 @@
-package com.example.sberify.data
+package com.example.sberify.data.converters
 
 import com.example.sberify.data.db.album.AlbumEntity
 import com.example.sberify.data.db.artists.ArtistEntity

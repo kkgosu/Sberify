@@ -3,10 +3,10 @@ package com.example.sberify.data.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
-import com.example.sberify.data.DbConverter
 import com.example.sberify.data.GeniusParser
 import com.example.sberify.data.Result
 import com.example.sberify.data.api.GeniusApi
+import com.example.sberify.data.converters.DbConverter
 import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.resultLiveData
 import com.example.sberify.domain.GeniusRepository
@@ -14,9 +14,8 @@ import com.example.sberify.models.domain.RawTrackDomainModel
 import com.example.sberify.models.domain.TrackDomainModel
 import com.example.sberify.presentation.ui.utils.ResponseHandler.getResult
 import timber.log.Timber
-import javax.inject.Inject
 
-class GeniusRepositoryImpl @Inject constructor(
+class GeniusRepositoryImpl(
     private val geniusParser: GeniusParser,
     private val database: AppDatabase,
     private val dbConverter: DbConverter,
