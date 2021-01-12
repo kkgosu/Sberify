@@ -24,7 +24,7 @@ interface TrackDao {
     @Query("UPDATE tracks SET is_favorite = :isFavorite WHERE track_id = :id")
     suspend fun setTrackIsFavorite(id: String, isFavorite: Boolean)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertTrack(trackEntity: TrackEntity)
 
     @Transaction

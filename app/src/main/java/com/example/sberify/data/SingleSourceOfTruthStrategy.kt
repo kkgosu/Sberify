@@ -19,8 +19,6 @@ fun <T, A> resultLiveData(
         val responseStatus = networkCall.invoke()
         if (responseStatus.status == Result.Status.SUCCESS) {
             saveCallResult(responseStatus.data!!)
-            val newSource = databaseQuery.invoke().map { Result.success(it) }
-            emitSource(newSource)
         } else if (responseStatus.status == Result.Status.ERROR) {
             emit(Result.error(responseStatus.message!!))
             delay(100)
