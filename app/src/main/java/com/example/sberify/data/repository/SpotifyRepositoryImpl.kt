@@ -34,8 +34,6 @@ class SpotifyRepositoryImpl @Inject constructor(
                 val albumAndArtists = response.albums.items.map(responseConverter::convertAlbumToEntity)
                 albumAndArtists.forEach {
                     database.getAlbumDao().insertAlbum(it.albumInfo)
-                    it.artists.forEach(database.getArtistDao()::insertArtist)
-                    it.tracks.forEach(database.getTrackDao()::insertTrack)
                 }
             })
     }
@@ -51,9 +49,6 @@ class SpotifyRepositoryImpl @Inject constructor(
             saveCallResult = {
                 val albumWithTracksAndArtists = responseConverter.convertAlbumToEntity(it)
                 database.getAlbumDao().insertAlbum(albumWithTracksAndArtists.albumInfo)
-                albumWithTracksAndArtists.artists.forEach { artistEntity ->
-                    database.getArtistDao().insertArtist(artistEntity)
-                }
                 albumWithTracksAndArtists.tracks.forEach { tracksEntity ->
                     database.getTrackDao().insertTrack(tracksEntity)
                 }
@@ -87,8 +82,6 @@ class SpotifyRepositoryImpl @Inject constructor(
                 val albumAndArtists = response.albums.items.map(responseConverter::convertAlbumToEntity)
                 albumAndArtists.forEach {
                     database.getAlbumDao().insertAlbum(it.albumInfo)
-                    it.artists.forEach(database.getArtistDao()::insertArtist)
-                    it.tracks.forEach(database.getTrackDao()::insertTrack)
                 }
             })
 
