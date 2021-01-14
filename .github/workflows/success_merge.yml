@@ -10,9 +10,6 @@ on:
       - ready_for_review
       - reopened
       - unlocked
-  pull_request_review:
-    types:
-      - submitted
   check_suite:
     types:
       - completed
@@ -20,7 +17,7 @@ on:
 jobs:
   automerge:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    
     steps:
       - name: 'Wait for status checks'
         id: waitforstatuschecks
@@ -34,5 +31,7 @@ jobs:
         uses: "pascalgn/automerge-action@v0.13.0"
         env:
           GITHUB_TOKEN: "${{ secrets.SBERIFY_GITHUB_TOKEN }}"
+          MERGE_LABLES: ""
+          UPDATE_LABELS: ""
           MERGE_METHOD: "rebase"
           MERGE_FORKS: "false"
