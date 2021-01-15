@@ -1,4 +1,4 @@
-name: Android Pull Request & Master CI
+name: Build Job and Upload
 
 on:
   pull_request:
