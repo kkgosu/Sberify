@@ -2,9 +2,9 @@ package com.example.sberify.domain
 
 import androidx.lifecycle.LiveData
 import com.example.sberify.data.Result
-import com.kvlg.spotify.models.domain.AlbumDomainModel
-import com.kvlg.spotify.models.domain.ArtistDomainModel
-import com.kvlg.spotify.models.domain.TrackDomainModel
+import com.kvlg.spotify_api.models.domain.AlbumDomainModel
+import com.kvlg.spotify_api.models.domain.ArtistDomainModel
+import com.kvlg.spotify_api.models.domain.TrackDomainModel
 
 interface SpotifyRepository {
     fun getNewReleases(): LiveData<Result<List<AlbumDomainModel>>>

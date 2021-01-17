@@ -16,7 +16,7 @@ import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.utils.applyResultObserver
 import com.example.sberify.presentation.ui.utils.hideAnimation
 import com.example.sberify.presentation.ui.utils.showAnimation
-import com.kvlg.spotify.models.presentation.AlbumModel
+import com.kvlg.spotify_api.models.presentation.AlbumModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -2,8 +2,8 @@ package com.example.sberify.domain
 
 import androidx.lifecycle.LiveData
 import com.example.sberify.models.domain.Suggestion
-import com.kvlg.spotify.models.domain.AlbumDomainModel
-import com.kvlg.spotify.models.domain.TrackDomainModel
+import com.kvlg.spotify_api.models.domain.AlbumDomainModel
+import com.kvlg.spotify_api.models.domain.TrackDomainModel
 
 interface DatabaseRepository {
     suspend fun getAllSuggestions(): List<Suggestion>

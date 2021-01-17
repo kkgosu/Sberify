@@ -11,8 +11,8 @@ import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.resultLiveData
 import com.example.sberify.domain.GeniusRepository
 import com.example.sberify.presentation.ui.utils.ResponseHandler.getResult
-import com.kvlg.spotify.models.domain.RawTrackDomainModel
-import com.kvlg.spotify.models.domain.TrackDomainModel
+import com.kvlg.spotify_api.models.domain.RawTrackDomainModel
+import com.kvlg.spotify_api.models.domain.TrackDomainModel
 import timber.log.Timber
 
 class GeniusRepositoryImpl(

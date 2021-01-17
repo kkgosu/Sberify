@@ -1,12 +1,12 @@
 package com.example.sberify.presentation.ui.converter
 
 import com.example.sberify.data.Result
-import com.kvlg.spotify.models.domain.AlbumDomainModel
-import com.kvlg.spotify.models.domain.ArtistDomainModel
-import com.kvlg.spotify.models.domain.TrackDomainModel
-import com.kvlg.spotify.models.presentation.AlbumModel
-import com.kvlg.spotify.models.presentation.ArtistModel
-import com.kvlg.spotify.models.presentation.TrackModel
+import com.kvlg.spotify_api.models.domain.AlbumDomainModel
+import com.kvlg.spotify_api.models.domain.ArtistDomainModel
+import com.kvlg.spotify_api.models.domain.TrackDomainModel
+import com.kvlg.spotify_api.models.presentation.AlbumModel
+import com.kvlg.spotify_api.models.presentation.ArtistModel
+import com.kvlg.spotify_api.models.presentation.TrackModel
 
 /**
  * @author Konstantin Koval

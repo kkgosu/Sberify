@@ -9,8 +9,8 @@ import androidx.lifecycle.map
 import com.example.sberify.data.Result
 import com.example.sberify.domain.DatabaseRepository
 import com.example.sberify.presentation.ui.converter.ViewModelConverter
-import com.kvlg.spotify.models.presentation.AlbumModel
-import com.kvlg.spotify.models.presentation.TrackModel
+import com.kvlg.spotify_api.models.presentation.AlbumModel
+import com.kvlg.spotify_api.models.presentation.TrackModel
 
 class FavoriteViewModel @ViewModelInject constructor(
     private val databaseRepo: DatabaseRepository,

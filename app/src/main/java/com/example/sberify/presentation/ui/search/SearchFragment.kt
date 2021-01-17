@@ -34,9 +34,9 @@ import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Comp
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.TRACK_SWITCH_CHECKED_KEY
 import com.example.sberify.presentation.ui.utils.applyResultObserver
 import com.example.sberify.presentation.ui.utils.visible
-import com.kvlg.spotify.models.presentation.AlbumModel
-import com.kvlg.spotify.models.presentation.ArtistModel
-import com.kvlg.spotify.models.presentation.TrackModel
+import com.kvlg.spotify_api.models.presentation.AlbumModel
+import com.kvlg.spotify_api.models.presentation.ArtistModel
+import com.kvlg.spotify_api.models.presentation.TrackModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -8,9 +8,9 @@ import com.example.sberify.data.db.artists.ArtistDao
 import com.example.sberify.data.db.suggestions.SuggestionsDao
 import com.example.sberify.data.db.suggestions.SuggestionsEntity
 import com.example.sberify.data.db.track.TrackDao
-import com.kvlg.spotify.models.entity.AlbumEntity
-import com.kvlg.spotify.models.entity.ArtistEntity
-import com.kvlg.spotify.models.entity.TrackEntity
+import com.kvlg.spotify_api.models.entity.AlbumEntity
+import com.kvlg.spotify_api.models.entity.ArtistEntity
+import com.kvlg.spotify_api.models.entity.TrackEntity
 
 @Database(
     entities = [

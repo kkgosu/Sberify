@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.kvlg.spotify.models.entity.ArtistEntity
+import com.kvlg.spotify_api.models.entity.ArtistEntity
 
 @Dao
 interface ArtistDao {

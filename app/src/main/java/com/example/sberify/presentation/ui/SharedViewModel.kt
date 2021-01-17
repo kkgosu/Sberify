@@ -15,10 +15,10 @@ import com.example.sberify.domain.TokenData
 import com.example.sberify.models.domain.Suggestion
 import com.example.sberify.presentation.ui.converter.ViewModelConverter
 import com.example.sberify.presentation.ui.utils.SingleLiveEvent
-import com.kvlg.spotify.models.domain.RawTrackDomainModel
-import com.kvlg.spotify.models.presentation.AlbumModel
-import com.kvlg.spotify.models.presentation.ArtistModel
-import com.kvlg.spotify.models.presentation.TrackModel
+import com.kvlg.spotify_api.models.domain.RawTrackDomainModel
+import com.kvlg.spotify_api.models.presentation.AlbumModel
+import com.kvlg.spotify_api.models.presentation.ArtistModel
+import com.kvlg.spotify_api.models.presentation.TrackModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
