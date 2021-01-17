@@ -2,25 +2,24 @@ package com.example.sberify.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import androidx.lifecycle.map
 import com.example.sberify.data.converters.DbConverter
-import com.example.sberify.data.db.AppDatabase
-import com.example.sberify.data.db.suggestions.SuggestionsEntity
 import com.example.sberify.domain.DatabaseRepository
 import com.example.sberify.models.domain.Suggestion
 import com.kvlg.spotify_api.models.domain.AlbumDomainModel
 import com.kvlg.spotify_api.models.domain.TrackDomainModel
+import com.kvlg.spotify_impl.data.database.AppDatabase
+import com.kvlg.spotify_impl.data.database.suggestions.SuggestionsEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class DatabaseRepositoryImpl(
-    private val database: AppDatabase,
+    private val database: com.kvlg.spotify_impl.data.database.AppDatabase,
     private val dbConverter: DbConverter
 ) : DatabaseRepository {
     override suspend fun insertSuggestion(suggestion: Suggestion) {
         withContext(Dispatchers.IO) {
             database.getSuggestionsDao()
-                .insertSuggestion(SuggestionsEntity.from(suggestion))
+                .insertSuggestion(com.kvlg.spotify_impl.data.database.suggestions.SuggestionsEntity.from(suggestion))
             database.getSuggestionsDao()
                 .checkLimitAndDelete()
         }
@@ -30,7 +29,7 @@ class DatabaseRepositoryImpl(
         return withContext(Dispatchers.IO) {
             database.getSuggestionsDao()
                 .getAllSuggestions()
-                .map(SuggestionsEntity::toSuggestion)
+                .map(com.kvlg.spotify_impl.data.database.suggestions.SuggestionsEntity::toSuggestion)
         }
     }
 

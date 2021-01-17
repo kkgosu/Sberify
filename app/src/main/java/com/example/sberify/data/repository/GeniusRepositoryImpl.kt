@@ -2,22 +2,21 @@ package com.example.sberify.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.map
 import com.example.sberify.data.GeniusParser
 import com.example.sberify.data.Result
 import com.example.sberify.data.api.GeniusApi
 import com.example.sberify.data.converters.DbConverter
-import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.resultLiveData
 import com.example.sberify.domain.GeniusRepository
 import com.example.sberify.presentation.ui.utils.ResponseHandler.getResult
 import com.kvlg.spotify_api.models.domain.RawTrackDomainModel
 import com.kvlg.spotify_api.models.domain.TrackDomainModel
+import com.kvlg.spotify_impl.data.database.AppDatabase
 import timber.log.Timber
 
 class GeniusRepositoryImpl(
     private val geniusParser: GeniusParser,
-    private val database: AppDatabase,
+    private val database: com.kvlg.spotify_impl.data.database.AppDatabase,
     private val dbConverter: DbConverter,
     private val geniusApi: GeniusApi,
 ) : GeniusRepository {

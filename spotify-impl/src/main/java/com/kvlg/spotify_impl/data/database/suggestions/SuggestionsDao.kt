@@ -1,4 +1,4 @@
-package com.example.sberify.data.db.suggestions
+package com.kvlg.spotify_impl.data.database.suggestions
 
 import androidx.room.Dao
 import androidx.room.Insert

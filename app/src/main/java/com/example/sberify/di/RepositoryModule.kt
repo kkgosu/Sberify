@@ -5,7 +5,6 @@ import com.example.sberify.data.api.GeniusApi
 import com.example.sberify.data.api.SpotifyApi
 import com.example.sberify.data.converters.DbConverter
 import com.example.sberify.data.converters.ResponseConverter
-import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.repository.DatabaseRepositoryImpl
 import com.example.sberify.data.repository.GeniusRepositoryImpl
 import com.example.sberify.data.repository.SpotifyRepositoryImpl
@@ -13,6 +12,7 @@ import com.example.sberify.domain.DatabaseRepository
 import com.example.sberify.domain.GeniusRepository
 import com.example.sberify.domain.SpotifyRepository
 import com.example.sberify.presentation.ui.converter.ViewModelConverter
+import com.kvlg.spotify_impl.data.database.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,7 +36,7 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun provideSpotifyRepository(
-        database: AppDatabase,
+        database: com.kvlg.spotify_impl.data.database.AppDatabase,
         spotifyApi: SpotifyApi,
         dbConverter: DbConverter,
     ): SpotifyRepository {
@@ -46,7 +46,7 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun provideGeniusRepository(
-        appDatabase: AppDatabase,
+        appDatabase: com.kvlg.spotify_impl.data.database.AppDatabase,
         geniusApi: GeniusApi,
         dbConverter: DbConverter,
     ): GeniusRepository {
@@ -55,7 +55,7 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideDatabaseRepository(appDatabase: AppDatabase, dbConverter: DbConverter): DatabaseRepository {
+    fun provideDatabaseRepository(appDatabase: com.kvlg.spotify_impl.data.database.AppDatabase, dbConverter: DbConverter): DatabaseRepository {
         return DatabaseRepositoryImpl(appDatabase, dbConverter)
     }
 }

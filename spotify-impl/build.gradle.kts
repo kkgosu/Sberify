@@ -34,7 +34,7 @@ android {
 }
 
 dependencies {
-    api("spotify-api")
+    api(project(":spotify-api"))
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 

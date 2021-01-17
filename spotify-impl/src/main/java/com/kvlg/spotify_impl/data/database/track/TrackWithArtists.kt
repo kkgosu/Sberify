@@ -1,4 +1,4 @@
-package com.example.sberify.data.db.track
+package com.kvlg.spotify_impl.data.database.track
 
 import androidx.room.Embedded
 import androidx.room.Junction

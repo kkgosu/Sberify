@@ -1,4 +1,4 @@
-package com.example.sberify.data.db
+package com.kvlg.spotify_impl.data.database
 
 import androidx.room.TypeConverter
 

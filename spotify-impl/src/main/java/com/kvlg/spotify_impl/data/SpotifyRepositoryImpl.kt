@@ -1,21 +1,19 @@
-package com.example.sberify.data.repository
+package com.kvlg.spotify_impl.data
 
 import androidx.lifecycle.LiveData
-import com.example.sberify.data.Result
-import com.example.sberify.data.api.SpotifyApi
-import com.example.sberify.data.converters.DbConverter
-import com.example.sberify.data.converters.ResponseConverter
-import com.example.sberify.data.resultLiveData
-import com.example.sberify.domain.SpotifyRepository
-import com.example.sberify.presentation.ui.utils.ResponseHandler.getResult
 import com.kvlg.spotify_api.models.domain.AlbumDomainModel
 import com.kvlg.spotify_api.models.domain.ArtistDomainModel
 import com.kvlg.spotify_api.models.domain.TrackDomainModel
 import com.kvlg.spotify_impl.data.database.AppDatabase
+import com.kvlg.spotify_impl.data.network.SpotifyApiMapper
 
+/**
+ * @author Konstantin Koval
+ * @since 17.01.2021
+ */
 class SpotifyRepositoryImpl(
-    private val database: com.kvlg.spotify_impl.data.database.AppDatabase,
-    private val spotifyApi: SpotifyApi,
+    private val database: AppDatabase,
+    private val spotifyApi: SpotifyApiMapper,
     private val dbConverter: DbConverter,
     private val responseConverter: ResponseConverter
 ) : SpotifyRepository {

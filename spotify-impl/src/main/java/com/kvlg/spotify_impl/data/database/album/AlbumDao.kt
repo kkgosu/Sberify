@@ -1,4 +1,4 @@
-package com.example.sberify.data.db.album
+package com.kvlg.spotify_impl.data.database.album
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

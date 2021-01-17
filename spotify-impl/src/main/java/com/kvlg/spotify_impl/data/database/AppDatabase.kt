@@ -1,16 +1,16 @@
-package com.example.sberify.data.db
+package com.kvlg.spotify_impl.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.sberify.data.db.album.AlbumDao
-import com.example.sberify.data.db.artists.ArtistDao
-import com.example.sberify.data.db.suggestions.SuggestionsDao
-import com.example.sberify.data.db.suggestions.SuggestionsEntity
-import com.example.sberify.data.db.track.TrackDao
 import com.kvlg.spotify_api.models.entity.AlbumEntity
 import com.kvlg.spotify_api.models.entity.ArtistEntity
 import com.kvlg.spotify_api.models.entity.TrackEntity
+import com.kvlg.spotify_impl.data.database.album.AlbumDao
+import com.kvlg.spotify_impl.data.database.artists.ArtistDao
+import com.kvlg.spotify_impl.data.database.suggestions.SuggestionsDao
+import com.kvlg.spotify_impl.data.database.suggestions.SuggestionsEntity
+import com.kvlg.spotify_impl.data.database.track.TrackDao
 
 @Database(
     entities = [
