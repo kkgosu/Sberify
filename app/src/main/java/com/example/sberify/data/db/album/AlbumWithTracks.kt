@@ -2,7 +2,8 @@ package com.example.sberify.data.db.album
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.example.sberify.data.db.track.TrackEntity
+import com.kvlg.spotify.models.entity.AlbumEntity
+import com.kvlg.spotify.models.entity.TrackEntity
 
 /**
  * @author Konstantin Koval

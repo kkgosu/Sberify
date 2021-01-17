@@ -28,15 +28,15 @@ import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentSearchBinding
 import com.example.sberify.models.domain.Suggestion
-import com.example.sberify.models.presentation.AlbumModel
-import com.example.sberify.models.presentation.ArtistModel
-import com.example.sberify.models.presentation.TrackModel
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.ALBUM_SWITCH_CHECKED_KEY
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.ARTIST_SWITCH_CHECKED_KEY
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.TRACK_SWITCH_CHECKED_KEY
 import com.example.sberify.presentation.ui.utils.applyResultObserver
 import com.example.sberify.presentation.ui.utils.visible
+import com.kvlg.spotify.models.presentation.AlbumModel
+import com.kvlg.spotify.models.presentation.ArtistModel
+import com.kvlg.spotify.models.presentation.TrackModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

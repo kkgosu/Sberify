@@ -7,9 +7,9 @@ import com.example.sberify.data.converters.DbConverter
 import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.db.suggestions.SuggestionsEntity
 import com.example.sberify.domain.DatabaseRepository
-import com.example.sberify.models.domain.AlbumDomainModel
 import com.example.sberify.models.domain.Suggestion
-import com.example.sberify.models.domain.TrackDomainModel
+import com.kvlg.spotify.models.domain.AlbumDomainModel
+import com.kvlg.spotify.models.domain.TrackDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

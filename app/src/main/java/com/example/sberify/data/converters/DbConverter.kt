@@ -1,14 +1,14 @@
 package com.example.sberify.data.converters
 
-import com.example.sberify.data.db.album.AlbumEntity
-import com.example.sberify.data.db.artists.ArtistEntity
-import com.example.sberify.data.db.track.TrackEntity
-import com.example.sberify.models.domain.AlbumDomainModel
-import com.example.sberify.models.domain.ArtistDomainModel
-import com.example.sberify.models.domain.CopyrightDomainModel
-import com.example.sberify.models.domain.ExternalUrlDomainModel
-import com.example.sberify.models.domain.ImageDomainModel
-import com.example.sberify.models.domain.TrackDomainModel
+import com.kvlg.spotify.models.domain.AlbumDomainModel
+import com.kvlg.spotify.models.domain.ArtistDomainModel
+import com.kvlg.spotify.models.domain.CopyrightDomainModel
+import com.kvlg.spotify.models.domain.ExternalUrlDomainModel
+import com.kvlg.spotify.models.domain.ImageDomainModel
+import com.kvlg.spotify.models.domain.TrackDomainModel
+import com.kvlg.spotify.models.entity.AlbumEntity
+import com.kvlg.spotify.models.entity.ArtistEntity
+import com.kvlg.spotify.models.entity.TrackEntity
 
 /**
  * @author Konstantin Koval

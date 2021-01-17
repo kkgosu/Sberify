@@ -8,14 +8,14 @@ import com.example.sberify.databinding.ItemSearchBinding
 import com.example.sberify.databinding.ItemSuggestionBinding
 import com.example.sberify.databinding.ItemTrackBinding
 import com.example.sberify.databinding.ItemTrackListedBinding
-import com.example.sberify.models.domain.ArtistDomainModel
-import com.example.sberify.models.domain.BaseModel
 import com.example.sberify.models.domain.Suggestion
-import com.example.sberify.models.presentation.AlbumModel
-import com.example.sberify.models.presentation.ArtistModel
-import com.example.sberify.models.presentation.TrackModel
 import com.example.sberify.presentation.ui.utils.bindPalette
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
+import com.kvlg.spotify.models.domain.ArtistDomainModel
+import com.kvlg.spotify.models.domain.BaseModel
+import com.kvlg.spotify.models.presentation.AlbumModel
+import com.kvlg.spotify.models.presentation.ArtistModel
+import com.kvlg.spotify.models.presentation.TrackModel
 
 fun artistAdapterDelegate(itemClickListener: (ArtistModel, View) -> Unit) =
     adapterDelegateViewBinding<ArtistModel, BaseModel, ItemAlbumHorizontalBinding>({ layoutInflater, parent ->

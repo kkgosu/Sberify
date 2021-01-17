@@ -1,5 +1,6 @@
 include(
     ":app",
-    ":spotify-app-remote"
+    ":spotify-app-remote",
+    ":spotify-api"
 )
 rootProject.name= "Sberius"

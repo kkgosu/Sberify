@@ -4,13 +4,13 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.sberify.data.db.album.AlbumDao
-import com.example.sberify.data.db.album.AlbumEntity
 import com.example.sberify.data.db.artists.ArtistDao
-import com.example.sberify.data.db.artists.ArtistEntity
 import com.example.sberify.data.db.suggestions.SuggestionsDao
 import com.example.sberify.data.db.suggestions.SuggestionsEntity
 import com.example.sberify.data.db.track.TrackDao
-import com.example.sberify.data.db.track.TrackEntity
+import com.kvlg.spotify.models.entity.AlbumEntity
+import com.kvlg.spotify.models.entity.ArtistEntity
+import com.kvlg.spotify.models.entity.TrackEntity
 
 @Database(
     entities = [

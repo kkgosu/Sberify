@@ -1,8 +1,8 @@
 package com.example.sberify.base
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.sberify.models.domain.BaseModel
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
+import com.kvlg.spotify.models.domain.BaseModel
 
 
 open class BaseAdapter : AsyncListDifferDelegationAdapter<BaseModel>(DIFF_CALLBACK) {

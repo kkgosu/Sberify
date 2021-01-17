@@ -1,10 +1,10 @@
 package com.example.sberify.data.api
 
-import com.example.sberify.models.data.spotify.AlbumInfoResponse
-import com.example.sberify.models.data.spotify.AlbumSearchResponse
-import com.example.sberify.models.data.spotify.ArtistSearchResponse
-import com.example.sberify.models.data.spotify.NewReleasesResponse
-import com.example.sberify.models.data.spotify.TrackSearchResponse
+import com.kvlg.spotify.models.data.AlbumInfoResponse
+import com.kvlg.spotify.models.data.AlbumSearchResponse
+import com.kvlg.spotify.models.data.ArtistSearchResponse
+import com.kvlg.spotify.models.data.NewReleasesResponse
+import com.kvlg.spotify.models.data.TrackSearchResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

@@ -52,6 +52,7 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(project(":spotify-app-remote"))
+    implementation(project(":spotify-api"))
 
     implementation(Libs.ACTIVITY_KTX)
     implementation(Libs.ADAPTER_DELEGATES)
@@ -87,8 +88,6 @@ dependencies {
     implementation(Libs.TIMBER)
 
     kapt(Libs.ANDROIDX_HILT_COMPILER)
-    kapt(Libs.ANDROIDX_HILT_COMPILER)
-    kapt(Libs.HILT_COMPILER)
     kapt(Libs.HILT_COMPILER)
     kapt(Libs.ROOM_COMPILER)
 

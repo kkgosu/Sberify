@@ -9,10 +9,10 @@ import com.example.sberify.data.converters.ResponseConverter
 import com.example.sberify.data.db.AppDatabase
 import com.example.sberify.data.resultLiveData
 import com.example.sberify.domain.SpotifyRepository
-import com.example.sberify.models.domain.AlbumDomainModel
-import com.example.sberify.models.domain.ArtistDomainModel
-import com.example.sberify.models.domain.TrackDomainModel
 import com.example.sberify.presentation.ui.utils.ResponseHandler.getResult
+import com.kvlg.spotify.models.domain.AlbumDomainModel
+import com.kvlg.spotify.models.domain.ArtistDomainModel
+import com.kvlg.spotify.models.domain.TrackDomainModel
 
 class SpotifyRepositoryImpl(
     private val database: AppDatabase,
