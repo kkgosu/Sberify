@@ -1,4 +1,4 @@
-package com.example.sberify.models.data.genius
+package com.kvlg.genius_impl.models
 
 data class Response(
     val hits: List<Hit>

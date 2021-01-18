@@ -1,4 +1,4 @@
-package com.example.sberify.models.data.genius
+package com.kvlg.genius_impl.models
 
 data class Hit(
     val result: Result,

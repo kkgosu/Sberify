@@ -13,9 +13,9 @@ import com.example.sberify.models.domain.Suggestion
 import com.example.sberify.presentation.ui.converter.ViewModelConverter
 import com.example.sberify.presentation.ui.utils.SingleLiveEvent
 import com.kvlg.core_utils.Result
+import com.kvlg.core_utils.models.RawTrackModel
 import com.kvlg.core_utils.models.TokenData
 import com.kvlg.spotify_api.api.SpotifyApi
-import com.kvlg.spotify_api.models.domain.RawTrackModel
 import com.kvlg.spotify_api.models.presentation.AlbumModel
 import com.kvlg.spotify_api.models.presentation.ArtistModel
 import com.kvlg.spotify_api.models.presentation.TrackModel

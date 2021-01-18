@@ -1,4 +1,4 @@
-package com.example.sberify.data
+package com.kvlg.genius_impl.data
 
 import com.kvlg.core_utils.Result
 import org.jsoup.Connection

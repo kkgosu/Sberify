@@ -1,29 +1,29 @@
-package com.example.sberify.data.repository
+package com.kvlg.genius_impl.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.sberify.data.api.GeniusApi
-import com.example.sberify.domain.GeniusRepository
-import com.kvlg.core_utils.ResponseHandler.getResult
+import com.kvlg.core_utils.ResponseHandler
 import com.kvlg.core_utils.Result
 import com.kvlg.core_utils.models.RawTrackModel
 import com.kvlg.core_utils.resultLiveData
-import com.kvlg.genius_impl.data.GeniusParser
-import com.kvlg.spotify_impl.data.DbConverter
-import com.kvlg.spotify_impl.data.database.AppDatabase
+import com.kvlg.genius_impl.data.network.GeniusApiMapper
 import timber.log.Timber
 
+/**
+ * @author Konstantin Koval
+ * @since 18.01.2021
+ */
 class GeniusRepositoryImpl(
-    private val geniusParser: com.kvlg.genius_impl.data.GeniusParser,
+    private val geniusParser: GeniusParser,
     private val database: com.kvlg.spotify_impl.data.database.AppDatabase,
     private val dbConverter: com.kvlg.spotify_impl.data.DbConverter,
-    private val geniusApi: GeniusApi,
+    private val geniusApi: GeniusApiMapper,
 ) : GeniusRepository {
 
     override suspend fun getLyrics(track: RawTrackModel): LiveData<Result<RawTrackModel?>> {
         val filterTrackName = filterTrackName(track.name)
         val query = filterQuery("${track.artistNames} $filterTrackName")
-        val responseResult = getResult { geniusApi.getPath(query) }
+        val responseResult = ResponseHandler.getResult { geniusApi.getPath(query) }
         val url = responseResult.data?.response?.hits?.find {
             it.type == "song" && !it.result.url.contains(
                 "annotated",
