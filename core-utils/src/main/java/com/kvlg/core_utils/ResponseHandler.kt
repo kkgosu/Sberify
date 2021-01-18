@@ -1,6 +1,5 @@
-package com.example.sberify.presentation.ui.utils
+package com.kvlg.core_utils
 
-import com.kvlg.core_utils.Result
 import retrofit2.Response
 import timber.log.Timber
 import java.io.IOException

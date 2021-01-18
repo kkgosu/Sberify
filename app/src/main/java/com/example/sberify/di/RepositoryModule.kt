@@ -3,8 +3,6 @@ package com.example.sberify.di
 import com.example.sberify.data.GeniusParser
 import com.example.sberify.data.api.GeniusApi
 import com.example.sberify.data.api.SpotifyApi
-import com.example.sberify.data.converters.DbConverter
-import com.example.sberify.data.converters.ResponseConverter
 import com.example.sberify.data.repository.DatabaseRepositoryImpl
 import com.example.sberify.data.repository.GeniusRepositoryImpl
 import com.example.sberify.data.repository.SpotifyRepositoryImpl
@@ -12,6 +10,8 @@ import com.example.sberify.domain.DatabaseRepository
 import com.example.sberify.domain.GeniusRepository
 import com.example.sberify.domain.SpotifyRepository
 import com.example.sberify.presentation.ui.converter.ViewModelConverter
+import com.kvlg.spotify_impl.data.DbConverter
+import com.kvlg.spotify_impl.data.ResponseConverter
 import com.kvlg.spotify_impl.data.database.AppDatabase
 import dagger.Module
 import dagger.Provides
@@ -29,8 +29,8 @@ class RepositoryModule {
     }
 
     @Provides
-    fun provideDbConverter(): DbConverter {
-        return DbConverter()
+    fun provideDbConverter(): com.kvlg.spotify_impl.data.DbConverter {
+        return com.kvlg.spotify_impl.data.DbConverter()
     }
 
     @Provides
@@ -38,9 +38,9 @@ class RepositoryModule {
     fun provideSpotifyRepository(
         database: com.kvlg.spotify_impl.data.database.AppDatabase,
         spotifyApi: SpotifyApi,
-        dbConverter: DbConverter,
+        dbConverter: com.kvlg.spotify_impl.data.DbConverter,
     ): SpotifyRepository {
-        return SpotifyRepositoryImpl(database, spotifyApi, dbConverter, ResponseConverter())
+        return SpotifyRepositoryImpl(database, spotifyApi, dbConverter, com.kvlg.spotify_impl.data.ResponseConverter())
     }
 
     @Provides
@@ -48,14 +48,14 @@ class RepositoryModule {
     fun provideGeniusRepository(
         appDatabase: com.kvlg.spotify_impl.data.database.AppDatabase,
         geniusApi: GeniusApi,
-        dbConverter: DbConverter,
+        dbConverter: com.kvlg.spotify_impl.data.DbConverter,
     ): GeniusRepository {
         return GeniusRepositoryImpl(GeniusParser(), appDatabase, dbConverter, geniusApi)
     }
 
     @Provides
     @Singleton
-    fun provideDatabaseRepository(appDatabase: com.kvlg.spotify_impl.data.database.AppDatabase, dbConverter: DbConverter): DatabaseRepository {
+    fun provideDatabaseRepository(appDatabase: com.kvlg.spotify_impl.data.database.AppDatabase, dbConverter: com.kvlg.spotify_impl.data.DbConverter): DatabaseRepository {
         return DatabaseRepositoryImpl(appDatabase, dbConverter)
     }
 }

@@ -2,7 +2,6 @@ package com.example.sberify.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.example.sberify.data.converters.DbConverter
 import com.example.sberify.domain.DatabaseRepository
 import com.example.sberify.models.domain.Suggestion
 import com.kvlg.spotify_api.models.domain.AlbumDomainModel
@@ -14,7 +13,7 @@ import kotlinx.coroutines.withContext
 
 class DatabaseRepositoryImpl(
     private val database: com.kvlg.spotify_impl.data.database.AppDatabase,
-    private val dbConverter: DbConverter
+    private val dbConverter: com.kvlg.spotify_impl.data.DbConverter
 ) : DatabaseRepository {
     override suspend fun insertSuggestion(suggestion: Suggestion) {
         withContext(Dispatchers.IO) {

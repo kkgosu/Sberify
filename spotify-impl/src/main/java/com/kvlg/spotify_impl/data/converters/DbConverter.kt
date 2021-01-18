@@ -1,4 +1,4 @@
-package com.example.sberify.data.converters
+package com.kvlg.spotify_impl.data.converters
 
 import com.kvlg.spotify_api.models.domain.AlbumDomainModel
 import com.kvlg.spotify_api.models.domain.ArtistDomainModel

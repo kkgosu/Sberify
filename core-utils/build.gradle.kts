@@ -28,4 +28,6 @@ android {
 dependencies {
     implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
+    implementation(Libs.RETROFIT)
+    implementation(Libs.TIMBER)
 }
