@@ -1,14 +1,5 @@
 package com.kvlg.spotify_impl.data.converters
 
-import com.kvlg.core_db.models.entity.AlbumEntity
-import com.kvlg.core_db.models.entity.ArtistEntity
-import com.kvlg.core_db.models.entity.TrackEntity
-import com.kvlg.spotify_api.models.domain.AlbumDomainModel
-import com.kvlg.spotify_api.models.domain.ArtistDomainModel
-import com.kvlg.spotify_api.models.domain.CopyrightDomainModel
-import com.kvlg.spotify_api.models.domain.ExternalUrlDomainModel
-import com.kvlg.spotify_api.models.domain.ImageDomainModel
-import com.kvlg.spotify_api.models.domain.TrackDomainModel
 import com.kvlg.spotify_impl.models.data.AlbumInfoResponse
 import com.kvlg.spotify_impl.models.data.AlbumTrackArtistResponse
 import com.kvlg.spotify_impl.models.data.ArtistResponse
@@ -16,6 +7,15 @@ import com.kvlg.spotify_impl.models.data.CopyrightResponse
 import com.kvlg.spotify_impl.models.data.ExternalUrlResponse
 import com.kvlg.spotify_impl.models.data.ImageResponse
 import com.kvlg.spotify_impl.models.data.TrackItemResponse
+import com.kvlg.spotify_models.domain.AlbumDomainModel
+import com.kvlg.spotify_models.domain.ArtistDomainModel
+import com.kvlg.spotify_models.domain.CopyrightDomainModel
+import com.kvlg.spotify_models.domain.ExternalUrlDomainModel
+import com.kvlg.spotify_models.domain.ImageDomainModel
+import com.kvlg.spotify_models.domain.TrackDomainModel
+import com.kvlg.spotify_models.entity.AlbumEntity
+import com.kvlg.spotify_models.entity.ArtistEntity
+import com.kvlg.spotify_models.entity.TrackEntity
 
 /**
  * @author Konstantin Koval

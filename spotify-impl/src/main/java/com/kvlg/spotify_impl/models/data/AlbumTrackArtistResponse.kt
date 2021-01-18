@@ -1,8 +1,8 @@
 package com.kvlg.spotify_impl.models.data
 
-import com.kvlg.core_db.models.entity.AlbumEntity
-import com.kvlg.core_db.models.entity.ArtistEntity
-import com.kvlg.core_db.models.entity.TrackEntity
+import com.kvlg.spotify_models.entity.AlbumEntity
+import com.kvlg.spotify_models.entity.ArtistEntity
+import com.kvlg.spotify_models.entity.TrackEntity
 
 /**
  * @author Konstantin Koval

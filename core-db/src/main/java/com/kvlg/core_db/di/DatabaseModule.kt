@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.kvlg.core_db.DatabaseRepository
 import com.kvlg.core_db.DatabaseRepositoryImpl
 import com.kvlg.core_db.database.AppDatabase
+import com.kvlg.core_db.database.DbConverter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

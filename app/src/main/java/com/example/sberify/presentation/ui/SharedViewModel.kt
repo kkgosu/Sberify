@@ -14,9 +14,9 @@ import com.kvlg.core_utils.models.Suggestion
 import com.kvlg.core_utils.models.TokenData
 import com.kvlg.genius_api.GeniusApi
 import com.kvlg.spotify_api.api.SpotifyApi
-import com.kvlg.spotify_api.models.presentation.AlbumModel
-import com.kvlg.spotify_api.models.presentation.ArtistModel
-import com.kvlg.spotify_api.models.presentation.TrackModel
+import com.kvlg.spotify_models.presentation.AlbumModel
+import com.kvlg.spotify_models.presentation.ArtistModel
+import com.kvlg.spotify_models.presentation.TrackModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

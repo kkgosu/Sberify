@@ -8,9 +8,9 @@ import com.kvlg.core_db.database.artists.ArtistDao
 import com.kvlg.core_db.database.suggestions.SuggestionsDao
 import com.kvlg.core_db.database.suggestions.SuggestionsEntity
 import com.kvlg.core_db.database.track.TrackDao
-import com.kvlg.core_db.models.entity.AlbumEntity
-import com.kvlg.core_db.models.entity.ArtistEntity
-import com.kvlg.core_db.models.entity.TrackEntity
+import com.kvlg.spotify_models.entity.AlbumEntity
+import com.kvlg.spotify_models.entity.ArtistEntity
+import com.kvlg.spotify_models.entity.TrackEntity
 
 @Database(
     entities = [

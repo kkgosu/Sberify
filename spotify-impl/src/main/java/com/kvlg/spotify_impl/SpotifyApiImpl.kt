@@ -5,10 +5,10 @@ import androidx.lifecycle.map
 import com.kvlg.core_utils.Result
 import com.kvlg.spotify_api.api.SpotifyApi
 import com.kvlg.spotify_api.converter.ViewModelConverter
-import com.kvlg.spotify_api.models.presentation.AlbumModel
-import com.kvlg.spotify_api.models.presentation.ArtistModel
-import com.kvlg.spotify_api.models.presentation.TrackModel
 import com.kvlg.spotify_impl.data.SpotifyRepository
+import com.kvlg.spotify_models.presentation.AlbumModel
+import com.kvlg.spotify_models.presentation.ArtistModel
+import com.kvlg.spotify_models.presentation.TrackModel
 
 class SpotifyApiImpl(
     private val repo: SpotifyRepository,

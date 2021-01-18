@@ -4,16 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 import com.kvlg.core_db.database.AppDatabase
+import com.kvlg.core_db.database.DbConverter
 import com.kvlg.core_db.database.suggestions.SuggestionsEntity
 import com.kvlg.core_utils.models.Suggestion
-import com.kvlg.spotify_api.models.domain.AlbumDomainModel
-import com.kvlg.spotify_api.models.domain.TrackDomainModel
+import com.kvlg.spotify_models.domain.AlbumDomainModel
+import com.kvlg.spotify_models.domain.TrackDomainModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class DatabaseRepositoryImpl(
     private val database: AppDatabase,
-    private val dbConverter: com.kvlg.spotify_impl.data.DbConverter
+    private val dbConverter: DbConverter
 ) : DatabaseRepository {
 
     override suspend fun insertSuggestion(suggestion: Suggestion) {

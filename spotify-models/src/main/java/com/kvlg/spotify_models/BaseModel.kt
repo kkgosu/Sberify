@@ -1,4 +1,4 @@
-package com.kvlg.spotify_api.models
+package com.kvlg.spotify_models
 
 abstract class BaseModel(val baseId: String = "") {
     override fun equals(other: Any?): Boolean {

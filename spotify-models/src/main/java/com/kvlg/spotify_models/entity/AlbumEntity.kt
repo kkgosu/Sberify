@@ -1,4 +1,4 @@
-package com.kvlg.core_db.models.entity
+package com.kvlg.spotify_models.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

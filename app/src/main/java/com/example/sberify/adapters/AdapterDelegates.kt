@@ -11,11 +11,11 @@ import com.example.sberify.databinding.ItemTrackListedBinding
 import com.example.sberify.models.domain.Suggestion
 import com.example.sberify.presentation.ui.utils.bindPalette
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
-import com.kvlg.spotify_api.models.domain.ArtistDomainModel
 import com.kvlg.spotify_api.models.domain.BaseModel
-import com.kvlg.spotify_api.models.presentation.AlbumModel
-import com.kvlg.spotify_api.models.presentation.ArtistModel
-import com.kvlg.spotify_api.models.presentation.TrackModel
+import com.kvlg.spotify_models.domain.ArtistDomainModel
+import com.kvlg.spotify_models.presentation.AlbumModel
+import com.kvlg.spotify_models.presentation.ArtistModel
+import com.kvlg.spotify_models.presentation.TrackModel
 
 fun artistAdapterDelegate(itemClickListener: (ArtistModel, View) -> Unit) =
     adapterDelegateViewBinding<ArtistModel, BaseModel, ItemAlbumHorizontalBinding>({ layoutInflater, parent ->

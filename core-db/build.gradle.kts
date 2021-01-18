@@ -36,7 +36,7 @@ android {
 dependencies {
     api(project(":core-utils"))
 
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    implementation(project(":spotify-models"))
 
     implementation(Libs.HILT_ANDROID)
     implementation(Libs.KOTLIN_STDLIB)

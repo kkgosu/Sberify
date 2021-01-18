@@ -1,4 +1,4 @@
-package com.kvlg.spotify_api.models.domain
+package com.kvlg.spotify_models.domain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -8,6 +8,6 @@ import kotlinx.parcelize.Parcelize
  * @since 06.12.2020
  */
 @Parcelize
-data class ExternalUrlDomainModel(
-    val spotifyUrl: String
+data class ImageDomainModel(
+    val url: String
 ) : Parcelable

@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import com.kvlg.core_db.models.entity.AlbumEntity
+import com.kvlg.spotify_models.entity.AlbumEntity
 
 @Dao
 interface AlbumDao {
