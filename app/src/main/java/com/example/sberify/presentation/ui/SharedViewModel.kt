@@ -5,16 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.example.sberify.domain.DatabaseRepository
-import com.example.sberify.domain.GeniusRepository
 import com.example.sberify.models.domain.Suggestion
-import com.example.sberify.presentation.ui.converter.ViewModelConverter
 import com.example.sberify.presentation.ui.utils.SingleLiveEvent
 import com.kvlg.core_utils.Result
 import com.kvlg.core_utils.models.RawTrackModel
 import com.kvlg.core_utils.models.TokenData
+import com.kvlg.genius_api.GeniusApi
 import com.kvlg.spotify_api.api.SpotifyApi
 import com.kvlg.spotify_api.models.presentation.AlbumModel
 import com.kvlg.spotify_api.models.presentation.ArtistModel
@@ -27,9 +25,8 @@ import kotlinx.coroutines.withContext
 
 class SharedViewModel @ViewModelInject constructor(
     private val spofityApi: SpotifyApi,
-    private val geniusRepository: GeniusRepository,
+    private val geniusApi: GeniusApi,
     private val databaseRepository: DatabaseRepository,
-    private val modelConverter: ViewModelConverter,
     private val tokenData: TokenData
 ) : ViewModel() {
 
@@ -82,7 +79,7 @@ class SharedViewModel @ViewModelInject constructor(
         runBlocking(Dispatchers.IO) {
             try {
                 withContext(Dispatchers.Default) {
-                    geniusRepository.getLyrics(it).map(modelConverter::convertToTrackViewModel)
+                    geniusApi.getLyrics(it)
                 }
             } catch (e: Exception) {
                 MutableLiveData()

@@ -7,7 +7,6 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import com.example.sberify.domain.DatabaseRepository
-import com.example.sberify.presentation.ui.converter.ViewModelConverter
 import com.kvlg.core_utils.Result
 import com.kvlg.spotify_api.models.presentation.AlbumModel
 import com.kvlg.spotify_api.models.presentation.TrackModel

@@ -54,6 +54,7 @@ dependencies {
     implementation(project(":core-utils"))
     implementation(project(":spotify-app-remote"))
     implementation(project(":spotify-api"))
+    implementation(project(":genius-api"))
 
     implementation(Libs.ACTIVITY_KTX)
     implementation(Libs.ADAPTER_DELEGATES)
