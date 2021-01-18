@@ -1,10 +1,10 @@
 package com.kvlg.spotify_impl.data.network
 
-import com.kvlg.spotify_api.models.data.AlbumInfoResponse
-import com.kvlg.spotify_api.models.data.AlbumSearchResponse
-import com.kvlg.spotify_api.models.data.ArtistSearchResponse
-import com.kvlg.spotify_api.models.data.NewReleasesResponse
-import com.kvlg.spotify_api.models.data.TrackSearchResponse
+import com.kvlg.spotify_impl.models.data.AlbumInfoResponse
+import com.kvlg.spotify_impl.models.data.AlbumSearchResponse
+import com.kvlg.spotify_impl.models.data.ArtistSearchResponse
+import com.kvlg.spotify_impl.models.data.NewReleasesResponse
+import com.kvlg.spotify_impl.models.data.TrackSearchResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

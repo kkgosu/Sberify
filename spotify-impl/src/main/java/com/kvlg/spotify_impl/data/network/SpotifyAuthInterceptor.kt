@@ -1,6 +1,6 @@
-package com.example.sberify.data.api
+package com.kvlg.spotify_impl.data.network
 
-import com.example.sberify.domain.TokenData
+import com.kvlg.core_utils.models.TokenData
 import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response

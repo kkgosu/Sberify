@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -26,8 +28,13 @@ android {
 }
 
 dependencies {
+    api(Libs.TIMBER)
+
+    implementation(Libs.HILT_ANDROID)
     implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
+    implementation(Libs.PREFERENCES)
     implementation(Libs.RETROFIT)
-    implementation(Libs.TIMBER)
+
+    kapt(Libs.HILT_COMPILER)
 }

@@ -1,4 +1,4 @@
-package com.example.sberify.domain
+package com.kvlg.core_utils.models
 
 import android.content.SharedPreferences
 
