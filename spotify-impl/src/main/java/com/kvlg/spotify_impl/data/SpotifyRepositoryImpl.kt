@@ -1,6 +1,7 @@
 package com.kvlg.spotify_impl.data
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.kvlg.core_db.database.AppDatabase
 import com.kvlg.core_db.database.DbConverter
 import com.kvlg.core_utils.ResponseHandler.getResult

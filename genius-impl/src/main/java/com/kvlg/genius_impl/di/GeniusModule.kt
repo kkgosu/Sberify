@@ -1,6 +1,7 @@
 package com.kvlg.genius_impl.di
 
-import com.kvlg.core_db.DbConverter
+import com.kvlg.core_db.database.AppDatabase
+import com.kvlg.core_db.database.DbConverter
 import com.kvlg.core_utils.models.TokenData
 import com.kvlg.genius_impl.data.GeniusParser
 import com.kvlg.genius_impl.data.GeniusRepository
@@ -36,9 +37,9 @@ object GeniusModule {
     @Provides
     @Singleton
     fun provideGeniusRepository(
-        appDatabase: com.kvlg.core_db.database.AppDatabase,
+        appDatabase: AppDatabase,
         geniusApi: GeniusApiMapper,
-        dbConverter: com.kvlg.core_db.DbConverter,
+        dbConverter: DbConverter,
     ): GeniusRepository {
         return GeniusRepositoryImpl(GeniusParser(), appDatabase, dbConverter, geniusApi)
     }
