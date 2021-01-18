@@ -1,6 +1,6 @@
 package com.example.sberify.presentation.ui.converter
 
-import com.example.sberify.data.Result
+import com.kvlg.core_utils.Result
 import com.kvlg.spotify_api.models.domain.AlbumDomainModel
 import com.kvlg.spotify_api.models.domain.ArtistDomainModel
 import com.kvlg.spotify_api.models.domain.TrackDomainModel

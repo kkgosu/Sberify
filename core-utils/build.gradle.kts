@@ -1,8 +1,6 @@
 plugins {
     id("com.android.library")
     kotlin("android")
-    kotlin("kapt")
-    id("kotlin-parcelize")
 }
 
 android {
@@ -15,12 +13,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments["room.incremental"] = "true"
-            }
-        }
     }
 
     compileOptions {
@@ -34,15 +26,6 @@ android {
 }
 
 dependencies {
-    api(project(":spotify-api"))
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-
-    implementation(Libs.GSON)
     implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
-    implementation(Libs.RETROFIT_GSON)
-    implementation(Libs.ROOM_COMMON)
-    implementation(Libs.ROOM_KTX)
-
-    kapt(Libs.ROOM_COMPILER)
 }

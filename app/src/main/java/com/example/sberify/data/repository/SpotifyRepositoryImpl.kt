@@ -1,13 +1,13 @@
 package com.example.sberify.data.repository
 
 import androidx.lifecycle.LiveData
-import com.example.sberify.data.Result
 import com.example.sberify.data.api.SpotifyApi
 import com.example.sberify.data.converters.DbConverter
 import com.example.sberify.data.converters.ResponseConverter
-import com.example.sberify.data.resultLiveData
 import com.example.sberify.domain.SpotifyRepository
 import com.example.sberify.presentation.ui.utils.ResponseHandler.getResult
+import com.kvlg.core_utils.Result
+import com.kvlg.core_utils.resultLiveData
 import com.kvlg.spotify_api.models.domain.AlbumDomainModel
 import com.kvlg.spotify_api.models.domain.ArtistDomainModel
 import com.kvlg.spotify_api.models.domain.TrackDomainModel

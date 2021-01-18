@@ -34,6 +34,8 @@ android {
 }
 
 dependencies {
+    api(project(":core-utils"))
+
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(Libs.GSON)

@@ -1,5 +1,6 @@
 package com.example.sberify.data
 
+import com.kvlg.core_utils.Result
 import org.jsoup.Connection
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document

@@ -3,12 +3,12 @@ package com.example.sberify.data.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.sberify.data.GeniusParser
-import com.example.sberify.data.Result
 import com.example.sberify.data.api.GeniusApi
 import com.example.sberify.data.converters.DbConverter
-import com.example.sberify.data.resultLiveData
 import com.example.sberify.domain.GeniusRepository
 import com.example.sberify.presentation.ui.utils.ResponseHandler.getResult
+import com.kvlg.core_utils.Result
+import com.kvlg.core_utils.resultLiveData
 import com.kvlg.spotify_api.models.domain.RawTrackDomainModel
 import com.kvlg.spotify_api.models.domain.TrackDomainModel
 import com.kvlg.spotify_impl.data.database.AppDatabase

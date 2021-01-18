@@ -7,7 +7,6 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.example.sberify.data.Result
 import com.example.sberify.domain.DatabaseRepository
 import com.example.sberify.domain.GeniusRepository
 import com.example.sberify.domain.SpotifyRepository
@@ -15,6 +14,7 @@ import com.example.sberify.domain.TokenData
 import com.example.sberify.models.domain.Suggestion
 import com.example.sberify.presentation.ui.converter.ViewModelConverter
 import com.example.sberify.presentation.ui.utils.SingleLiveEvent
+import com.kvlg.core_utils.Result
 import com.kvlg.spotify_api.models.domain.RawTrackDomainModel
 import com.kvlg.spotify_api.models.presentation.AlbumModel
 import com.kvlg.spotify_api.models.presentation.ArtistModel

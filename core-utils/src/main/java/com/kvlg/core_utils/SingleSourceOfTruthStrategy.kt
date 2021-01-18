@@ -1,4 +1,4 @@
-package com.example.sberify.data
+package com.kvlg.core_utils
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
