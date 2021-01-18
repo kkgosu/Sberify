@@ -1,4 +1,4 @@
-package com.kvlg.spotify_impl.data.database.album
+package com.kvlg.spotify_api.data.database.album
 
 import androidx.room.Embedded
 import androidx.room.Relation

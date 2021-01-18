@@ -1,4 +1,4 @@
-package com.kvlg.spotify_impl.models.domain
+package com.kvlg.spotify_api.models.domain
 
 /**
  * @author Konstantin Koval

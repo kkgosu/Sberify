@@ -2,10 +2,8 @@ package com.example.sberify.di
 
 import com.example.sberify.data.api.GeniusApi
 import com.example.sberify.data.repository.DatabaseRepositoryImpl
-import com.example.sberify.data.repository.GeniusRepositoryImpl
 import com.example.sberify.domain.DatabaseRepository
 import com.example.sberify.domain.GeniusRepository
-import com.example.sberify.presentation.ui.converter.ViewModelConverter
 import com.kvlg.genius_impl.data.GeniusParser
 import dagger.Module
 import dagger.Provides
@@ -16,11 +14,6 @@ import javax.inject.Singleton
 @Module(includes = [ApiModule::class])
 @InstallIn(ApplicationComponent::class)
 class RepositoryModule {
-
-    @Provides
-    fun provideViewModelConverter(): ViewModelConverter {
-        return ViewModelConverter()
-    }
 
     @Provides
     @Singleton

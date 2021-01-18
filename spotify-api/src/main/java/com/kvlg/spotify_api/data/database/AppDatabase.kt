@@ -1,16 +1,16 @@
-package com.kvlg.spotify_impl.data.database
+package com.kvlg.spotify_api.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.kvlg.spotify_api.data.database.album.AlbumDao
+import com.kvlg.spotify_api.data.database.artists.ArtistDao
+import com.kvlg.spotify_api.data.database.suggestions.SuggestionsDao
+import com.kvlg.spotify_api.data.database.suggestions.SuggestionsEntity
+import com.kvlg.spotify_api.data.database.track.TrackDao
 import com.kvlg.spotify_api.models.entity.AlbumEntity
 import com.kvlg.spotify_api.models.entity.ArtistEntity
 import com.kvlg.spotify_api.models.entity.TrackEntity
-import com.kvlg.spotify_impl.data.database.album.AlbumDao
-import com.kvlg.spotify_impl.data.database.artists.ArtistDao
-import com.kvlg.spotify_impl.data.database.suggestions.SuggestionsDao
-import com.kvlg.spotify_impl.data.database.suggestions.SuggestionsEntity
-import com.kvlg.spotify_impl.data.database.track.TrackDao
 
 @Database(
     entities = [

@@ -1,4 +1,4 @@
-package com.kvlg.spotify_impl.converter
+package com.kvlg.spotify_api.converter
 
 import com.kvlg.core_utils.Result
 import com.kvlg.spotify_api.models.domain.AlbumDomainModel

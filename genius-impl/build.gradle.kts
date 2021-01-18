@@ -29,6 +29,7 @@ android {
 
 dependencies {
     api(project(":genius-api"))
+
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(Libs.GSON)

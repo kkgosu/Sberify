@@ -30,14 +30,11 @@ class ApiModule {
     }
 
     @Provides
-    fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create(Gson())
-
-    @Provides
-    fun provideGeniusApiService(@GeniusNetwork okHttpClient: OkHttpClient, gson: GsonConverterFactory): GeniusApi {
+    fun provideGeniusApiService(@GeniusNetwork okHttpClient: OkHttpClient): GeniusApi {
         return Retrofit.Builder()
             .baseUrl(GeniusApi.API_URL)
             .client(okHttpClient)
-            .addConverterFactory(gson)
+            .addConverterFactory(GsonConverterFactory.create(Gson()))
             .build()
             .create(GeniusApi::class.java)
     }

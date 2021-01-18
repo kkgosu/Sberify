@@ -1,4 +1,4 @@
-package com.kvlg.spotify_impl.data.database.artists
+package com.kvlg.spotify_api.data.database.artists
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

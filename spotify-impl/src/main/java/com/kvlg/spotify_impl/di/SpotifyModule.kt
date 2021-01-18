@@ -2,12 +2,11 @@ package com.kvlg.spotify_impl.di
 
 import com.google.gson.Gson
 import com.kvlg.core_utils.models.TokenData
-import com.kvlg.spotify_impl.converter.ViewModelConverter
+import com.kvlg.spotify_api.data.DbConverter
+import com.kvlg.spotify_api.data.database.AppDatabase
 import com.kvlg.spotify_impl.data.SpotifyRepository
 import com.kvlg.spotify_impl.data.SpotifyRepositoryImpl
-import com.kvlg.spotify_impl.data.converters.DbConverter
 import com.kvlg.spotify_impl.data.converters.ResponseConverter
-import com.kvlg.spotify_impl.data.database.AppDatabase
 import com.kvlg.spotify_impl.data.network.SpotifyApiMapper
 import com.kvlg.spotify_impl.data.network.SpotifyAuthInterceptor
 import dagger.Module
@@ -40,26 +39,13 @@ object SpotifyModule {
     }
 
     @Provides
-    fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create(Gson())
-
-    @Provides
-    fun provideSpotifyApiService(okHttpClient: OkHttpClient, gson: GsonConverterFactory): SpotifyApiMapper {
+    fun provideSpotifyApiService(okHttpClient: OkHttpClient): SpotifyApiMapper {
         return Retrofit.Builder()
             .baseUrl(SpotifyApiMapper.API_URL)
             .client(okHttpClient)
-            .addConverterFactory(gson)
+            .addConverterFactory(GsonConverterFactory.create(Gson()))
             .build()
             .create(SpotifyApiMapper::class.java)
-    }
-
-    @Provides
-    fun provideViewModelConverter(): ViewModelConverter {
-        return ViewModelConverter()
-    }
-
-    @Provides
-    fun provideDbConverter(): DbConverter {
-        return DbConverter()
     }
 
     @Provides

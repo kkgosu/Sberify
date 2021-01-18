@@ -1,4 +1,4 @@
-package com.kvlg.spotify_impl.data.database.track
+package com.kvlg.spotify_api.data.database.track
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

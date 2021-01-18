@@ -19,4 +19,5 @@ object CoreModule {
 
     @Provides
     fun provideTokenData(@ApplicationContext context: Context) = TokenData(PreferenceManager.getDefaultSharedPreferences(context))
+
 }

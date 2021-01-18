@@ -1,4 +1,4 @@
-package com.kvlg.spotify_impl.data.database
+package com.kvlg.spotify_api.data.database
 
 import androidx.room.TypeConverter
 
