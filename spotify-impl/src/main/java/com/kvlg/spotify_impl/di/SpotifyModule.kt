@@ -2,8 +2,7 @@ package com.kvlg.spotify_impl.di
 
 import com.google.gson.Gson
 import com.kvlg.core_utils.models.TokenData
-import com.kvlg.spotify_api.data.DbConverter
-import com.kvlg.spotify_api.data.database.AppDatabase
+import com.kvlg.spotify_impl.data.DbConverter
 import com.kvlg.spotify_impl.data.SpotifyRepository
 import com.kvlg.spotify_impl.data.SpotifyRepositoryImpl
 import com.kvlg.spotify_impl.data.converters.ResponseConverter
@@ -25,6 +24,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(ApplicationComponent::class)
 object SpotifyModule {
+
+    @Provides
+    fun provideDbConverter(): DbConverter {
+        return DbConverter()
+    }
 
     @Provides
     fun provideSpotifyInterceptor(tokenData: TokenData): SpotifyAuthInterceptor {
@@ -51,7 +55,7 @@ object SpotifyModule {
     @Provides
     @Singleton
     fun provideSpotifyRepository(
-        database: AppDatabase,
+        database: com.kvlg.core_db.database.AppDatabase,
         spotifyApi: SpotifyApiMapper,
         dbConverter: DbConverter,
     ): SpotifyRepository {

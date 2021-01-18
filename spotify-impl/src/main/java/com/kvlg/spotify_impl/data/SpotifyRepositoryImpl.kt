@@ -1,12 +1,10 @@
 package com.kvlg.spotify_impl.data
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
+import com.kvlg.core_db.database.AppDatabase
 import com.kvlg.core_utils.ResponseHandler.getResult
 import com.kvlg.core_utils.Result
 import com.kvlg.core_utils.resultLiveData
-import com.kvlg.spotify_api.data.DbConverter
-import com.kvlg.spotify_api.data.database.AppDatabase
 import com.kvlg.spotify_api.models.domain.AlbumDomainModel
 import com.kvlg.spotify_api.models.domain.ArtistDomainModel
 import com.kvlg.spotify_api.models.domain.TrackDomainModel

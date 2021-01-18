@@ -1,7 +1,6 @@
 package com.kvlg.spotify_api.di
 
 import com.kvlg.spotify_api.converter.ViewModelConverter
-import com.kvlg.spotify_api.data.DbConverter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,10 +17,5 @@ object SpotifyApiModule {
     @Provides
     fun provideViewModelConverter(): ViewModelConverter {
         return ViewModelConverter()
-    }
-
-    @Provides
-    fun provideDbConverter(): DbConverter {
-        return DbConverter()
     }
 }

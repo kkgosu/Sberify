@@ -2,14 +2,12 @@ package com.kvlg.genius_impl.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.map
+import com.kvlg.core_db.DbConverter
 import com.kvlg.core_utils.ResponseHandler
 import com.kvlg.core_utils.Result
 import com.kvlg.core_utils.models.RawTrackModel
 import com.kvlg.core_utils.resultLiveData
 import com.kvlg.genius_impl.data.network.GeniusApiMapper
-import com.kvlg.spotify_api.data.DbConverter
-import com.kvlg.spotify_api.data.database.AppDatabase
 import com.kvlg.spotify_api.models.domain.TrackDomainModel
 import timber.log.Timber
 
@@ -19,8 +17,8 @@ import timber.log.Timber
  */
 class GeniusRepositoryImpl(
     private val geniusParser: GeniusParser,
-    private val database: AppDatabase,
-    private val dbConverter: DbConverter,
+    private val database: com.kvlg.core_db.database.AppDatabase,
+    private val dbConverter: com.kvlg.core_db.DbConverter,
     private val geniusApi: GeniusApiMapper,
 ) : GeniusRepository {
 

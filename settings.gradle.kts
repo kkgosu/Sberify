@@ -1,5 +1,6 @@
 include(
     ":app",
+    ":core-db",
     ":core-utils",
     ":genius-api",
     ":genius-impl",
@@ -7,4 +8,4 @@ include(
     ":spotify-api",
     ":spotify-impl"
 )
-rootProject.name= "Sberius"
+rootProject.name = "Sberius"
