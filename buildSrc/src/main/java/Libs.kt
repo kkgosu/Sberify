@@ -35,7 +35,7 @@ object Libs {
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.9.0"
     const val RETROFIT_GSON = "com.squareup.retrofit2:converter-gson:2.9.0"
     const val ROOM_COMPILER = "androidx.room:room-compiler:2.2.5"
-    const val ROOM_COMMON = "androidx.room:room-common:2.2.5"
+    const val ROOM_COMMON = "androidx.room:room-common:2.2.6"
     const val ROOM_KTX = "androidx.room:room-ktx:2.2.5"
     const val ROOM_RUNTIME = "androidx.room:room-runtime:2.2.5"
     const val SPOTIFY_AUTH = "com.spotify.android:auth:1.2.3"
