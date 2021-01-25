@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui.utils
+package com.kvlg.core_utils
 
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.view.View
@@ -9,7 +9,6 @@ import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.target.Target
-import com.example.sberify.R
 import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
 import com.google.android.material.appbar.AppBarLayout

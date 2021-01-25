@@ -1,8 +1,7 @@
-package com.example.sberify.presentation.ui.utils
+package com.kvlg.core_utils
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import com.kvlg.core_utils.Result
 
 inline fun <T> LiveData<Result<T>>.applyResultObserver(
     owner: LifecycleOwner,

@@ -6,9 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.sberify.presentation.ui.utils.SingleLiveEvent
 import com.kvlg.core_db.DatabaseRepository
 import com.kvlg.core_utils.Result
+import com.kvlg.core_utils.SingleLiveEvent
 import com.kvlg.core_utils.models.RawTrackModel
 import com.kvlg.core_utils.models.Suggestion
 import com.kvlg.core_utils.models.TokenData

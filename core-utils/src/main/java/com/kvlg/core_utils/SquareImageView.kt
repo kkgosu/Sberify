@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui.utils
+package com.kvlg.core_utils
 
 import android.content.Context
 import android.util.AttributeSet

@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui.utils
+package com.kvlg.core_utils
 
 import android.Manifest
 import android.annotation.SuppressLint

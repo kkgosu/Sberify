@@ -31,9 +31,9 @@ import com.example.sberify.presentation.ui.SharedViewModel
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.ALBUM_SWITCH_CHECKED_KEY
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.ARTIST_SWITCH_CHECKED_KEY
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.TRACK_SWITCH_CHECKED_KEY
-import com.example.sberify.presentation.ui.utils.applyResultObserver
-import com.example.sberify.presentation.ui.utils.visible
+import com.kvlg.core_utils.applyResultObserver
 import com.kvlg.core_utils.models.Suggestion
+import com.kvlg.core_utils.visible
 import com.kvlg.spotify_models.presentation.AlbumModel
 import com.kvlg.spotify_models.presentation.ArtistModel
 import com.kvlg.spotify_models.presentation.TrackModel
