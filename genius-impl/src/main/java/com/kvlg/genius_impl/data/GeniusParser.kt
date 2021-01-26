@@ -60,8 +60,7 @@ class GeniusParser {
             val response = call()
             if (response.statusCode() == 200) {
                 val doc = response.parse()
-                val body = response.body()
-                if (body != null) return Result.success(doc)
+                if (doc != null) return Result.success(doc)
             }
             return error(" ${response.statusCode()} ${response.statusMessage()}")
         } catch (e: IOException) {
