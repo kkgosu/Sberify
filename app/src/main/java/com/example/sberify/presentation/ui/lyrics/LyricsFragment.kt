@@ -11,7 +11,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentLyricsBinding
 import com.example.sberify.presentation.ui.SharedViewModel
-import com.example.sberify.presentation.ui.utils.*
 import com.kvlg.core_utils.applyResultObserver
 import com.kvlg.core_utils.hideAnimation
 import com.kvlg.core_utils.setFavoriteIcon

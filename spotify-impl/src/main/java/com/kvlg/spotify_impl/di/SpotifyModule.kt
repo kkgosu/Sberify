@@ -19,6 +19,7 @@ import dagger.hilt.android.components.ApplicationComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -41,6 +42,7 @@ object SpotifyModule {
     }
 
     @Provides
+    @Named("spotify")
     fun provideSpotifyOkHttpClient(interceptor: SpotifyAuthInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
@@ -48,7 +50,7 @@ object SpotifyModule {
     }
 
     @Provides
-    fun provideSpotifyApiService(okHttpClient: OkHttpClient): SpotifyApiMapper {
+    fun provideSpotifyApiService(@Named("spotify") okHttpClient: OkHttpClient): SpotifyApiMapper {
         return Retrofit.Builder()
             .baseUrl(SpotifyApiMapper.API_URL)
             .client(okHttpClient)
