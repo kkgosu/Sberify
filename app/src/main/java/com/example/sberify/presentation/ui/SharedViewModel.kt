@@ -79,7 +79,7 @@ class SharedViewModel @ViewModelInject constructor(
         runBlocking(Dispatchers.IO) {
             try {
                 withContext(Dispatchers.Default) {
-                    geniusApi.getLyrics(it)
+                    geniusApi.interactor().getLyrics(it)
                 }
             } catch (e: Exception) {
                 MutableLiveData()

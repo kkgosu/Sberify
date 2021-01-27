@@ -4,14 +4,11 @@ import com.google.gson.Gson
 import com.kvlg.core_db.database.AppDatabase
 import com.kvlg.core_db.database.DbConverter
 import com.kvlg.core_utils.models.TokenData
-import com.kvlg.genius_api.GeniusApi
-import com.kvlg.genius_impl.GeniusApiImpl
 import com.kvlg.genius_impl.data.GeniusParser
 import com.kvlg.genius_impl.data.GeniusRepository
 import com.kvlg.genius_impl.data.GeniusRepositoryImpl
 import com.kvlg.genius_impl.data.network.GeniusApiMapper
 import com.kvlg.genius_impl.data.network.GeniusAuthInterceptor
-import com.kvlg.spotify_api.converter.ViewModelConverter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,11 +26,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(ApplicationComponent::class)
 object GeniusModule {
-
-    @Provides
-    fun provideGeniusApi(repo: GeniusRepository, viewModelConverter: ViewModelConverter): GeniusApi {
-        return GeniusApiImpl(repo, viewModelConverter)
-    }
 
     @Provides
     fun provideGeniusInterceptor(tokenData: TokenData): GeniusAuthInterceptor {
