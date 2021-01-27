@@ -58,21 +58,21 @@ class SharedViewModel @ViewModelInject constructor(
     val play: LiveData<TrackModel> = playTrigger
 
     val newReleases: LiveData<Result<List<AlbumModel>>> = Transformations.switchMap(reloadTrigger) {
-        spofityApi.getNewReleases()
+        spofityApi.interactor().getNewReleases()
     }
     val artistsSearchResult: LiveData<Result<List<ArtistModel>>> = Transformations.switchMap(searchArtistTrigger) {
-        spofityApi.searchArtist(it)
+        spofityApi.interactor().searchArtist(it)
     }
     val albumsSearchResult: LiveData<Result<List<AlbumModel>>> = Transformations.switchMap(searchAlbumTrigger) {
-        spofityApi.searchAlbum(it)
+        spofityApi.interactor().searchAlbum(it)
     }
 
     val tracksSearchResult: LiveData<Result<List<TrackModel>>> = Transformations.switchMap(searchTrackTrigger) {
-        spofityApi.searchTrack(it)
+        spofityApi.interactor().searchTrack(it)
     }
 
     val album: LiveData<Result<AlbumModel>> = Transformations.switchMap(albumInfoTrigger) {
-        spofityApi.getAlbumInfo(it.id)
+        spofityApi.interactor().getAlbumInfo(it.id)
     }
 
     val lyrics: LiveData<Result<TrackModel?>> = Transformations.switchMap(lyricsTrigger) {

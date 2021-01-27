@@ -12,7 +12,7 @@ import dagger.hilt.android.components.ApplicationComponent
  */
 @Module
 @InstallIn(ApplicationComponent::class)
-object SpotifyApiModule {
+object ViewModelModule {
 
     @Provides
     fun provideViewModelConverter(): ViewModelConverter {
