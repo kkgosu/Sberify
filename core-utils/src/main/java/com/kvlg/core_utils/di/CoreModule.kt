@@ -6,7 +6,7 @@ import com.kvlg.core_utils.models.TokenData
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 
 /**
@@ -14,7 +14,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
  * @since 18.01.2021
  */
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(ActivityRetainedComponent::class)
 object CoreModule {
 
     @Provides

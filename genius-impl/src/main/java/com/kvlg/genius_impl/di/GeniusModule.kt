@@ -12,19 +12,18 @@ import com.kvlg.genius_impl.data.network.GeniusAuthInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.components.ActivityRetainedComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
-import javax.inject.Singleton
 
 /**
  * @author Konstantin Koval
  * @since 18.01.2021
  */
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(ActivityRetainedComponent::class)
 object GeniusModule {
 
     @Provides
@@ -51,7 +50,6 @@ object GeniusModule {
     }
 
     @Provides
-    @Singleton
     fun provideGeniusRepository(
         appDatabase: AppDatabase,
         geniusApi: GeniusApiMapper,

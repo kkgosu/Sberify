@@ -4,14 +4,14 @@ import com.kvlg.spotify_api.converter.ViewModelConverter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.components.ActivityRetainedComponent
 
 /**
  * @author Konstantin Koval
  * @since 18.01.2021
  */
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(ActivityRetainedComponent::class)
 object ViewModelModule {
 
     @Provides

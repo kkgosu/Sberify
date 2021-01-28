@@ -9,15 +9,14 @@ import com.kvlg.core_db.database.DbConverter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.ActivityRetainedComponent
 
 /**
  * @author Konstantin Koval
  * @since 18.01.2021
  */
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(ActivityRetainedComponent::class)
 object DatabaseModule {
 
     @Provides
@@ -26,7 +25,6 @@ object DatabaseModule {
     }
 
     @Provides
-    @Singleton
     fun provideDatabase(application: Application): AppDatabase {
         return Room.databaseBuilder(application, AppDatabase::class.java, "database")
             .fallbackToDestructiveMigration()
@@ -49,7 +47,6 @@ object DatabaseModule {
     }
 
     @Provides
-    @Singleton
     fun provideDatabaseRepository(
         appDatabase: AppDatabase,
         dbConverter: DbConverter
