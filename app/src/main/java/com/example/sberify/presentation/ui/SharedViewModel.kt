@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.kvlg.core_db.DatabaseRepository
 import com.kvlg.core_utils.Result
@@ -20,8 +21,6 @@ import com.kvlg.spotify_models.presentation.TrackModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 
 class SharedViewModel @ViewModelInject constructor(
     private val spofityApi: SpotifyApi,
@@ -76,13 +75,11 @@ class SharedViewModel @ViewModelInject constructor(
     }
 
     val lyrics: LiveData<Result<TrackModel?>> = Transformations.switchMap(lyricsTrigger) {
-        runBlocking(Dispatchers.IO) {
+        liveData(Dispatchers.IO) {
             try {
-                withContext(Dispatchers.Default) {
-                    geniusApi.interactor().getLyrics(it)
-                }
+                emitSource(geniusApi.interactor().getLyrics(it))
             } catch (e: Exception) {
-                MutableLiveData()
+                emitSource(MutableLiveData())
             }
         }
     }
