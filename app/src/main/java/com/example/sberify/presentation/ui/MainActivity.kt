@@ -1,8 +1,8 @@
 package com.example.sberify.presentation.ui
 
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -31,14 +31,23 @@ import kotlin.coroutines.suspendCoroutine
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), LifecycleOwner {
 
+    private lateinit var binding: ActivityMainBinding
+
     private val sharedViewModel: SharedViewModel by viewModels()
     private var currentNavController: LiveData<NavController>? = null
-
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var accessToken: String
-    private lateinit var accessCode: String
-
     private var spotifyAppRemote: SpotifyAppRemote? = null
+
+    private val resultTokenHandler = registerForActivityResult(StartActivityForResult()) { result ->
+        val response = AuthorizationClient.getResponse(result.resultCode, result.data)
+        response.accessToken?.let {
+            sharedViewModel.onTokenReceived(it)
+        }
+    }
+
+    private val resultCodeHandler = registerForActivityResult(StartActivityForResult()) { result ->
+        val response = AuthorizationClient.getResponse(result.resultCode, result.data)
+        Timber.d("request code: ${response.code}")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,25 +110,6 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         setupBottomNavBar()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        val response = AuthorizationClient.getResponse(resultCode, data)
-
-        if (AUTH_CODE_REQUEST_CODE == requestCode) {
-            response.code?.let {
-                accessCode = it
-                Timber.d("onActivityResult: requestCode: $it")
-            }
-        } else if (AUTH_TOKEN_REQUEST_CODE == requestCode) {
-            response.accessToken?.let {
-                accessToken = it
-                Timber.d("onActivityResult: accessToken: $it")
-                sharedViewModel.saveSpotifyToken(accessToken)
-                sharedViewModel.refresh()
-            }
-        }
-    }
-
     override fun onSupportNavigateUp(): Boolean {
         return currentNavController?.value?.navigateUp() ?: false
     }
@@ -144,12 +134,12 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
 
     private fun onRequestCodeClicked() {
         val request = getAuthenticationRequest(AuthorizationResponse.Type.CODE)
-        AuthorizationClient.openLoginActivity(this, AUTH_CODE_REQUEST_CODE, request)
+        resultCodeHandler.launch(AuthorizationClient.createLoginActivityIntent(this, request))
     }
 
     private fun requestToken() {
         val request = getAuthenticationRequest(AuthorizationResponse.Type.TOKEN)
-        AuthorizationClient.openLoginActivity(this, AUTH_TOKEN_REQUEST_CODE, request)
+        resultTokenHandler.launch(AuthorizationClient.createLoginActivityIntent(this, request))
     }
 
     private fun getAuthenticationRequest(type: AuthorizationResponse.Type) =
@@ -195,8 +185,6 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
     companion object {
         private const val CLIENT_ID = "49e110cda5b64d6d89476f40687725c4"
         private const val REDIRECT_URL = "spotify-sdk://auth"
-        private const val AUTH_TOKEN_REQUEST_CODE = 0x10
-        private const val AUTH_CODE_REQUEST_CODE = 0x11
     }
 }
 

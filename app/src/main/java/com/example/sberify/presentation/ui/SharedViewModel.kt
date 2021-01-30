@@ -21,6 +21,7 @@ import com.kvlg.spotify_models.presentation.TrackModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class SharedViewModel @ViewModelInject constructor(
     private val spofityApi: SpotifyApi,
@@ -102,8 +103,10 @@ class SharedViewModel @ViewModelInject constructor(
         albumInfoTrigger.value = album
     }
 
-    fun saveSpotifyToken(token: String) {
+    fun onTokenReceived(token: String) {
+        Timber.d("onTokenReceived: $token")
         tokenData.setSpotifyToken(token)
+        refresh()
     }
 
     fun search(keyword: String) {

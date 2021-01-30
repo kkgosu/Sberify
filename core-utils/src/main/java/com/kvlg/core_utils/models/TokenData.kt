@@ -1,6 +1,7 @@
 package com.kvlg.core_utils.models
 
 import android.content.SharedPreferences
+import androidx.core.content.edit
 
 class TokenData(
     private val prefs: SharedPreferences
@@ -27,9 +28,9 @@ class TokenData(
     fun getGeniusToken(): String = prefs.getString(GENIUS_OAUTHTOKEN, "")!!
 
     private fun setString(pref: String, str: String) {
-        prefs.edit()
-            .putString(pref, str)
-            .apply()
+        prefs.edit {
+            putString(pref, str)
+        }
     }
 
     companion object {
