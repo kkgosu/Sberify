@@ -51,15 +51,15 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(project(":core-db"))
-    implementation(project(":core-utils"))
+    implementation(project(":CoreDb"))
+    implementation(project(":CoreUtils"))
     implementation(project(":LoginLib"))
     implementation(project(":spotify-app-remote"))
-    implementation(project(":spotify-api"))
-    implementation(project(":spotify-impl"))
-    implementation(project(":spotify-models"))
-    implementation(project(":genius-api"))
-    implementation(project(":genius-impl"))
+    implementation(project(":SpotifyApi"))
+    implementation(project(":SpotifyImpl"))
+    implementation(project(":SpotifyModels"))
+    implementation(project(":GeniusApi"))
+    implementation(project(":GeniusImpl"))
 
     implementation(Libs.ACTIVITY_KTX)
     implementation(Libs.ADAPTER_DELEGATES)

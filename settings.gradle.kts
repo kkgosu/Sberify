@@ -1,13 +1,13 @@
 include(
     ":app",
-    ":core-db",
-    ":core-utils",
-    ":genius-api",
-    ":genius-impl",
+    ":CoreDb",
+    ":CoreUtils",
+    ":GeniusApi",
+    ":GeniusImpl",
     ":LoginLib",
     ":spotify-app-remote",
-    ":spotify-api",
-    ":spotify-impl",
-    ":spotify-models"
+    ":SpotifyApi",
+    ":SpotifyImpl",
+    ":SpotifyModels"
 )
 rootProject.name = "Sberify"

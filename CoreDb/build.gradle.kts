@@ -2,7 +2,6 @@ plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("kapt")
-    id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
 }
 
@@ -35,14 +34,13 @@ android {
 }
 
 dependencies {
-    api(project(":spotify-api"))
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation(Libs.GSON)
+    api(project(":CoreUtils"))
+    implementation(project(":SpotifyModels"))
+
     implementation(Libs.HILT_ANDROID)
     implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
-    implementation(Libs.RETROFIT_GSON)
     implementation(Libs.ROOM_COMMON)
     implementation(Libs.ROOM_KTX)
 

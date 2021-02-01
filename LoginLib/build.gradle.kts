@@ -29,8 +29,7 @@ android {
 
 dependencies {
 
-    implementation(project(":core-utils"))
-
+    implementation(project(":CoreUtils"))
     implementation(Libs.ACTIVITY_KTX)
     implementation(Libs.APPCOMPAT)
     implementation(Libs.CORE_KTX)
