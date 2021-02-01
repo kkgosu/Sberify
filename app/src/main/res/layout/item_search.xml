@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.kvlg.core_utils.SquareImageView
+        <com.kvlg.core.SquareImageView
             android:id="@+id/search_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

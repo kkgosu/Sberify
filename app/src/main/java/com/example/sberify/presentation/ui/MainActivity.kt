@@ -11,8 +11,8 @@ import androidx.navigation.NavController
 import com.example.sberify.R
 import com.example.sberify.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
-import com.kvlg.core_utils.NetworkObserver
-import com.kvlg.core_utils.setupWithNavController
+import com.kvlg.core.NetworkObserver
+import com.kvlg.core.setupWithNavController
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote

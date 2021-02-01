@@ -1,4 +1,4 @@
-package com.kvlg.core_utils
+package com.kvlg.core
 
 import android.content.Intent
 import android.util.SparseArray

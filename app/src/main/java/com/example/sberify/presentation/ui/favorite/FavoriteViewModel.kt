@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
-import com.kvlg.core_db.DatabaseRepository
-import com.kvlg.core_utils.Result
+import com.kvlg.core.DatabaseRepository
+import com.kvlg.core.Result
 import com.kvlg.spotify_api.converter.ViewModelConverter
 import com.kvlg.spotify_models.presentation.AlbumModel
 import com.kvlg.spotify_models.presentation.TrackModel
