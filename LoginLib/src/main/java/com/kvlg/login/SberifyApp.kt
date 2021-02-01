@@ -1,4 +1,4 @@
-package com.example.sberify
+package com.kvlg.login
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate

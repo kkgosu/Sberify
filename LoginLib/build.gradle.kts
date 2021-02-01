@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -27,8 +29,22 @@ android {
 
 dependencies {
 
+    implementation(project(":core-utils"))
+
+    implementation(Libs.ACTIVITY_KTX)
     implementation(Libs.APPCOMPAT)
     implementation(Libs.CORE_KTX)
+    implementation(Libs.CONSTRAINT_LAYOUT)
+    implementation(Libs.HILT_ANDROID)
+    implementation(Libs.HILT_VIEWMODEL)
     implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.MATERIAL)
+    implementation(Libs.SPOTIFY_AUTH)
+
+    testImplementation(Libs.ARCH_TESTING)
+    testImplementation(Libs.JUNIT)
+    testImplementation(Libs.MOCKITO)
+
+    kapt(Libs.ANDROIDX_HILT_COMPILER)
+    kapt(Libs.HILT_COMPILER)
 }

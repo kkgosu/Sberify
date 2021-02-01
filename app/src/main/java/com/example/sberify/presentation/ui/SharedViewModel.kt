@@ -12,7 +12,6 @@ import com.kvlg.core_utils.Result
 import com.kvlg.core_utils.SingleLiveEvent
 import com.kvlg.core_utils.models.RawTrackModel
 import com.kvlg.core_utils.models.Suggestion
-import com.kvlg.core_utils.models.TokenData
 import com.kvlg.genius_api.GeniusApi
 import com.kvlg.spotify_api.api.SpotifyApi
 import com.kvlg.spotify_models.presentation.AlbumModel
@@ -21,13 +20,11 @@ import com.kvlg.spotify_models.presentation.TrackModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class SharedViewModel @ViewModelInject constructor(
     private val spofityApi: SpotifyApi,
     private val geniusApi: GeniusApi,
-    private val databaseRepository: DatabaseRepository,
-    private val tokenData: TokenData
+    private val databaseRepository: DatabaseRepository
 ) : ViewModel() {
 
     private val _refreshContentVisibility = SingleLiveEvent<Unit>()
@@ -41,11 +38,6 @@ class SharedViewModel @ViewModelInject constructor(
     private val lyricsTrigger = MutableLiveData<RawTrackModel>()
     private val _suggestions = MutableLiveData<List<Suggestion>>()
     private val playTrigger = MutableLiveData<TrackModel>()
-
-    init {
-        val token = "rBpO2QDlufzcQpxStgKY9lF1qtxUfVvJx3Hpv4rck6myBpA8TdPPDenhKJCKZF_S"
-        tokenData.setGeniusToken(token)
-    }
 
     var isAlbumChecked = false
     var isArtistChecked = false
@@ -101,12 +93,6 @@ class SharedViewModel @ViewModelInject constructor(
 
     fun getAlbumInfo(album: AlbumModel) {
         albumInfoTrigger.value = album
-    }
-
-    fun onTokenReceived(token: String) {
-        Timber.d("onTokenReceived: $token")
-        tokenData.setSpotifyToken(token)
-        refresh()
     }
 
     fun search(keyword: String) {

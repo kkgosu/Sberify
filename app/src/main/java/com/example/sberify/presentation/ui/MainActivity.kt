@@ -1,8 +1,6 @@
 package com.example.sberify.presentation.ui
 
-import android.net.Uri
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -18,9 +16,6 @@ import com.kvlg.core_utils.setupWithNavController
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote
-import com.spotify.sdk.android.auth.AuthorizationClient
-import com.spotify.sdk.android.auth.AuthorizationRequest
-import com.spotify.sdk.android.auth.AuthorizationResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -37,18 +32,6 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
     private var currentNavController: LiveData<NavController>? = null
     private var spotifyAppRemote: SpotifyAppRemote? = null
 
-    private val resultTokenHandler = registerForActivityResult(StartActivityForResult()) { result ->
-        val response = AuthorizationClient.getResponse(result.resultCode, result.data)
-        response.accessToken?.let {
-            sharedViewModel.onTokenReceived(it)
-        }
-    }
-
-    private val resultCodeHandler = registerForActivityResult(StartActivityForResult()) { result ->
-        val response = AuthorizationClient.getResponse(result.resultCode, result.data)
-        Timber.d("request code: ${response.code}")
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -59,9 +42,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         val connectionLiveData = NetworkObserver(this)
         connectionLiveData.observe(this) {
             hasConnection = it
-            if (it) {
-                requestToken()
-            } else {
+            if (!it) {
                 showSnackbar()
             }
         }
@@ -131,29 +112,6 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
                     }
                 })
         }
-
-    private fun onRequestCodeClicked() {
-        val request = getAuthenticationRequest(AuthorizationResponse.Type.CODE)
-        resultCodeHandler.launch(AuthorizationClient.createLoginActivityIntent(this, request))
-    }
-
-    private fun requestToken() {
-        val request = getAuthenticationRequest(AuthorizationResponse.Type.TOKEN)
-        resultTokenHandler.launch(AuthorizationClient.createLoginActivityIntent(this, request))
-    }
-
-    private fun getAuthenticationRequest(type: AuthorizationResponse.Type) =
-        AuthorizationRequest.Builder(CLIENT_ID, type, getRedirectUri().toString())
-            .setShowDialog(false)
-            .setScopes(arrayOf("user-read-email"))
-            .setCampaign("sberify-token")
-            .build()
-
-    private fun getRedirectUri() =
-        Uri.Builder()
-            .scheme(getString(R.string.com_spotify_sdk_redirect_scheme))
-            .authority(getString(R.string.com_spotify_sdk_redirect_host))
-            .build()
 
     private fun setupBottomNavBar() {
         val bnv = binding.bnv.bottomNavView

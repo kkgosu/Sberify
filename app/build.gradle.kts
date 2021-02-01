@@ -53,6 +53,7 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(project(":core-db"))
     implementation(project(":core-utils"))
+    implementation(project(":LoginLib"))
     implementation(project(":spotify-app-remote"))
     implementation(project(":spotify-api"))
     implementation(project(":spotify-impl"))
@@ -87,7 +88,6 @@ dependencies {
     implementation(Libs.ROOM_COMMON)
     implementation(Libs.ROOM_KTX)
     implementation(Libs.ROOM_RUNTIME)
-    implementation(Libs.SPOTIFY_AUTH)
     implementation(Libs.TIMBER)
 
     kapt(Libs.ANDROIDX_HILT_COMPILER)
@@ -100,8 +100,7 @@ dependencies {
     testImplementation(Libs.COROUTINES_TEST)
     testImplementation(Libs.HAMCREST)
     testImplementation(Libs.JUNIT)
-    testImplementation(Libs.MOCKITO_CORE)
-    testImplementation(Libs.MOCKITO_KOTLIN)
+    testImplementation(Libs.MOCKITO)
 
     androidTestImplementation(Libs.ESPRESSO_CONTRIB)
     androidTestImplementation(Libs.ESPRESSO_CORE)
