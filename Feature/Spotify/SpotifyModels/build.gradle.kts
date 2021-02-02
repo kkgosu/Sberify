@@ -26,8 +26,6 @@ android {
 }
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-
     implementation(Libs.GSON)
     implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.ROOM_COMMON)

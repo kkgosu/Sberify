@@ -35,11 +35,9 @@ android {
 }
 
 dependencies {
-    api(project(":CoreDb"))
-    api(project(":CoreUtils"))
-    api(project(":SpotifyModels"))
-
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    api(project(Projects.coreDb))
+    api(project(Projects.coreUtils))
+    api(project(Projects.spotifyModels))
 
     implementation(Libs.GSON)
     implementation(Libs.HILT_ANDROID)

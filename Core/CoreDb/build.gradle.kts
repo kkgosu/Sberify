@@ -35,8 +35,8 @@ android {
 
 dependencies {
 
-    api(project(":CoreUtils"))
-    implementation(project(":SpotifyModels"))
+    api(project(Projects.coreUtils))
+    implementation(project(Projects.spotifyModels))
 
     implementation(Libs.HILT_ANDROID)
     implementation(Libs.KOTLIN_STDLIB)

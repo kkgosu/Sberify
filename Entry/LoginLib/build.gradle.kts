@@ -29,7 +29,7 @@ android {
 
 dependencies {
 
-    implementation(project(":CoreUtils"))
+    implementation(project(Projects.coreUtils))
     implementation(Libs.ACTIVITY_KTX)
     implementation(Libs.APPCOMPAT)
     implementation(Libs.CORE_KTX)

@@ -3,8 +3,8 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
-    id("dagger.hilt.android.plugin")
     id("kotlin-parcelize")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -50,16 +50,15 @@ android {
 }
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(project(":CoreDb"))
-    implementation(project(":CoreUtils"))
-    implementation(project(":LoginLib"))
-    implementation(project(":spotify-app-remote"))
-    implementation(project(":SpotifyApi"))
-    implementation(project(":SpotifyImpl"))
-    implementation(project(":SpotifyModels"))
-    implementation(project(":GeniusApi"))
-    implementation(project(":GeniusImpl"))
+    implementation(project(Projects.coreDb))
+    implementation(project(Projects.coreUtils))
+    implementation(project(Projects.login))
+    implementation(project(Projects.spotify.api))
+    implementation(project(Projects.spotify.impl))
+    implementation(project(Projects.spotifyModels))
+    implementation(project(Projects.spotifyRemote))
+    implementation(project(Projects.genius.api))
+    implementation(project(Projects.genius.impl))
 
     implementation(Libs.ACTIVITY_KTX)
     implementation(Libs.ADAPTER_DELEGATES)

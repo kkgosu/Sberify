@@ -26,10 +26,8 @@ android {
 }
 
 dependencies {
-    api(project(":CoreUtils"))
-    api(project(":SpotifyApi"))
-
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    api(project(Projects.coreUtils))
+    api(project(Projects.spotify.api))
 
     implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)

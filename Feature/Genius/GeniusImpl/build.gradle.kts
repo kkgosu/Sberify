@@ -29,8 +29,7 @@ android {
 
 dependencies {
 
-    api(project(":GeniusApi"))
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    api(project(Projects.genius.api))
 
     implementation(Libs.GSON)
     implementation(Libs.HILT_ANDROID)

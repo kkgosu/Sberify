@@ -35,8 +35,7 @@ android {
 }
 
 dependencies {
-    api(project(":SpotifyApi"))
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    api(project(Projects.spotify.api))
 
     implementation(Libs.GSON)
     implementation(Libs.HILT_ANDROID)
