@@ -1,0 +1,174 @@
+[
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_album_details.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\layout\\fragment_album_details.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_filter_list_black_24dp.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\drawable\\ic_filter_list_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_history_black_24dp.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\drawable\\ic_history_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\navigation_favorite.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\navigation\\favorite.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\layout_bottom_nav_view.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\layout\\bottom_nav_view.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\drawable_divider.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\drawable\\divider.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_new_releases.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\layout\\fragment_new_releases.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_grid_on_black_24dp.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\drawable\\ic_grid_on_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\anim_nav_default_exit_anim.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\anim\\nav_default_exit_anim.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\drawable_avd_search_to_close.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\drawable\\avd_search_to_close.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\menu_another_bottom_menu.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\menu\\another_bottom_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\layout_filter_bottom_sheet_layout.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\layout\\filter_bottom_sheet_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\anim_nav_default_pop_exit_anim.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\anim\\nav_default_pop_exit_anim.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_person.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\drawable\\ic_person.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\drawable_selectable_item_bg.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\drawable\\selectable_item_bg.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\drawable_top_corners_rounded_background.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\drawable\\top_corners_rounded_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_album_horizontal.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\layout\\item_album_horizontal.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\layout_loading_anim.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\layout\\loading_anim.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\raw_music_fly.json.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\raw\\music_fly.json"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_track_listed.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\layout\\item_track_listed.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_audiotrack_black_24dp.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\drawable\\ic_audiotrack_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_lyrics.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\layout\\fragment_lyrics.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_playlist_play_black_24dp.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\drawable\\ic_playlist_play_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_arrow_back_24dp.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\drawable\\ic_arrow_back_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_play_arrow_black_24dp.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\drawable\\ic_play_arrow_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\navigation_search.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\navigation\\search.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_album.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\layout\\item_album.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\anim_nav_default_enter_anim.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\anim\\nav_default_enter_anim.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_favorite.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\layout\\fragment_favorite.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_favorite_border_black_24dp.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\drawable\\ic_favorite_border_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\anim_layout_animation_fall_down.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\anim\\layout_animation_fall_down.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\layout_header.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\layout\\header.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_suggestion.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\layout\\item_suggestion.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\layout_top_bottom_content_divider.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\layout\\top_bottom_content_divider.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\color_bnv.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\color\\bnv.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_search.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\layout\\fragment_search.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\anim_nav_default_pop_enter_anim.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\anim\\nav_default_pop_enter_anim.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_search.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\layout\\item_search.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_track.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\layout\\item_track.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\anim_item_animation_fall_down.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\anim\\item_animation_fall_down.xml"
+    },
+    {
+        "merged": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\build\\intermediates\\res\\merged\\debug\\navigation_new_releases.xml.flat",
+        "source": "C:\\Users\\driim\\AndroidStudioProjects\\Sberius\\app\\src\\main\\res\\navigation\\new_releases.xml"
+    }
+]
