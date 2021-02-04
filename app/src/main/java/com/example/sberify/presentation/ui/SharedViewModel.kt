@@ -5,13 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import com.example.sberify.presentation.ui.utils.SingleLiveEvent
-import com.kvlg.core_db.DatabaseRepository
-import com.kvlg.core_utils.Result
-import com.kvlg.core_utils.models.RawTrackModel
-import com.kvlg.core_utils.models.Suggestion
-import com.kvlg.core_utils.models.TokenData
+import com.kvlg.core.DatabaseRepository
+import com.kvlg.core.Result
+import com.kvlg.core.SingleLiveEvent
+import com.kvlg.core.models.RawTrackModel
+import com.kvlg.core.models.Suggestion
 import com.kvlg.genius_api.GeniusApi
 import com.kvlg.spotify_api.api.SpotifyApi
 import com.kvlg.spotify_models.presentation.AlbumModel
@@ -20,14 +20,11 @@ import com.kvlg.spotify_models.presentation.TrackModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 
 class SharedViewModel @ViewModelInject constructor(
     private val spofityApi: SpotifyApi,
     private val geniusApi: GeniusApi,
-    private val databaseRepository: DatabaseRepository,
-    private val tokenData: TokenData
+    private val databaseRepository: DatabaseRepository
 ) : ViewModel() {
 
     private val _refreshContentVisibility = SingleLiveEvent<Unit>()
@@ -42,11 +39,6 @@ class SharedViewModel @ViewModelInject constructor(
     private val _suggestions = MutableLiveData<List<Suggestion>>()
     private val playTrigger = MutableLiveData<TrackModel>()
 
-    init {
-        val token = "rBpO2QDlufzcQpxStgKY9lF1qtxUfVvJx3Hpv4rck6myBpA8TdPPDenhKJCKZF_S"
-        tokenData.setGeniusToken(token)
-    }
-
     var isAlbumChecked = false
     var isArtistChecked = false
     var isTrackChecked = false
@@ -58,31 +50,29 @@ class SharedViewModel @ViewModelInject constructor(
     val play: LiveData<TrackModel> = playTrigger
 
     val newReleases: LiveData<Result<List<AlbumModel>>> = Transformations.switchMap(reloadTrigger) {
-        spofityApi.getNewReleases()
+        spofityApi.interactor().getNewReleases()
     }
     val artistsSearchResult: LiveData<Result<List<ArtistModel>>> = Transformations.switchMap(searchArtistTrigger) {
-        spofityApi.searchArtist(it)
+        spofityApi.interactor().searchArtist(it)
     }
     val albumsSearchResult: LiveData<Result<List<AlbumModel>>> = Transformations.switchMap(searchAlbumTrigger) {
-        spofityApi.searchAlbum(it)
+        spofityApi.interactor().searchAlbum(it)
     }
 
     val tracksSearchResult: LiveData<Result<List<TrackModel>>> = Transformations.switchMap(searchTrackTrigger) {
-        spofityApi.searchTrack(it)
+        spofityApi.interactor().searchTrack(it)
     }
 
     val album: LiveData<Result<AlbumModel>> = Transformations.switchMap(albumInfoTrigger) {
-        spofityApi.getAlbumInfo(it.id)
+        spofityApi.interactor().getAlbumInfo(it.id)
     }
 
     val lyrics: LiveData<Result<TrackModel?>> = Transformations.switchMap(lyricsTrigger) {
-        runBlocking(Dispatchers.IO) {
+        liveData(Dispatchers.IO) {
             try {
-                withContext(Dispatchers.Default) {
-                    geniusApi.getLyrics(it)
-                }
+                emitSource(geniusApi.interactor().getLyrics(it))
             } catch (e: Exception) {
-                MutableLiveData()
+                emitSource(MutableLiveData())
             }
         }
     }
@@ -103,10 +93,6 @@ class SharedViewModel @ViewModelInject constructor(
 
     fun getAlbumInfo(album: AlbumModel) {
         albumInfoTrigger.value = album
-    }
-
-    fun saveSpotifyToken(token: String) {
-        tokenData.setSpotifyToken(token)
     }
 
     fun search(keyword: String) {

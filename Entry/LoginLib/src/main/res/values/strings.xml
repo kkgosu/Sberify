@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Sberify</string>
+    <string name="com_spotify_sdk_redirect_scheme">spotify-sdk</string>
+    <string name="com_spotify_sdk_redirect_host">auth</string>
+</resources>

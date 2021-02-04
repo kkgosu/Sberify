@@ -28,13 +28,15 @@ allprojects {
 subprojects {
     tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions.freeCompilerArgs +=
-                "-Xuse-experimental=" +
-                        "kotlin.Experimental," +
-                        "kotlinx.coroutines.ExperimentalCoroutinesApi," +
-                        "kotlinx.coroutines.InternalCoroutinesApi," +
-                        "kotlinx.coroutines.FlowPreview"
+            "-Xuse-experimental=" +
+                    "kotlin.Experimental," +
+                    "kotlinx.coroutines.ExperimentalCoroutinesApi," +
+                    "kotlinx.coroutines.InternalCoroutinesApi," +
+                    "kotlinx.coroutines.FlowPreview"
     }
 }
+
+tasks.register("upgradeDependencies1", tasks.UpgradeDependencies::class.java)
 
 releasesHub {
     dependenciesBasePath = "buildSrc/src/main/java/"

@@ -3,8 +3,8 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
-    id("dagger.hilt.android.plugin")
     id("kotlin-parcelize")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -50,12 +50,15 @@ android {
 }
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(project(":core-db"))
-    implementation(project(":core-utils"))
-    implementation(project(":spotify-app-remote"))
-    implementation(project(":spotify-api"))
-    implementation(project(":genius-api"))
+    implementation(project(Projects.coreDb))
+    implementation(project(Projects.coreUtils))
+    implementation(project(Projects.login))
+    implementation(project(Projects.spotify.api))
+    implementation(project(Projects.spotify.impl))
+    implementation(project(Projects.spotifyModels))
+    implementation(project(Projects.spotifyRemote))
+    implementation(project(Projects.genius.api))
+    implementation(project(Projects.genius.impl))
 
     implementation(Libs.ACTIVITY_KTX)
     implementation(Libs.ADAPTER_DELEGATES)
@@ -84,12 +87,10 @@ dependencies {
     implementation(Libs.ROOM_COMMON)
     implementation(Libs.ROOM_KTX)
     implementation(Libs.ROOM_RUNTIME)
-    implementation(Libs.SPOTIFY_AUTH)
     implementation(Libs.TIMBER)
 
     kapt(Libs.ANDROIDX_HILT_COMPILER)
     kapt(Libs.HILT_COMPILER)
-    kapt(Libs.ROOM_COMPILER)
 
     kaptAndroidTest(Libs.ANDROIDX_HILT_COMPILER)
     kaptAndroidTest(Libs.HILT_COMPILER)
@@ -98,10 +99,7 @@ dependencies {
     testImplementation(Libs.COROUTINES_TEST)
     testImplementation(Libs.HAMCREST)
     testImplementation(Libs.JUNIT)
-    testImplementation(Libs.MOCKITO_CORE)
-    testImplementation(Libs.MOCKITO_KOTLIN)
-    testImplementation(Libs.ROOM_KTX)
-    testImplementation(Libs.ROOM_RUNTIME)
+    testImplementation(Libs.MOCKITO)
 
     androidTestImplementation(Libs.ESPRESSO_CONTRIB)
     androidTestImplementation(Libs.ESPRESSO_CORE)

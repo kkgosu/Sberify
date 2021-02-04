@@ -11,8 +11,6 @@
     <string name="albums">Albums</string>
     <string name="tracks">Tracks</string>
     <string name="new_releases">New releases</string>
-    <string name="com_spotify_sdk_redirect_scheme">spotify-sdk</string>
-    <string name="com_spotify_sdk_redirect_host">auth</string>
     <string name="favorite_tracks">Favorite tracks</string>
     <string name="back_to_previous_screen">Back to previous screen</string>
     <string name="add_to_favorite">Add to favorite</string>
