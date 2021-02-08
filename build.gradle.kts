@@ -33,6 +33,7 @@ subprojects {
                     "kotlinx.coroutines.ExperimentalCoroutinesApi," +
                     "kotlinx.coroutines.InternalCoroutinesApi," +
                     "kotlinx.coroutines.FlowPreview"
+        kotlinOptions.jvmTarget = "1.8"
     }
 }
 
