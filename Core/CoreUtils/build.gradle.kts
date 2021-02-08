@@ -1,4 +1,9 @@
-hilt()
+plugins {
+    id("com.android.library")
+    kotlin("android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
+}
 
 android {
     commonAndroidConfig()
@@ -6,6 +11,8 @@ android {
 
 dependencies {
     api(Libs.TIMBER)
+
+    hilt()
 
     implementation(Libs.GLIDE)
     implementation(Libs.GLIDE_PALETTE)

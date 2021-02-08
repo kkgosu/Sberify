@@ -1,4 +1,4 @@
-package com.kvlg.core.database
+package com.kvlg.core_db.database
 
 import com.kvlg.spotify_models.domain.AlbumDomainModel
 import com.kvlg.spotify_models.domain.ArtistDomainModel

@@ -6,9 +6,9 @@ import androidx.lifecycle.map
 import com.kvlg.core.ResponseHandler
 import com.kvlg.core.Result
 import com.kvlg.core.database.AppDatabase
-import com.kvlg.core.database.DbConverter
 import com.kvlg.core.models.RawTrackModel
 import com.kvlg.core.resultLiveData
+import com.kvlg.core_db.database.DbConverter
 import com.kvlg.genius_impl.data.network.GeniusApiMapper
 import com.kvlg.spotify_models.domain.TrackDomainModel
 import timber.log.Timber

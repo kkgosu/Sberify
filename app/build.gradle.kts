@@ -43,10 +43,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-
-    kotlinOptions {
-        this.jvmTarget = "1.8"
-    }
 }
 
 dependencies {
@@ -60,46 +56,30 @@ dependencies {
     implementation(project(Projects.genius.api))
     implementation(project(Projects.genius.impl))
 
-    implementation(Libs.ACTIVITY_KTX)
     implementation(Libs.ADAPTER_DELEGATES)
     implementation(Libs.ADAPTER_DELEGATES_VIEW_BINDING)
-    implementation(Libs.APPCOMPAT)
-    implementation(Libs.CARDVIEW)
-    implementation(Libs.CONSTRAINT_LAYOUT)
-    implementation(Libs.CORE_KTX)
     implementation(Libs.COROUTINES)
-    implementation(Libs.FRAGMENT_KTX)
     implementation(Libs.GLIDE)
     implementation(Libs.GLIDE_PALETTE)
     implementation(Libs.GSON)
-    implementation(Libs.HILT_ANDROID)
-    implementation(Libs.HILT_VIEWMODEL)
     implementation(Libs.JSOUP)
     implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
     implementation(Libs.LIFECYCLE_VIEW_MODEL_KTX)
     implementation(Libs.LOTTIE)
-    implementation(Libs.MATERIAL)
     implementation(Libs.NAVIGATION_FRAGMENT_KTX)
     implementation(Libs.PREFERENCES)
     implementation(Libs.RETROFIT)
     implementation(Libs.RETROFIT_GSON)
-    implementation(Libs.ROOM_COMMON)
-    implementation(Libs.ROOM_KTX)
-    implementation(Libs.ROOM_RUNTIME)
     implementation(Libs.TIMBER)
-
-    kapt(Libs.ANDROIDX_HILT_COMPILER)
-    kapt(Libs.HILT_COMPILER)
 
     kaptAndroidTest(Libs.ANDROIDX_HILT_COMPILER)
     kaptAndroidTest(Libs.HILT_COMPILER)
 
-    testImplementation(Libs.ARCH_TESTING)
-    testImplementation(Libs.COROUTINES_TEST)
-    testImplementation(Libs.HAMCREST)
-    testImplementation(Libs.JUNIT)
-    testImplementation(Libs.MOCKITO)
+    hilt()
+    room()
+    test()
+    ui()
 
     androidTestImplementation(Libs.ESPRESSO_CONTRIB)
     androidTestImplementation(Libs.ESPRESSO_CORE)

@@ -2,8 +2,8 @@ package com.kvlg.genius_impl.di
 
 import com.google.gson.Gson
 import com.kvlg.core.database.AppDatabase
-import com.kvlg.core.database.DbConverter
 import com.kvlg.core.models.TokenData
+import com.kvlg.core_db.database.DbConverter
 import com.kvlg.genius_impl.data.GeniusParser
 import com.kvlg.genius_impl.data.GeniusRepository
 import com.kvlg.genius_impl.data.GeniusRepositoryImpl

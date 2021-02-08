@@ -1,41 +1,13 @@
 import com.android.build.gradle.LibraryExtension
 import org.gradle.api.JavaVersion
-import org.gradle.api.Project
 import org.gradle.kotlin.dsl.DependencyHandlerScope
-import org.gradle.kotlin.dsl.dependencies
 
 /**
  * @author Konstantin Koval
  * @since 08.02.2021
  */
 
-fun Project.hilt() {
-    apply {
-        plugin("com.android.library")
-        plugin("org.jetbrains.kotlin.android")
-        plugin("org.jetbrains.kotlin.kapt")
-        plugin("dagger.hilt.android.plugin")
-    }
-
-    dependencies {
-        hilt()
-    }
-}
-
-private fun DependencyHandlerScope.hilt() {
-    "implementation"(Libs.HILT_ANDROID)
-    "implementation"(Libs.HILT_VIEWMODEL)
-    "kapt"(Libs.HILT_COMPILER)
-}
-
-fun DependencyHandlerScope.room() {
-    "implementation"(Libs.ROOM_COMMON)
-    "implementation"(Libs.ROOM_KTX)
-    "implementation"(Libs.ROOM_RUNTIME)
-    "kapt"(Libs.ROOM_COMPILER)
-}
-
-fun LibraryExtension.commonAndroidConfig() {
+fun LibraryExtension.commonAndroidConfig(withRoom: Boolean = false) {
     compileSdkVersion(BuildLibs.COMPILE_SDK)
     defaultConfig {
         minSdkVersion(BuildLibs.MIN_SDK)
@@ -45,10 +17,62 @@ fun LibraryExtension.commonAndroidConfig() {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        if (withRoom) {
+            javaCompileOptions {
+                annotationProcessorOptions {
+                    arguments["room.incremental"] = "true"
+                }
+            }
+        }
     }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+}
+
+fun DependencyHandlerScope.hilt() {
+    impl(Libs.HILT_ANDROID)
+    impl(Libs.HILT_VIEWMODEL)
+    kapt(Libs.HILT_COMPILER)
+    kapt(Libs.ANDROIDX_HILT_COMPILER)
+}
+
+fun DependencyHandlerScope.room() {
+    impl(Libs.ROOM_COMMON)
+    impl(Libs.ROOM_KTX)
+    impl(Libs.ROOM_RUNTIME)
+    kapt(Libs.ROOM_COMPILER)
+}
+
+fun DependencyHandlerScope.ui() {
+    impl(Libs.ACTIVITY_KTX)
+    impl(Libs.APPCOMPAT)
+    impl(Libs.CARDVIEW)
+    impl(Libs.CONSTRAINT_LAYOUT)
+    impl(Libs.CORE_KTX)
+    impl(Libs.FRAGMENT_KTX)
+    impl(Libs.MATERIAL)
+}
+
+fun DependencyHandlerScope.test() {
+    testImpl(Libs.ARCH_TESTING)
+    testImpl(Libs.COROUTINES_TEST)
+    testImpl(Libs.HAMCREST)
+    testImpl(Libs.JUNIT)
+    testImpl(Libs.MOCKITO)
+}
+
+private fun DependencyHandlerScope.impl(lib: String) {
+    "implementation"(lib)
+}
+
+private fun DependencyHandlerScope.kapt(lib: String) {
+    "kapt"(lib)
+}
+
+private fun DependencyHandlerScope.testImpl(lib: String) {
+    "testImplementation"(lib)
 }

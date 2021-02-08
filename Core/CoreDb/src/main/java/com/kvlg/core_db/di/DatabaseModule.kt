@@ -5,10 +5,10 @@ import androidx.room.Room
 import com.kvlg.core.DatabaseRepository
 import com.kvlg.core.DatabaseRepositoryImpl
 import com.kvlg.core.database.AppDatabase
-import com.kvlg.core.database.DbConverter
 import com.kvlg.core.database.album.AlbumDao
 import com.kvlg.core.database.artists.ArtistDao
 import com.kvlg.core.database.track.TrackDao
+import com.kvlg.core_db.database.DbConverter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

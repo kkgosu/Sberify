@@ -2,8 +2,8 @@ package com.kvlg.spotify_impl.di
 
 import com.google.gson.Gson
 import com.kvlg.core.database.AppDatabase
-import com.kvlg.core.database.DbConverter
 import com.kvlg.core.models.TokenData
+import com.kvlg.core_db.database.DbConverter
 import com.kvlg.spotify_impl.data.SpotifyRepository
 import com.kvlg.spotify_impl.data.SpotifyRepositoryImpl
 import com.kvlg.spotify_impl.data.converters.ResponseConverter
