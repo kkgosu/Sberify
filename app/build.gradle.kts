@@ -46,9 +46,13 @@ android {
 }
 
 dependencies {
+    hilt()
+    room()
+    test()
+    ui()
+
     implementation(project(Projects.coreDb))
     implementation(project(Projects.coreUtils))
-    implementation(project(Projects.login))
     implementation(project(Projects.spotify.api))
     implementation(project(Projects.spotify.impl))
     implementation(project(Projects.spotifyModels))
@@ -71,15 +75,11 @@ dependencies {
     implementation(Libs.PREFERENCES)
     implementation(Libs.RETROFIT)
     implementation(Libs.RETROFIT_GSON)
+    implementation(Libs.SPOTIFY_AUTH)
     implementation(Libs.TIMBER)
 
     kaptAndroidTest(Libs.ANDROIDX_HILT_COMPILER)
     kaptAndroidTest(Libs.HILT_COMPILER)
-
-    hilt()
-    room()
-    test()
-    ui()
 
     androidTestImplementation(Libs.ESPRESSO_CONTRIB)
     androidTestImplementation(Libs.ESPRESSO_CORE)

@@ -1,6 +1,8 @@
 package com.example.sberify.presentation.ui
 
+import android.net.Uri
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -16,6 +18,9 @@ import com.kvlg.core.setupWithNavController
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote
+import com.spotify.sdk.android.auth.AuthorizationClient
+import com.spotify.sdk.android.auth.AuthorizationRequest
+import com.spotify.sdk.android.auth.AuthorizationResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -29,8 +34,17 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var binding: ActivityMainBinding
 
     private val sharedViewModel: SharedViewModel by viewModels()
+    private val loginViewModel: LoginViewModel by viewModels()
+
     private var currentNavController: LiveData<NavController>? = null
     private var spotifyAppRemote: SpotifyAppRemote? = null
+
+    private val resultTokenHandler = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        val response = AuthorizationClient.getResponse(result.resultCode, result.data)
+        response.accessToken?.let {
+            loginViewModel.onTokenReceived(it)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +56,9 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         val connectionLiveData = NetworkObserver(this)
         connectionLiveData.observe(this) {
             hasConnection = it
-            if (!it) {
+            if (it) {
+                requestToken()
+            } else {
                 showSnackbar()
             }
         }
@@ -139,6 +155,23 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
             .show()
     }
 
+    private fun requestToken() {
+        val request = getAuthenticationRequest(AuthorizationResponse.Type.TOKEN)
+        resultTokenHandler.launch(AuthorizationClient.createLoginActivityIntent(this, request))
+    }
+
+    private fun getAuthenticationRequest(type: AuthorizationResponse.Type) =
+        AuthorizationRequest.Builder(CLIENT_ID, type, getRedirectUri().toString())
+            .setShowDialog(false)
+            .setScopes(arrayOf("user-read-email"))
+            .setCampaign("sberify-token")
+            .build()
+
+    private fun getRedirectUri() =
+        Uri.Builder()
+            .scheme(getString(R.string.com_spotify_sdk_redirect_scheme))
+            .authority(getString(R.string.com_spotify_sdk_redirect_host))
+            .build()
 
     companion object {
         private const val CLIENT_ID = "49e110cda5b64d6d89476f40687725c4"

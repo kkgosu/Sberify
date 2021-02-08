@@ -5,12 +5,9 @@
 object Projects {
     private const val CORE = "Core"
     private const val FEATURE = "Feature"
-    private const val ENTRY = "Entry"
 
     val coreDb = makeSingleModulePath(CORE, "CoreDb", null)
     val coreUtils = makeSingleModulePath(CORE, "CoreUtils", null)
-
-    val login = makeSingleModulePath(ENTRY, "LoginLib", null)
 
     val spotify = ApiImplModules(FEATURE, "Spotify")
     val spotifyRemote = makeSingleModulePath(FEATURE, "spotify-app-remote", "Spotify")
