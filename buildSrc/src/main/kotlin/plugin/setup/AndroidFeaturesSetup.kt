@@ -1,6 +1,8 @@
-package plugin
+package plugin.setup
 
 import groovy.lang.Closure
+import plugin.options.HiltOptions
+import plugin.options.Options
 
 /**
  * Base configurator which allows to turn on/off some features that can be grouped

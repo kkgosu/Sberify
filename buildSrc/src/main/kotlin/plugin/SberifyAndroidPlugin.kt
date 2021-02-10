@@ -2,6 +2,7 @@ package plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import plugin.setup.SetupFactory
 
 /**
  * @author Konstantin Koval

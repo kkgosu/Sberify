@@ -1,6 +1,9 @@
 package plugin
 
 import org.gradle.api.Action
+import plugin.options.KotlinOptions
+import plugin.setup.AndroidFeaturesSetup
+import plugin.setup.TestsSetup
 
 /**
  * @author Konstantin Koval

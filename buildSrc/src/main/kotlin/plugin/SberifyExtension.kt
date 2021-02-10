@@ -3,6 +3,8 @@ package plugin
 import groovy.lang.Closure
 import org.gradle.api.Action
 import org.gradle.util.Configurable
+import plugin.setup.FeatureSetup
+import plugin.setup.TestsSetup
 
 /**
  * @author Konstantin Koval

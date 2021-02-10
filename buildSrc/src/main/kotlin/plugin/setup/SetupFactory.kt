@@ -1,6 +1,7 @@
-package plugin
+package plugin.setup
 
 import org.gradle.api.Project
+import plugin.SberifyExtension
 
 /**
  * @author Konstantin Koval
