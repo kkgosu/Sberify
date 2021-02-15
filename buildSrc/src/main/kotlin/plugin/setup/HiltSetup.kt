@@ -1,6 +1,7 @@
 package plugin.setup
 
 import Libs
+import Plugins
 import plugin.Configuration
 
 /**
@@ -10,6 +11,8 @@ import plugin.Configuration
 class HiltSetup(
     private val viewModel: Boolean
 ) : Setup by MutableCompositeSetup(
+    PluginSetup(Plugins.KAPT),
+    PluginSetup(Plugins.HILT),
     LibSetup(
         configuration = Configuration.IMPL,
         name = Libs.HILT_ANDROID
