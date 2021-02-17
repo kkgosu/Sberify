@@ -7,7 +7,7 @@ import okhttp3.Response
 import timber.log.Timber
 import java.io.IOException
 
-class SpotifyAuthInterceptor(
+internal class SpotifyAuthInterceptor(
     private val tokenData: TokenData
 ) : Interceptor {
 

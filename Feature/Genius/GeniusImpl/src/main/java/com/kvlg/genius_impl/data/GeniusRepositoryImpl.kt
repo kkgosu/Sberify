@@ -17,7 +17,7 @@ import timber.log.Timber
  * @author Konstantin Koval
  * @since 18.01.2021
  */
-class GeniusRepositoryImpl(
+internal class GeniusRepositoryImpl(
     private val geniusParser: GeniusParser,
     private val database: AppDatabase,
     private val dbConverter: DbConverter,

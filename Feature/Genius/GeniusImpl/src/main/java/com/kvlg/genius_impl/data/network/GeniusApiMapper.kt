@@ -11,7 +11,7 @@ import retrofit2.http.Query
  * @author Konstantin Koval
  * @since 15.10.2020
  */
-interface GeniusApiMapper {
+internal interface GeniusApiMapper {
     @GET("search")
     suspend fun getPath(
         @Query("q") query: String

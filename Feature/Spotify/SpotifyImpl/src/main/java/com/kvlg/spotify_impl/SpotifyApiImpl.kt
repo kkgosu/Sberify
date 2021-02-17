@@ -10,7 +10,7 @@ import javax.inject.Inject
  * @author Konstantin Koval
  * @since 28.01.2021
  */
-class SpotifyApiImpl @Inject constructor(
+internal class SpotifyApiImpl @Inject constructor(
     private val repo: SpotifyRepository,
     private val converter: ViewModelConverter
 ) : SpotifyApi {

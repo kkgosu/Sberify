@@ -9,7 +9,7 @@ import org.jsoup.select.Elements
 import timber.log.Timber
 import java.io.IOException
 
-class GeniusParser {
+internal class GeniusParser {
 
     fun parseLyrics(path: String): Result<String?> {
         val request: Result<Document> = makeRequest(path)

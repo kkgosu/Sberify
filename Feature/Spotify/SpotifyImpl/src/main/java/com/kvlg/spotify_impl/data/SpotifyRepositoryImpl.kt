@@ -17,7 +17,7 @@ import com.kvlg.spotify_models.domain.TrackDomainModel
  * @author Konstantin Koval
  * @since 17.01.2021
  */
-class SpotifyRepositoryImpl(
+internal class SpotifyRepositoryImpl(
     private val database: AppDatabase,
     private val spotifyApi: SpotifyApiMapper,
     private val dbConverter: DbConverter,

@@ -24,7 +24,7 @@ import javax.inject.Named
  */
 @Module
 @InstallIn(ActivityRetainedComponent::class)
-object SpotifyModule {
+internal object SpotifyModule {
 
     @Provides
     fun provideSpotifyInterceptor(tokenData: TokenData): SpotifyAuthInterceptor {

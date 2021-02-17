@@ -14,7 +14,7 @@ import retrofit2.http.Query
  * @author Konstantin Koval
  * @since 17.01.2021
  */
-interface SpotifyApiMapper {
+internal interface SpotifyApiMapper {
     @GET("browse/new-releases")
     suspend fun getNewReleases(
         @Query("limit") limit: Int = 50

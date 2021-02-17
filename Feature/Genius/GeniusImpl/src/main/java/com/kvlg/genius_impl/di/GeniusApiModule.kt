@@ -13,7 +13,7 @@ import dagger.hilt.android.components.ActivityRetainedComponent
  */
 @Module
 @InstallIn(ActivityRetainedComponent::class)
-interface GeniusApiModule {
+internal interface GeniusApiModule {
     @Binds
     fun provideGeniusApi(impl: GeniusApiImpl): GeniusApi
 }

@@ -10,7 +10,7 @@ import javax.inject.Inject
  * @author Konstantin Koval
  * @since 27.01.2021
  */
-class GeniusApiImpl @Inject constructor(
+internal class GeniusApiImpl @Inject constructor(
     private val repo: GeniusRepository,
     private val modelConverter: ViewModelConverter
 ) : GeniusApi {

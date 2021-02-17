@@ -24,7 +24,7 @@ import javax.inject.Named
  */
 @Module
 @InstallIn(ActivityRetainedComponent::class)
-object GeniusModule {
+internal object GeniusModule {
 
     @Provides
     fun provideGeniusInterceptor(tokenData: TokenData): GeniusAuthInterceptor {

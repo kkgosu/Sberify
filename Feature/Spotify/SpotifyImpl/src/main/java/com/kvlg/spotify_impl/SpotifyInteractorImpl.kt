@@ -10,7 +10,7 @@ import com.kvlg.spotify_models.presentation.AlbumModel
 import com.kvlg.spotify_models.presentation.ArtistModel
 import com.kvlg.spotify_models.presentation.TrackModel
 
-class SpotifyInteractorImpl(
+internal class SpotifyInteractorImpl(
     private val repo: SpotifyRepository,
     private val modelConverter: ViewModelConverter
 ) : SpotifyInteractor {

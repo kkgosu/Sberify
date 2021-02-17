@@ -9,7 +9,7 @@ import com.kvlg.genius_impl.data.GeniusRepository
 import com.kvlg.spotify_api.converter.ViewModelConverter
 import com.kvlg.spotify_models.presentation.TrackModel
 
-class GeniusInteractorImpl(
+internal class GeniusInteractorImpl(
     private val repo: GeniusRepository,
     private val modelConverter: ViewModelConverter
 ) : GeniusInteractor {

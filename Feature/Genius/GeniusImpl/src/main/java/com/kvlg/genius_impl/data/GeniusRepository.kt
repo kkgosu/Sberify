@@ -9,6 +9,6 @@ import com.kvlg.spotify_models.domain.TrackDomainModel
  * @author Konstantin Koval
  * @since 18.01.2021
  */
-interface GeniusRepository {
+internal interface GeniusRepository {
     suspend fun getLyrics(track: RawTrackModel): LiveData<Result<TrackDomainModel?>>
 }

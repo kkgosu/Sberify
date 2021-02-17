@@ -2,7 +2,6 @@ package plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import plugin.setup.EmptySetupFactory
 import plugin.setup.PluginSetup
 import plugin.setup.SetupFactory
 
@@ -13,7 +12,7 @@ import plugin.setup.SetupFactory
 class SberifyPlugin<E : SberifyExtension<*>>(
     private val extensionName: String,
     private val extensionClass: Class<E>,
-    private val setupFactory: SetupFactory<E> = EmptySetupFactory()
+    private val setupFactory: SetupFactory<E>
 ) : Plugin<Project> {
     override fun apply(target: Project) {
         val extension = target.extensions.create(extensionName, extensionClass)

@@ -13,7 +13,7 @@ import dagger.hilt.android.components.ActivityRetainedComponent
  */
 @Module
 @InstallIn(ActivityRetainedComponent::class)
-interface SpotifyApiModule {
+internal interface SpotifyApiModule {
 
     @Binds
     fun provideSpotifyApi(impl: SpotifyApiImpl): SpotifyApi

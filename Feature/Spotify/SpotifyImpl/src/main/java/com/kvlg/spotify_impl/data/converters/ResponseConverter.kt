@@ -21,7 +21,7 @@ import com.kvlg.spotify_models.entity.TrackEntity
  * @author Konstantin Koval
  * @since 07.12.2020
  */
-class ResponseConverter {
+internal class ResponseConverter {
 
     fun convertImageResponseToDomain(response: ImageResponse): ImageDomainModel {
         return ImageDomainModel(
