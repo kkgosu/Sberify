@@ -3,12 +3,12 @@ package com.kvlg.genius_impl.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
-import com.kvlg.core.ResponseHandler
-import com.kvlg.core.Result
-import com.kvlg.core.database.AppDatabase
-import com.kvlg.core.models.RawTrackModel
-import com.kvlg.core.resultLiveData
+import com.kvlg.core_db.database.AppDatabase
 import com.kvlg.core_db.database.DbConverter
+import com.kvlg.core_utils.ResponseHandler
+import com.kvlg.core_utils.Result
+import com.kvlg.core_utils.models.RawTrackModel
+import com.kvlg.core_utils.resultLiveData
 import com.kvlg.genius_impl.data.network.GeniusApiMapper
 import com.kvlg.spotify_models.domain.TrackDomainModel
 import timber.log.Timber

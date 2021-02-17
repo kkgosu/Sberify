@@ -2,7 +2,7 @@ package com.example.sberify.presentation.ui
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import com.kvlg.core.models.TokenData
+import com.kvlg.core_utils.models.TokenData
 import timber.log.Timber
 
 /**

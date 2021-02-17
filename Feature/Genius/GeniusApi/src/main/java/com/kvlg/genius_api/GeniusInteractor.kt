@@ -1,8 +1,8 @@
 package com.kvlg.genius_api
 
 import androidx.lifecycle.LiveData
-import com.kvlg.core.Result
-import com.kvlg.core.models.RawTrackModel
+import com.kvlg.core_utils.Result
+import com.kvlg.core_utils.models.RawTrackModel
 import com.kvlg.spotify_models.presentation.TrackModel
 
 /**

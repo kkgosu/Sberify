@@ -13,9 +13,9 @@ import com.example.sberify.adapters.AlbumsAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentNewReleasesBinding
 import com.example.sberify.presentation.ui.SharedViewModel
-import com.kvlg.core.applyResultObserver
-import com.kvlg.core.hideAnimation
-import com.kvlg.core.showAnimation
+import com.kvlg.core_utils.applyResultObserver
+import com.kvlg.core_utils.hideAnimation
+import com.kvlg.core_utils.showAnimation
 import com.kvlg.spotify_models.presentation.AlbumModel
 import dagger.hilt.android.AndroidEntryPoint
 

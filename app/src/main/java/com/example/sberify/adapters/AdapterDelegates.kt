@@ -9,8 +9,8 @@ import com.example.sberify.databinding.ItemSuggestionBinding
 import com.example.sberify.databinding.ItemTrackBinding
 import com.example.sberify.databinding.ItemTrackListedBinding
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
-import com.kvlg.core.bindPalette
-import com.kvlg.core.models.Suggestion
+import com.kvlg.core_utils.bindPalette
+import com.kvlg.core_utils.models.Suggestion
 import com.kvlg.spotify_models.BaseModel
 import com.kvlg.spotify_models.domain.ArtistDomainModel
 import com.kvlg.spotify_models.presentation.AlbumModel

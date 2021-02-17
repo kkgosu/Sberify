@@ -1,6 +1,6 @@
 package com.kvlg.spotify_api.converter
 
-import com.kvlg.core.Result
+import com.kvlg.core_utils.Result
 import com.kvlg.spotify_models.domain.AlbumDomainModel
 import com.kvlg.spotify_models.domain.ArtistDomainModel
 import com.kvlg.spotify_models.domain.TrackDomainModel

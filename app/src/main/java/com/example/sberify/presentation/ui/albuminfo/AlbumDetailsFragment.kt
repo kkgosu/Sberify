@@ -15,11 +15,11 @@ import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentAlbumDetailsBinding
 import com.example.sberify.presentation.ui.SharedViewModel
-import com.kvlg.core.applyResultObserver
-import com.kvlg.core.bindAppBarLayoutWithFab
-import com.kvlg.core.loadImage
-import com.kvlg.core.setFavoriteIcon
-import com.kvlg.core.startAnim
+import com.kvlg.core_utils.applyResultObserver
+import com.kvlg.core_utils.bindAppBarLayoutWithFab
+import com.kvlg.core_utils.loadImage
+import com.kvlg.core_utils.setFavoriteIcon
+import com.kvlg.core_utils.startAnim
 import com.kvlg.spotify_models.presentation.TrackModel
 import dagger.hilt.android.AndroidEntryPoint
 

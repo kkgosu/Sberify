@@ -1,8 +1,8 @@
-package com.kvlg.core.di
+package com.kvlg.core_utils.di
 
 import android.content.Context
 import androidx.preference.PreferenceManager
-import com.kvlg.core.models.TokenData
+import com.kvlg.core_utils.models.TokenData
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

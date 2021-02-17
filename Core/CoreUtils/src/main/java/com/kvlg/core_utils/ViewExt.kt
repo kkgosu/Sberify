@@ -1,4 +1,4 @@
-package com.kvlg.core
+package com.kvlg.core_utils
 
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.view.View
@@ -13,6 +13,7 @@ import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.kvlg.core.R
 import kotlin.math.abs
 
 fun View.visible(value: Boolean) {

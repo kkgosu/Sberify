@@ -1,13 +1,13 @@
-package com.kvlg.core.database
+package com.kvlg.core_db.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.kvlg.core.database.album.AlbumDao
-import com.kvlg.core.database.artists.ArtistDao
-import com.kvlg.core.database.suggestions.SuggestionsDao
-import com.kvlg.core.database.suggestions.SuggestionsEntity
-import com.kvlg.core.database.track.TrackDao
+import com.kvlg.core_db.database.album.AlbumDao
+import com.kvlg.core_db.database.artists.ArtistDao
+import com.kvlg.core_db.database.suggestions.SuggestionsDao
+import com.kvlg.core_db.database.suggestions.SuggestionsEntity
+import com.kvlg.core_db.database.track.TrackDao
 import com.kvlg.spotify_models.entity.AlbumEntity
 import com.kvlg.spotify_models.entity.ArtistEntity
 import com.kvlg.spotify_models.entity.TrackEntity

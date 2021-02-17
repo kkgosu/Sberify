@@ -1,4 +1,4 @@
-package com.kvlg.core.database.suggestions
+package com.kvlg.core_db.database.suggestions
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

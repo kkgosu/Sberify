@@ -1,4 +1,4 @@
-package com.kvlg.core.models
+package com.kvlg.core_utils.models
 
 import android.content.SharedPreferences
 import androidx.core.content.edit

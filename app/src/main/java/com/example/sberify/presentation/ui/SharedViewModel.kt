@@ -7,11 +7,11 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import com.kvlg.core.DatabaseRepository
-import com.kvlg.core.Result
-import com.kvlg.core.SingleLiveEvent
-import com.kvlg.core.models.RawTrackModel
-import com.kvlg.core.models.Suggestion
+import com.kvlg.core_db.DatabaseRepository
+import com.kvlg.core_utils.Result
+import com.kvlg.core_utils.SingleLiveEvent
+import com.kvlg.core_utils.models.RawTrackModel
+import com.kvlg.core_utils.models.Suggestion
 import com.kvlg.genius_api.GeniusApi
 import com.kvlg.spotify_api.api.SpotifyApi
 import com.kvlg.spotify_models.presentation.AlbumModel

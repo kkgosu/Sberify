@@ -1,4 +1,4 @@
-package com.kvlg.core
+package com.kvlg.core_utils
 
 import android.content.Context
 import android.util.AttributeSet

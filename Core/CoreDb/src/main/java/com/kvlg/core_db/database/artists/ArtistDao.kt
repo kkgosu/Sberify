@@ -1,4 +1,4 @@
-package com.kvlg.core.database.artists
+package com.kvlg.core_db.database.artists
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

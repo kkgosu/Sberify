@@ -2,7 +2,7 @@ package com.kvlg.spotify_impl
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.kvlg.core.Result
+import com.kvlg.core_utils.Result
 import com.kvlg.spotify_api.api.SpotifyInteractor
 import com.kvlg.spotify_api.converter.ViewModelConverter
 import com.kvlg.spotify_impl.data.SpotifyRepository

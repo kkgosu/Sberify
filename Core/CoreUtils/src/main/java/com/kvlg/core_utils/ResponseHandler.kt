@@ -1,4 +1,4 @@
-package com.kvlg.core
+package com.kvlg.core_utils
 
 import retrofit2.Response
 import timber.log.Timber

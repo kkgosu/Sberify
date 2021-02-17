@@ -1,6 +1,6 @@
 package com.example.sberify.adapters
 
-import com.kvlg.core.models.Suggestion
+import com.kvlg.core_utils.models.Suggestion
 
 
 /**

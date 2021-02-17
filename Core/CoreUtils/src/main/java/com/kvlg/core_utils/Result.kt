@@ -1,4 +1,4 @@
-package com.kvlg.core
+package com.kvlg.core_utils
 
 data class Result<out T>(val status: Status, val data: T?, val message: String?) {
 

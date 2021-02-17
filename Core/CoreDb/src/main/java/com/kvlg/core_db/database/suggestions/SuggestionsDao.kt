@@ -1,4 +1,4 @@
-package com.kvlg.core.database.suggestions
+package com.kvlg.core_db.database.suggestions
 
 import androidx.room.Dao
 import androidx.room.Insert

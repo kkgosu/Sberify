@@ -1,4 +1,4 @@
-package com.kvlg.core
+package com.kvlg.core_utils
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner

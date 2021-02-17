@@ -2,8 +2,8 @@ package com.kvlg.genius_impl
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.kvlg.core.Result
-import com.kvlg.core.models.RawTrackModel
+import com.kvlg.core_utils.Result
+import com.kvlg.core_utils.models.RawTrackModel
 import com.kvlg.genius_api.GeniusInteractor
 import com.kvlg.genius_impl.data.GeniusRepository
 import com.kvlg.spotify_api.converter.ViewModelConverter

@@ -1,14 +1,14 @@
-package com.kvlg.core.di
+package com.kvlg.core_db.di
 
 import android.app.Application
 import androidx.room.Room
-import com.kvlg.core.DatabaseRepository
-import com.kvlg.core.DatabaseRepositoryImpl
-import com.kvlg.core.database.AppDatabase
-import com.kvlg.core.database.album.AlbumDao
-import com.kvlg.core.database.artists.ArtistDao
-import com.kvlg.core.database.track.TrackDao
+import com.kvlg.core_db.DatabaseRepository
+import com.kvlg.core_db.DatabaseRepositoryImpl
+import com.kvlg.core_db.database.AppDatabase
 import com.kvlg.core_db.database.DbConverter
+import com.kvlg.core_db.database.album.AlbumDao
+import com.kvlg.core_db.database.artists.ArtistDao
+import com.kvlg.core_db.database.track.TrackDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

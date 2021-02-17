@@ -1,6 +1,6 @@
 package com.kvlg.genius_impl.data
 
-import com.kvlg.core.Result
+import com.kvlg.core_utils.Result
 import org.jsoup.Connection
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
