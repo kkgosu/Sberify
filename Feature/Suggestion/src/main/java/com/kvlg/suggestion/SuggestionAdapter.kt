@@ -3,7 +3,6 @@ package com.kvlg.suggestion
 import androidx.recyclerview.widget.DiffUtil
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 
-
 /**
  * @author Konstantin Koval
  * @since 04.07.2020

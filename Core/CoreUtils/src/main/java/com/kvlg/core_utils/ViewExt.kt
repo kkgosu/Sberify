@@ -57,9 +57,6 @@ fun ImageView.loadImage(image: String?) =
             .into(this)
     }
 
-
-
-
 fun FloatingActionButton.bindAppBarLayoutWithFab(appBarLayout: AppBarLayout) {
     appBarLayout.addOnOffsetChangedListener(
         AppBarLayout.OnOffsetChangedListener { appBarLayout1, verticalOffset ->

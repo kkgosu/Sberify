@@ -10,13 +10,13 @@ android {
 }
 
 dependencies {
-    api(project(Projects.coreUtils))
+    api(project(Projects.CORE_UTILS))
 
     hilt()
     room()
 
-    implementation(project(Projects.spotifyCommon))
-    implementation(project(Projects.suggestion))
+    implementation(project(Projects.SPOTIFY_COMMON))
+    implementation(project(Projects.SUGGESTION))
 
     implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)

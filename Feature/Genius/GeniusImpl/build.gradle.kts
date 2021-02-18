@@ -11,7 +11,7 @@ android {
 
 dependencies {
 
-    api(project(Projects.genius.api))
+    api(project(Projects.GENIUS_API))
 
     hilt()
 

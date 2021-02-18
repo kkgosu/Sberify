@@ -11,7 +11,7 @@ android {
 }
 
 dependencies {
-    api(project(Projects.spotify.api))
+    api(project(Projects.SPOTIFY_API))
 
     hilt()
     room()

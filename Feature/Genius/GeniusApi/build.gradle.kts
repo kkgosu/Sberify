@@ -8,8 +8,8 @@ android {
 }
 
 dependencies {
-    api(project(Projects.coreUtils))
-    api(project(Projects.spotify.api))
+    api(project(Projects.CORE_UTILS))
+    api(project(Projects.SPOTIFY_API))
 
     implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)

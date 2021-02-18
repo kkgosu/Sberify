@@ -12,7 +12,7 @@ import com.kvlg.suggestion.Suggestion
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class DatabaseRepositoryImpl(
+internal class DatabaseRepositoryImpl(
     private val database: AppDatabase,
     private val dbConverter: DbConverter
 ) : DatabaseRepository {

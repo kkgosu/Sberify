@@ -2,7 +2,7 @@ package com.kvlg.core_db.database
 
 import androidx.room.TypeConverter
 
-object ListToStringConverter {
+internal object ListToStringConverter {
 
     @TypeConverter
     @JvmStatic

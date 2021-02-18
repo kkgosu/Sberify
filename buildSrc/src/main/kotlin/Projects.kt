@@ -3,31 +3,21 @@
  * @since 02.02.2021
  */
 object Projects {
-    private const val CORE = "Core"
-    private const val FEATURE = "Feature"
+    private const val CORE = ":Core"
+    private const val FEATURE = ":Feature"
 
-    val coreDb = makeSingleModulePath(CORE, "CoreDb", null)
-    val coreUtils = makeSingleModulePath(CORE, "CoreUtils", null)
-    val designSystem = makeSingleModulePath(CORE, "DesignSystem", null)
+    private const val GENIUS = "Genius"
+    private const val SPOTIFY = "Spotify"
 
-    val genius = ApiImplModules(FEATURE, "Genius")
-    val spotify = ApiImplModules(FEATURE, "Spotify")
-    val spotifyRemote = makeSingleModulePath(FEATURE, "spotify-app-remote", "Spotify")
-    val spotifyCommon = makeSingleModulePath(FEATURE, "SpotifyCommon", "Spotify")
-    val suggestion = makeSingleModulePath(FEATURE, "Suggestion", null)
+    const val CORE_DB = "$CORE:CoreDb"
+    const val CORE_UTILS = "$CORE:CoreUtils"
+    const val DESIGN_SYSTEM = "$CORE:DesignSystem"
 
-    class ApiImplModules(topLevelDirectory: String, relativePath: String) {
-        private val path: String = ":$topLevelDirectory:$relativePath"
-
-        val api = "$path:${relativePath}Api"
-        val impl = "$path:${relativePath}Impl"
-    }
-
-    private fun makeSingleModulePath(topLevelDirectory: String, name: String, relativePath: String?): String {
-        return if (relativePath != null) {
-            ":$topLevelDirectory:$relativePath:$name"
-        } else {
-            ":$topLevelDirectory:$name"
-        }
-    }
+    const val GENIUS_API = "$FEATURE:$GENIUS:GeniusApi"
+    const val GENIUS_IMPL = "$FEATURE:$GENIUS:GeniusImpl"
+    const val SPOTIFY_API = "$FEATURE:$SPOTIFY:SpotifyApi"
+    const val SPOTIFY_IMPL = "$FEATURE:$SPOTIFY:SpotifyImpl"
+    const val SPOTIFY_REMOTE = "$FEATURE:$SPOTIFY:spotify-app-remote"
+    const val SPOTIFY_COMMON = "$FEATURE:$SPOTIFY:SpotifyCommon"
+    const val SUGGESTION = "$FEATURE:Suggestion"
 }

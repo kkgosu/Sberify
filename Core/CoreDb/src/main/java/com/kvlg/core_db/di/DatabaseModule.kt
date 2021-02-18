@@ -20,7 +20,7 @@ import dagger.hilt.android.components.ActivityRetainedComponent
  */
 @Module
 @InstallIn(ActivityRetainedComponent::class)
-object DatabaseModule {
+internal object DatabaseModule {
 
     @Provides
     fun provideDbConverter(): DbConverter {

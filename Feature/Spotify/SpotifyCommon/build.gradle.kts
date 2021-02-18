@@ -12,7 +12,7 @@ android {
 }
 
 dependencies {
-    implementation(project(Projects.designSystem))
+    implementation(project(Projects.DESIGN_SYSTEM))
 
     implementation(Libs.ADAPTER_DELEGATES)
     implementation(Libs.ADAPTER_DELEGATES_VIEW_BINDING)
