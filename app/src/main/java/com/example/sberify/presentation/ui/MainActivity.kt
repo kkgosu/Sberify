@@ -31,6 +31,7 @@ import kotlin.coroutines.suspendCoroutine
 class MainActivity : AppCompatActivity(), LifecycleOwner {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var bnvAnimator: BnvAnimator
 
     private val sharedViewModel: SharedViewModel by viewModels()
     private val loginViewModel: LoginViewModel by viewModels()
@@ -42,6 +43,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         val response = AuthorizationClient.getResponse(result.resultCode, result.data)
         response.accessToken?.let {
             loginViewModel.onTokenReceived(it)
+            sharedViewModel.refresh()
         }
     }
 
@@ -129,6 +131,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         }
 
     private fun setupBottomNavBar() {
+        bnvAnimator = BnvAnimator(binding.bnv.bottomNavView)
         val bnv = binding.bnv.bottomNavView
 
         val navGraphIds = listOf(
@@ -145,6 +148,11 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         )
 
         currentNavController = controller
+        controller.observe(this) {
+            it.addOnDestinationChangedListener { _, destination, _ ->
+                bnvAnimator.animateBar(destination.id)
+            }
+        }
     }
 
     private fun showSnackbar() {

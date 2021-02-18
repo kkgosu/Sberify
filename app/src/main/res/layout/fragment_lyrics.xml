@@ -5,8 +5,7 @@
     android:id="@+id/lyrics_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background1"
-    android:paddingBottom="@dimen/bottom_bar_height">
+    android:background="@color/background1">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

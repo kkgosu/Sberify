@@ -5,7 +5,6 @@
     android:id="@+id/detail_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/bottom_bar_height"
     android:background="@color/background1"
     android:fitsSystemWindows="false">
 
