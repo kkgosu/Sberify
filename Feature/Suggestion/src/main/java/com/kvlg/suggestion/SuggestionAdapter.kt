@@ -1,8 +1,7 @@
-package com.example.sberify.adapters
+package com.kvlg.suggestion
 
 import androidx.recyclerview.widget.DiffUtil
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
-import com.kvlg.suggestion.Suggestion
 
 
 /**

@@ -1,4 +1,4 @@
-package com.example.sberify.base
+package com.kvlg.spotify_common.adapters
 
 import androidx.recyclerview.widget.DiffUtil
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter

@@ -8,14 +8,14 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import com.example.sberify.adapters.AlbumInteraction
-import com.example.sberify.adapters.AlbumsAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentNewReleasesBinding
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.kvlg.core_utils.applyResultObserver
 import com.kvlg.core_utils.hideAnimation
 import com.kvlg.core_utils.showAnimation
+import com.kvlg.spotify_common.adapters.AlbumInteraction
+import com.kvlg.spotify_common.adapters.AlbumsAdapter
 import com.kvlg.spotify_common.presentation.AlbumModel
 import dagger.hilt.android.AndroidEntryPoint
 

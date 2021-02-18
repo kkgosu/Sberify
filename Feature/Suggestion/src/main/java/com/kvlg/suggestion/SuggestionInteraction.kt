@@ -1,6 +1,4 @@
-package com.example.sberify.adapters
-
-import com.kvlg.suggestion.Suggestion
+package com.kvlg.suggestion
 
 
 /**

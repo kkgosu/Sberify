@@ -8,11 +8,12 @@ object Projects {
 
     val coreDb = makeSingleModulePath(CORE, "CoreDb", null)
     val coreUtils = makeSingleModulePath(CORE, "CoreUtils", null)
+    val designSystem = makeSingleModulePath(CORE, "DesignSystem", null)
 
+    val genius = ApiImplModules(FEATURE, "Genius")
     val spotify = ApiImplModules(FEATURE, "Spotify")
     val spotifyRemote = makeSingleModulePath(FEATURE, "spotify-app-remote", "Spotify")
     val spotifyCommon = makeSingleModulePath(FEATURE, "SpotifyCommon", "Spotify")
-    val genius = ApiImplModules(FEATURE, "Genius")
     val suggestion = makeSingleModulePath(FEATURE, "Suggestion", null)
 
     class ApiImplModules(topLevelDirectory: String, relativePath: String) {

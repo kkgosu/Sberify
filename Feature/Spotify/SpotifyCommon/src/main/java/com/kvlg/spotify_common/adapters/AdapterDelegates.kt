@@ -1,21 +1,19 @@
-package com.example.sberify.adapters
+package com.kvlg.spotify_common.adapters
 
 import android.view.View
 import androidx.core.view.ViewCompat
-import com.example.sberify.databinding.ItemAlbumBinding
-import com.example.sberify.databinding.ItemAlbumHorizontalBinding
-import com.example.sberify.databinding.ItemSearchBinding
-import com.example.sberify.databinding.ItemSuggestionBinding
-import com.example.sberify.databinding.ItemTrackBinding
-import com.example.sberify.databinding.ItemTrackListedBinding
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
-import com.kvlg.core_utils.bindPalette
 import com.kvlg.spotify_common.BaseModel
+import com.kvlg.spotify_common.databinding.ItemAlbumBinding
+import com.kvlg.spotify_common.databinding.ItemAlbumHorizontalBinding
+import com.kvlg.spotify_common.databinding.ItemSearchBinding
+import com.kvlg.spotify_common.databinding.ItemTrackBinding
+import com.kvlg.spotify_common.databinding.ItemTrackListedBinding
 import com.kvlg.spotify_common.domain.ArtistDomainModel
 import com.kvlg.spotify_common.presentation.AlbumModel
 import com.kvlg.spotify_common.presentation.ArtistModel
 import com.kvlg.spotify_common.presentation.TrackModel
-import com.kvlg.suggestion.Suggestion
+import com.kvlg.spotify_common.utils.bindPalette
 
 fun artistAdapterDelegate(itemClickListener: (ArtistModel, View) -> Unit) =
     adapterDelegateViewBinding<ArtistModel, BaseModel, ItemAlbumHorizontalBinding>({ layoutInflater, parent ->
@@ -98,18 +96,6 @@ fun albumHorizontalAdapterDelegate(itemClickListener: (AlbumModel, View) -> Unit
                 releaseName.text = item.name
                 artistName.text = item.artistNames
             }
-        }
-    }
-
-fun suggestionAdapterDelegate(itemClickListener: (Int, Suggestion) -> Unit) =
-    adapterDelegateViewBinding<Suggestion, Suggestion, ItemSuggestionBinding>({ layoutInflater, parent ->
-        ItemSuggestionBinding.inflate(layoutInflater, parent, false)
-    }) {
-        binding.root.setOnClickListener {
-            itemClickListener.invoke(adapterPosition, item)
-        }
-        bind {
-            binding.suggestionText.text = item.text
         }
     }
 

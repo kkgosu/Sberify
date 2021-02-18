@@ -8,13 +8,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSnapHelper
-import com.example.sberify.adapters.AlbumInteraction
-import com.example.sberify.adapters.AlbumsHorizontalAdapter
-import com.example.sberify.adapters.TrackInteraction
-import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentFavoriteBinding
 import com.example.sberify.presentation.ui.SharedViewModel
+import com.kvlg.spotify_common.adapters.AlbumInteraction
+import com.kvlg.spotify_common.adapters.AlbumsHorizontalAdapter
+import com.kvlg.spotify_common.adapters.TrackInteraction
+import com.kvlg.spotify_common.adapters.TrackListedAdapter
 import com.kvlg.spotify_common.presentation.AlbumModel
 import com.kvlg.spotify_common.presentation.TrackModel
 import dagger.hilt.android.AndroidEntryPoint

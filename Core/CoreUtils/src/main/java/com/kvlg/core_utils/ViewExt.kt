@@ -9,11 +9,8 @@ import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.target.Target
-import com.github.florent37.glidepalette.BitmapPalette
-import com.github.florent37.glidepalette.GlidePalette
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.kvlg.core.R
 import kotlin.math.abs
 
 fun View.visible(value: Boolean) {
@@ -61,20 +58,7 @@ fun ImageView.loadImage(image: String?) =
     }
 
 
-fun ImageView.bindPalette(path: String?, palette: View) {
-    path?.let {
-        Glide.with(this.context)
-            .load(path)
-            .transition(DrawableTransitionOptions.withCrossFade(375))
-            .listener(
-                GlidePalette.with(path)
-                    .use(BitmapPalette.Profile.VIBRANT_DARK)
-                    .intoBackground(palette)
-                    .crossfade(true)
-            )
-            .into(this)
-    }
-}
+
 
 fun FloatingActionButton.bindAppBarLayoutWithFab(appBarLayout: AppBarLayout) {
     appBarLayout.addOnOffsetChangedListener(

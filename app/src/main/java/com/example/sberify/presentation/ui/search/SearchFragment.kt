@@ -17,14 +17,6 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.example.sberify.R
-import com.example.sberify.adapters.AlbumInteraction
-import com.example.sberify.adapters.AlbumsHorizontalAdapter
-import com.example.sberify.adapters.ArtistInteraction
-import com.example.sberify.adapters.ArtistsAdapter
-import com.example.sberify.adapters.SuggestionAdapter
-import com.example.sberify.adapters.SuggestionInteraction
-import com.example.sberify.adapters.TrackInteraction
-import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentSearchBinding
 import com.example.sberify.presentation.ui.SharedViewModel
@@ -33,10 +25,18 @@ import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Comp
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.TRACK_SWITCH_CHECKED_KEY
 import com.kvlg.core_utils.applyResultObserver
 import com.kvlg.core_utils.visible
+import com.kvlg.spotify_common.adapters.AlbumInteraction
+import com.kvlg.spotify_common.adapters.AlbumsHorizontalAdapter
+import com.kvlg.spotify_common.adapters.ArtistInteraction
+import com.kvlg.spotify_common.adapters.ArtistsAdapter
+import com.kvlg.spotify_common.adapters.TrackInteraction
+import com.kvlg.spotify_common.adapters.TrackListedAdapter
 import com.kvlg.spotify_common.presentation.AlbumModel
 import com.kvlg.spotify_common.presentation.ArtistModel
 import com.kvlg.spotify_common.presentation.TrackModel
 import com.kvlg.suggestion.Suggestion
+import com.kvlg.suggestion.SuggestionAdapter
+import com.kvlg.suggestion.SuggestionInteraction
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

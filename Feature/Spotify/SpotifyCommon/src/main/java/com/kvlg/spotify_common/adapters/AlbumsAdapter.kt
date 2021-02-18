@@ -1,6 +1,4 @@
-package com.example.sberify.adapters
-
-import com.example.sberify.base.BaseAdapter
+package com.kvlg.spotify_common.adapters
 
 class AlbumsAdapter(private val albumInteraction: AlbumInteraction) : BaseAdapter() {
 

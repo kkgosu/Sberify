@@ -1,4 +1,5 @@
 include(
     ":Core:CoreDb",
-    ":Core:CoreUtils"
+    ":Core:CoreUtils",
+    ":Core:DesignSystem"
 )

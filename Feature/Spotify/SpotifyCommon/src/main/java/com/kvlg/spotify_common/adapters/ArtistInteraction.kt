@@ -1,4 +1,4 @@
-package com.example.sberify.adapters
+package com.kvlg.spotify_common.adapters
 
 import android.view.View
 import com.kvlg.spotify_common.presentation.ArtistModel

@@ -1,4 +1,4 @@
-package com.kvlg.core_utils
+package com.kvlg.spotify_common
 
 import android.content.Context
 import android.util.AttributeSet

@@ -10,8 +10,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.sberify.adapters.TrackInteraction
-import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentAlbumDetailsBinding
 import com.example.sberify.presentation.ui.SharedViewModel
@@ -20,6 +18,8 @@ import com.kvlg.core_utils.bindAppBarLayoutWithFab
 import com.kvlg.core_utils.loadImage
 import com.kvlg.core_utils.setFavoriteIcon
 import com.kvlg.core_utils.startAnim
+import com.kvlg.spotify_common.adapters.TrackInteraction
+import com.kvlg.spotify_common.adapters.TrackListedAdapter
 import com.kvlg.spotify_common.presentation.TrackModel
 import dagger.hilt.android.AndroidEntryPoint
 
