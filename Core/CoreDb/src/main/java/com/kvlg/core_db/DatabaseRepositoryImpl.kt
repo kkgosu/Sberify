@@ -6,9 +6,9 @@ import androidx.lifecycle.map
 import com.kvlg.core_db.database.AppDatabase
 import com.kvlg.core_db.database.DbConverter
 import com.kvlg.core_db.database.suggestions.SuggestionsEntity
-import com.kvlg.core_utils.models.Suggestion
 import com.kvlg.spotify_models.domain.AlbumDomainModel
 import com.kvlg.spotify_models.domain.TrackDomainModel
+import com.kvlg.suggestion.Suggestion
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

@@ -1,0 +1,9 @@
+include(
+    ":Feature:Genius:GeniusApi",
+    ":Feature:Genius:GeniusImpl",
+    ":Feature:Spotify:spotify-app-remote",
+    ":Feature:Spotify:SpotifyApi",
+    ":Feature:Spotify:SpotifyImpl",
+    ":Feature:Spotify:SpotifyModels",
+    ":Feature:Suggestion"
+)

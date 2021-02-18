@@ -2,7 +2,7 @@ package com.example.sberify.adapters
 
 import androidx.recyclerview.widget.DiffUtil
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
-import com.kvlg.core_utils.models.Suggestion
+import com.kvlg.suggestion.Suggestion
 
 
 /**

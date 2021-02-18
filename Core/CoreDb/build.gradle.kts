@@ -16,6 +16,7 @@ dependencies {
     room()
 
     implementation(project(Projects.spotifyModels))
+    implementation(project(Projects.suggestion))
 
     implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)

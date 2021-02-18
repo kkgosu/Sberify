@@ -11,12 +11,12 @@ import com.kvlg.core_db.DatabaseRepository
 import com.kvlg.core_utils.Result
 import com.kvlg.core_utils.SingleLiveEvent
 import com.kvlg.core_utils.models.RawTrackModel
-import com.kvlg.core_utils.models.Suggestion
 import com.kvlg.genius_api.GeniusApi
 import com.kvlg.spotify_api.api.SpotifyApi
 import com.kvlg.spotify_models.presentation.AlbumModel
 import com.kvlg.spotify_models.presentation.ArtistModel
 import com.kvlg.spotify_models.presentation.TrackModel
+import com.kvlg.suggestion.Suggestion
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

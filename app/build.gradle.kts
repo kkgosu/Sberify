@@ -59,6 +59,7 @@ dependencies {
     implementation(project(Projects.spotifyRemote))
     implementation(project(Projects.genius.api))
     implementation(project(Projects.genius.impl))
+    implementation(project(Projects.suggestion))
 
     implementation(Libs.ADAPTER_DELEGATES)
     implementation(Libs.ADAPTER_DELEGATES_VIEW_BINDING)

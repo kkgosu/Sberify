@@ -1,4 +1,4 @@
-package com.kvlg.core_utils.models
+package com.kvlg.suggestion
 
 /**
  * @author Konstantin Koval
