@@ -9,8 +9,8 @@ import androidx.lifecycle.map
 import com.kvlg.core_db.DatabaseRepository
 import com.kvlg.core_utils.Result
 import com.kvlg.spotify_api.converter.ViewModelConverter
-import com.kvlg.spotify_models.presentation.AlbumModel
-import com.kvlg.spotify_models.presentation.TrackModel
+import com.kvlg.spotify_common.presentation.AlbumModel
+import com.kvlg.spotify_common.presentation.TrackModel
 
 class FavoriteViewModel @ViewModelInject constructor(
     private val databaseRepo: DatabaseRepository,

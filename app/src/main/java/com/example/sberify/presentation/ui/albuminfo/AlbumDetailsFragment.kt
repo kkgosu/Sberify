@@ -20,7 +20,7 @@ import com.kvlg.core_utils.bindAppBarLayoutWithFab
 import com.kvlg.core_utils.loadImage
 import com.kvlg.core_utils.setFavoriteIcon
 import com.kvlg.core_utils.startAnim
-import com.kvlg.spotify_models.presentation.TrackModel
+import com.kvlg.spotify_common.presentation.TrackModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

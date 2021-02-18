@@ -2,8 +2,8 @@ package com.kvlg.core_db.database.album
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.kvlg.spotify_models.entity.AlbumEntity
-import com.kvlg.spotify_models.entity.TrackEntity
+import com.kvlg.spotify_common.entity.AlbumEntity
+import com.kvlg.spotify_common.entity.TrackEntity
 
 /**
  * @author Konstantin Koval

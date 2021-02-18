@@ -1,7 +1,7 @@
-package com.kvlg.spotify_models.presentation
+package com.kvlg.spotify_common.presentation
 
 import android.os.Parcelable
-import com.kvlg.spotify_models.BaseModel
+import com.kvlg.spotify_common.BaseModel
 import kotlinx.parcelize.Parcelize
 
 /**

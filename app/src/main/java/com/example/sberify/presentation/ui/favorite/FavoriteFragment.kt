@@ -15,8 +15,8 @@ import com.example.sberify.adapters.TrackListedAdapter
 import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentFavoriteBinding
 import com.example.sberify.presentation.ui.SharedViewModel
-import com.kvlg.spotify_models.presentation.AlbumModel
-import com.kvlg.spotify_models.presentation.TrackModel
+import com.kvlg.spotify_common.presentation.AlbumModel
+import com.kvlg.spotify_common.presentation.TrackModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

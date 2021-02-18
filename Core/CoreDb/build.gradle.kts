@@ -15,7 +15,7 @@ dependencies {
     hilt()
     room()
 
-    implementation(project(Projects.spotifyModels))
+    implementation(project(Projects.spotifyCommon))
     implementation(project(Projects.suggestion))
 
     implementation(Libs.KOTLIN_STDLIB)

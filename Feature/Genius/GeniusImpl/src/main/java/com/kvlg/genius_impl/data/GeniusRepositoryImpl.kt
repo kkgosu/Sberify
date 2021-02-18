@@ -10,7 +10,7 @@ import com.kvlg.core_utils.Result
 import com.kvlg.core_utils.models.RawTrackModel
 import com.kvlg.core_utils.resultLiveData
 import com.kvlg.genius_impl.data.network.GeniusApiMapper
-import com.kvlg.spotify_models.domain.TrackDomainModel
+import com.kvlg.spotify_common.domain.TrackDomainModel
 import timber.log.Timber
 
 /**

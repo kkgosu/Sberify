@@ -2,9 +2,9 @@ package com.kvlg.spotify_api.api
 
 import androidx.lifecycle.LiveData
 import com.kvlg.core_utils.Result
-import com.kvlg.spotify_models.presentation.AlbumModel
-import com.kvlg.spotify_models.presentation.ArtistModel
-import com.kvlg.spotify_models.presentation.TrackModel
+import com.kvlg.spotify_common.presentation.AlbumModel
+import com.kvlg.spotify_common.presentation.ArtistModel
+import com.kvlg.spotify_common.presentation.TrackModel
 
 /**
  * @author Konstantin Koval

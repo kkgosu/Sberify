@@ -13,7 +13,7 @@ android {
 dependencies {
     api(project(Projects.coreDb))
     api(project(Projects.coreUtils))
-    api(project(Projects.spotifyModels))
+    api(project(Projects.spotifyCommon))
 
     hilt()
 

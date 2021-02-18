@@ -1,4 +1,4 @@
-package com.kvlg.spotify_models.domain
+package com.kvlg.spotify_common.domain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

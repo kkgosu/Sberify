@@ -7,11 +7,11 @@ import com.kvlg.core_db.database.DbConverter
 import com.kvlg.core_utils.ResponseHandler.getResult
 import com.kvlg.core_utils.Result
 import com.kvlg.core_utils.resultLiveData
+import com.kvlg.spotify_common.domain.AlbumDomainModel
+import com.kvlg.spotify_common.domain.ArtistDomainModel
+import com.kvlg.spotify_common.domain.TrackDomainModel
 import com.kvlg.spotify_impl.data.converters.ResponseConverter
 import com.kvlg.spotify_impl.data.network.SpotifyApiMapper
-import com.kvlg.spotify_models.domain.AlbumDomainModel
-import com.kvlg.spotify_models.domain.ArtistDomainModel
-import com.kvlg.spotify_models.domain.TrackDomainModel
 
 /**
  * @author Konstantin Koval

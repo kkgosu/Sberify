@@ -1,8 +1,8 @@
 package com.kvlg.core_db
 
 import androidx.lifecycle.LiveData
-import com.kvlg.spotify_models.domain.AlbumDomainModel
-import com.kvlg.spotify_models.domain.TrackDomainModel
+import com.kvlg.spotify_common.domain.AlbumDomainModel
+import com.kvlg.spotify_common.domain.TrackDomainModel
 import com.kvlg.suggestion.Suggestion
 
 /**

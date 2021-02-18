@@ -11,7 +11,7 @@ object Projects {
 
     val spotify = ApiImplModules(FEATURE, "Spotify")
     val spotifyRemote = makeSingleModulePath(FEATURE, "spotify-app-remote", "Spotify")
-    val spotifyModels = makeSingleModulePath(FEATURE, "SpotifyModels", "Spotify")
+    val spotifyCommon = makeSingleModulePath(FEATURE, "SpotifyCommon", "Spotify")
     val genius = ApiImplModules(FEATURE, "Genius")
     val suggestion = makeSingleModulePath(FEATURE, "Suggestion", null)
 

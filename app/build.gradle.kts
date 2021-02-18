@@ -55,7 +55,7 @@ dependencies {
     implementation(project(Projects.coreUtils))
     implementation(project(Projects.spotify.api))
     implementation(project(Projects.spotify.impl))
-    implementation(project(Projects.spotifyModels))
+    implementation(project(Projects.spotifyCommon))
     implementation(project(Projects.spotifyRemote))
     implementation(project(Projects.genius.api))
     implementation(project(Projects.genius.impl))

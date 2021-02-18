@@ -1,12 +1,12 @@
 package com.kvlg.spotify_api.converter
 
 import com.kvlg.core_utils.Result
-import com.kvlg.spotify_models.domain.AlbumDomainModel
-import com.kvlg.spotify_models.domain.ArtistDomainModel
-import com.kvlg.spotify_models.domain.TrackDomainModel
-import com.kvlg.spotify_models.presentation.AlbumModel
-import com.kvlg.spotify_models.presentation.ArtistModel
-import com.kvlg.spotify_models.presentation.TrackModel
+import com.kvlg.spotify_common.domain.AlbumDomainModel
+import com.kvlg.spotify_common.domain.ArtistDomainModel
+import com.kvlg.spotify_common.domain.TrackDomainModel
+import com.kvlg.spotify_common.presentation.AlbumModel
+import com.kvlg.spotify_common.presentation.ArtistModel
+import com.kvlg.spotify_common.presentation.TrackModel
 
 /**
  * @author Konstantin Koval
