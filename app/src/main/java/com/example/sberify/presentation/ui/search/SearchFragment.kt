@@ -24,7 +24,7 @@ import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Comp
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.ARTIST_SWITCH_CHECKED_KEY
 import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.TRACK_SWITCH_CHECKED_KEY
 import com.kvlg.core_utils.applyResultObserver
-import com.kvlg.core_utils.visible
+import com.kvlg.design.visible
 import com.kvlg.spotify_common.adapters.AlbumInteraction
 import com.kvlg.spotify_common.adapters.AlbumsHorizontalAdapter
 import com.kvlg.spotify_common.adapters.ArtistInteraction

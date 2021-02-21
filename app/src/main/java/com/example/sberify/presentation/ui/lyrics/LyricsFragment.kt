@@ -12,10 +12,10 @@ import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentLyricsBinding
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.kvlg.core_utils.applyResultObserver
-import com.kvlg.core_utils.hideAnimation
-import com.kvlg.core_utils.setFavoriteIcon
-import com.kvlg.core_utils.showAnimation
-import com.kvlg.core_utils.startAnim
+import com.kvlg.design.hideAnimation
+import com.kvlg.design.setFavoriteIcon
+import com.kvlg.design.showAnimation
+import com.kvlg.design.startAnim
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -14,10 +14,10 @@ import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentAlbumDetailsBinding
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.kvlg.core_utils.applyResultObserver
-import com.kvlg.core_utils.bindAppBarLayoutWithFab
-import com.kvlg.core_utils.loadImage
-import com.kvlg.core_utils.setFavoriteIcon
-import com.kvlg.core_utils.startAnim
+import com.kvlg.design.bindAppBarLayoutWithFab
+import com.kvlg.design.loadImage
+import com.kvlg.design.setFavoriteIcon
+import com.kvlg.design.startAnim
 import com.kvlg.spotify_common.adapters.TrackInteraction
 import com.kvlg.spotify_common.adapters.TrackListedAdapter
 import com.kvlg.spotify_common.presentation.TrackModel

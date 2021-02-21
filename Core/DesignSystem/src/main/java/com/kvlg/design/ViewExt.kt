@@ -1,4 +1,4 @@
-package com.kvlg.core_utils
+package com.kvlg.design
 
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.view.View
