@@ -10,10 +10,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentAlbumDetailsBinding
 import com.example.sberify.presentation.ui.SharedViewModel
 import com.kvlg.core_utils.applyResultObserver
+import com.kvlg.design.BaseViewBindingFragment
 import com.kvlg.design.bindAppBarLayoutWithFab
 import com.kvlg.design.loadImage
 import com.kvlg.design.setFavoriteIcon

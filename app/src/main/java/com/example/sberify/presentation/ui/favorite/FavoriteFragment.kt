@@ -8,9 +8,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSnapHelper
-import com.example.sberify.base.BaseViewBindingFragment
 import com.example.sberify.databinding.FragmentFavoriteBinding
 import com.example.sberify.presentation.ui.SharedViewModel
+import com.kvlg.design.BaseViewBindingFragment
 import com.kvlg.spotify_common.adapters.AlbumInteraction
 import com.kvlg.spotify_common.adapters.AlbumsHorizontalAdapter
 import com.kvlg.spotify_common.adapters.TrackInteraction

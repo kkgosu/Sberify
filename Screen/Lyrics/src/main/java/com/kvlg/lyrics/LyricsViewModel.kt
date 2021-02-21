@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui.lyrics
+package com.kvlg.lyrics
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel

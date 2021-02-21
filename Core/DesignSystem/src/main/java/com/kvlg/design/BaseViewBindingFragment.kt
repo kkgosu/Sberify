@@ -1,4 +1,4 @@
-package com.example.sberify.base
+package com.kvlg.design
 
 import android.os.Bundle
 import android.view.LayoutInflater

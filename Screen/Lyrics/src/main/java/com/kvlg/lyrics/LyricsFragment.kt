@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui.lyrics
+package com.kvlg.lyrics
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,14 +8,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
-import com.example.sberify.base.BaseViewBindingFragment
-import com.example.sberify.databinding.FragmentLyricsBinding
-import com.example.sberify.presentation.ui.SharedViewModel
-import com.kvlg.core_utils.applyResultObserver
+import com.kvlg.design.BaseViewBindingFragment
 import com.kvlg.design.hideAnimation
 import com.kvlg.design.setFavoriteIcon
 import com.kvlg.design.showAnimation
 import com.kvlg.design.startAnim
+import com.kvlg.lyrics.databinding.FragmentLyricsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,7 +43,7 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
             supportActionBar?.run { setDisplayHomeAsUpEnabled(true) }
         }
         binding.playButton.setOnClickListener {
-            sharedViewModel.onPlayClick(navArgs.item)
+            //sharedViewModel.onPlayClick(navArgs.item)
         }
         sharedViewModel.lyrics.applyResultObserver(viewLifecycleOwner,
             success = {

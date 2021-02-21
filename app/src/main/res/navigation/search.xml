@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/lyricsFragment"
-        android:name="com.example.sberify.presentation.ui.lyrics.LyricsFragment"
+        android:name="com.kvlg.lyrics.LyricsFragment"
         android:label="LyricsFragment">
         <argument
             android:name="item"

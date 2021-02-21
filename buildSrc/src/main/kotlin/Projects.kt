@@ -5,6 +5,7 @@
 object Projects {
     private const val CORE = ":Core"
     private const val FEATURE = ":Feature"
+    private const val SCREEN = ":Screen"
 
     private const val GENIUS = "Genius"
     private const val SPOTIFY = "Spotify"
@@ -20,4 +21,6 @@ object Projects {
     const val SPOTIFY_REMOTE = "$FEATURE:$SPOTIFY:spotify-app-remote"
     const val SPOTIFY_COMMON = "$FEATURE:$SPOTIFY:SpotifyCommon"
     const val SUGGESTION = "$FEATURE:Suggestion"
+
+    const val LYRICS = "$SCREEN:Lyrics"
 }
