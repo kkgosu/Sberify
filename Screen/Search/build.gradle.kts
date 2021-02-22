@@ -20,10 +20,12 @@ dependencies {
     implementation(project(Projects.ALBUM_DETAILS))
     implementation(project(Projects.CORE_UTILS))
     implementation(project(Projects.DESIGN_SYSTEM))
+    implementation(project(Projects.LYRICS))
     implementation(project(Projects.NAVIGATION))
     implementation(project(Projects.SPOTIFY_COMMON))
+    implementation(project(Projects.SUGGESTION))
 
     implementation(Libs.ADAPTER_DELEGATES)
     implementation(Libs.NAVIGATION_FRAGMENT_KTX)
-    implementation(Libs.SWIPE_REFRESH_LAYOUT)
+    implementation(Libs.FRAGMENT_KTX)
 }

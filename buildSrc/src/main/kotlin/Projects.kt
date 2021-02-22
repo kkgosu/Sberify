@@ -28,4 +28,5 @@ object Projects {
     const val LYRICS = "$SCREEN:Lyrics"
     const val MAIN = "$SCREEN:Main"
     const val NEW_RELEASES = "$SCREEN:NewReleases"
+    const val SEARCH = "$SCREEN:Search"
 }

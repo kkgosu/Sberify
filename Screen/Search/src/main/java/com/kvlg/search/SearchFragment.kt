@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui.search
+package com.kvlg.search
 
 import android.content.Context
 import android.os.Bundle
@@ -16,15 +16,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSnapHelper
-import com.example.sberify.R
-import com.example.sberify.databinding.FragmentSearchBinding
-import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.ALBUM_SWITCH_CHECKED_KEY
-import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.ARTIST_SWITCH_CHECKED_KEY
-import com.example.sberify.presentation.ui.search.FilterBottomSheetFragment.Companion.TRACK_SWITCH_CHECKED_KEY
-import com.kvlg.core_utils.applyResultObserver
 import com.kvlg.design.BaseViewBindingFragment
 import com.kvlg.design.visible
 import com.kvlg.main.SharedViewModel
+import com.kvlg.search.FilterBottomSheetFragment.Companion.ALBUM_SWITCH_CHECKED_KEY
+import com.kvlg.search.FilterBottomSheetFragment.Companion.ARTIST_SWITCH_CHECKED_KEY
+import com.kvlg.search.FilterBottomSheetFragment.Companion.TRACK_SWITCH_CHECKED_KEY
+import com.kvlg.search.databinding.FragmentSearchBinding
 import com.kvlg.spotify_common.adapters.AlbumInteraction
 import com.kvlg.spotify_common.adapters.AlbumsHorizontalAdapter
 import com.kvlg.spotify_common.adapters.ArtistInteraction

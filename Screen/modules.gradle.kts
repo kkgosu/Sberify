@@ -3,5 +3,6 @@ include(
     ":Screen:Favorite",
     ":Screen:Lyrics",
     ":Screen:Main",
-    ":Screen:NewReleases"
+    ":Screen:NewReleases",
+    ":Screen:Search"
 )
