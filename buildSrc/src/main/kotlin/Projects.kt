@@ -23,6 +23,7 @@ object Projects {
     const val SPOTIFY_COMMON = "$FEATURE:$SPOTIFY:SpotifyCommon"
     const val SUGGESTION = "$FEATURE:Suggestion"
 
+    const val FAVORITE = "$SCREEN:Favorite"
     const val LYRICS = "$SCREEN:Lyrics"
     const val MAIN = "$SCREEN:Main"
 }

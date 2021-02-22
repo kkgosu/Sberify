@@ -54,6 +54,7 @@ dependencies {
     implementation(project(Projects.CORE_DB))
     implementation(project(Projects.CORE_UTILS))
     implementation(project(Projects.DESIGN_SYSTEM))
+    implementation(project(Projects.FAVORITE))
     implementation(project(Projects.GENIUS_API))
     implementation(project(Projects.GENIUS_IMPL))
     implementation(project(Projects.LYRICS))

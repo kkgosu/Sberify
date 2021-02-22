@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui.favorite
+package com.kvlg.favorite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSnapHelper
-import com.example.sberify.databinding.FragmentFavoriteBinding
 import com.kvlg.design.BaseViewBindingFragment
+import com.kvlg.favorite.databinding.FragmentFavoriteBinding
 import com.kvlg.main.SharedViewModel
 import com.kvlg.spotify_common.adapters.AlbumInteraction
 import com.kvlg.spotify_common.adapters.AlbumsHorizontalAdapter
