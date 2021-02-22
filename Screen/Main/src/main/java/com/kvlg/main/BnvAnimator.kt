@@ -1,10 +1,9 @@
-package com.example.sberify.presentation.ui
+package com.kvlg.main
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import androidx.core.view.updateLayoutParams
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import com.example.sberify.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 /**

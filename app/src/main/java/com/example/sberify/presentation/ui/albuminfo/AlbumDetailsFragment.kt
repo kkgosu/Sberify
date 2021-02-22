@@ -11,13 +11,13 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.sberify.databinding.FragmentAlbumDetailsBinding
-import com.example.sberify.presentation.ui.SharedViewModel
 import com.kvlg.core_utils.applyResultObserver
 import com.kvlg.design.BaseViewBindingFragment
 import com.kvlg.design.bindAppBarLayoutWithFab
 import com.kvlg.design.loadImage
 import com.kvlg.design.setFavoriteIcon
 import com.kvlg.design.startAnim
+import com.kvlg.main.SharedViewModel
 import com.kvlg.spotify_common.adapters.TrackInteraction
 import com.kvlg.spotify_common.adapters.TrackListedAdapter
 import com.kvlg.spotify_common.presentation.TrackModel

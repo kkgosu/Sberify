@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui
+package com.kvlg.main
 
 import android.content.Intent
 import android.util.SparseArray
@@ -9,7 +9,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import com.example.sberify.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 fun BottomNavigationView.setupWithNavController(

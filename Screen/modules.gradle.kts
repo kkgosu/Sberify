@@ -1,3 +1,4 @@
 include(
-    ":Screen:Lyrics"
+    ":Screen:Lyrics",
+    ":Screen:Main"
 )

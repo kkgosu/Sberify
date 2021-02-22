@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui
+package com.kvlg.main
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData

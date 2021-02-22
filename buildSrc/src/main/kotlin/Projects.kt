@@ -23,4 +23,5 @@ object Projects {
     const val SUGGESTION = "$FEATURE:Suggestion"
 
     const val LYRICS = "$SCREEN:Lyrics"
+    const val MAIN = "$SCREEN:Main"
 }

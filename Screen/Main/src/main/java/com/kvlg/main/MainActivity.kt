@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui
+package com.kvlg.main
 
 import android.net.Uri
 import android.os.Bundle
@@ -10,8 +10,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import com.example.sberify.R
-import com.example.sberify.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 import com.kvlg.core_utils.NetworkObserver
 import com.spotify.android.appremote.api.ConnectionParams

@@ -43,7 +43,7 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
             supportActionBar?.run { setDisplayHomeAsUpEnabled(true) }
         }
         binding.playButton.setOnClickListener {
-            //sharedViewModel.onPlayClick(navArgs.item)
+            sharedViewModel.onPlayClick(navArgs.item)
         }
         sharedViewModel.lyrics.applyResultObserver(viewLifecycleOwner,
             success = {
