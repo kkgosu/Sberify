@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui.newreleases
+package com.kvlg.newreleases
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,12 +8,9 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import com.example.sberify.databinding.FragmentNewReleasesBinding
-import com.kvlg.core_utils.applyResultObserver
 import com.kvlg.design.BaseViewBindingFragment
-import com.kvlg.design.hideAnimation
-import com.kvlg.design.showAnimation
 import com.kvlg.main.SharedViewModel
+import com.kvlg.newreleases.databinding.FragmentNewReleasesBinding
 import com.kvlg.spotify_common.adapters.AlbumInteraction
 import com.kvlg.spotify_common.adapters.AlbumsAdapter
 import com.kvlg.spotify_common.presentation.AlbumModel

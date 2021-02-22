@@ -5,7 +5,7 @@
     app:startDestination="@id/newReleasesFragment">
     <fragment
         android:id="@+id/newReleasesFragment"
-        android:name="com.example.sberify.presentation.ui.newreleases.NewReleasesFragment"
+        android:name="com.kvlg.newreleases.NewReleasesFragment"
         android:label="NewReleasesFragment">
         <action
             android:id="@+id/action_newReleasesFragment_to_albumInfoFragment"

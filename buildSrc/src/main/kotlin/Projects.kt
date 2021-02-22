@@ -27,4 +27,5 @@ object Projects {
     const val FAVORITE = "$SCREEN:Favorite"
     const val LYRICS = "$SCREEN:Lyrics"
     const val MAIN = "$SCREEN:Main"
+    const val NEW_RELEASES = "$SCREEN:NewReleases"
 }
