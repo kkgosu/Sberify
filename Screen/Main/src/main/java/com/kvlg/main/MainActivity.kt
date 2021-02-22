@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import com.google.android.material.snackbar.Snackbar
 import com.kvlg.core_utils.NetworkObserver
+import com.kvlg.main.databinding.ActivityMainBinding
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote
@@ -133,9 +134,9 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         val bnv = binding.bnv.bottomNavView
 
         val navGraphIds = listOf(
-            R.navigation.new_releases,
-            R.navigation.search,
-            R.navigation.favorite
+            com.kvlg.newreleases.R.navigation.new_releases,
+            com.kvlg.search.R.navigation.search,
+            com.kvlg.favorite.R.navigation.favorite,
         )
 
         val controller = bnv.setupWithNavController(

@@ -5,14 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.navArgs
 import com.kvlg.core_utils.applyResultObserver
 import com.kvlg.design.BaseViewBindingFragment
 import com.kvlg.design.hideAnimation
 import com.kvlg.design.setFavoriteIcon
-import com.kvlg.design.showAnimation
 import com.kvlg.design.startAnim
 import com.kvlg.lyrics.databinding.FragmentLyricsBinding
 import com.kvlg.shared.SharedViewModel
@@ -24,7 +21,7 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
     private val lyricsViewModel: LyricsViewModel by activityViewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
-    private val navArgs by navArgs<LyricsFragmentArgs>()
+    //private val navArgs by navArgs<LyricsFragmentArgs>()
 
     override fun getViewBinding(
         inflater: LayoutInflater,
@@ -37,7 +34,7 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
 
     override fun setupViews() {
         startPostponedEnterTransition()
-        binding.lyricsContainer.transitionName = navArgs.item.id
+       /* binding.lyricsContainer.transitionName = navArgs.item.id
         binding.title.text = navArgs.item.name
         binding.animation.loadingAnimation.showAnimation()
         (requireActivity() as AppCompatActivity).apply {
@@ -46,7 +43,7 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
         }
         binding.playButton.setOnClickListener {
             sharedViewModel.onPlayClick(navArgs.item)
-        }
+        }*/
         sharedViewModel.lyrics.applyResultObserver(viewLifecycleOwner,
             success = {
                 it?.let { track ->

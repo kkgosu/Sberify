@@ -65,7 +65,7 @@ class FavoriteFragment :
             view to view.transitionName
         )
         findNavController().navigate(
-            FavoriteFragmentDirections.actionFavoriteFragmentToLyricsFragment(item), extras
+            FavoriteFragmentDirections.actionToLyricsFragment(item), extras
         )
     }
 
@@ -74,11 +74,7 @@ class FavoriteFragment :
         val extras = FragmentNavigatorExtras(
             view to view.transitionName
         )
-        findNavController().navigate(
-            FavoriteFragmentDirections.actionFavoriteFragmentToAlbumInfoFragment2(
-                item
-            ), extras
-        )
+        findNavController().navigate(FavoriteFragmentDirections.actionToAlbumDetailsFragment(item), extras)
     }
 
 }

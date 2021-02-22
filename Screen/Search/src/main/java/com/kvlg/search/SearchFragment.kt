@@ -132,7 +132,7 @@ class SearchFragment :
             view to view.transitionName
         )
         findNavController().navigate(
-            SearchFragmentDirections.actionSearchFragmentToAlbumInfoFragment(item),
+            SearchFragmentDirections.actionToAlbumDetailsFragment(item),
             extras
         )
     }
@@ -147,7 +147,7 @@ class SearchFragment :
             view to view.transitionName
         )
         findNavController().navigate(
-            SearchFragmentDirections.actionSearchFragmentToLyricsFragment(item),
+            SearchFragmentDirections.actionToLyricsFragment(item),
             extras
         )
     }

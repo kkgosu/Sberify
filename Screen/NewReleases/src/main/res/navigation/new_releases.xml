@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/new_releases"
+    app:startDestination="@id/newReleasesFragment">
+    <fragment
+        android:id="@+id/newReleasesFragment"
+        android:name="com.kvlg.newreleases.NewReleasesFragment"
+        android:label="NewReleasesFragment">
+        <action
+            android:id="@+id/action_to_albumDetailsFragment"
+            app:destination="@id/albumDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/albumDetailsFragment"
+        android:name="com.kvlg.albumdetails.AlbumDetailsFragment"
+        android:label="AlbumDetailsFragment">
+        <argument
+            android:name="item"
+            app:argType="com.kvlg.spotify_common.presentation.AlbumModel" />
+        <action
+            android:id="@+id/action_to_lyricsFragment"
+            app:destination="@id/lyricsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lyricsFragment"
+        android:name="com.kvlg.lyrics.LyricsFragment"
+        android:label="LyricsFragment">
+        <argument
+            android:name="item"
+            app:argType="com.kvlg.spotify_common.presentation.TrackModel"/>
+    </fragment>
+</navigation>

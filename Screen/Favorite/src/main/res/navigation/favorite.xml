@@ -9,24 +9,24 @@
         android:name="com.kvlg.favorite.FavoriteFragment"
         android:label="FavoriteFragment">
         <action
-            android:id="@+id/action_favoriteFragment_to_lyricsFragment"
+            android:id="@+id/action_to_lyricsFragment"
             app:destination="@id/lyricsFragment" />
         <action
-            android:id="@+id/action_favoriteFragment_to_albumInfoFragment2"
-            app:destination="@id/albumInfoFragment2" />
+            android:id="@+id/action_to_albumDetailsFragment"
+            app:destination="@id/albumDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/lyricsFragment"
         android:name="com.kvlg.lyrics.LyricsFragment"
-        android:label="LyricsFragment" >
+        android:label="LyricsFragment">
         <argument
             android:name="item"
             app:argType="com.kvlg.spotify_common.presentation.TrackModel" />
     </fragment>
     <fragment
-        android:id="@+id/albumInfoFragment2"
+        android:id="@+id/albumDetailsFragment"
         android:name="com.kvlg.albumdetails.AlbumDetailsFragment"
-        android:label="AlbumInfoFragment" >
+        android:label="AlbumDetailsFragment">
         <argument
             android:name="item"
             app:argType="com.kvlg.spotify_common.presentation.AlbumModel" />

@@ -20,6 +20,7 @@ dependencies {
     implementation(project(Projects.ALBUM_DETAILS))
     implementation(project(Projects.CORE_UTILS))
     implementation(project(Projects.DESIGN_SYSTEM))
+    implementation(project(Projects.LYRICS))
     implementation(project(Projects.NAVIGATION))
     implementation(project(Projects.SHARED))
     implementation(project(Projects.SPOTIFY_COMMON))

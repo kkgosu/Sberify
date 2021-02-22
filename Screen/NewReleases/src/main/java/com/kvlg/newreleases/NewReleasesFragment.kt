@@ -48,11 +48,7 @@ class NewReleasesFragment : BaseViewBindingFragment<FragmentNewReleasesBinding>(
         val extras = FragmentNavigatorExtras(
             view to view.transitionName
         )
-        findNavController().navigate(
-            NewReleasesFragmentDirections.actionNewReleasesFragmentToAlbumInfoFragment(
-                item
-            ), extras
-        )
+        findNavController().navigate(NewReleasesFragmentDirections.actionToAlbumDetailsFragment(item), extras)
     }
 
     private fun subscribeToObservers() {

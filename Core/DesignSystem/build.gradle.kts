@@ -11,9 +11,9 @@ android {
 }
 
 dependencies {
+    api(Libs.LOTTIE)
+    api(Libs.GLIDE)
     implementation(Libs.CORE_KTX)
-    implementation(Libs.GLIDE)
     implementation(Libs.GLIDE_PALETTE)
-    implementation(Libs.LOTTIE)
     implementation(Libs.MATERIAL)
 }
