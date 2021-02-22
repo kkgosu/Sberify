@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@id/favorite_flow">
+    android:id="@id/favorite_flow"
+    app:startDestination="@id/favoriteFragment">
 
     <fragment
         android:id="@+id/favoriteFragment"
@@ -12,7 +13,7 @@
             app:destination="@id/lyricsFragment" />
         <action
             android:id="@+id/action_favoriteFragment_to_albumInfoFragment2"
-            app:destination="@id/albumInfoFragment2" />
+            app:destination="@id/albumDetailsFragment" />
     </fragment>
 
 </navigation>

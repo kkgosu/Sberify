@@ -22,6 +22,7 @@ dependencies {
     implementation(project(Projects.DESIGN_SYSTEM))
     implementation(project(Projects.LYRICS))
     implementation(project(Projects.NAVIGATION))
+    implementation(project(Projects.SHARED))
     implementation(project(Projects.SPOTIFY_COMMON))
     implementation(project(Projects.SUGGESTION))
 

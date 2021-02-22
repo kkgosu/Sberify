@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import com.example.sberify.databinding.FilterBottomSheetLayoutBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.kvlg.search.databinding.FilterBottomSheetLayoutBinding
 
 /**
  * @author Konstantin Koval
@@ -26,7 +26,7 @@ class FilterBottomSheetFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FilterBottomSheetLayoutBinding.inflate(inflater, container, false)
         return binding.root
     }

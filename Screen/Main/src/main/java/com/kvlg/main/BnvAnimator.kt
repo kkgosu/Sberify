@@ -5,6 +5,7 @@ import android.animation.ValueAnimator
 import androidx.core.view.updateLayoutParams
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.kvlg.design.R
 
 /**
  * @author Konstantin Koval
@@ -13,14 +14,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class BnvAnimator(
     private val bnv: BottomNavigationView
 ) {
-    private val bnvHeight: Int = bnv.context.resources.getDimensionPixelSize(com.kvlg.design.R.dimen.bottom_bar_height)
+    private val bnvHeight: Int = bnv.context.resources.getDimensionPixelSize(R.dimen.bottom_bar_height)
     private var heightAnimator: ValueAnimator = ObjectAnimator()
     private var state: BnvState = BnvState.VISIBLE
 
     fun animateBar(destinationId: Int) {
-        if (destinationId == R.id.newReleasesFragment
-            || destinationId == R.id.favoriteFragment
-            || destinationId == R.id.searchFragment
+        if (destinationId == com.kvlg.navigation.R.id.new_releases_flow
+            || destinationId == com.kvlg.navigation.R.id.search_flow
+            || destinationId == com.kvlg.navigation.R.id.favorite_flow
         ) {
             if (state == BnvState.INVISIBLE) {
                 show()

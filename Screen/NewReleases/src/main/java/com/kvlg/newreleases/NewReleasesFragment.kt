@@ -8,9 +8,12 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import com.kvlg.core_utils.applyResultObserver
 import com.kvlg.design.BaseViewBindingFragment
-import com.kvlg.main.SharedViewModel
+import com.kvlg.design.hideAnimation
+import com.kvlg.design.showAnimation
 import com.kvlg.newreleases.databinding.FragmentNewReleasesBinding
+import com.kvlg.shared.SharedViewModel
 import com.kvlg.spotify_common.adapters.AlbumInteraction
 import com.kvlg.spotify_common.adapters.AlbumsAdapter
 import com.kvlg.spotify_common.presentation.AlbumModel

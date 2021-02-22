@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var binding: ActivityMainBinding
     private lateinit var bnvAnimator: BnvAnimator
 
-    private val sharedViewModel: SharedViewModel by viewModels()
+    private val sharedViewModel: com.kvlg.shared.SharedViewModel by viewModels()
     private val loginViewModel: LoginViewModel by viewModels()
 
     private var currentNavController: LiveData<NavController>? = null

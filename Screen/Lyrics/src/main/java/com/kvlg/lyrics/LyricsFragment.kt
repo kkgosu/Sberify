@@ -8,12 +8,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
+import com.kvlg.core_utils.applyResultObserver
 import com.kvlg.design.BaseViewBindingFragment
 import com.kvlg.design.hideAnimation
 import com.kvlg.design.setFavoriteIcon
 import com.kvlg.design.showAnimation
 import com.kvlg.design.startAnim
 import com.kvlg.lyrics.databinding.FragmentLyricsBinding
+import com.kvlg.shared.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

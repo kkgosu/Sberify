@@ -16,13 +16,14 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSnapHelper
+import com.kvlg.core_utils.applyResultObserver
 import com.kvlg.design.BaseViewBindingFragment
 import com.kvlg.design.visible
-import com.kvlg.main.SharedViewModel
 import com.kvlg.search.FilterBottomSheetFragment.Companion.ALBUM_SWITCH_CHECKED_KEY
 import com.kvlg.search.FilterBottomSheetFragment.Companion.ARTIST_SWITCH_CHECKED_KEY
 import com.kvlg.search.FilterBottomSheetFragment.Companion.TRACK_SWITCH_CHECKED_KEY
 import com.kvlg.search.databinding.FragmentSearchBinding
+import com.kvlg.shared.SharedViewModel
 import com.kvlg.spotify_common.adapters.AlbumInteraction
 import com.kvlg.spotify_common.adapters.AlbumsHorizontalAdapter
 import com.kvlg.spotify_common.adapters.ArtistInteraction

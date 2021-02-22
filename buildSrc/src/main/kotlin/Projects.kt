@@ -14,6 +14,7 @@ object Projects {
     const val CORE_UTILS = "$CORE:CoreUtils"
     const val DESIGN_SYSTEM = "$CORE:DesignSystem"
     const val NAVIGATION = "$CORE:Navigation"
+    const val SHARED = "$CORE:Shared"
 
     const val GENIUS_API = "$FEATURE:$GENIUS:GeniusApi"
     const val GENIUS_IMPL = "$FEATURE:$GENIUS:GeniusImpl"

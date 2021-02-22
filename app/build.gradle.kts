@@ -67,6 +67,7 @@ dependencies {
     implementation(project(Projects.SPOTIFY_REMOTE))
     implementation(project(Projects.SUGGESTION))
     implementation(project(Projects.SEARCH))
+    implementation(project(Projects.SHARED))
 
     implementation(Libs.ADAPTER_DELEGATES)
     implementation(Libs.COROUTINES)

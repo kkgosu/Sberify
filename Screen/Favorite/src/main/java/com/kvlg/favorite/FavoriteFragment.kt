@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.kvlg.design.BaseViewBindingFragment
 import com.kvlg.favorite.databinding.FragmentFavoriteBinding
-import com.kvlg.main.SharedViewModel
+import com.kvlg.shared.SharedViewModel
 import com.kvlg.spotify_common.adapters.AlbumInteraction
 import com.kvlg.spotify_common.adapters.AlbumsHorizontalAdapter
 import com.kvlg.spotify_common.adapters.TrackInteraction

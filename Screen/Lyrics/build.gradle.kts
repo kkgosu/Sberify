@@ -21,6 +21,7 @@ dependencies {
     implementation(project(Projects.CORE_UTILS))
     implementation(project(Projects.DESIGN_SYSTEM))
     implementation(project(Projects.NAVIGATION))
+    implementation(project(Projects.SHARED))
     implementation(project(Projects.SPOTIFY_COMMON))
 
     implementation(Libs.COROUTINES)

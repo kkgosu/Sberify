@@ -1,4 +1,4 @@
-package com.kvlg.main
+package com.kvlg.shared
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
