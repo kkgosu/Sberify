@@ -51,6 +51,7 @@ dependencies {
     test()
     ui()
 
+    implementation(project(Projects.ALBUM_DETAILS))
     implementation(project(Projects.CORE_DB))
     implementation(project(Projects.CORE_UTILS))
     implementation(project(Projects.DESIGN_SYSTEM))

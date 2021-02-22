@@ -1,4 +1,4 @@
-package com.example.sberify.presentation.ui.albuminfo
+package com.kvlg.albumdetails
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,13 +10,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.sberify.databinding.FragmentAlbumDetailsBinding
-import com.kvlg.core_utils.applyResultObserver
+import com.kvlg.albumdetails.databinding.FragmentAlbumDetailsBinding
 import com.kvlg.design.BaseViewBindingFragment
-import com.kvlg.design.bindAppBarLayoutWithFab
-import com.kvlg.design.loadImage
-import com.kvlg.design.setFavoriteIcon
-import com.kvlg.design.startAnim
 import com.kvlg.main.SharedViewModel
 import com.kvlg.spotify_common.adapters.TrackInteraction
 import com.kvlg.spotify_common.adapters.TrackListedAdapter
