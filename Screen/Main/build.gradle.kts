@@ -30,6 +30,5 @@ dependencies {
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
     implementation(Libs.MATERIAL)
     implementation(Libs.NAVIGATION_FRAGMENT_KTX)
-    implementation(Libs.NAVIGATION_FRAGMENT_KTX)
     implementation(Libs.SPOTIFY_AUTH)
 }
