@@ -37,11 +37,9 @@ import com.kvlg.suggestion.Suggestion
 import com.kvlg.suggestion.SuggestionAdapter
 import com.kvlg.suggestion.SuggestionInteraction
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
 
 @AndroidEntryPoint
-@ActivityRetainedScoped
 class SearchFragment :
     BaseViewBindingFragment<FragmentSearchBinding>(),
     AlbumInteraction,

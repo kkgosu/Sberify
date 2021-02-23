@@ -31,7 +31,7 @@
             android:name="item"
             app:argType="com.kvlg.spotify_common.presentation.AlbumModel" />
         <action
-            android:id="@+id/navigate_to_lyricsFragment"
+            android:id="@+id/action_to_lyricsFragment"
             app:destination="@id/lyricsFragment" />
     </fragment>
 </navigation>

@@ -18,9 +18,9 @@ class BnvAnimator(
     private var state: BnvState = BnvState.VISIBLE
 
     fun animateBar(destinationId: Int) {
-        if (destinationId == R.navigation.favorite
-            || destinationId == R.id.search
-            || destinationId == R.id.favorite
+        if (destinationId == R.id.newReleasesFragment
+            || destinationId == R.id.searchFragment
+            || destinationId == R.id.favoriteFragment
         ) {
             if (state == BnvState.INVISIBLE) {
                 show()
