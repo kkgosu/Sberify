@@ -18,12 +18,16 @@ import com.kvlg.spotify_common.adapters.TrackListedAdapter
 import com.kvlg.spotify_common.presentation.AlbumModel
 import com.kvlg.spotify_common.presentation.TrackModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FavoriteFragment :
     BaseViewBindingFragment<FragmentFavoriteBinding>(),
     TrackInteraction,
     AlbumInteraction {
+
+    @Inject
+    lateinit var navigation: FavoriteNavigation
 
     private val favoriteViewModel: FavoriteViewModel by activityViewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
@@ -64,9 +68,7 @@ class FavoriteFragment :
         val extras = FragmentNavigatorExtras(
             view to view.transitionName
         )
-        findNavController().navigate(
-            FavoriteFragmentDirections.actionToLyricsFragment(item), extras
-        )
+        navigation.navigateToLyrics(findNavController(), item, extras)
     }
 
     override fun onAlbumSelected(item: AlbumModel, view: View) {
@@ -74,7 +76,7 @@ class FavoriteFragment :
         val extras = FragmentNavigatorExtras(
             view to view.transitionName
         )
-        findNavController().navigate(FavoriteFragmentDirections.actionToAlbumDetailsFragment(item), extras)
+        navigation.navigateToAlbumDetails(findNavController(), item, extras)
     }
 
 }

@@ -1,4 +1,4 @@
-package com.kvlg.main
+package com.example.sberify
 
 import android.content.Intent
 import android.util.SparseArray

@@ -1,11 +1,10 @@
-package com.kvlg.main
+package com.example.sberify
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import androidx.core.view.updateLayoutParams
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.kvlg.design.R
 
 /**
  * @author Konstantin Koval
@@ -19,9 +18,9 @@ class BnvAnimator(
     private var state: BnvState = BnvState.VISIBLE
 
     fun animateBar(destinationId: Int) {
-        if (destinationId == com.kvlg.navigation.R.id.new_releases_flow
-            || destinationId == com.kvlg.navigation.R.id.search_flow
-            || destinationId == com.kvlg.navigation.R.id.favorite_flow
+        if (destinationId == R.navigation.favorite
+            || destinationId == R.id.search
+            || destinationId == R.id.favorite
         ) {
             if (state == BnvState.INVISIBLE) {
                 show()

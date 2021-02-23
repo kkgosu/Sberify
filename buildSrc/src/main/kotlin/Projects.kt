@@ -13,7 +13,6 @@ object Projects {
     const val CORE_DB = "$CORE:CoreDb"
     const val CORE_UTILS = "$CORE:CoreUtils"
     const val DESIGN_SYSTEM = "$CORE:DesignSystem"
-    const val NAVIGATION = "$CORE:Navigation"
     const val SHARED = "$CORE:Shared"
 
     const val GENIUS_API = "$FEATURE:$GENIUS:GeniusApi"
@@ -27,7 +26,6 @@ object Projects {
     const val ALBUM_DETAILS = "$SCREEN:AlbumDetails"
     const val FAVORITE = "$SCREEN:Favorite"
     const val LYRICS = "$SCREEN:Lyrics"
-    const val MAIN = "$SCREEN:Main"
     const val NEW_RELEASES = "$SCREEN:NewReleases"
     const val SEARCH = "$SCREEN:Search"
 }

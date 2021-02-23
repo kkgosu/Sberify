@@ -37,14 +37,20 @@ import com.kvlg.suggestion.Suggestion
 import com.kvlg.suggestion.SuggestionAdapter
 import com.kvlg.suggestion.SuggestionInteraction
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.scopes.ActivityRetainedScoped
+import javax.inject.Inject
 
 @AndroidEntryPoint
+@ActivityRetainedScoped
 class SearchFragment :
     BaseViewBindingFragment<FragmentSearchBinding>(),
     AlbumInteraction,
     ArtistInteraction,
     TrackInteraction,
     SuggestionInteraction {
+
+    @Inject
+    lateinit var navigation: SearchNavigation
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
@@ -131,10 +137,8 @@ class SearchFragment :
         val extras = FragmentNavigatorExtras(
             view to view.transitionName
         )
-        findNavController().navigate(
-            SearchFragmentDirections.actionToAlbumDetailsFragment(item),
-            extras
-        )
+
+        navigation.navigateToAlbumDetails(findNavController(), item, extras)
     }
 
     override fun onArtistSelected(item: ArtistModel, view: View) {
@@ -146,10 +150,8 @@ class SearchFragment :
         val extras = FragmentNavigatorExtras(
             view to view.transitionName
         )
-        findNavController().navigate(
-            SearchFragmentDirections.actionToLyricsFragment(item),
-            extras
-        )
+
+        navigation.navigateToLyrics(findNavController(), item, extras)
     }
 
     override fun onSuggestionSelected(position: Int, item: Suggestion) {

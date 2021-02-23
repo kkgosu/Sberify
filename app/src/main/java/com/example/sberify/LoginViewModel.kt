@@ -1,4 +1,4 @@
-package com.kvlg.main
+package com.example.sberify
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel

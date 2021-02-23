@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.kvlg.albumdetails.databinding.FragmentAlbumDetailsBinding
 import com.kvlg.core_utils.applyResultObserver
 import com.kvlg.design.BaseViewBindingFragment
@@ -22,12 +21,18 @@ import com.kvlg.spotify_common.adapters.TrackInteraction
 import com.kvlg.spotify_common.adapters.TrackListedAdapter
 import com.kvlg.spotify_common.presentation.TrackModel
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.scopes.ActivityRetainedScoped
+import javax.inject.Inject
 
 @AndroidEntryPoint
+@ActivityRetainedScoped
 class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding>(), TrackInteraction {
 
+    @Inject
+    lateinit var navigation: AlbumDetailsNavigation
+
     private val sharedViewModel: SharedViewModel by activityViewModels()
-    private val navArgs by navArgs<AlbumDetailsFragmentArgs>()
+    //private val navArgs by navArgs<AlbumDetailsFragmentArgs>()
 
     private lateinit var adapter: TrackListedAdapter
 
@@ -49,13 +54,13 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
                 setDisplayHomeAsUpEnabled(true)
             }
         }
-        navArgs.item.run {
+/*        navArgs.item.run {
             binding.detailContainer.transitionName = id
             binding.albumName.text = name
             binding.releaseDate.text = releaseDate
             binding.detailToolbar.title = name
             binding.artistName.text = artistNames
-        }
+        }*/
         adapter = TrackListedAdapter(this)
         binding.recyclerTracks.adapter = adapter
         binding.fabFavorite.bindAppBarLayoutWithFab(binding.appBarLayout)
@@ -66,9 +71,7 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
         val extras = FragmentNavigatorExtras(
             view to view.transitionName,
         )
-        findNavController().navigate(
-            AlbumDetailsFragmentDirections.navigateToLyricsFragment(item), extras
-        )
+        navigation.navigateToLyrics(findNavController(), item, extras)
     }
 
     private fun subscribeToObservers() {

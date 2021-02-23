@@ -59,7 +59,6 @@ dependencies {
     implementation(project(Projects.GENIUS_API))
     implementation(project(Projects.GENIUS_IMPL))
     implementation(project(Projects.LYRICS))
-    implementation(project(Projects.MAIN))
     implementation(project(Projects.NEW_RELEASES))
     implementation(project(Projects.SPOTIFY_API))
     implementation(project(Projects.SPOTIFY_IMPL))

@@ -18,12 +18,15 @@ import com.kvlg.spotify_common.adapters.AlbumInteraction
 import com.kvlg.spotify_common.adapters.AlbumsAdapter
 import com.kvlg.spotify_common.presentation.AlbumModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class NewReleasesFragment : BaseViewBindingFragment<FragmentNewReleasesBinding>(), AlbumInteraction {
 
-    private val sharedViewModel: SharedViewModel by activityViewModels()
+    @Inject
+    lateinit var navigation: NewReleasesNavigation
 
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var adapter: AlbumsAdapter
 
     override fun getViewBinding(
@@ -48,7 +51,7 @@ class NewReleasesFragment : BaseViewBindingFragment<FragmentNewReleasesBinding>(
         val extras = FragmentNavigatorExtras(
             view to view.transitionName
         )
-        findNavController().navigate(NewReleasesFragmentDirections.actionToAlbumDetailsFragment(item), extras)
+        navigation.navigateToAlbumDetails(findNavController(), item, extras)
     }
 
     private fun subscribeToObservers() {
