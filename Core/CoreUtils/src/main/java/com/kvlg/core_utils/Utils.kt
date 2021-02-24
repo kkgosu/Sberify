@@ -12,8 +12,8 @@ inline fun <T> LiveData<Result<T>>.applyResultObserver(
 ): Unit =
     observe(owner) {
         when (it.status) {
-            Result.Status.SUCCESS -> it.data?.let { data -> success.invoke(data) }
-            Result.Status.LOADING -> loading.invoke()
+            Result.Status.SUCCESS -> it.data?.let { data -> success(data) }
+            Result.Status.LOADING -> loading()
             Result.Status.ERROR -> error(it.message)
         }
     }

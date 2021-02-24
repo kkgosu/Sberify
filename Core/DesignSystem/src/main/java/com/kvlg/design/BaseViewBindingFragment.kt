@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.getSystemService
 import androidx.core.view.doOnNextLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.transition.Hold
@@ -61,4 +64,22 @@ abstract class BaseViewBindingFragment<T : ViewBinding> : Fragment() {
     ): View
 
     protected abstract fun setupViews()
+
+    protected fun showKeyboard() {
+        val imm: InputMethodManager = requireContext().getSystemService()!!
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+    }
+
+    protected fun hideKeyboard() {
+        val imm: InputMethodManager = requireContext().getSystemService()!!
+        imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
+    }
+
+    protected operator fun <T> LiveData<T>.invoke(consumer: (T) -> Unit) {
+        observe(viewLifecycleOwner) { consumer(it) }
+    }
+
+    protected operator fun LiveData<Unit>.invoke(consumer: () -> Unit) {
+        observe(viewLifecycleOwner) { consumer() }
+    }
 }

@@ -15,6 +15,7 @@ import com.kvlg.core_utils.applyResultObserver
 import com.kvlg.design.BaseViewBindingFragment
 import com.kvlg.design.bindAppBarLayoutWithFab
 import com.kvlg.design.loadImage
+import com.kvlg.design.onClick
 import com.kvlg.design.setFavoriteIcon
 import com.kvlg.design.startAnim
 import com.kvlg.shared.SharedViewModel
@@ -82,7 +83,7 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
                 adapter.items = album.tracks
                 binding.fabFavorite.apply {
                     setFavoriteIcon(!album.isFavorite)
-                    setOnClickListener {
+                    onClick {
                         sharedViewModel.updateFavoriteAlbum(album)
                         setFavoriteIcon(album.isFavorite)
                         startAnim()

@@ -52,15 +52,11 @@ class FavoriteFragment :
         }
         binding.favoriteTracksRecycler.adapter = tracksAdapter
 
-        favoriteViewModel.favoriteAlbums.observe(viewLifecycleOwner) {
-            albumsHorizontalAdapter.items = it
+        with(favoriteViewModel) {
+            favoriteAlbums { albumsHorizontalAdapter.items = it }
+            favoriteTracks { tracksAdapter.items = it }
+            loadFavorite()
         }
-
-        favoriteViewModel.favoriteTracks.observe(viewLifecycleOwner) {
-            tracksAdapter.items = it
-        }
-
-        favoriteViewModel.loadFavorite()
     }
 
     override fun onTrackSelected(item: TrackModel, view: View) {

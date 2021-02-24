@@ -10,10 +10,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.kvlg.core_utils.applyResultObserver
 import com.kvlg.design.BaseViewBindingFragment
+import com.kvlg.design.gone
 import com.kvlg.design.hideAnimation
+import com.kvlg.design.onClick
 import com.kvlg.design.setFavoriteIcon
 import com.kvlg.design.showAnimation
 import com.kvlg.design.startAnim
+import com.kvlg.design.visible
 import com.kvlg.lyrics.databinding.FragmentLyricsBinding
 import com.kvlg.shared.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,7 +47,7 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
             setSupportActionBar(binding.toolbar)
             supportActionBar?.run { setDisplayHomeAsUpEnabled(true) }
         }
-        binding.playButton.setOnClickListener {
+        binding.playButton.onClick {
             sharedViewModel.onPlayClick(navArgs.track)
         }
         sharedViewModel.lyrics.applyResultObserver(viewLifecycleOwner,
@@ -52,11 +55,11 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
                 it?.let { track ->
                     binding.lyrics.apply {
                         text = it.lyrics
-                        visibility = View.VISIBLE
+                        visible()
                     }
                     binding.favoriteButton.apply {
                         setFavoriteIcon(!track.isFavorite)
-                        setOnClickListener {
+                        onClick {
                             track.isFavorite = !track.isFavorite
                             lyricsViewModel.updateTrack(track)
                             setFavoriteIcon(track.isFavorite)
@@ -65,10 +68,10 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
                     }
                 }
             },
-            loading = { binding.lyrics.visibility = View.GONE },
+            loading = { binding.lyrics.gone() },
             error = {
                 Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
-                binding.lyrics.visibility = View.GONE
+                binding.lyrics.gone()
             }
         )
     }

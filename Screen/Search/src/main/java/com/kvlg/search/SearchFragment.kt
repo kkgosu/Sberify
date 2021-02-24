@@ -1,11 +1,9 @@
 package com.kvlg.search
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -18,6 +16,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.kvlg.core_utils.applyResultObserver
 import com.kvlg.design.BaseViewBindingFragment
+import com.kvlg.design.gone
+import com.kvlg.design.onClick
 import com.kvlg.design.visible
 import com.kvlg.search.FilterBottomSheetFragment.Companion.ALBUM_SWITCH_CHECKED_KEY
 import com.kvlg.search.FilterBottomSheetFragment.Companion.ARTIST_SWITCH_CHECKED_KEY
@@ -81,7 +81,7 @@ class SearchFragment :
             LinearSnapHelper().attachToRecyclerView(this)
         }
         binding.tracksResults.adapter = tracksListedAdapter
-        binding.filterButton.setOnClickListener {
+        binding.filterButton.onClick {
             showFilterBottomSheet()
             hideKeyboard()
         }
@@ -113,9 +113,11 @@ class SearchFragment :
             error = { Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show() }
         )
 
-        sharedViewModel.suggestions.observe(viewLifecycleOwner) { suggestionsAdapter.items = it }
-        sharedViewModel.showFiltersFragment.observe(viewLifecycleOwner) { showFilterBottomSheet() }
-        sharedViewModel.refreshContentVisibility.observe(viewLifecycleOwner) { setContentVisibility() }
+        with(sharedViewModel) {
+            suggestions { suggestionsAdapter.items = it }
+            showFiltersFragment { showFilterBottomSheet() }
+            refreshContentVisibility { setContentVisibility() }
+        }
 
         childFragmentManager.setFragmentResultListener("requestKey", this) { _, bundle ->
             sharedViewModel.isArtistChecked = bundle.getBoolean(ARTIST_SWITCH_CHECKED_KEY, false)
@@ -183,7 +185,7 @@ class SearchFragment :
                         sharedViewModel.insertSuggestion(it)
                         keyword = it
                         clearFocus()
-                        binding.suggestionRecycler.visibility = View.GONE
+                        binding.suggestionRecycler.gone()
                     }
                     sharedViewModel.checkFiltersAndSearch(keyword)
                     return true
@@ -201,10 +203,10 @@ class SearchFragment :
 
             if (artistsAdapter.itemCount == 0 && albumsAdapter.itemCount == 0 && tracksListedAdapter.itemCount == 0) {
                 requestFocus()
-                binding.suggestionRecycler.visibility = View.VISIBLE
+                binding.suggestionRecycler.visible()
             } else {
                 clearFocus()
-                binding.suggestionRecycler.visibility = View.GONE
+                binding.suggestionRecycler.gone()
             }
         }
     }
@@ -228,15 +230,5 @@ class SearchFragment :
         FilterBottomSheetFragment().show(childFragmentManager, FilterBottomSheetFragment.TAG)
     }
 
-    private fun showKeyboard() {
-        val imm: InputMethodManager =
-            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
-    }
 
-    private fun hideKeyboard() {
-        val imm: InputMethodManager =
-            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
-    }
 }
