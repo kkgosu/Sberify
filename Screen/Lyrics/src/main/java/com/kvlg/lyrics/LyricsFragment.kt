@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.kvlg.core_utils.applyResultObserver
@@ -37,11 +38,15 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
     }
 
     override fun setupViews() {
-        startPostponedEnterTransition()
+        with(requireView()) {
+            transitionName = navArgs.track.id
+            doOnPreDraw {
+                startPostponedEnterTransition()
+            }
+        }
         setupToolbar(binding.toolbar) {
             setDisplayHomeAsUpEnabled(true)
         }
-        binding.lyricsContainer.transitionName = navArgs.track.id
         binding.title.text = navArgs.track.name
         binding.animation.loadingAnimation.showAnimation()
         binding.playButton.onClick {

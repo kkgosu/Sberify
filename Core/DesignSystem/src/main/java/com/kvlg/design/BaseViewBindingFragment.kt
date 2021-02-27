@@ -1,12 +1,14 @@
 package com.kvlg.design
 
+import android.content.Context
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.annotation.StringRes
+import androidx.annotation.AttrRes
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -16,9 +18,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.google.android.material.transition.Hold
-import com.google.android.material.transition.MaterialArcMotion
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.transition.MaterialContainerTransform
+import com.google.android.material.transition.MaterialElevationScale
 
 /**
  * @author Konstantin Koval
@@ -28,6 +30,11 @@ abstract class BaseViewBindingFragment<T : ViewBinding> : Fragment() {
 
     protected var _binding: T? = null
     protected val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setSharedElementTransitions()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,13 +46,6 @@ abstract class BaseViewBindingFragment<T : ViewBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         postponeEnterTransition()
-        sharedElementEnterTransition = MaterialContainerTransform().apply {
-            setPathMotion(MaterialArcMotion())
-            duration = 450
-        }
-        exitTransition = Hold().apply {
-            duration = 450
-        }
         setupViews()
     }
 
@@ -103,7 +103,47 @@ abstract class BaseViewBindingFragment<T : ViewBinding> : Fragment() {
         Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
     }
 
-    protected fun Fragment.shortToast(@StringRes textStringRes: Int) {
-        Toast.makeText(requireContext(), textStringRes, Toast.LENGTH_SHORT).show()
+    protected fun Fragment.setSharedElementTransitions(
+        enterTransitionSetup: (MaterialContainerTransform.() -> Unit)? = null,
+        returnTransitionSetup: (MaterialContainerTransform.() -> Unit)? = null,
+    ) {
+        val context = requireContext()
+        sharedElementEnterTransition = context.buildSharedElementTransition(enterTransitionSetup)
+        sharedElementReturnTransition = context.buildSharedElementTransition(returnTransitionSetup)
+        setExitSharedElementTransition()
+    }
+
+    private fun Fragment.setExitSharedElementTransition() {
+        exitTransition = MaterialElevationScale(/* growing= */ false).apply {
+            duration = SHARED_ELEMENT_TRANSITION_DURATION
+        }
+        reenterTransition = MaterialElevationScale(/* growing= */ true).apply {
+            duration = SHARED_ELEMENT_TRANSITION_DURATION
+        }
+    }
+
+    private fun Context.buildSharedElementTransition(
+        setup: (MaterialContainerTransform.() -> Unit)?
+    ): MaterialContainerTransform {
+        val shapeAppearance = ShapeAppearanceModel().withCornerSize(dpToPx(16).toFloat())
+        return MaterialContainerTransform().apply {
+            startShapeAppearanceModel = shapeAppearance
+            duration = SHARED_ELEMENT_TRANSITION_DURATION
+            fadeMode = MaterialContainerTransform.FADE_MODE_CROSS
+            containerColor = getAttributeColor(android.R.attr.colorBackground)
+            setup?.invoke(this)
+        }
+    }
+
+    private fun Context.getAttributeColor(@AttrRes attrRes: Int): Int {
+        val typedValue = TypedValue()
+        this.theme.resolveAttribute(attrRes, typedValue, true)
+        return typedValue.data
+    }
+
+    private fun Context.dpToPx(dpValue: Int): Int = (dpValue * resources.displayMetrics.density).toInt()
+
+    companion object {
+        private const val SHARED_ELEMENT_TRANSITION_DURATION = 400L
     }
 }

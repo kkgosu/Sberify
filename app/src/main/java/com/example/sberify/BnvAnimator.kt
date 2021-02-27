@@ -44,7 +44,7 @@ class BnvAnimator(
         heightAnimator.cancel()
         heightAnimator = ObjectAnimator.ofInt(from, to).apply {
             interpolator = FastOutSlowInInterpolator()
-            duration = 800
+            duration = 450
             addUpdateListener {
                 bnv.updateLayoutParams {
                     height = it.animatedValue as Int
