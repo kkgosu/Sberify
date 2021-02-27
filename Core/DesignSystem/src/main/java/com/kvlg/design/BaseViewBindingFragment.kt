@@ -5,6 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.annotation.StringRes
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.getSystemService
 import androidx.core.view.doOnNextLayout
 import androidx.fragment.app.Fragment
@@ -81,5 +86,24 @@ abstract class BaseViewBindingFragment<T : ViewBinding> : Fragment() {
 
     protected operator fun LiveData<Unit>.invoke(consumer: () -> Unit) {
         observe(viewLifecycleOwner) { consumer() }
+    }
+
+    protected fun Fragment.setupToolbar(toolbar: Toolbar, block: (ActionBar.() -> Unit)? = null) {
+        (requireActivity() as AppCompatActivity).run {
+            setSupportActionBar(toolbar)
+            supportActionBar?.run { block?.invoke(this) }
+        }
+    }
+
+    protected fun Fragment.setToolbarTitle(title: String) {
+        (requireActivity() as AppCompatActivity).supportActionBar!!.title = title
+    }
+
+    protected fun Fragment.shortToast(text: String) {
+        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+    }
+
+    protected fun Fragment.shortToast(@StringRes textStringRes: Int) {
+        Toast.makeText(requireContext(), textStringRes, Toast.LENGTH_SHORT).show()
     }
 }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -66,7 +65,7 @@ class NewReleasesFragment : BaseViewBindingFragment<FragmentNewReleasesBinding>(
             error = {
                 binding.refreshLayout.isRefreshing = false
                 binding.animation.loadingAnimation.hideAnimation()
-                Toast.makeText(requireContext(), it ?: "Error occurred while getting new releases :C", Toast.LENGTH_SHORT).show()
+                shortToast(it ?: "Error occurred while getting new releases :C")
             })
     }
 }

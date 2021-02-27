@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.kvlg.core_utils.applyResultObserver
@@ -40,13 +38,12 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
 
     override fun setupViews() {
         startPostponedEnterTransition()
+        setupToolbar(binding.toolbar) {
+            setDisplayHomeAsUpEnabled(true)
+        }
         binding.lyricsContainer.transitionName = navArgs.track.id
         binding.title.text = navArgs.track.name
         binding.animation.loadingAnimation.showAnimation()
-        (requireActivity() as AppCompatActivity).apply {
-            setSupportActionBar(binding.toolbar)
-            supportActionBar?.run { setDisplayHomeAsUpEnabled(true) }
-        }
         binding.playButton.onClick {
             sharedViewModel.onPlayClick(navArgs.track)
         }
@@ -70,7 +67,7 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
             },
             loading = { binding.lyrics.gone() },
             error = {
-                Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
+                shortToast(it.toString())
                 binding.lyrics.gone()
             }
         )

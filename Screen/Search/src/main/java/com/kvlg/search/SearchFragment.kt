@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -92,7 +91,7 @@ class SearchFragment :
                 artistsAdapter.items = it
             },
             loading = { binding.artistTitleTextView.visibility = View.GONE },
-            error = { Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show() }
+            error = { shortToast(it.toString()) }
         )
 
         sharedViewModel.albumsSearchResult.applyResultObserver(viewLifecycleOwner,
@@ -101,7 +100,7 @@ class SearchFragment :
                 albumsAdapter.items = it
             },
             loading = { binding.albumsTitleTextView.visibility = View.GONE },
-            error = { Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show() }
+            error = { shortToast(it.toString()) }
         )
 
         sharedViewModel.tracksSearchResult.applyResultObserver(viewLifecycleOwner,
@@ -110,7 +109,7 @@ class SearchFragment :
                 tracksListedAdapter.items = it
             },
             loading = { binding.tracksTitleTextView.visibility = View.GONE },
-            error = { Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show() }
+            error = { shortToast(it.toString()) }
         )
 
         with(sharedViewModel) {
