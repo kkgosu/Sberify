@@ -123,7 +123,6 @@
             style="@style/DefaultRecycler"
             android:layout_width="match_parent"
             android:layout_height="@dimen/match_constraint"
-            android:background="@color/white"
             android:paddingBottom="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
