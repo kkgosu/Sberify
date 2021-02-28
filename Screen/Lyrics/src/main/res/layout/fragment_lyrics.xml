@@ -44,16 +44,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <include
-        android:id="@+id/animation"
-        layout="@layout/loading_anim"
-        android:layout_width="@dimen/match_constraint"
-        android:layout_height="@dimen/match_constraint"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/play_button"
         android:layout_width="wrap_content"
@@ -90,4 +80,15 @@ Young Metro, young Metro, young Metro (Sheesh)
 Ayy (Ayy)
 Young Metro, young Metro" />
     </ScrollView>
+
+    <include
+        android:id="@+id/animation"
+        layout="@layout/loading_anim"
+        android:layout_width="@dimen/match_constraint"
+        android:layout_height="@dimen/match_constraint"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

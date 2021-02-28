@@ -21,9 +21,11 @@ dependencies {
     implementation(project(Projects.CORE_DB))
     implementation(project(Projects.CORE_UTILS))
     implementation(project(Projects.DESIGN_SYSTEM))
+    implementation(project(Projects.GENIUS_API))
     implementation(project(Projects.SHARED))
     implementation(project(Projects.SPOTIFY_COMMON))
 
     implementation(Libs.COROUTINES)
+    implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
     implementation(Libs.NAVIGATION_FRAGMENT_KTX)
 }

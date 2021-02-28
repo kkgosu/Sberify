@@ -60,7 +60,6 @@ class FavoriteFragment :
     }
 
     override fun onTrackSelected(item: TrackModel, view: View) {
-        sharedViewModel.getLyrics(item)
         val extras = FragmentNavigatorExtras(
             view to view.transitionName
         )

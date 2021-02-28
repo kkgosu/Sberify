@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.kvlg.core_utils.applyResultObserver
 import com.kvlg.design.BaseViewBindingFragment
@@ -23,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
 
-    private val lyricsViewModel: LyricsViewModel by activityViewModels()
+    private val lyricsViewModel: LyricsViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private val navArgs by navArgs<LyricsArgs>()
@@ -47,39 +48,54 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
         setupToolbar(binding.toolbar) {
             setDisplayHomeAsUpEnabled(true)
         }
+        lyricsViewModel.getLyrics(navArgs.track)
         binding.title.text = navArgs.track.name
-        binding.animation.loadingAnimation.showAnimation()
         binding.playButton.onClick {
             sharedViewModel.onPlayClick(navArgs.track)
         }
-        sharedViewModel.lyrics.applyResultObserver(viewLifecycleOwner,
-            success = {
-                it?.let { track ->
-                    binding.lyrics.apply {
-                        text = it.lyrics
-                        visible()
-                    }
-                    binding.favoriteButton.apply {
-                        setFavoriteIcon(!track.isFavorite)
-                        onClick {
-                            track.isFavorite = !track.isFavorite
-                            lyricsViewModel.updateTrack(track)
-                            setFavoriteIcon(track.isFavorite)
-                            startAnim()
+        lyricsViewModel.lyrics.applyResultObserver(viewLifecycleOwner,
+            success = { model ->
+                model?.let { track ->
+                    track.lyrics?.let {
+                        hideLoadingAnim()
+                        binding.lyrics.apply {
+                            text = it
+                            visible()
+                        }
+                        binding.favoriteButton.apply {
+                            setFavoriteIcon(!track.isFavorite)
+                            onClick {
+                                track.isFavorite = !track.isFavorite
+                                lyricsViewModel.updateTrack(track)
+                                setFavoriteIcon(track.isFavorite)
+                                startAnim()
+                            }
                         }
                     }
                 }
             },
-            loading = { binding.lyrics.gone() },
+            loading = {
+                showLoadingAnim()
+                binding.lyrics.gone()
+            },
             error = {
                 shortToast(it.toString())
+                hideLoadingAnim()
                 binding.lyrics.gone()
             }
         )
     }
 
     override fun onDestroy() {
-        binding.animation.loadingAnimation.hideAnimation()
+        hideLoadingAnim()
         super.onDestroy()
+    }
+
+    private fun showLoadingAnim() {
+        binding.animation.loadingAnimation.showAnimation()
+    }
+
+    private fun hideLoadingAnim() {
+        binding.animation.loadingAnimation.hideAnimation()
     }
 }
