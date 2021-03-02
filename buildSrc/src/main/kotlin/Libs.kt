@@ -14,7 +14,7 @@ object Libs {
     const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core:3.3.0"
     const val EXT_JUNIT = "androidx.test.ext:junit:4.13"
     const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0-beta01"
-    const val GLIDE = "com.github.bumptech.glide:glide:4.11.0"
+    const val GLIDE = "com.github.bumptech.glide:glide:4.12.0"
     const val GLIDE_PALETTE = "com.github.florent37:glidepalette:2.1.2"
     const val GSON = "com.google.code.gson:gson:2.8.6"
     const val HAMCREST = "org.hamcrest:hamcrest-library:2.2"
