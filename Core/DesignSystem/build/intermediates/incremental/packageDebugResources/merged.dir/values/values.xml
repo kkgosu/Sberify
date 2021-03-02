@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <color name="background0">@color/black</color>
+    <color name="background0_inverted">@color/white</color>
+    <color name="background1">@color/gray_900</color>
+    <color name="background1_inverted">@color/white_100</color>
+    <color name="background2">@color/gray_800</color>
+    <color name="black">#ff000000</color>
+    <color name="black_50">#88000000</color>
+    <color name="colorAccent">#19bb4f</color>
+    <color name="colorPrimary">#19bb4f</color>
+    <color name="colorPrimaryDark">@color/gray_800</color>
+    <color name="gray_400">#bdbdbd</color>
+    <color name="gray_50">#88888888</color>
+    <color name="gray_500">#9e9e9e</color>
+    <color name="gray_600">#757575</color>
+    <color name="gray_700">#616161</color>
+    <color name="gray_800">#424242</color>
+    <color name="gray_900">#212121</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="white">#ffffff</color>
+    <color name="white_100">#f5f5f5</color>
+    <dimen name="bottom_bar_height">51dp</dimen>
+    <dimen name="corner_radius_large">16dp</dimen>
+    <dimen name="corner_radius_medium">8dp</dimen>
+    <dimen name="design_fab_image_size" ns1:override="true">56dp</dimen>
+    <dimen name="elevation_medium">8dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="icon_size_medium">36dp</dimen>
+    <dimen name="icon_size_small">24dp</dimen>
+    <dimen name="item_number_width">32dp</dimen>
+    <dimen name="margin_large">16dp</dimen>
+    <dimen name="margin_medium">8dp</dimen>
+    <dimen name="margin_xsmall">4dp</dimen>
+    <dimen name="match_constraint">0dp</dimen>
+    <dimen name="padding_large">16dp</dimen>
+    <dimen name="padding_medium">8dp</dimen>
+    <dimen name="padding_medium_large">10dp</dimen>
+    <dimen name="padding_xsmall">4dp</dimen>
+    <dimen name="search_view_height">50dp</dimen>
+    <dimen name="text_size_large">20dp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_small_large">20dp</dimen>
+    <integer name="anim_duration_fast">300</integer>
+    <integer name="config_navAnimTime">150</integer>
+    <string name="add_to_favorite">Add to favorite</string>
+    <string name="album">Album</string>
+    <string name="albums">Albums</string>
+    <string name="app_name">Sberify</string>
+    <string name="artist">Artist</string>
+    <string name="artists">Artists</string>
+    <string name="back_to_previous_screen">Back to previous screen</string>
+    <string name="com_spotify_sdk_redirect_host">auth</string>
+    <string name="com_spotify_sdk_redirect_scheme">spotify-sdk</string>
+    <string name="favorite">Favorite</string>
+    <string name="favorite_albums">Favorite Albums</string>
+    <string name="favorite_tracks">Favorite tracks</string>
+    <string name="filters">Filters</string>
+    <string name="history">History</string>
+    <string name="internet_connection_message">There\'s no network connection right now.</string>
+    <string name="nav_app_bar_navigate_up_description">Navigate up</string>
+    <string name="nav_app_bar_open_drawer_description">Open navigation drawer</string>
+    <string name="new_releases">New releases</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Artist, album, track…</string>
+    <string name="track">Track</string>
+    <string name="tracks">Tracks</string>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+    <style name="BottomSheet" parent="@style/Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="android:background">@drawable/top_corners_rounded_background</item>
+    </style>
+    <style name="CollapsedTitleText" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_small_large</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="DefaultRecycler">
+        <item name="android:clipToPadding">false</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:overScrollMode">never</item>
+        <item name="android:paddingBottom">@dimen/bottom_bar_height</item>
+    </style>
+    <style name="ExpandedTitleText" parent="TextAppearance.MaterialComponents.Headline3">
+        <item name="android:textColor">@color/transparent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+    <style name="LyricsTextAppearance" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:textColor">@color/white_100</item>
+        <item name="android:textSize">@dimen/text_size_small_large</item>
+    </style>
+    <style name="SwitchTextAppearance">
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body1</item>
+        <item name="android:textColor">@color/white_100</item>
+        <item name="android:textSize">@dimen/text_size_small_large</item>
+    </style>
+</resources>

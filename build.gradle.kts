@@ -40,7 +40,7 @@ subprojects {
 tasks.register("upgradeDependencies1", tasks.UpgradeDependencies::class.java)
 
 releasesHub {
-    dependenciesBasePath = "buildSrc/src/main/java/"
+    dependenciesBasePath = "buildSrc/src/main/kotlin/"
     dependenciesClassNames = listOf("Libs.kt", "BuildLibs.kt")
     excludes = listOf("gradle")
 

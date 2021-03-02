@@ -1,0 +1,18 @@
+com/kvlg/lyrics/LyricsViewModel_HiltModule.java
+ com.kvlg.lyrics.LyricsViewModel_HiltModule
+com/kvlg/lyrics/Hilt_LyricsFragment.java
+ com.kvlg.lyrics.Hilt_LyricsFragment
+com/kvlg/lyrics/LyricsViewModel_AssistedFactory.java
+ com.kvlg.lyrics.LyricsViewModel_AssistedFactory
+hilt_aggregated_deps/com_kvlg_lyrics_LyricsFragment_GeneratedInjectorModuleDeps.java
+ hilt_aggregated_deps.com_kvlg_lyrics_LyricsFragment_GeneratedInjectorModuleDeps
+com/kvlg/lyrics/BuildConfig.java
+ com.kvlg.lyrics.BuildConfig
+com/kvlg/lyrics/databinding/FragmentLyricsBinding.java
+ com.kvlg.lyrics.databinding.FragmentLyricsBinding
+com/kvlg/lyrics/LyricsFragment_GeneratedInjector.java
+ com.kvlg.lyrics.LyricsFragment_GeneratedInjector
+com/kvlg/lyrics/LyricsViewModel_AssistedFactory_Factory.java
+ com.kvlg.lyrics.LyricsViewModel_AssistedFactory_Factory
+hilt_aggregated_deps/com_kvlg_lyrics_LyricsViewModel_HiltModuleModuleDeps.java
+ hilt_aggregated_deps.com_kvlg_lyrics_LyricsViewModel_HiltModuleModuleDeps

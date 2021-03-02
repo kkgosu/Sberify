@@ -1,0 +1,8 @@
+R_DEF: Internal format may change without notice
+local
+id favorite_albums_label
+id favorite_albums_recycler
+id favorite_tracks_label
+id favorite_tracks_recycler
+id nested_scroll
+layout fragment_favorite

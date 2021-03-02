@@ -1,0 +1,10 @@
+hilt_aggregated_deps/com_kvlg_shared_SharedViewModel_HiltModuleModuleDeps.java
+ hilt_aggregated_deps.com_kvlg_shared_SharedViewModel_HiltModuleModuleDeps
+com/kvlg/shared/SharedViewModel_HiltModule.java
+ com.kvlg.shared.SharedViewModel_HiltModule
+com/kvlg/shared/SharedViewModel_AssistedFactory.java
+ com.kvlg.shared.SharedViewModel_AssistedFactory
+com/kvlg/shared/BuildConfig.java
+ com.kvlg.shared.BuildConfig
+com/kvlg/shared/SharedViewModel_AssistedFactory_Factory.java
+ com.kvlg.shared.SharedViewModel_AssistedFactory_Factory
