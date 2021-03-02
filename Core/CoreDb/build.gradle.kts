@@ -18,6 +18,5 @@ dependencies {
     implementation(project(Projects.SPOTIFY_COMMON))
     implementation(project(Projects.SUGGESTION))
 
-    implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
 }

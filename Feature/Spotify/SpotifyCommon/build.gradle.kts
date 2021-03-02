@@ -23,6 +23,5 @@ dependencies {
     implementation(Libs.CONSTRAINT_LAYOUT)
     implementation(Libs.MATERIAL)
     implementation(Libs.GSON)
-    implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.ROOM_COMMON)
 }

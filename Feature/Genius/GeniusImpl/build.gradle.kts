@@ -17,7 +17,6 @@ dependencies {
 
     implementation(Libs.GSON)
     implementation(Libs.JSOUP)
-    implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
     implementation(Libs.RETROFIT_GSON)
     implementation(Libs.ROOM_RUNTIME)

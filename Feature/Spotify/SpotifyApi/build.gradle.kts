@@ -18,7 +18,6 @@ dependencies {
     hilt()
 
     implementation(Libs.GSON)
-    implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
     implementation(Libs.RETROFIT_GSON)
 }

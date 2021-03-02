@@ -1,9 +1,7 @@
 package plugin.setup
 
-import Libs
 import Plugins
 import org.gradle.api.Project
-import plugin.Configuration
 import plugin.SberifyAndroidExtension
 
 /**
@@ -19,7 +17,6 @@ class AndroidKotlinSetupFactory<E: SberifyAndroidExtension> : SetupFactory<E> {
         val setup = MutableCompositeSetup()
         setup += PluginSetup(Plugins.KOTLIN_ANDROID)
         setup += AndroidSetup()
-        setup += LibSetup(configuration = Configuration.IMPL, name = Libs.KOTLIN_STDLIB)
 
         return setup
     }

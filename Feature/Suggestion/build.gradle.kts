@@ -17,5 +17,4 @@ dependencies {
     implementation(Libs.ADAPTER_DELEGATES_VIEW_BINDING)
     implementation(Libs.APPCOMPAT)
     implementation(Libs.MATERIAL)
-    implementation(Libs.KOTLIN_STDLIB)
 }

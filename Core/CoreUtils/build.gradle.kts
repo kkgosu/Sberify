@@ -16,7 +16,6 @@ dependencies {
 
     implementation(Libs.GLIDE)
     implementation(Libs.GLIDE_PALETTE)
-    implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
     implementation(Libs.LOTTIE)
     implementation(Libs.MATERIAL)
