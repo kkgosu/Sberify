@@ -24,7 +24,6 @@ class SharedViewModel @ViewModelInject constructor(
 ) : ViewModel() {
 
     private val _refreshContentVisibility = SingleLiveEvent<Unit>()
-
     private val _showFiltersFragment = SingleLiveEvent<Unit>()
     private val albumInfoTrigger = MutableLiveData<AlbumModel>()
     private val reloadTrigger = MutableLiveData<Boolean>()

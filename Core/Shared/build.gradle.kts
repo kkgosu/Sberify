@@ -11,6 +11,7 @@ android {
 
 dependencies {
     hilt()
+    test()
 
     implementation(project(Projects.CORE_DB))
     implementation(project(Projects.GENIUS_API))
