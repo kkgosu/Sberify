@@ -14,6 +14,7 @@ dependencies {
 
     hilt()
     room()
+    test()
 
     implementation(project(Projects.SPOTIFY_COMMON))
     implementation(project(Projects.SUGGESTION))
