@@ -10,10 +10,13 @@ import com.kvlg.spotify_api.api.SpotifyInteractor
 import com.kvlg.spotify_common.presentation.AlbumModel
 import com.kvlg.spotify_common.presentation.ArtistModel
 import com.kvlg.spotify_common.presentation.TrackModel
+import com.kvlg.suggestion.Suggestion
 import io.mockk.called
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -155,15 +158,46 @@ class SharedViewModelTest {
 
     @Test
     fun insertSuggestion() {
+        runBlockingTest {
+            viewModel.insertSuggestion("text")
+        }
+        coVerify {
+            databaseRepo.insertSuggestion(Suggestion("text"))
+        }
     }
 
     @Test
     fun getAllSuggestions() {
+        runBlockingTest {
+            viewModel.getAllSuggestions()
+        }
 
+        coVerify {
+            databaseRepo.getAllSuggestions()
+        }
     }
 
     @Test
     fun updateFavoriteAlbum() {
+        val albumModel = AlbumModel(
+            id = "albumId1",
+            artistNames ="ArtistName1 ,ArtistName2",
+            name = "Name",
+            releaseDate = "01.01.1970",
+            isFavorite = true,
+            imageUrl = "imageUrl",
+            totalTracks = 11,
+            copyright = "",
+            externalUrl = "externalUrl",
+            tracks = emptyList()
+        )
+
+        runBlockingTest {
+            viewModel.updateFavoriteAlbum(albumModel)
+        }
+        coVerify(timeout = 800) {
+            databaseRepo.setAlbumIsFavorite("albumId1", false)
+        }
     }
 
     private fun initObservers() {
