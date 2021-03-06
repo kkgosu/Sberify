@@ -9,18 +9,20 @@ import androidx.lifecycle.viewModelScope
 import com.kvlg.core_db.DatabaseRepository
 import com.kvlg.core_utils.Result
 import com.kvlg.core_utils.SingleLiveEvent
+import com.kvlg.shared.di.IoDispatcher
 import com.kvlg.spotify_api.api.SpotifyApi
 import com.kvlg.spotify_common.presentation.AlbumModel
 import com.kvlg.spotify_common.presentation.ArtistModel
 import com.kvlg.spotify_common.presentation.TrackModel
 import com.kvlg.suggestion.Suggestion
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SharedViewModel @ViewModelInject constructor(
     private val spofityApi: SpotifyApi,
-    private val databaseRepository: DatabaseRepository
+    private val databaseRepository: DatabaseRepository,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _refreshContentVisibility = SingleLiveEvent<Unit>()
@@ -95,19 +97,19 @@ class SharedViewModel @ViewModelInject constructor(
     }
 
     fun insertSuggestion(text: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(ioDispatcher) {
             databaseRepository.insertSuggestion(Suggestion(text))
         }
     }
 
     fun getAllSuggestions() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(ioDispatcher) {
             _suggestions.postValue(databaseRepository.getAllSuggestions())
         }
     }
 
     fun updateFavoriteAlbum(album: AlbumModel) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(ioDispatcher) {
             delay(800)
             databaseRepository.setAlbumIsFavorite(album.id, !album.isFavorite)
         }

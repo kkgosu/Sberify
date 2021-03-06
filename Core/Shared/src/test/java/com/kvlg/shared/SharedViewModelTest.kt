@@ -16,7 +16,6 @@ import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -31,12 +30,16 @@ class SharedViewModelTest {
     @Rule
     val rule = InstantTaskExecutorRule()
 
+    @JvmField
+    @Rule
+    val coroutineRule = MainCoroutineRule()
+
     private val spotifyInteractor: SpotifyInteractor = mockk(relaxed = true)
     private val spotifyApi: SpotifyApi = mockk(relaxed = true) {
         every { interactor() } returns spotifyInteractor
     }
     private val databaseRepo: DatabaseRepository = mockk(relaxed = true)
-    private val viewModel = SharedViewModel(spotifyApi, databaseRepo)
+    private val viewModel = SharedViewModel(spotifyApi, databaseRepo, coroutineRule.testDispatcher)
 
     private val refreshContentObserver: Observer<Unit> = mockk(relaxed = true)
     private val showFiltersFragmentObserver: Observer<Unit> = mockk(relaxed = true)
@@ -158,7 +161,7 @@ class SharedViewModelTest {
 
     @Test
     fun insertSuggestion() {
-        runBlockingTest {
+        coroutineRule.runBlockingTest {
             viewModel.insertSuggestion("text")
         }
         coVerify {
@@ -168,7 +171,7 @@ class SharedViewModelTest {
 
     @Test
     fun getAllSuggestions() {
-        runBlockingTest {
+        coroutineRule.runBlockingTest {
             viewModel.getAllSuggestions()
         }
 
@@ -181,7 +184,7 @@ class SharedViewModelTest {
     fun updateFavoriteAlbum() {
         val albumModel = AlbumModel(
             id = "albumId1",
-            artistNames ="ArtistName1 ,ArtistName2",
+            artistNames = "ArtistName1 ,ArtistName2",
             name = "Name",
             releaseDate = "01.01.1970",
             isFavorite = true,
@@ -192,10 +195,10 @@ class SharedViewModelTest {
             tracks = emptyList()
         )
 
-        runBlockingTest {
+        coroutineRule.runBlockingTest {
             viewModel.updateFavoriteAlbum(albumModel)
         }
-        coVerify(timeout = 800) {
+        coVerify {
             databaseRepo.setAlbumIsFavorite("albumId1", false)
         }
     }
