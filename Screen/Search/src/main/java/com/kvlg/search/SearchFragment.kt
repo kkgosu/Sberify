@@ -168,7 +168,6 @@ class SearchFragment :
 
             setOnQueryTextFocusChangeListener { _, hasFocus ->
                 binding.suggestionRecycler.visibility = if (hasFocus) {
-                    sharedViewModel.getAllSuggestions()
                     binding.suggestionRecycler.scheduleLayoutAnimation()
                     showKeyboard()
                     View.VISIBLE

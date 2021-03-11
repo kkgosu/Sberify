@@ -32,7 +32,6 @@ class SharedViewModel @ViewModelInject constructor(
     private val searchArtistTrigger = MutableLiveData<String>()
     private val searchAlbumTrigger = MutableLiveData<String>()
     private val searchTrackTrigger = MutableLiveData<String>()
-    private val _suggestions = MutableLiveData<List<Suggestion>>()
     private val playTrigger = MutableLiveData<TrackModel>()
 
     var isAlbumChecked = false
@@ -63,7 +62,7 @@ class SharedViewModel @ViewModelInject constructor(
         spofityApi.interactor().getAlbumInfo(it.id)
     }
 
-    val suggestions: LiveData<List<Suggestion>> = _suggestions
+    val suggestions: LiveData<List<Suggestion>> = databaseRepository.getAllSuggestions()
 
     fun checkFiltersAndSearch(keyword: String) {
         if (!isAlbumChecked && !isArtistChecked && !isTrackChecked) {
@@ -99,12 +98,6 @@ class SharedViewModel @ViewModelInject constructor(
     fun insertSuggestion(text: String) {
         viewModelScope.launch(ioDispatcher) {
             databaseRepository.insertSuggestion(Suggestion(text))
-        }
-    }
-
-    fun getAllSuggestions() {
-        viewModelScope.launch(ioDispatcher) {
-            _suggestions.postValue(databaseRepository.getAllSuggestions())
         }
     }
 

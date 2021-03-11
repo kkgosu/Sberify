@@ -10,7 +10,7 @@ import com.kvlg.suggestion.Suggestion
  * @since 18.01.2021
  */
 interface DatabaseRepository {
-    suspend fun getAllSuggestions(): List<Suggestion>
+    fun getAllSuggestions(): LiveData<List<Suggestion>>
     suspend fun insertSuggestion(suggestion: Suggestion)
     suspend fun setAlbumIsFavorite(id: String, isFavorite: Boolean)
     suspend fun setTrackIsFavorite(id: String, isFavorite: Boolean)

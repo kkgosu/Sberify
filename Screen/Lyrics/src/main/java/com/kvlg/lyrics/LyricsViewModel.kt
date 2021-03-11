@@ -11,24 +11,27 @@ import com.kvlg.core_db.DatabaseRepository
 import com.kvlg.core_utils.Result
 import com.kvlg.core_utils.models.RawTrackModel
 import com.kvlg.genius_api.GeniusApi
+import com.kvlg.shared.di.IoDispatcher
 import com.kvlg.spotify_common.presentation.TrackModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class LyricsViewModel @ViewModelInject constructor(
     private val geniusApi: GeniusApi,
-    private val databaseRepository: DatabaseRepository
+    private val databaseRepository: DatabaseRepository,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val lyricsTrigger = MutableLiveData<RawTrackModel>()
 
     val lyrics: LiveData<Result<TrackModel?>> = Transformations.switchMap(lyricsTrigger) {
-        liveData(Dispatchers.IO) {
+        liveData(dispatcher) {
             try {
                 emit(Result.loading())
                 emitSource(geniusApi.interactor().getLyrics(it))
             } catch (e: Exception) {
+                emit(Result.error(e.message ?: "error on loading lyrics"))
                 emitSource(MutableLiveData())
             }
         }
@@ -43,7 +46,7 @@ class LyricsViewModel @ViewModelInject constructor(
     }
 
     fun updateTrack(track: TrackModel) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(dispatcher) {
             delay(800)
             databaseRepository.setTrackIsFavorite(track.id, track.isFavorite)
         }

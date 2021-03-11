@@ -1,5 +1,6 @@
 package com.kvlg.core_db.database.suggestions
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -11,7 +12,7 @@ interface SuggestionsDao {
     fun checkLimitAndDelete()
 
     @Query("SELECT * FROM suggestions ORDER BY id DESC")
-    fun getAllSuggestions(): List<SuggestionsEntity>
+    fun getAllSuggestions(): LiveData<List<SuggestionsEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertSuggestion(suggestionsEntity: SuggestionsEntity)

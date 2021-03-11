@@ -10,7 +10,6 @@ import com.kvlg.spotify_common.domain.AlbumDomainModel
 import com.kvlg.spotify_common.domain.TrackDomainModel
 import com.kvlg.suggestion.Suggestion
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 internal class DatabaseRepositoryImpl(
     private val database: AppDatabase,
@@ -18,28 +17,27 @@ internal class DatabaseRepositoryImpl(
 ) : DatabaseRepository {
 
     override suspend fun insertSuggestion(suggestion: Suggestion) {
-        withContext(Dispatchers.IO) {
-            database.getSuggestionsDao()
-                .insertSuggestion(
-                    SuggestionsEntity(
-                        id = null,
-                        text = suggestion.text
-                    )
+        database.getSuggestionsDao()
+            .insertSuggestion(
+                SuggestionsEntity(
+                    id = null,
+                    text = suggestion.text
                 )
-            database.getSuggestionsDao()
-                .checkLimitAndDelete()
-        }
+            )
+        database.getSuggestionsDao()
+            .checkLimitAndDelete()
     }
 
-    override suspend fun getAllSuggestions(): List<Suggestion> {
-        return withContext(Dispatchers.IO) {
-            database.getSuggestionsDao()
-                .getAllSuggestions()
-                .map { Suggestion(it.text) }
-        }
+    override fun getAllSuggestions(): LiveData<List<Suggestion>> {
+        return database.getSuggestionsDao()
+            .getAllSuggestions()
+            .map {
+                it.map { s -> Suggestion(s.text) }
+            }
+
     }
 
-    override suspend fun setTrackIsFavorite(id: String, isFavorite: Boolean) = withContext(Dispatchers.IO) {
+    override suspend fun setTrackIsFavorite(id: String, isFavorite: Boolean) {
         database.getTrackDao().setTrackIsFavorite(id, isFavorite)
     }
 
