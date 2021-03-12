@@ -17,12 +17,14 @@ android {
 dependencies {
     hilt()
     ui()
+    test()
 
     implementation(project(Projects.CORE_DB))
     implementation(project(Projects.CORE_UTILS))
     implementation(project(Projects.DESIGN_SYSTEM))
     implementation(project(Projects.GENIUS_API))
     implementation(project(Projects.SHARED))
+    testImplementation(project(Projects.SHARED))
     implementation(project(Projects.SPOTIFY_COMMON))
 
     implementation(Libs.COROUTINES)

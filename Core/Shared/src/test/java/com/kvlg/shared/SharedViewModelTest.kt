@@ -170,17 +170,6 @@ class SharedViewModelTest {
     }
 
     @Test
-    fun getAllSuggestions() {
-        coroutineRule.runBlockingTest {
-            viewModel.getAllSuggestions()
-        }
-
-        coVerify {
-            databaseRepo.getAllSuggestions()
-        }
-    }
-
-    @Test
     fun updateFavoriteAlbum() {
         val albumModel = AlbumModel(
             id = "albumId1",
