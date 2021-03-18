@@ -172,6 +172,7 @@ class SearchFragment :
                     showKeyboard()
                     View.VISIBLE
                 } else {
+                    hideKeyboard()
                     View.GONE
                 }
             }
@@ -209,12 +210,14 @@ class SearchFragment :
     }
 
     private fun setContentVisibility() {
-        binding.artistsResults.visible(sharedViewModel.isArtistChecked)
-        binding.artistTitleTextView.visible(sharedViewModel.isArtistChecked)
-        binding.albumsResults.visible(sharedViewModel.isAlbumChecked)
-        binding.albumsTitleTextView.visible(sharedViewModel.isAlbumChecked)
-        binding.tracksResults.visible(sharedViewModel.isTrackChecked)
-        binding.tracksTitleTextView.visible(sharedViewModel.isTrackChecked)
+        with(binding) {
+            artistsResults.visible(sharedViewModel.isArtistChecked)
+            artistTitleTextView.visible(sharedViewModel.isArtistChecked)
+            albumsResults.visible(sharedViewModel.isAlbumChecked)
+            albumsTitleTextView.visible(sharedViewModel.isAlbumChecked)
+            tracksResults.visible(sharedViewModel.isTrackChecked)
+            tracksTitleTextView.visible(sharedViewModel.isTrackChecked)
+        }
     }
 
     private fun showFilterBottomSheet() {
