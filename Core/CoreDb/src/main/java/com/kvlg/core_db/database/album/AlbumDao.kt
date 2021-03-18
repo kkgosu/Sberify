@@ -29,4 +29,6 @@ interface AlbumDao {
     @Query("SELECT * FROM albums WHERE name LIKE '%' || :query || '%'")
     fun getAlbumsByQuery(query: String): LiveData<List<AlbumEntity>>
 
+    @Query("SELECT * FROM albums WHERE name LIKE '%' || :name || '%' AND is_favorite = 1 ORDER BY name ASC")
+    fun getFavoriteAlbumsByName(name: String): LiveData<List<AlbumEntity>>
 }

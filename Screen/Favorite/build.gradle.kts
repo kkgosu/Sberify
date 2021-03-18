@@ -25,7 +25,6 @@ dependencies {
     implementation(project(Projects.SHARED))
     implementation(project(Projects.SPOTIFY_API))
     implementation(project(Projects.SPOTIFY_COMMON))
-    implementation(project(Projects.SUGGESTION))
 
     implementation(Libs.ADAPTER_DELEGATES)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)

@@ -26,4 +26,7 @@ interface TrackDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertTrack(trackEntity: TrackEntity)
+
+    @Query("SELECT * FROM tracks WHERE name LIKE '%' || :name || '%' AND is_favorite = 1 ORDER BY name ASC")
+    fun getFavoriteTracksByName(name: String): LiveData<List<TrackEntity>>
 }

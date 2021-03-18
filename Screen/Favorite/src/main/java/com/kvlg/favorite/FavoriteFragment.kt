@@ -13,7 +13,6 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.kvlg.design.BaseViewBindingFragment
-import com.kvlg.design.gone
 import com.kvlg.favorite.databinding.FragmentFavoriteBinding
 import com.kvlg.shared.SharedViewModel
 import com.kvlg.spotify_common.adapters.AlbumInteraction
@@ -22,9 +21,6 @@ import com.kvlg.spotify_common.adapters.TrackInteraction
 import com.kvlg.spotify_common.adapters.TrackListedAdapter
 import com.kvlg.spotify_common.presentation.AlbumModel
 import com.kvlg.spotify_common.presentation.TrackModel
-import com.kvlg.suggestion.Suggestion
-import com.kvlg.suggestion.SuggestionAdapter
-import com.kvlg.suggestion.SuggestionInteraction
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -32,8 +28,7 @@ import javax.inject.Inject
 class FavoriteFragment :
     BaseViewBindingFragment<FragmentFavoriteBinding>(),
     TrackInteraction,
-    AlbumInteraction,
-    SuggestionInteraction {
+    AlbumInteraction {
 
     @Inject
     lateinit var navigation: FavoriteNavigation
@@ -43,7 +38,6 @@ class FavoriteFragment :
 
     private val albumsHorizontalAdapter = AlbumsHorizontalAdapter(this)
     private val tracksAdapter = TrackListedAdapter(this)
-    private val suggestionsAdapter = SuggestionAdapter(this)
 
     override fun getViewBinding(
         inflater: LayoutInflater,
@@ -59,7 +53,6 @@ class FavoriteFragment :
 
         with(binding) {
             setupAnimationsForRecyclers(favoriteArtistsRecycler, favoriteAlbumsRecycler, favoriteTracksRecycler)
-            suggestionRecycler.adapter = suggestionsAdapter
             favoriteTracksRecycler.adapter = tracksAdapter
             favoriteAlbumsRecycler.apply {
                 adapter = albumsHorizontalAdapter
@@ -72,7 +65,6 @@ class FavoriteFragment :
             favoriteTracks { tracksAdapter.items = it }
             loadFavorite()
         }
-        sharedViewModel.suggestions { suggestionsAdapter.items = it }
     }
 
     override fun onTrackSelected(item: TrackModel, view: View) {
@@ -90,15 +82,12 @@ class FavoriteFragment :
         navigation.navigateToAlbumDetails(findNavController(), item, extras)
     }
 
-    override fun onSuggestionSelected(position: Int, item: Suggestion) {
-        binding.searchView.setQuery(item.text, true)
-    }
-
     override fun onResume() {
         super.onResume()
         hideKeyboard()
     }
 
+    //TODO: change to EditText
     private fun setupSearchView() {
         binding.searchView.apply {
             clearFocus()
@@ -109,33 +98,13 @@ class FavoriteFragment :
             findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
                 .setColorFilter(ContextCompat.getColor(requireContext(), R.color.white_100))
 
-            setOnQueryTextFocusChangeListener { _, hasFocus ->
-                binding.suggestionRecycler.visibility = if (hasFocus) {
-                    binding.suggestionRecycler.scheduleLayoutAnimation()
-                    showKeyboard()
-                    View.VISIBLE
-                } else {
-                    hideKeyboard()
-                    View.GONE
-                }
-            }
-
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    query?.let {
-                        sharedViewModel.insertSuggestion(it)
-                        clearFocus()
-                        binding.suggestionRecycler.gone()
-                    }
+                override fun onQueryTextSubmit(query: String): Boolean {
                     return true
                 }
 
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    newText?.let { query ->
-                        this@FavoriteFragment.suggestionsAdapter.items = (
-                                this@FavoriteFragment.suggestionsAdapter.items.filter { it.text.contains(query, true) }
-                                )
-                    }
+                override fun onQueryTextChange(newText: String): Boolean {
+                    favoriteViewModel.loadFavorite(newText)
                     return true
                 }
             })

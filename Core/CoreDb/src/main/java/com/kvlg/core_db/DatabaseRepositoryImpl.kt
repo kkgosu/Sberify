@@ -24,8 +24,7 @@ internal class DatabaseRepositoryImpl(
                     text = suggestion.text
                 )
             )
-        database.getSuggestionsDao()
-            .checkLimitAndDelete()
+        database.getSuggestionsDao().checkLimitAndDelete()
     }
 
     override fun getAllSuggestions(): LiveData<List<Suggestion>> {
@@ -41,24 +40,36 @@ internal class DatabaseRepositoryImpl(
         database.getTrackDao().setTrackIsFavorite(id, isFavorite)
     }
 
-    override fun loadFavoriteTracks(): LiveData<List<TrackDomainModel>> =
-        liveData(Dispatchers.IO) {
-            val data = database.getTrackDao().loadFavoriteTracks().map {
-                it.map(dbConverter::convertTrackEntityToDomain)
-            }
-            emitSource(data)
+    override fun loadFavoriteTracks(): LiveData<List<TrackDomainModel>> = liveData(Dispatchers.IO) {
+        val source = database.getTrackDao().loadFavoriteTracks().map {
+            it.map(dbConverter::convertTrackEntityToDomain)
         }
+        emitSource(source)
+    }
+
 
     override suspend fun setAlbumIsFavorite(id: String, isFavorite: Boolean) {
         database.getAlbumDao().setAlbumIsFavorite(id, isFavorite)
     }
 
-    override fun loadFavoriteAlbums(): LiveData<List<AlbumDomainModel>> =
-        liveData(Dispatchers.IO) {
-            val data = database.getAlbumDao().loadFavoriteAlbums().map {
-                it.map(dbConverter::convertAlbumEntityToDomain)
-            }
-            emitSource(data)
+    override fun loadFavoriteAlbums(): LiveData<List<AlbumDomainModel>> = liveData(Dispatchers.IO) {
+        val source = database.getAlbumDao().loadFavoriteAlbums().map {
+            it.map(dbConverter::convertAlbumEntityToDomain)
         }
+        emitSource(source)
+    }
 
+    override fun loadFavoriteAlbumsByName(name: String): LiveData<List<AlbumDomainModel>> = liveData(Dispatchers.IO) {
+        val source = database.getAlbumDao().getFavoriteAlbumsByName(name).map {
+            it.map(dbConverter::convertAlbumEntityToDomain)
+        }
+        emitSource(source)
+    }
+
+    override fun loadFavoriteTracksByName(name: String): LiveData<List<TrackDomainModel>> = liveData(Dispatchers.IO) {
+        val source = database.getTrackDao().getFavoriteTracksByName(name).map {
+            it.map(dbConverter::convertTrackEntityToDomain)
+        }
+        emitSource(source)
+    }
 }

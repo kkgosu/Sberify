@@ -16,4 +16,6 @@ interface DatabaseRepository {
     suspend fun setTrackIsFavorite(id: String, isFavorite: Boolean)
     fun loadFavoriteTracks(): LiveData<List<TrackDomainModel>>
     fun loadFavoriteAlbums(): LiveData<List<AlbumDomainModel>>
+    fun loadFavoriteAlbumsByName(name: String): LiveData<List<AlbumDomainModel>>
+    fun loadFavoriteTracksByName(name: String): LiveData<List<TrackDomainModel>>
 }
