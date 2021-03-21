@@ -16,18 +16,22 @@
         android:background="@color/background1"
         app:contentInsetStart="@dimen/padding_medium">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_view"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search_edit_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:drawableStart="@drawable/ic_search_24"
+            android:drawablePadding="@dimen/padding_medium"
+            android:hint="@string/search_hint"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            app:closeIcon="@drawable/ic_close_24"
-            app:iconifiedByDefault="false"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/white"
+            android:textColorHint="@color/gray_400"
+            android:textSize="@dimen/text_size_large"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:queryBackground="@color/transparent"
-            app:queryHint="@string/search_hint" />
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.appcompat.widget.Toolbar>
 
     <include layout="@layout/top_bottom_content_divider" />

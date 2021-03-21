@@ -4,10 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
-import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -87,27 +84,14 @@ class FavoriteFragment :
         hideKeyboard()
     }
 
-    //TODO: change to EditText
     private fun setupSearchView() {
-        binding.searchView.apply {
+        binding.searchEditText.apply {
             clearFocus()
-            (findViewById<View>(R.id.search_src_text) as EditText).apply {
-                setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                setHintTextColor(ContextCompat.getColor(requireContext(), R.color.gray_400))
+            addTextChangedListener {
+                it?.let { editable ->
+                    favoriteViewModel.loadFavorite(editable.toString())
+                }
             }
-            findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
-                .setColorFilter(ContextCompat.getColor(requireContext(), R.color.white_100))
-
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String): Boolean {
-                    return true
-                }
-
-                override fun onQueryTextChange(newText: String): Boolean {
-                    favoriteViewModel.loadFavorite(newText)
-                    return true
-                }
-            })
         }
     }
 }
