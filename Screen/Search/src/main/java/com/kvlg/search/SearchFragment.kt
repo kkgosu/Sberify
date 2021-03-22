@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import com.kvlg.core_utils.applyResultObserver
 import com.kvlg.design.BaseViewBindingFragment
 import com.kvlg.design.gone
+import com.kvlg.design.onClick
 import com.kvlg.design.visible
 import com.kvlg.search.FilterBottomSheetFragment.Companion.ALBUM_SWITCH_CHECKED_KEY
 import com.kvlg.search.FilterBottomSheetFragment.Companion.ARTIST_SWITCH_CHECKED_KEY
@@ -162,12 +163,13 @@ class SearchFragment :
                 }
             }
 
-            setOnEditorActionListener { v, actionId, event ->
+            setOnEditorActionListener { _, _, _ ->
                 text?.toString()?.let {
-                    sharedViewModel.insertSuggestion(it)
+                    keyword = it
                     clearFocus()
                     binding.suggestionRecycler.gone()
                     sharedViewModel.checkFiltersAndSearch(it)
+                    sharedViewModel.insertSuggestion(it)
                 }
                 true
             }
