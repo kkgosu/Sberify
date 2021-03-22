@@ -4,11 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
-import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -16,7 +13,6 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import com.kvlg.core_utils.applyResultObserver
 import com.kvlg.design.BaseViewBindingFragment
 import com.kvlg.design.gone
-import com.kvlg.design.onClick
 import com.kvlg.design.visible
 import com.kvlg.search.FilterBottomSheetFragment.Companion.ALBUM_SWITCH_CHECKED_KEY
 import com.kvlg.search.FilterBottomSheetFragment.Companion.ARTIST_SWITCH_CHECKED_KEY
@@ -153,20 +149,30 @@ class SearchFragment :
     }
 
     override fun onSuggestionSelected(position: Int, item: Suggestion) {
-        binding.searchView.setQuery(item.text, true)
+        sharedViewModel.checkFiltersAndSearch(item.text)
     }
 
     private fun setupSearchView() {
-        binding.searchView.apply {
+        binding.searchEditText.apply {
             clearFocus()
-            (findViewById<View>(R.id.search_src_text) as EditText).apply {
-                setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                setHintTextColor(ContextCompat.getColor(requireContext(), R.color.gray_400))
-            }
-            findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
-                .setColorFilter(ContextCompat.getColor(requireContext(), R.color.white_100))
 
-            setOnQueryTextFocusChangeListener { _, hasFocus ->
+            addTextChangedListener {
+                it?.let { input ->
+                    suggestionsAdapter.items = suggestionsAdapter.items.filter { item -> item.text.contains(input, true) }
+                }
+            }
+
+            setOnEditorActionListener { v, actionId, event ->
+                text?.toString()?.let {
+                    sharedViewModel.insertSuggestion(it)
+                    clearFocus()
+                    binding.suggestionRecycler.gone()
+                    sharedViewModel.checkFiltersAndSearch(it)
+                }
+                true
+            }
+
+            setOnFocusChangeListener { _, hasFocus ->
                 binding.suggestionRecycler.visibility = if (hasFocus) {
                     binding.suggestionRecycler.scheduleLayoutAnimation()
                     showKeyboard()
@@ -176,28 +182,6 @@ class SearchFragment :
                     View.GONE
                 }
             }
-
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    query?.let {
-                        sharedViewModel.insertSuggestion(it)
-                        keyword = it
-                        clearFocus()
-                        binding.suggestionRecycler.gone()
-                    }
-                    sharedViewModel.checkFiltersAndSearch(keyword)
-                    return true
-                }
-
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    newText?.let { query ->
-                        this@SearchFragment.suggestionsAdapter.items = (
-                                this@SearchFragment.suggestionsAdapter.items.filter { it.text.contains(query, true) }
-                                )
-                    }
-                    return true
-                }
-            })
 
             if (artistsAdapter.itemCount == 0 && albumsAdapter.itemCount == 0 && tracksListedAdapter.itemCount == 0) {
                 requestFocus()
@@ -229,6 +213,4 @@ class SearchFragment :
         childFragmentManager.setFragmentResult("showFilter", bundle)
         FilterBottomSheetFragment().show(childFragmentManager, FilterBottomSheetFragment.TAG)
     }
-
-
 }

@@ -16,35 +16,22 @@
         android:background="@color/background1"
         app:contentInsetStart="@dimen/padding_medium">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search_edit_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/search_view"
-                android:layout_width="@dimen/match_constraint"
-                android:layout_height="match_parent"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                app:iconifiedByDefault="false"
-                app:layout_constraintEnd_toStartOf="@id/filter_button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:queryBackground="@color/transparent"
-                app:queryHint="@string/search_hint"
-                app:searchIcon="@null"
-                app:suggestionRowLayout="@layout/item_suggestion" />
-
-            <ImageButton
-                android:id="@+id/filter_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_large"
-                android:background="?attr/selectableItemBackground"
-                android:src="@drawable/ic_filter_list_black_24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:drawableStart="@drawable/ic_search_24"
+            android:drawablePadding="@dimen/padding_medium"
+            android:hint="@string/search_hint"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="@color/white"
+            android:textColorHint="@color/gray_400"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.appcompat.widget.Toolbar>
 
     <include layout="@layout/top_bottom_content_divider" />
