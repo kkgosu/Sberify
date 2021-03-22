@@ -15,20 +15,11 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/search_edit_text"
+            style="@style/SearchView"
             android:layout_width="@dimen/match_constraint"
             android:layout_height="match_parent"
-            android:background="@color/transparent"
-            android:drawableStart="@drawable/ic_search_24"
-            android:drawablePadding="@dimen/padding_medium"
             android:layout_marginStart="@dimen/margin_medium"
-            android:hint="@string/search_hint"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:padding="@dimen/padding_medium"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:textColor="@color/white"
-            android:textColorHint="@color/gray_400"
-            android:textSize="@dimen/text_size_large"
+            android:textAppearance="@style/SearchTextAppearance"
             app:layout_constraintEnd_toStartOf="@id/filter_button"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -78,8 +69,7 @@
                 android:layout_marginStart="@dimen/margin_medium"
                 android:layout_marginTop="@dimen/margin_xsmall"
                 android:text="@string/artists"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-                android:textColor="@color/white_100"
+                android:textAppearance="@style/SectionHeaderTextAppearance"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -103,8 +93,7 @@
                 android:layout_marginStart="@dimen/margin_medium"
                 android:layout_marginTop="@dimen/margin_xsmall"
                 android:text="@string/albums"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-                android:textColor="@color/white_100"
+                android:textAppearance="@style/SectionHeaderTextAppearance"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/artists_results" />
@@ -128,8 +117,7 @@
                 android:layout_marginStart="@dimen/margin_medium"
                 android:layout_marginTop="@dimen/margin_xsmall"
                 android:text="@string/tracks"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-                android:textColor="@color/white_100"
+                android:textAppearance="@style/SectionHeaderTextAppearance"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/albums_results" />

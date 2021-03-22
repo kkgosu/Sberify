@@ -24,13 +24,25 @@
         <item name="android:paddingBottom">@dimen/bottom_bar_height</item>
     </style>
 
-    <style name="ExpandedTitleText" parent="TextAppearance.MaterialComponents.Headline3">
+    <style name="SearchView">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:drawableStart">@drawable/ic_search_24</item>
+        <item name="android:drawablePadding">@dimen/padding_medium</item>
+        <item name="android:imeOptions">actionSearch</item>
+        <item name="android:inputType">text</item>
+        <item name="android:hint">@string/search_hint</item>
+        <item name="android:padding">@dimen/padding_medium</item>
+    </style>
+
+    <!--TextAppearance-->
+
+    <style name="ExpandedTitleTextAppearance" parent="TextAppearance.MaterialComponents.Headline3">
         <item name="android:textColor">@color/transparent</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_size_large</item>
     </style>
 
-    <style name="CollapsedTitleText" parent="TextAppearance.MaterialComponents.Headline4">
+    <style name="CollapsedTitleTextAppearance" parent="TextAppearance.MaterialComponents.Headline4">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/text_size_small_large</item>
         <item name="android:textStyle">bold</item>
@@ -46,4 +58,15 @@
         <item name="android:textColor">@color/white_100</item>
         <item name="android:textSize">@dimen/text_size_small_large</item>
     </style>
+
+    <style name="SearchTextAppearance" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/gray_400</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="SectionHeaderTextAppearance" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:textColor">@color/white_100</item>
+    </style>
+
 </resources>

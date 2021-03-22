@@ -25,7 +25,7 @@
                 android:layout_width="@dimen/match_constraint"
                 android:layout_height="@dimen/match_constraint"
                 android:gravity="center"
-                android:textAppearance="@style/CollapsedTitleText"
+                android:textAppearance="@style/CollapsedTitleTextAppearance"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/favorite_button"
                 app:layout_constraintStart_toStartOf="parent"

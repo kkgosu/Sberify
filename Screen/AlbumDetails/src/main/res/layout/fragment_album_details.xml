@@ -18,10 +18,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/background1"
-            app:collapsedTitleTextAppearance="@style/CollapsedTitleText"
+            app:collapsedTitleTextAppearance="@style/CollapsedTitleTextAppearance"
             app:contentScrim="@color/background1"
             app:expandedTitleGravity="top|left"
-            app:expandedTitleTextAppearance="@style/ExpandedTitleText"
+            app:expandedTitleTextAppearance="@style/ExpandedTitleTextAppearance"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:scrimVisibleHeightTrigger="200dp">
 
