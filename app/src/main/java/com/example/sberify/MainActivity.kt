@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import com.example.sberify.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 import com.kvlg.core_utils.NetworkObserver
+import com.kvlg.design.fluidlayout.FluidContentResizer
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote
@@ -51,6 +52,8 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         window.statusBarColor = ContextCompat.getColor(this, R.color.background1)
+
+        FluidContentResizer.listen(this)
 
         var hasConnection = false
         val connectionLiveData = NetworkObserver(this)
