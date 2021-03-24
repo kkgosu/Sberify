@@ -123,6 +123,11 @@ class SearchFragment :
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        hideOrShowKeyboard()
+    }
+
     override fun onPause() {
         super.onPause()
         hideKeyboard()
@@ -150,13 +155,16 @@ class SearchFragment :
     }
 
     override fun onSuggestionSelected(position: Int, item: Suggestion) {
-        sharedViewModel.checkFiltersAndSearch(item.text)
+        binding.searchEditText.run {
+            setText(item.text)
+            onEditorAction(0)
+            clearFocus()
+        }
     }
 
     private fun setupSearchView() {
         binding.searchEditText.apply {
             clearFocus()
-
             addTextChangedListener {
                 it?.let { input ->
                     suggestionsAdapter.items = suggestionsAdapter.items.filter { item -> item.text.contains(input, true) }
@@ -165,8 +173,8 @@ class SearchFragment :
 
             setOnEditorActionListener { _, _, _ ->
                 text?.toString()?.let {
+                    hideKeyboard()
                     keyword = it
-                    clearFocus()
                     binding.suggestionRecycler.gone()
                     sharedViewModel.checkFiltersAndSearch(it)
                     sharedViewModel.insertSuggestion(it)
@@ -177,20 +185,10 @@ class SearchFragment :
             setOnFocusChangeListener { _, hasFocus ->
                 binding.suggestionRecycler.visibility = if (hasFocus) {
                     binding.suggestionRecycler.scheduleLayoutAnimation()
-                    showKeyboard()
                     View.VISIBLE
                 } else {
-                    hideKeyboard()
                     View.GONE
                 }
-            }
-
-            if (artistsAdapter.itemCount == 0 && albumsAdapter.itemCount == 0 && tracksListedAdapter.itemCount == 0) {
-                requestFocus()
-                binding.suggestionRecycler.visible()
-            } else {
-                clearFocus()
-                binding.suggestionRecycler.gone()
             }
         }
     }
@@ -214,5 +212,18 @@ class SearchFragment :
         )
         childFragmentManager.setFragmentResult("showFilter", bundle)
         FilterBottomSheetFragment().show(childFragmentManager, FilterBottomSheetFragment.TAG)
+    }
+
+    private fun hideOrShowKeyboard() {
+        val editable = binding.searchEditText.text
+        if (editable != null) {
+            if (editable.isNotEmpty()) {
+                binding.searchEditText.clearFocus()
+                hideKeyboard()
+            } else {
+                binding.searchEditText.requestFocus()
+                showKeyboard()
+            }
+        }
     }
 }
