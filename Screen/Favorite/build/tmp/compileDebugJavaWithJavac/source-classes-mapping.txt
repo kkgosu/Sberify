@@ -1,0 +1,20 @@
+com/kvlg/favorite/FavoriteViewModel_AssistedFactory_Factory.java
+ com.kvlg.favorite.FavoriteViewModel_AssistedFactory_Factory
+hilt_aggregated_deps/com_kvlg_favorite_FavoriteViewModel_HiltModuleModuleDeps.java
+ hilt_aggregated_deps.com_kvlg_favorite_FavoriteViewModel_HiltModuleModuleDeps
+com/kvlg/favorite/BuildConfig.java
+ com.kvlg.favorite.BuildConfig
+com/kvlg/favorite/FavoriteViewModel_AssistedFactory.java
+ com.kvlg.favorite.FavoriteViewModel_AssistedFactory
+hilt_aggregated_deps/com_kvlg_favorite_FavoriteFragment_GeneratedInjectorModuleDeps.java
+ hilt_aggregated_deps.com_kvlg_favorite_FavoriteFragment_GeneratedInjectorModuleDeps
+com/kvlg/favorite/FavoriteViewModel_HiltModule.java
+ com.kvlg.favorite.FavoriteViewModel_HiltModule
+com/kvlg/favorite/Hilt_FavoriteFragment.java
+ com.kvlg.favorite.Hilt_FavoriteFragment
+com/kvlg/favorite/FavoriteFragment_GeneratedInjector.java
+ com.kvlg.favorite.FavoriteFragment_GeneratedInjector
+com/kvlg/favorite/FavoriteFragment_MembersInjector.java
+ com.kvlg.favorite.FavoriteFragment_MembersInjector
+com/kvlg/favorite/databinding/FragmentFavoriteBinding.java
+ com.kvlg.favorite.databinding.FragmentFavoriteBinding

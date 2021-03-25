@@ -1,0 +1,12 @@
+com/kvlg/albumdetails/BuildConfig.java
+ com.kvlg.albumdetails.BuildConfig
+hilt_aggregated_deps/com_kvlg_albumdetails_AlbumDetailsFragment_GeneratedInjectorModuleDeps.java
+ hilt_aggregated_deps.com_kvlg_albumdetails_AlbumDetailsFragment_GeneratedInjectorModuleDeps
+com/kvlg/albumdetails/Hilt_AlbumDetailsFragment.java
+ com.kvlg.albumdetails.Hilt_AlbumDetailsFragment
+com/kvlg/albumdetails/AlbumDetailsFragment_MembersInjector.java
+ com.kvlg.albumdetails.AlbumDetailsFragment_MembersInjector
+com/kvlg/albumdetails/databinding/FragmentAlbumDetailsBinding.java
+ com.kvlg.albumdetails.databinding.FragmentAlbumDetailsBinding
+com/kvlg/albumdetails/AlbumDetailsFragment_GeneratedInjector.java
+ com.kvlg.albumdetails.AlbumDetailsFragment_GeneratedInjector

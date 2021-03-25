@@ -1,0 +1,12 @@
+com/kvlg/newreleases/BuildConfig.java
+ com.kvlg.newreleases.BuildConfig
+hilt_aggregated_deps/com_kvlg_newreleases_NewReleasesFragment_GeneratedInjectorModuleDeps.java
+ hilt_aggregated_deps.com_kvlg_newreleases_NewReleasesFragment_GeneratedInjectorModuleDeps
+com/kvlg/newreleases/Hilt_NewReleasesFragment.java
+ com.kvlg.newreleases.Hilt_NewReleasesFragment
+com/kvlg/newreleases/NewReleasesFragment_MembersInjector.java
+ com.kvlg.newreleases.NewReleasesFragment_MembersInjector
+com/kvlg/newreleases/NewReleasesFragment_GeneratedInjector.java
+ com.kvlg.newreleases.NewReleasesFragment_GeneratedInjector
+com/kvlg/newreleases/databinding/FragmentNewReleasesBinding.java
+ com.kvlg.newreleases.databinding.FragmentNewReleasesBinding
