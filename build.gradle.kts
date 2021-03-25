@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
-    id("com.releaseshub.gradle.plugin") version "1.6.1"
+    id("com.dipien.releaseshub.gradle.plugin") version "2.0.1"
 }
 
 buildscript {
@@ -40,7 +40,7 @@ subprojects {
 tasks.register("upgradeDependencies1", tasks.UpgradeDependencies::class.java)
 
 releasesHub {
-    dependenciesBasePath = "buildSrc/src/main/java/"
+    dependenciesBasePath = "buildSrc/src/main/kotlin/"
     dependenciesClassNames = listOf("Libs.kt", "BuildLibs.kt")
     excludes = listOf("gradle")
 
