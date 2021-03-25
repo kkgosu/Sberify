@@ -22,7 +22,7 @@ object Libs {
     const val HILT_COMPILER = "com.google.dagger:hilt-android-compiler:2.31.2-alpha"
     const val HILT_VIEWMODEL = "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02"
     const val JSOUP = "org.jsoup:jsoup:1.10.1"
-    const val JUNIT = "junit:junit:4.13.1"
+    const val JUNIT = "junit:junit:4.13.2"
     const val LIFECYCLE_LIVE_DATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0"
     const val LIFECYCLE_VIEW_MODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0"
     const val LOTTIE = "com.airbnb.android:lottie:3.6.0"
