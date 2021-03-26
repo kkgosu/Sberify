@@ -9,6 +9,6 @@ object BuildLibs  {
 
     const val ANDROID_GRADLE_PLUGIN = "com.android.tools.build:gradle:4.1.2"
     const val KOTLIN_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21"
-    const val NAVIGATION_SAVE_ARGS_PLUGIN = "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.3"
+    const val NAVIGATION_SAVE_ARGS_PLUGIN = "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.4"
     const val HILT_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:2.31.2-alpha"
 }
