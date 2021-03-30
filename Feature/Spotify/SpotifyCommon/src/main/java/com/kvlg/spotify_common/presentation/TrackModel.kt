@@ -14,8 +14,8 @@ data class TrackModel(
     val name: String,
     val artistNames: String,
     var lyrics: String? = null,
-    val externalUri: String,
     val explicit: Boolean,
     var isFavorite: Boolean,
     val previewUri: String,
+    val uri: String
 ) : BaseModel(id), Parcelable

@@ -31,13 +31,11 @@ class DbConverter {
             id = trackEntity.spotifyId,
             name = trackEntity.name,
             artistNames = trackEntity.artistNames,
-            externalUri = ExternalUrlDomainModel(trackEntity.externalUrl),
             explicit = trackEntity.isExplicit,
-            isLocal = trackEntity.isLocal,
             previewUri = trackEntity.imageUrl.orEmpty(),
-            markets = trackEntity.markets,
             isFavorite = trackEntity.isFavorite,
-            lyrics = trackEntity.lyrics
+            lyrics = trackEntity.lyrics,
+            uri = trackEntity.uri
         )
     }
 
@@ -55,7 +53,7 @@ class DbConverter {
             totalTracks = albumEntity.totalTracks,
             externalUrl = ExternalUrlDomainModel(albumEntity.externalUrl),
             images = listOf(ImageDomainModel(albumEntity.imageUrl)),
-            copyright = albumEntity.copyrights.map { CopyrightDomainModel(it) },
+            copyright = albumEntity.copyrights.map(::CopyrightDomainModel),
             markets = albumEntity.markets,
             albumType = albumEntity.type,
             label = albumEntity.label,

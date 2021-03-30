@@ -14,10 +14,8 @@ data class TrackDomainModel(
     val name: String,
     val artistNames: String,
     var lyrics: String? = null,
-    val externalUri: ExternalUrlDomainModel,
     val explicit: Boolean,
-    val isLocal: Boolean,
     var isFavorite: Boolean,
     val previewUri: String,
-    val markets: List<String>
+    val uri: String
 ) : BaseModel(id), Parcelable

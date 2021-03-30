@@ -19,7 +19,7 @@ import com.kvlg.spotify_common.entity.TrackEntity
         TrackEntity::class,
         SuggestionsEntity::class
     ],
-    version = 8,
+    version = 9,
     exportSchema = false
 )
 @TypeConverters(ListToStringConverter::class)

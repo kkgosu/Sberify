@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
 
         sharedViewModel.play.observe(this) { track ->
             if (hasConnection) {
-                spotifyAppRemote?.playerApi?.play("spotify:track:${track.externalUri}")
+                spotifyAppRemote?.playerApi?.play(track.uri)
                 spotifyAppRemote
                     ?.playerApi
                     ?.subscribeToPlayerState()

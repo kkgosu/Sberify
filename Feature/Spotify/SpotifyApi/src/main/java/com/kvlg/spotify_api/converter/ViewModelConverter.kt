@@ -53,10 +53,10 @@ class ViewModelConverter {
             name = it.name,
             artistNames = it.artistNames,
             lyrics = it.lyrics,
-            externalUri = it.externalUri.spotifyUrl,
             explicit = it.explicit,
             isFavorite = it.isFavorite,
-            previewUri = it.previewUri
+            previewUri = it.previewUri,
+            uri = it.uri
         )
     }
 

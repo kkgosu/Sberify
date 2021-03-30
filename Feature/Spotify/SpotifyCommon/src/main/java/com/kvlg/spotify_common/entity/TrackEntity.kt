@@ -33,15 +33,9 @@ data class TrackEntity(
     @ColumnInfo(name = "image_url")
     val imageUrl: String?,
 
-    @ColumnInfo(name = "external_url")
-    val externalUrl: String,
-
     @ColumnInfo(name = "is_explicit")
     val isExplicit: Boolean,
 
-    @ColumnInfo(name = "is_local")
-    val isLocal: Boolean,
-
-    @ColumnInfo(name = "markets")
-    val markets: List<String>,
+    @ColumnInfo(name = "uri")
+    val uri: String
 )

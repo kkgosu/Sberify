@@ -46,12 +46,10 @@ internal class ResponseConverter {
             id = response.id,
             name = response.name,
             artistNames = response.artists.joinToString { it.name },
-            externalUri = convertExternalUrlToDomain(response.externalUrls),
             explicit = response.explicit ?: false,
-            isLocal = response.isLocal ?: false,
             previewUri = response.previewUrl.orEmpty(),
-            markets = emptyList(),
-            isFavorite = false
+            isFavorite = false,
+            uri = response.uri
         )
     }
 
@@ -111,11 +109,8 @@ internal class ResponseConverter {
                 artistsId = it.artists.map { artist -> artist.id },
                 isFavorite = false,
                 imageUrl = response.images?.firstOrNull()?.url.orEmpty(),
-                externalUrl = it.externalUrls.spotify,
                 isExplicit = it.explicit ?: false,
-                isLocal = it.isLocal ?: false,
-                markets = it.availableMarkets ?: emptyList()
-
+                uri = it.uri
             )
         } ?: emptyList()
         return AlbumTrackArtistResponse(
@@ -135,10 +130,8 @@ internal class ResponseConverter {
             artistsId = response.artists.map { artist -> artist.id },
             isFavorite = false,
             imageUrl = "",
-            externalUrl = response.externalUrls.spotify,
             isExplicit = response.explicit ?: false,
-            isLocal = response.isLocal ?: false,
-            markets = response.availableMarkets ?: emptyList()
+            uri = response.uri
         )
     }
 
