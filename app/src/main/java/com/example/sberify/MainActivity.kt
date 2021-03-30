@@ -22,10 +22,9 @@ import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
-import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), LifecycleOwner {
@@ -68,7 +67,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
 
         sharedViewModel.play.observe(this) { track ->
             if (hasConnection) {
-                spotifyAppRemote?.playerApi?.play("spotify:track:${track.id}")
+                spotifyAppRemote?.playerApi?.play("spotify:track:${track.externalUri}")
                 spotifyAppRemote
                     ?.playerApi
                     ?.subscribeToPlayerState()
@@ -88,14 +87,14 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
 
     override fun onStart() {
         super.onStart()
-
-        SpotifyAppRemote.disconnect(spotifyAppRemote)
-        lifecycleScope.launch {
-            try {
-                spotifyAppRemote = connectToAppRemote()
-                Timber.d("Connected")
-            } catch (error: Throwable) {
-                Timber.d(error)
+        if (spotifyAppRemote == null) {
+            lifecycleScope.launch {
+                try {
+                    spotifyAppRemote = connectToAppRemote()
+                    Timber.d("Connected")
+                } catch (error: Throwable) {
+                    Timber.d(error)
+                }
             }
         }
     }
@@ -115,7 +114,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
     }
 
     private suspend fun connectToAppRemote(): SpotifyAppRemote =
-        suspendCoroutine { continuation: Continuation<SpotifyAppRemote> ->
+        suspendCancellableCoroutine { continuation ->
             SpotifyAppRemote.connect(applicationContext,
                 ConnectionParams.Builder(CLIENT_ID)
                     .setRedirectUri(REDIRECT_URL)
@@ -128,6 +127,10 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
                     }
 
                     override fun onFailure(p0: Throwable) {
+                        continuation.invokeOnCancellation {
+                            Timber.d(it)
+                            SpotifyAppRemote.disconnect(spotifyAppRemote)
+                        }
                     }
                 })
         }
