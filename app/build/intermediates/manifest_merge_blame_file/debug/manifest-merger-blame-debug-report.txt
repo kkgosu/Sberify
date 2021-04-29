@@ -1,0 +1,89 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.sberify"
+4    android:versionCode="103"
+5    android:versionName="1.0.0-debug" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="30" />
+9-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:6:5-67
+11-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:6:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:7:5-79
+12-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:7:22-76
+13
+14    <application
+14-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:9:5-33:19
+15        android:name="com.example.sberify.SberifyApp"
+15-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:10:9-35
+16        android:allowBackup="true"
+16-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:11:9-35
+17        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+17-->[androidx.core:core:1.3.2] C:\Users\driim\.gradle\caches\transforms-3\706edcbe0ebfa74541a2d02c4ca4a983\transformed\core-1.3.2\AndroidManifest.xml:24:18-86
+18        android:debuggable="true"
+19        android:label="@string/app_name"
+19-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:12:9-41
+20        android:supportsRtl="true"
+20-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:13:9-35
+21        android:testOnly="true"
+22        android:theme="@style/AppTheme" >
+22-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:14:9-40
+23        <activity android:name="com.example.sberify.MainActivity" >
+23-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:16:9-32:20
+23-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:16:19-47
+24            <intent-filter>
+24-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:17:13-21:29
+25                <action android:name="android.intent.action.MAIN" />
+25-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:18:17-69
+25-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:18:25-66
+26
+27                <category android:name="android.intent.category.LAUNCHER" />
+27-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:20:17-77
+27-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:20:27-74
+28            </intent-filter>
+29            <intent-filter>
+29-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:22:13-31:29
+30                <action android:name="android.intent.action.VIEW" />
+30-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:23:17-69
+30-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:23:25-66
+31
+32                <category android:name="android.intent.category.DEFAULT" />
+32-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:25:17-76
+32-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:25:27-73
+33                <category android:name="android.intent.category.BROWSABLE" />
+33-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:26:17-78
+33-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:26:27-75
+34
+35                <data
+35-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:28:17-30:80
+36                    android:host="@string/com_spotify_sdk_redirect_host"
+36-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:29:21-73
+37                    android:scheme="@string/com_spotify_sdk_redirect_scheme" />
+37-->C:\Users\driim\AndroidStudioProjects\Sberius\app\src\main\AndroidManifest.xml:30:21-77
+38            </intent-filter>
+39        </activity>
+40
+41        <service
+41-->[androidx.room:room-runtime:2.2.6] C:\Users\driim\.gradle\caches\transforms-3\378660334454cb07870e9baaf94ee547\transformed\room-runtime-2.2.6\AndroidManifest.xml:25:9-28:40
+42            android:name="androidx.room.MultiInstanceInvalidationService"
+42-->[androidx.room:room-runtime:2.2.6] C:\Users\driim\.gradle\caches\transforms-3\378660334454cb07870e9baaf94ee547\transformed\room-runtime-2.2.6\AndroidManifest.xml:26:13-74
+43            android:directBootAware="true"
+43-->[androidx.room:room-runtime:2.2.6] C:\Users\driim\.gradle\caches\transforms-3\378660334454cb07870e9baaf94ee547\transformed\room-runtime-2.2.6\AndroidManifest.xml:27:13-43
+44            android:exported="false" />
+44-->[androidx.room:room-runtime:2.2.6] C:\Users\driim\.gradle\caches\transforms-3\378660334454cb07870e9baaf94ee547\transformed\room-runtime-2.2.6\AndroidManifest.xml:28:13-37
+45
+46        <activity
+46-->[com.spotify.android:auth:1.2.3] C:\Users\driim\.gradle\caches\transforms-3\e95c9237b34206cb0387270059f9b95a\transformed\jetified-auth-1.2.3\AndroidManifest.xml:34:9-37:20
+47            android:name="com.spotify.sdk.android.auth.LoginActivity"
+47-->[com.spotify.android:auth:1.2.3] C:\Users\driim\.gradle\caches\transforms-3\e95c9237b34206cb0387270059f9b95a\transformed\jetified-auth-1.2.3\AndroidManifest.xml:35:13-70
+48            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+48-->[com.spotify.android:auth:1.2.3] C:\Users\driim\.gradle\caches\transforms-3\e95c9237b34206cb0387270059f9b95a\transformed\jetified-auth-1.2.3\AndroidManifest.xml:36:13-72
+49        </activity>
+50    </application>
+51
+52</manifest>

@@ -1,0 +1,14 @@
+com/kvlg/search/SearchFragment_GeneratedInjector.java
+ com.kvlg.search.SearchFragment_GeneratedInjector
+hilt_aggregated_deps/com_kvlg_search_SearchFragment_GeneratedInjectorModuleDeps.java
+ hilt_aggregated_deps.com_kvlg_search_SearchFragment_GeneratedInjectorModuleDeps
+com/kvlg/search/Hilt_SearchFragment.java
+ com.kvlg.search.Hilt_SearchFragment
+com/kvlg/search/BuildConfig.java
+ com.kvlg.search.BuildConfig
+com/kvlg/search/databinding/FilterBottomSheetLayoutBinding.java
+ com.kvlg.search.databinding.FilterBottomSheetLayoutBinding
+com/kvlg/search/databinding/FragmentSearchBinding.java
+ com.kvlg.search.databinding.FragmentSearchBinding
+com/kvlg/search/SearchFragment_MembersInjector.java
+ com.kvlg.search.SearchFragment_MembersInjector
