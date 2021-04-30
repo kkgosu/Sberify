@@ -27,7 +27,7 @@ object Libs {
     const val LIFECYCLE_VIEW_MODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0"
     const val LOTTIE = "com.airbnb.android:lottie:3.6.1"
     const val MATERIAL = "com.google.android.material:material:1.3.0"
-    const val MOCKITO = "io.mockk:mockk:1.10.5"
+    const val MOCKITO = "io.mockk:mockk:1.11.0"
     const val NAVIGATION_FRAGMENT_KTX = "androidx.navigation:navigation-fragment-ktx:2.3.4"
     const val PREFERENCES = "androidx.preference:preference-ktx:1.1.1"
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.9.0"
