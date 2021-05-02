@@ -1,5 +1,5 @@
 object Libs {
-    const val ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.0-beta01"
+    const val ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.2"
     const val ADAPTER_DELEGATES = "com.hannesdorfmann:adapterdelegates4:4.3.0"
     const val ADAPTER_DELEGATES_VIEW_BINDING = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.0"
     const val ANDROIDX_HILT_COMPILER = "androidx.hilt:hilt-compiler:1.0.0-alpha02"
