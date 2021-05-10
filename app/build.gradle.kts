@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -27,6 +29,11 @@ android {
         }
         getByName("debug") {
             versionNameSuffix = "-debug"
+        }
+
+        configureEach {
+            val appMetricaApiKey = gradleLocalProperties(rootDir).getProperty("app_metrica_api_key")
+            buildConfigField("String", "APP_METRICA_API_KEY", appMetricaApiKey)
         }
     }
 
@@ -68,6 +75,7 @@ dependencies {
     implementation(project(Projects.SEARCH))
     implementation(project(Projects.SHARED))
 
+    implementation(Libs.APP_METRICA)
     implementation(Libs.COROUTINES)
     implementation(Libs.NAVIGATION_FRAGMENT_KTX)
     implementation(Libs.RETROFIT)
