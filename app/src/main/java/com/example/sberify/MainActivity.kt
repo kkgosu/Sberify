@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import com.example.sberify.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
+import com.kvlg.analytics.AnalyticsInteractor
 import com.kvlg.core_utils.NetworkObserver
 import com.kvlg.design.fluidlayout.FluidContentResizer
 import com.spotify.android.appremote.api.ConnectionParams
@@ -20,15 +21,18 @@ import com.spotify.android.appremote.api.SpotifyAppRemote
 import com.spotify.sdk.android.auth.AuthorizationClient
 import com.spotify.sdk.android.auth.AuthorizationRequest
 import com.spotify.sdk.android.auth.AuthorizationResponse
-import com.yandex.metrica.YandexMetrica
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
+import javax.inject.Inject
 import kotlin.coroutines.resume
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), LifecycleOwner {
+
+    @Inject
+    lateinit var analyticsInteractor: AnalyticsInteractor
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var bnvAnimator: BnvAnimator
@@ -49,7 +53,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        YandexMetrica.resumeSession(this)
+        analyticsInteractor.resumeSession(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         window.statusBarColor = ContextCompat.getColor(this, R.color.background1)
@@ -103,7 +107,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
 
     override fun onStop() {
         super.onStop()
-        YandexMetrica.pauseSession(this)
+        analyticsInteractor.pauseSession(this)
         SpotifyAppRemote.disconnect(spotifyAppRemote)
     }
 
@@ -159,6 +163,11 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         controller.observe(this) {
             it.addOnDestinationChangedListener { _, destination, _ ->
                 bnvAnimator.animateBar(destination.id)
+                when (destination.id) {
+                    R.id.newReleasesFragment -> analyticsInteractor.onNewReleasesOpen()
+                    R.id.searchFragment -> analyticsInteractor.onSearchOpen()
+                    R.id.favoriteFragment -> analyticsInteractor.onFavoriteOpen()
+                }
             }
         }
     }

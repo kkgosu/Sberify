@@ -10,6 +10,7 @@ object Projects {
     private const val GENIUS = "Genius"
     private const val SPOTIFY = "Spotify"
 
+    const val ANALYTICS = "$CORE:Analytics"
     const val CORE_DB = "$CORE:CoreDb"
     const val CORE_UTILS = "$CORE:CoreUtils"
     const val DESIGN_SYSTEM = "$CORE:DesignSystem"

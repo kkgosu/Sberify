@@ -1,6 +1,17 @@
+package com.kvlg.analytics
+
+import android.app.Activity
 import com.yandex.metrica.YandexMetrica
 
 internal class AnalyticsInteractorImpl : AnalyticsInteractor {
+
+    override fun resumeSession(activity: Activity) {
+        YandexMetrica.resumeSession(activity)
+    }
+
+    override fun pauseSession(activity: Activity) {
+        YandexMetrica.pauseSession(activity)
+    }
 
     override fun onNewReleasesOpen() {
         YandexMetrica.reportEvent(NEW_RELEASES_OPEN)
