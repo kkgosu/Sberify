@@ -36,7 +36,7 @@ object Libs {
     const val ROOM_COMPILER = "androidx.room:room-compiler:2.2.6"
     const val ROOM_COMMON = "androidx.room:room-common:2.2.6"
     const val ROOM_KTX = "androidx.room:room-ktx:2.2.6"
-    const val ROOM_RUNTIME = "androidx.room:room-runtime:2.2.6"
+    const val ROOM_RUNTIME = "androidx.room:room-runtime:2.3.0"
     const val SPOTIFY_AUTH = "com.spotify.android:auth:1.2.3"
     const val SWIPE_REFRESH_LAYOUT = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     const val TIMBER = "com.jakewharton.timber:timber:4.7.1"
