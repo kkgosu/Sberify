@@ -18,6 +18,7 @@ dependencies {
     hilt()
     ui()
 
+    implementation(project(Projects.ANALYTICS))
     implementation(project(Projects.CORE_DB))
     implementation(project(Projects.CORE_UTILS))
     implementation(project(Projects.DESIGN_SYSTEM))

@@ -7,6 +7,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import com.kvlg.analytics.AnalyticsInteractor
 import com.kvlg.core_db.DatabaseRepository
 import com.kvlg.core_utils.Result
 import com.kvlg.core_utils.models.RawTrackModel
@@ -20,7 +21,8 @@ import kotlinx.coroutines.launch
 class LyricsViewModel @ViewModelInject constructor(
     private val geniusApi: GeniusApi,
     private val databaseRepository: DatabaseRepository,
-    @IoDispatcher private val dispatcher: CoroutineDispatcher
+    @IoDispatcher private val dispatcher: CoroutineDispatcher,
+    private val analyticsInteractor: AnalyticsInteractor,
 ) : ViewModel() {
 
     private val lyricsTrigger = MutableLiveData<RawTrackModel>()
@@ -45,8 +47,9 @@ class LyricsViewModel @ViewModelInject constructor(
         )
     }
 
-    fun updateTrack(track: TrackModel) {
+    fun setFavoriteTrack(track: TrackModel) {
         viewModelScope.launch(dispatcher) {
+            analyticsInteractor.addFavoriteTrack()
             delay(800)
             databaseRepository.setTrackIsFavorite(track.id, track.isFavorite)
         }

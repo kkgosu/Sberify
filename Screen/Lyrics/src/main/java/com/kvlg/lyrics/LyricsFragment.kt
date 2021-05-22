@@ -66,7 +66,7 @@ class LyricsFragment : BaseViewBindingFragment<FragmentLyricsBinding>() {
                             setFavoriteIcon(!track.isFavorite)
                             onClick {
                                 track.isFavorite = !track.isFavorite
-                                lyricsViewModel.updateTrack(track)
+                                lyricsViewModel.setFavoriteTrack(track)
                                 setFavoriteIcon(track.isFavorite)
                                 startAnim()
                             }

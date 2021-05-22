@@ -9,6 +9,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.kvlg.albumdetails.databinding.FragmentAlbumDetailsBinding
+import com.kvlg.analytics.AnalyticsInteractor
 import com.kvlg.core_utils.applyResultObserver
 import com.kvlg.design.BaseViewBindingFragment
 import com.kvlg.design.bindAppBarLayoutWithFab
@@ -28,6 +29,9 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
 
     @Inject
     lateinit var navigation: AlbumDetailsNavigation
+
+    @Inject
+    lateinit var analyticsInteractor: AnalyticsInteractor
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val navArgs by navArgs<AlbumDetailsArgs>()
@@ -78,6 +82,7 @@ class AlbumDetailsFragment : BaseViewBindingFragment<FragmentAlbumDetailsBinding
                 binding.fabFavorite.apply {
                     setFavoriteIcon(!album.isFavorite)
                     onClick {
+                        analyticsInteractor.addFavoriteAlbum()
                         sharedViewModel.updateFavoriteAlbum(album)
                         setFavoriteIcon(album.isFavorite)
                         startAnim()
