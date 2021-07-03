@@ -20,6 +20,10 @@ jobs:
         env: 
           RELEASEHUB_TOKEN: ${{ secrets.RELEASEHUB_TOKEN }}
         run: echo github_token=\"$RELEASEHUB_TOKEN\" > ./local.properties
+      - name: Decode AppMetrica key
+        env: 
+          APP_METRICA_KEY: ${{ secrets.APP_METRICA_KEY }}
+        run: echo github_token=\"$APP_METRICA_KEY\" > ./local.properties
       - name: Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
       - name: Upload APK
