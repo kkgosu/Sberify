@@ -23,7 +23,7 @@ jobs:
       - name: Decode AppMetrica key
         env: 
           APP_METRICA_KEY: ${{ secrets.APP_METRICA_KEY }}
-        run: echo github_token=\"$APP_METRICA_KEY\" > ./local.properties
+        run: echo app_metrica_api_key=\"$APP_METRICA_KEY\" > ./local.properties
       - name: Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
       - name: Upload APK
