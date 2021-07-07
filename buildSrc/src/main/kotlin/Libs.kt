@@ -4,7 +4,7 @@ object Libs {
     const val ADAPTER_DELEGATES_VIEW_BINDING = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.0"
     const val ANDROIDX_HILT_COMPILER = "androidx.hilt:hilt-compiler:1.0.0"
     const val APP_METRICA = "com.yandex.android:mobmetricalib:3.20.1"
-    const val APPCOMPAT = "androidx.appcompat:appcompat:1.2.0"
+    const val APPCOMPAT = "androidx.appcompat:appcompat:1.3.0"
     const val ARCH_TESTING = "androidx.arch.core:core-testing:2.1.0"
     const val CARDVIEW = "androidx.cardview:cardview:1.0.0"
     const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.4"
