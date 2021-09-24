@@ -1,0 +1,14 @@
+R_DEF: Internal format may change without notice
+local
+id album_cover
+id album_name
+id app_bar_layout
+id artist_name
+id detail_container
+id detail_toolbar
+id fab_favorite
+id recycler_container
+id recycler_tracks
+id release_date
+id space
+layout fragment_album_details
