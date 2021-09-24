@@ -11,7 +11,7 @@ object Libs {
     const val CORE_KTX = "androidx.core:core-ktx:1.3.2"
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
     const val COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0"
-    const val ESPRESSO_CONTRIB = "androidx.test.espresso:espresso-contrib:3.3.0"
+    const val ESPRESSO_CONTRIB = "androidx.test.espresso:espresso-contrib:3.4.0"
     const val ESPRESSO_CORE = "androidx.test.espresso:espresso-core:3.4.0"
     const val EXT_JUNIT = "androidx.test.ext:junit:4.13"
     const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0-beta01"
