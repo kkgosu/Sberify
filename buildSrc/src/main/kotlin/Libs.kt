@@ -8,7 +8,7 @@ object Libs {
     const val ARCH_TESTING = "androidx.arch.core:core-testing:2.1.0"
     const val CARDVIEW = "androidx.cardview:cardview:1.0.0"
     const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.4"
-    const val CORE_KTX = "androidx.core:core-ktx:1.3.2"
+    const val CORE_KTX = "androidx.core:core-ktx:1.6.0"
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
     const val COROUTINES_TEST = "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0"
     const val ESPRESSO_CONTRIB = "androidx.test.espresso:espresso-contrib:3.3.0"
