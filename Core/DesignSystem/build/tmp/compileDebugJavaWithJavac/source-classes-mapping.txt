@@ -1,8 +1,0 @@
-com/kvlg/design/BuildConfig.java
- com.kvlg.design.BuildConfig
-com/kvlg/design/databinding/TopBottomContentDividerBinding.java
- com.kvlg.design.databinding.TopBottomContentDividerBinding
-com/kvlg/design/databinding/LoadingAnimBinding.java
- com.kvlg.design.databinding.LoadingAnimBinding
-com/kvlg/design/databinding/BottomNavViewBinding.java
- com.kvlg.design.databinding.BottomNavViewBinding

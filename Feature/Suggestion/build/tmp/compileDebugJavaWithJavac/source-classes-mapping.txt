@@ -1,4 +1,0 @@
-com/kvlg/suggestion/BuildConfig.java
- com.kvlg.suggestion.BuildConfig
-com/kvlg/suggestion/databinding/ItemSuggestionBinding.java
- com.kvlg.suggestion.databinding.ItemSuggestionBinding
