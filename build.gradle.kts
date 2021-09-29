@@ -8,7 +8,6 @@ plugins {
 buildscript {
     repositories {
         google()
-        jcenter()
     }
     dependencies {
         classpath(BuildLibs.ANDROID_GRADLE_PLUGIN)
@@ -21,7 +20,6 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
     }
 }
 
