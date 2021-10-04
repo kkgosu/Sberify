@@ -1,5 +1,3 @@
-import com.android.build.gradle.LibraryExtension
-import org.gradle.api.JavaVersion
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 
 /**
@@ -7,13 +5,12 @@ import org.gradle.kotlin.dsl.DependencyHandlerScope
  * @since 08.02.2021
  */
 
-fun LibraryExtension.commonAndroidConfig(withRoom: Boolean = false) {
+/*fun LibraryExtension.commonAndroidConfig(withRoom: Boolean = false) {
     compileSdkVersion(BuildLibs.COMPILE_SDK)
     defaultConfig {
         minSdkVersion(BuildLibs.MIN_SDK)
         targetSdkVersion(BuildLibs.TARGET_SDK)
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        //testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
 
         if (withRoom) {
@@ -29,7 +26,7 @@ fun LibraryExtension.commonAndroidConfig(withRoom: Boolean = false) {
         sourceCompatibility(JavaVersion.VERSION_11)
         targetCompatibility(JavaVersion.VERSION_11)
     }
-}
+}*/
 
 fun DependencyHandlerScope.hilt() {
     impl(Libs.HILT_ANDROID)

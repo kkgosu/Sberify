@@ -7,6 +7,7 @@ plugins {
 buildscript {
     repositories {
         google()
+        mavenCentral()
     }
     dependencies {
         classpath(BuildLibs.ANDROID_GRADLE_PLUGIN)
@@ -19,6 +20,7 @@ buildscript {
 allprojects {
     repositories {
         google()
+        mavenCentral()
     }
 }
 
