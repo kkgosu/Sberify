@@ -8,7 +8,7 @@ plugins {
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
 }
-
+//todo extract common settings
 android {
     compileSdkVersion(BuildLibs.COMPILE_SDK)
     defaultConfig {
