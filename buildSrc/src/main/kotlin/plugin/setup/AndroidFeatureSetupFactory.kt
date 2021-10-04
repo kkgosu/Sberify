@@ -12,10 +12,6 @@ class AndroidFeatureSetupFactory<E : SberifyAndroidExtension> : BaseFeatureSetup
         val setups = MutableCompositeSetup(super.buildSetup(project, extension))
         val featureConfig = extension.featuresSetup
 
-        if (featureConfig.hiltOptions.enabled) {
-            setups += HiltSetup(featureConfig.hiltOptions.viewModel)
-        }
-
         if (featureConfig.roomOptions.enabled) {
             setups += RoomSetup()
         }

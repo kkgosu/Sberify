@@ -1,7 +1,6 @@
 package plugin.setup
 
 import groovy.lang.Closure
-import plugin.options.HiltOptions
 import plugin.options.Options
 
 /**
@@ -12,18 +11,7 @@ import plugin.options.Options
  */
 class AndroidFeaturesSetup : FeatureSetup() {
 
-    val hiltOptions: HiltOptions = HiltOptions()
-
     val roomOptions: Options = Options()
-
-    /**
-     * Apply Hilt
-     */
-    var hilt: Boolean
-        get() = hiltOptions.enabled
-        set(value) {
-            hiltOptions.enabled = value
-        }
 
     /**
      * Apply Room
@@ -33,11 +21,6 @@ class AndroidFeaturesSetup : FeatureSetup() {
         set(value) {
             roomOptions.enabled = value
         }
-
-    /**
-     * Setup Hilt with [closure]
-     */
-    fun hilt(closure: Closure<HiltOptions>) = byClosure(hiltOptions, closure)
 
     /**
      * Setup Room with [closure]

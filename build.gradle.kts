@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
@@ -22,20 +21,6 @@ allprojects {
         google()
     }
 }
-
-subprojects {
-    tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions.freeCompilerArgs +=
-            "-Xuse-experimental=" +
-                    "kotlin.Experimental," +
-                    "kotlinx.coroutines.ExperimentalCoroutinesApi," +
-                    "kotlinx.coroutines.InternalCoroutinesApi," +
-                    "kotlinx.coroutines.FlowPreview"
-        kotlinOptions.jvmTarget = "1.8"
-    }
-}
-
-tasks.register("upgradeDependencies1", tasks.UpgradeDependencies::class.java)
 
 releasesHub {
     dependenciesBasePath = "buildSrc/src/main/kotlin/"

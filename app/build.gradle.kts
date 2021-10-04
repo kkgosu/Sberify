@@ -47,8 +47,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility(JavaVersion.VERSION_11)
+        targetCompatibility(JavaVersion.VERSION_11)
+    }
+
+    kotlinOptions {
+        jvmTarget = "11"
     }
 }
 
@@ -82,7 +86,6 @@ dependencies {
     implementation(Libs.RETROFIT)
     implementation(Libs.SPOTIFY_AUTH)
 
-    kaptAndroidTest(Libs.ANDROIDX_HILT_COMPILER)
     kaptAndroidTest(Libs.HILT_COMPILER)
 
     androidTestImplementation(Libs.ESPRESSO_CONTRIB)

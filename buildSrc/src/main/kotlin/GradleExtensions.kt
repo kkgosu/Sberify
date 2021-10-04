@@ -12,8 +12,6 @@ fun LibraryExtension.commonAndroidConfig(withRoom: Boolean = false) {
     defaultConfig {
         minSdkVersion(BuildLibs.MIN_SDK)
         targetSdkVersion(BuildLibs.TARGET_SDK)
-        versionCode = BuildLibs.versionCodeMobile
-        versionName = BuildLibs.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -28,16 +26,16 @@ fun LibraryExtension.commonAndroidConfig(withRoom: Boolean = false) {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility(JavaVersion.VERSION_11)
+        targetCompatibility(JavaVersion.VERSION_11)
     }
 }
 
 fun DependencyHandlerScope.hilt() {
     impl(Libs.HILT_ANDROID)
-    impl(Libs.HILT_VIEWMODEL)
     kapt(Libs.HILT_COMPILER)
-    kapt(Libs.ANDROIDX_HILT_COMPILER)
+    kapt("com.google.dagger:hilt-compiler:2.38.1")
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
 }
 
 fun DependencyHandlerScope.room() {
