@@ -1,11 +1,6 @@
 package com.kvlg.favorite
 
-import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
 import com.kvlg.core_db.DatabaseRepository
 import com.kvlg.core_utils.Result
 import com.kvlg.spotify_api.converter.ViewModelConverter
@@ -13,8 +8,11 @@ import com.kvlg.spotify_common.domain.AlbumDomainModel
 import com.kvlg.spotify_common.domain.TrackDomainModel
 import com.kvlg.spotify_common.presentation.AlbumModel
 import com.kvlg.spotify_common.presentation.TrackModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class FavoriteViewModel @ViewModelInject constructor(
+@HiltViewModel
+class FavoriteViewModel @Inject constructor(
     private val databaseRepo: DatabaseRepository,
     private val modelConverter: ViewModelConverter
 ) : ViewModel() {

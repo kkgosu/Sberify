@@ -1,11 +1,6 @@
 package com.kvlg.shared
 
-import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.kvlg.core_db.DatabaseRepository
 import com.kvlg.core_utils.Result
 import com.kvlg.core_utils.SingleLiveEvent
@@ -15,11 +10,14 @@ import com.kvlg.spotify_common.presentation.AlbumModel
 import com.kvlg.spotify_common.presentation.ArtistModel
 import com.kvlg.spotify_common.presentation.TrackModel
 import com.kvlg.suggestion.Suggestion
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SharedViewModel @ViewModelInject constructor(
+@HiltViewModel
+class SharedViewModel @Inject constructor(
     private val spofityApi: SpotifyApi,
     private val databaseRepository: DatabaseRepository,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher

@@ -15,7 +15,6 @@ object Libs {
     const val EXT_JUNIT = "androidx.test.ext:junit:4.13"
     const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0-beta01"
     const val GLIDE = "com.github.bumptech.glide:glide:4.12.0"
-    const val GLIDE_PALETTE = "com.github.florent37:glidepalette:2.1.2" //todo swith to another library
     const val GSON = "com.google.code.gson:gson:2.8.6"
     const val HAMCREST = "org.hamcrest:hamcrest-library:2.2"
     const val HILT_ANDROID = "com.google.dagger:hilt-android:2.38.1"
@@ -28,6 +27,7 @@ object Libs {
     const val MATERIAL = "com.google.android.material:material:1.4.0"
     const val MOCKITO = "io.mockk:mockk:1.12.0"
     const val NAVIGATION_FRAGMENT_KTX = "androidx.navigation:navigation-fragment-ktx:2.3.5"
+    const val PALETTE = "androidx.palette:palette:1.0.0"
     const val PREFERENCES = "androidx.preference:preference-ktx:1.1.1"
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.9.0"
     const val RETROFIT_GSON = "com.squareup.retrofit2:converter-gson:2.9.0"

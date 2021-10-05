@@ -38,6 +38,5 @@ dependencies {
 
     implementation(Libs.ACTIVITY_KTX)
     implementation(Libs.CORE_KTX)
-    implementation(Libs.GLIDE_PALETTE)
     implementation(Libs.MATERIAL)
 }

@@ -1,12 +1,6 @@
 package com.kvlg.lyrics
 
-import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.kvlg.analytics.AnalyticsInteractor
 import com.kvlg.core_db.DatabaseRepository
 import com.kvlg.core_utils.Result
@@ -14,11 +8,14 @@ import com.kvlg.core_utils.models.RawTrackModel
 import com.kvlg.genius_api.GeniusApi
 import com.kvlg.shared.di.IoDispatcher
 import com.kvlg.spotify_common.presentation.TrackModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LyricsViewModel @ViewModelInject constructor(
+@HiltViewModel
+class LyricsViewModel @Inject constructor(
     private val geniusApi: GeniusApi,
     private val databaseRepository: DatabaseRepository,
     @IoDispatcher private val dispatcher: CoroutineDispatcher,

@@ -1,15 +1,17 @@
 package com.example.sberify
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import com.kvlg.core_utils.models.TokenData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * @author Konstantin Koval
  * @since 01.02.2021
  */
-class LoginViewModel @ViewModelInject constructor(
+@HiltViewModel
+class LoginViewModel @Inject constructor(
     private val tokenData: TokenData
 ) : ViewModel() {
 

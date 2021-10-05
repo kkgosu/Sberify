@@ -37,7 +37,6 @@ dependencies {
     hilt()
 
     implementation(Libs.GLIDE)
-    implementation(Libs.GLIDE_PALETTE)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
     implementation(Libs.LOTTIE)
     implementation(Libs.MATERIAL)
