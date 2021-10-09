@@ -114,10 +114,10 @@ abstract class BaseViewBindingFragment<T : ViewBinding> : Fragment() {
     }
 
     private fun Fragment.setExitSharedElementTransition() {
-        exitTransition = MaterialElevationScale(/* growing= */ false).apply {
+        exitTransition = MaterialElevationScale(false).apply {
             duration = SHARED_ELEMENT_TRANSITION_DURATION
         }
-        reenterTransition = MaterialElevationScale(/* growing= */ true).apply {
+        reenterTransition = MaterialElevationScale(true).apply {
             duration = SHARED_ELEMENT_TRANSITION_DURATION
         }
     }
@@ -125,7 +125,7 @@ abstract class BaseViewBindingFragment<T : ViewBinding> : Fragment() {
     private fun Context.buildSharedElementTransition(
         setup: (MaterialContainerTransform.() -> Unit)?
     ): MaterialContainerTransform {
-        val shapeAppearance = ShapeAppearanceModel().withCornerSize(dpToPx(16).toFloat())
+        val shapeAppearance = ShapeAppearanceModel().withCornerSize(dpToPx(8).toFloat())
         return MaterialContainerTransform().apply {
             startShapeAppearanceModel = shapeAppearance
             duration = SHARED_ELEMENT_TRANSITION_DURATION

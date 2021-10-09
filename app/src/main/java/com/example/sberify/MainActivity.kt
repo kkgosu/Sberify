@@ -15,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.kvlg.analytics.AnalyticsInteractor
 import com.kvlg.core_utils.NetworkObserver
 import com.kvlg.design.fluidlayout.FluidContentResizer
+import com.kvlg.spotify_common.presentation.TrackModel
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote
@@ -73,14 +74,19 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
 
         sharedViewModel.play.observe(this) { track ->
             if (hasConnection) {
-                spotifyAppRemote?.playerApi?.play(track.uri)
-                spotifyAppRemote
-                    ?.playerApi
-                    ?.subscribeToPlayerState()
-                    ?.setEventCallback {
-                        val stateTrack = it.track
-                        println("Now playing ${stateTrack.name} by ${stateTrack.artist.name}. Song id: ${stateTrack.uri}")
+                if (spotifyAppRemote == null) {
+                    lifecycleScope.launch {
+                        try {
+                            spotifyAppRemote = connectToAppRemote()
+                            startSpotifyPlayer(track)
+                            Timber.d("Connected")
+                        } catch (error: Throwable) {
+                            Timber.d(error)
+                        }
                     }
+                } else {
+                    startSpotifyPlayer(track)
+                }
             } else {
                 showSnackbar()
             }
@@ -91,18 +97,15 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (spotifyAppRemote == null) {
-            lifecycleScope.launch {
-                try {
-                    spotifyAppRemote = connectToAppRemote()
-                    Timber.d("Connected")
-                } catch (error: Throwable) {
-                    Timber.d(error)
-                }
+    private fun startSpotifyPlayer(track: TrackModel) {
+        spotifyAppRemote?.playerApi?.play(track.uri)
+        spotifyAppRemote
+            ?.playerApi
+            ?.subscribeToPlayerState()
+            ?.setEventCallback {
+                val stateTrack = it.track
+                println("Now playing ${stateTrack.name} by ${stateTrack.artist.name}. Song id: ${stateTrack.uri}")
             }
-        }
     }
 
     override fun onStop() {
@@ -184,14 +187,14 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         resultTokenHandler.launch(AuthorizationClient.createLoginActivityIntent(this, request))
     }
 
-    private fun getAuthenticationRequest(type: AuthorizationResponse.Type) =
+    private fun getAuthenticationRequest(type: AuthorizationResponse.Type): AuthorizationRequest =
         AuthorizationRequest.Builder(CLIENT_ID, type, getRedirectUri().toString())
             .setShowDialog(false)
             .setScopes(arrayOf("user-read-email"))
             .setCampaign("sberify-token")
             .build()
 
-    private fun getRedirectUri() =
+    private fun getRedirectUri(): Uri =
         Uri.Builder()
             .scheme(getString(R.string.com_spotify_sdk_redirect_scheme))
             .authority(getString(R.string.com_spotify_sdk_redirect_host))
