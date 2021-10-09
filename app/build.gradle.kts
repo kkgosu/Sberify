@@ -8,13 +8,12 @@ plugins {
     id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
 }
-//todo extract common settings
 android {
-    compileSdkVersion(BuildLibs.COMPILE_SDK)
+    compileSdk = BuildLibs.COMPILE_SDK
     defaultConfig {
         applicationId = "com.example.sberify"
-        minSdkVersion(BuildLibs.MIN_SDK)
-        targetSdkVersion(BuildLibs.TARGET_SDK)
+        minSdk = BuildLibs.MIN_SDK
+        targetSdk = BuildLibs.TARGET_SDK
         versionCode = BuildLibs.versionCodeMobile
         versionName = BuildLibs.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
