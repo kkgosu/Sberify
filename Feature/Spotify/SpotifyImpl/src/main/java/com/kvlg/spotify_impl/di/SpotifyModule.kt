@@ -8,7 +8,7 @@ import com.kvlg.spotify_impl.data.SpotifyRepository
 import com.kvlg.spotify_impl.data.SpotifyRepositoryImpl
 import com.kvlg.spotify_impl.data.converters.ResponseConverter
 import com.kvlg.spotify_impl.data.network.SpotifyApiMapper
-import com.kvlg.spotify_impl.data.network.SpotifyAuthInterceptor
+import com.kvlg.spotify_impl.data.network.SpotifyInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,13 +27,15 @@ import javax.inject.Named
 internal object SpotifyModule {
 
     @Provides
-    fun provideSpotifyInterceptor(tokenData: TokenData): SpotifyAuthInterceptor {
-        return SpotifyAuthInterceptor(tokenData)
+    fun provideSpotifyInterceptor(tokenData: TokenData): SpotifyInterceptor {
+        return SpotifyInterceptor(tokenData)
     }
 
     @Provides
     @Named("spotify")
-    fun provideSpotifyOkHttpClient(interceptor: SpotifyAuthInterceptor): OkHttpClient {
+    fun provideSpotifyOkHttpClient(
+        interceptor: SpotifyInterceptor
+    ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
             .build()

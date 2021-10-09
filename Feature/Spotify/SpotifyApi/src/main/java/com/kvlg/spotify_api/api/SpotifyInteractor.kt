@@ -16,4 +16,5 @@ interface SpotifyInteractor {
     fun searchArtist(keyword: String): LiveData<Result<List<ArtistModel>>>
     fun searchAlbum(keyword: String): LiveData<Result<List<AlbumModel>>>
     fun searchTrack(keyword: String): LiveData<Result<List<TrackModel>>>
+    suspend fun getToken(): String
 }

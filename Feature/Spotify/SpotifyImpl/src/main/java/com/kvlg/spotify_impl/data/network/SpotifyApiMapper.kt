@@ -1,14 +1,8 @@
 package com.kvlg.spotify_impl.data.network
 
-import com.kvlg.spotify_impl.models.data.AlbumInfoResponse
-import com.kvlg.spotify_impl.models.data.AlbumSearchResponse
-import com.kvlg.spotify_impl.models.data.ArtistSearchResponse
-import com.kvlg.spotify_impl.models.data.NewReleasesResponse
-import com.kvlg.spotify_impl.models.data.TrackSearchResponse
+import com.kvlg.spotify_impl.models.data.*
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 /**
  * @author Konstantin Koval
@@ -43,7 +37,14 @@ internal interface SpotifyApiMapper {
         @Query("type") type: String = "track"
     ): Response<TrackSearchResponse>
 
+    @FormUrlEncoded
+    @POST(AUTH_URL)
+    suspend fun getToken(
+        @Field("grant_type") grandType: String = "client_credentials"
+    ): Response<TokenResponse>
+
     companion object {
         const val API_URL = "https://api.spotify.com/v1/"
+        const val AUTH_URL = "https://accounts.spotify.com/api/token/"
     }
 }

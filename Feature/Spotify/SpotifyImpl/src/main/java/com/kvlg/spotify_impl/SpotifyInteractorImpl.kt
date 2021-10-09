@@ -34,4 +34,8 @@ internal class SpotifyInteractorImpl(
     override fun searchTrack(keyword: String): LiveData<Result<List<TrackModel>>> {
         return repo.searchTrack(keyword).map(modelConverter::convertToTrackViewModelList)
     }
+
+    override suspend fun getToken(): String {
+        return repo.getToken()
+    }
 }

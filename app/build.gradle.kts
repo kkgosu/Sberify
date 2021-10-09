@@ -83,7 +83,6 @@ dependencies {
     implementation(Libs.COROUTINES)
     implementation(Libs.NAVIGATION_FRAGMENT_KTX)
     implementation(Libs.RETROFIT)
-    implementation(Libs.SPOTIFY_AUTH)
 
     kaptAndroidTest(Libs.HILT_COMPILER)
 

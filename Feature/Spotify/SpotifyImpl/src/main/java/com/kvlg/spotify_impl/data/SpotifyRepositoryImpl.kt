@@ -102,4 +102,9 @@ internal class SpotifyRepositoryImpl(
                 tracks.forEach(database.getTrackDao()::insertTrack)
             })
     }
+
+    override suspend fun getToken(): String {
+        val result = getResult { spotifyApi.getToken() }
+        return result.data?.token.orEmpty()
+    }
 }

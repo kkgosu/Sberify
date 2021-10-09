@@ -12,4 +12,5 @@ internal interface SpotifyRepository {
     fun searchArtist(keyword: String): LiveData<Result<List<ArtistDomainModel>>>
     fun searchAlbum(keyword: String): LiveData<Result<List<AlbumDomainModel>>>
     fun searchTrack(keyword: String): LiveData<Result<List<TrackDomainModel>>>
+    suspend fun getToken(): String
 }

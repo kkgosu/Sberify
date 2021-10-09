@@ -1,8 +1,6 @@
 package com.example.sberify
 
-import android.net.Uri
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -15,13 +13,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.kvlg.analytics.AnalyticsInteractor
 import com.kvlg.core_utils.NetworkObserver
 import com.kvlg.design.fluidlayout.FluidContentResizer
+import com.kvlg.shared.SharedViewModel
 import com.kvlg.spotify_common.presentation.TrackModel
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote
-import com.spotify.sdk.android.auth.AuthorizationClient
-import com.spotify.sdk.android.auth.AuthorizationRequest
-import com.spotify.sdk.android.auth.AuthorizationResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -38,19 +34,11 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var binding: ActivityMainBinding
     private lateinit var bnvAnimator: BnvAnimator
 
-    private val sharedViewModel: com.kvlg.shared.SharedViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by viewModels()
     private val loginViewModel: LoginViewModel by viewModels()
 
     private var currentNavController: LiveData<NavController>? = null
     private var spotifyAppRemote: SpotifyAppRemote? = null
-
-    private val resultTokenHandler = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        val response = AuthorizationClient.getResponse(result.resultCode, result.data)
-        response.accessToken?.let {
-            loginViewModel.onTokenReceived(it)
-            sharedViewModel.refresh()
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,19 +49,27 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
 
         FluidContentResizer.listen(this)
 
-        var hasConnection = false
+        if (savedInstanceState == null) {
+            setupBottomNavBar()
+        }
+
+        subscribeToObservers()
+    }
+
+    private fun subscribeToObservers() {
         val connectionLiveData = NetworkObserver(this)
         connectionLiveData.observe(this) {
-            hasConnection = it
             if (it) {
-                requestToken()
+                loginViewModel.requestToken()
             } else {
                 showSnackbar()
             }
         }
-
+        loginViewModel.refreshLiveData.observe(this) {
+            sharedViewModel.refresh()
+        }
         sharedViewModel.play.observe(this) { track ->
-            if (hasConnection) {
+            if (connectionLiveData.value == true) {
                 if (spotifyAppRemote == null) {
                     lifecycleScope.launch {
                         try {
@@ -90,10 +86,6 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
             } else {
                 showSnackbar()
             }
-        }
-
-        if (savedInstanceState == null) {
-            setupBottomNavBar()
         }
     }
 
@@ -182,29 +174,8 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
             .show()
     }
 
-    private fun requestToken() {
-        val request = getAuthenticationRequest(AuthorizationResponse.Type.TOKEN)
-        resultTokenHandler.launch(AuthorizationClient.createLoginActivityIntent(this, request))
-    }
-
-    private fun getAuthenticationRequest(type: AuthorizationResponse.Type): AuthorizationRequest =
-        AuthorizationRequest.Builder(CLIENT_ID, type, getRedirectUri().toString())
-            .setShowDialog(false)
-            .setScopes(arrayOf("user-read-email"))
-            .setCampaign("sberify-token")
-            .build()
-
-    private fun getRedirectUri(): Uri =
-        Uri.Builder()
-            .scheme(getString(R.string.com_spotify_sdk_redirect_scheme))
-            .authority(getString(R.string.com_spotify_sdk_redirect_host))
-            .build()
-
     companion object {
         private const val CLIENT_ID = "49e110cda5b64d6d89476f40687725c4"
         private const val REDIRECT_URL = "spotify-sdk://auth"
     }
 }
-
-
-

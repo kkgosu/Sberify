@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.library")
     kotlin("android")
@@ -13,6 +15,14 @@ android {
         targetSdk = BuildLibs.TARGET_SDK
         consumerProguardFiles("consumer-rules.pro")
     }
+
+    buildTypes {
+        configureEach {
+            val authBasic = gradleLocalProperties(rootDir).getProperty("spotify_auth_basic")
+            buildConfigField("String", "SPOTIFY_AUTH_BASIC", authBasic)
+        }
+    }
+
     compileOptions {
         sourceCompatibility(JavaVersion.VERSION_11)
         targetCompatibility(JavaVersion.VERSION_11)
