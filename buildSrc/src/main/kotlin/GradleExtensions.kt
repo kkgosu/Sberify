@@ -31,8 +31,6 @@ import org.gradle.kotlin.dsl.DependencyHandlerScope
 fun DependencyHandlerScope.hilt() {
     impl(Libs.HILT_ANDROID)
     kapt(Libs.HILT_COMPILER)
-    kapt("com.google.dagger:hilt-compiler:2.38.1")
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
 }
 
 fun DependencyHandlerScope.room() {
